@@ -1,0 +1,14 @@
+<style>
+html,body,.app-angular,.app-page,iframe{width:100%;height:100%;border: none;    overflow: hidden;}
+.icon-back{    position: absolute;
+    left: 5px;
+    top: 10px;
+    background: #000;
+    opacity: 0.5;
+    color: #fff;
+	}
+</style>
+<div class="app-page" ng-controller="WcdOpenCtrl">
+    <span class="icon app-button icon-left icon-back" ng-click="back()"></span>
+    <iframe style="width:100%;height:100%;border: none;" ng-src="{{myURL}}"></iframe>
+</div>

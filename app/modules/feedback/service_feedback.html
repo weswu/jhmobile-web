@@ -1,0 +1,37 @@
+<style>
+
+</style>
+<div class="app-page" ng-controller="ServiceFeedbackCtrl">
+	<div class="app_nav">
+		<h1 class="ellipsis">
+			<span class="icon app-button icon-left" ng-click="$back()" data-clickable-class="active" ></span>我的服务反馈
+		</h1>
+	</div>
+	<div class="app-content app-scrollable progress">
+		<div class="pro_detail detail">
+			<div class="detail_title detail_margin">
+				主题：
+				<input type="text" ng-model="sf.fdbk_subject64" placeholder="主题" >
+			</div>
+			<div class="detail_category detail_margin">
+				反馈类型：
+				<select ng-model="sf.fdbk_type" ng-options="f.value as f.text for f in fList">
+				</select>
+			</div>
+			<div class="detail_model detail_margin">
+				描述：<br>
+				<textarea placeholder="请描述您的反馈内容，并附带上您的手机号码，我们好及时对接您提的反馈内容。" ng-model="sf.fdbk_intro1k" style="width: 100%;height: 6rem;"></textarea>
+			</div>
+    	</div>
+    	<div class="app_footer" ng-click="add(sf)">
+			<div class="app-button app_btn">确定</div>
+		</div>	
+			
+	</div>
+
+<div class="loading-modal" ng-show="loading == true">
+    <div class="loading">
+        <img src="http://www.jihui88.com/member/modules/mobile/mobileManagement/images/loading.gif" alt=""/><span ng-bind="loading_text">加载中</span>
+    </div>
+</div>
+</div>

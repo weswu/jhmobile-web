@@ -1,0 +1,62 @@
+<div class="app-page" data-page="pay_select" ng-controller="PayDetailCtrl"
+	ng-init="mName=false;mVersions=false;mEndTime=false">
+	<div class="app_nav">
+		<h1>
+			<span class="icon app-button icon-left" ng-click="$back()"></span>
+			<div class="app_nav_head">
+				<span class="app_nav_txt">网站续费</span>
+			</div>
+		</h1>
+	</div>
+	<div class="app-content">
+		<h3 class="content-title">机汇网产品续费列表</h3>
+	   <div class=" item-list">
+			<dl ng-repeat="item in list">
+		        <dd class="item-row-5">
+		             <p>产品名称：{{item.name}}</p>
+		             <p>产品类型：{{item.type}}</p>
+		        </dd>
+		        <dd class="item-row-5">
+                       <p>续费天数：{{item.dates}}天</p>
+                       <p>价格：{{item.price}} <span class="oprice">原价：{{item.oldPrice}}</span></p>
+                </dd>
+		        <dd class="item-row-10">
+                       <p>产品说明：{{item.sdesc}}</p>
+                </dd>
+		        <dd class="item-row-10">
+                      <a class="btn app_pay_order" ng-click="goPage(item.id)"><if></if>{{item.btn}}</a>
+                </dd>
+                
+			</dl>
+		</div>
+
+	</div>
+</div>
+<style>
+.content-title{
+    font-size: 0.7rem;
+    font-weight: normal;
+    margin: 0 0.5rem;
+    border-bottom: 1px solid #ccc;
+    padding: 0.5rem 0;}
+.oprice{
+    text-decoration: line-through;
+color:#aaa;    padding-left: 0.2rem;
+}
+.item-list .item-row-10{
+padding-top:0
+}
+.app_pay_order {
+	width: 100%;
+	display: block;
+	background: #ff642f;
+	text-align: center;
+	color: #fff;
+	padding: .5rem .5rem;
+	box-sizing: border-box;
+	border-radius: .25rem;
+}
+.item-list .item-row-5 {
+    padding-bottom: 0;
+}
+</style>

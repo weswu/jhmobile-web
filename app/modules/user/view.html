@@ -1,0 +1,91 @@
+<div class="app-page" data-page="view" ng-controller="EnterpriseCtrl">
+	<div class="app_nav">
+		<h1>
+			<span class="icon app-button icon-left" ng-click="$back()"></span>
+			<div class="app_nav_head">
+				<span class="app_nav_txt">企业资料</span>
+			</div>
+		</h1>
+	</div>
+	<div class="app-content">
+		<div class="user_view">
+			<dl>
+				<dt>
+					<li class="fl">公司LOGO：</li>
+					<div class="enterprise_logo fr">
+						<img src="http://img.jihui88.com/{{enterprise.logo}}" class="fileupload" 
+						onerror="javascript:this.src='http://img.easthardware.com/upload/j/j2/jihui/picture/2015/12/04/cb46a5be-9960-4c96-a463-895e7948c415.png'">
+					</div>
+				</dt>
+			</dl>
+			<dl>
+				<dt>
+					<li class="fl"><span style="color:#FF0000">*</span>公司名称：</li>
+					<li class="fr"><input type="text" class="user_view_input"
+						ng-model="enterprise.name"></li>
+				</dt>
+			</dl>
+            <dl>
+                <dt>
+                <li class="fl"><span style="color:#FF0000">*</span>主营产品：</li>
+                <li class="fr"><input type="text" class="user_view_input" ng-model="enterprise.mainBusiness"></li>
+                </dt>
+            </dl>
+            <dl>
+                <dt>
+                <li class="fl"><span style="color:#FF0000">*</span>法人代表：</li>
+                <li class="fr"><input type="text" class="user_view_input" ng-model="enterprise.legalPre"></li>
+                </dt>
+            </dl>
+            <dl>
+                <dt>
+                <li class="fl"><span style="color:#FF0000">*</span>员工数量：</li>
+                <li class="fr"><input type="text" class="user_view_input" ng-model="enterprise.staffSum"></li>
+                </dt>
+            </dl>
+            <dl>
+                <dt>
+                <li class="fl">经营模式：</li>
+                <li class="fr"><select name="businessType" class="user_view_input" ng-model="enterprise.businessType">
+                    <option value="05">请选择</option>
+                    <option value="00">生产加工</option>
+                    <option value="01">经营批发</option>
+                    <option value="02">招商代理</option>
+                    <option value="03">商业服务</option>
+                    <option value="04">以上都不是</option>
+                </select></li>
+                </dt>
+            </dl>
+			<dl>
+				<dt>
+					<li class="fl">icp备案号：</li>
+					<li class="fr"><input type="text" class="user_view_input"
+						ng-model="enterprise.icp"></li>
+				</dt>
+			</dl>
+			<dl>
+                <dt>
+                <li class="fl">年营业额：</li>
+                <li class="fr"><input type="text" class="user_view_input"  ng-model="enterprise.annualTurnover"></li>
+                </dt>
+            </dl>
+            <dl>
+                <dt>
+                <li class="fl">注册资本：</li>
+                <li class="fr"><input type="text" class="user_view_input" ng-model="enterprise.registeredCapital"></li>
+                </dt>
+            </dl>
+		</div>
+	</div>
+	<div class="app_footer" ng-click="enterpriseUpdate()">
+		<div class="app-button app_btn">确定</div>
+	</div>
+<!-- <div style="display:none"><input id="fileupload" type="file" name="Filedata" multiple ng-hide="true"></div> -->
+<input id="fileupload" type="file" name="Filedata"  ng-hide="true" multiple>
+<input type="checkbox" ng-model="loading" class="loading_click" ng-hide="true"/>
+<div class="loading-modal" ng-if="loading" >
+    <div class="loading">
+        <img src="http://www.jihui88.com/member/modules/mobile/mobileManagement/images/loading.gif" alt=""/><span ng-bind="loading_text">加载中</span>
+    </div>
+</div>
+</div>

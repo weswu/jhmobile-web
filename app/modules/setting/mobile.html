@@ -1,0 +1,23 @@
+<style>
+.app-account-bind .app-content{text-align: center;  }
+.app-account-bind .icon-weiwangzhan{display: block;font-size: 5rem;padding: 1.5rem 0 0.5rem 0;color:#ff8305;}
+.app-account-bind h3{line-height: 1.5rem;}
+.app-account-bind p{color:#999;line-height: 1.4rem;padding-bottom: 1.5rem;}
+.app_btn{line-height: 1.8rem; color:#fff;font-size:0.8rem;   width: auto;border-radius: .15rem;}
+.btn-bind{z-index:99994;position:fixed;width:70%;background:#fff;padding:3%;border-radius:.1rem;margin:8rem 13.5% 0 13.5%;display:none;font-size:.65rem}
+</style>
+<div class="app-page app-account-bind" ng-controller="mobileCtrl">
+        <div class="app_nav">
+            <h1>
+                <span class="icon app-button icon-left" ng-click="$back()" ></span>
+                <div class="app_nav_head"><span class="app_nav_txt">绑定手机号<span class="icon icon-xiugai header-right" ng-click="show()"></span></span></div>
+            </h1>
+        </div>
+        <div class="search-mask" ng-click="hide()"></div>
+        <div class="btn-bind" ng-click="bind()">解绑手机号</div>
+        <div class="app-content app-scrollable" >
+        	<i class="icon icon-weiwangzhan"></i>
+           	<h3>手机绑定</h3><p>已绑定手机号: {{mobile}}</p>
+           	<div class="app_btn" ng-click="updateMobile()">更换手机号码</div>
+     	</div>
+</div>

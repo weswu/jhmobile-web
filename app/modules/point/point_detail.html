@@ -1,0 +1,55 @@
+<style> 
+.plus{color:#b1000f;}
+.minus{color:#30992e;font-size: 0.75rem;}
+.item-list .number span{font-size: 0.75rem;}
+.item-list .number span span{font-size: 0.65rem;}
+.data-tip{text-align: center;line-height: 3rem;color: #999;display:none}
+
+.poing-section{    color: #fff;background: #ff7300;
+    background: -moz-linear-gradient(left,#ea3062,#f8386b 30%,#ea3062);
+    background: -webkit-gradient(linear,left top,right top,from(rgba(253,114,0,.93)),color-stop(.3,#ff7300),to(#ff6a00));
+    background: -webkit-linear-gradient(left,rgba(253,114,0,.93),#ff7300 30%,#ff6a00);
+    background: -o-linear-gradient(left,rgba(253,114,0,.93),#ff7300 30%,#ff6a00);}
+.poing-section .label-act .title h2,.label-act .sub {color: #fff;}
+.label-act .title h2 span{font-size: 0.5rem;}   
+.icon-tishi {font-size: 0.7rem;}
+</style>
+<div class="app-page" data-page="point_detail" ng-controller="PointDetailCtrl"
+	infinite-scroll='loadMore()' infinite-scroll-disabled='datas.busy'
+	infinite-scroll-distance='1'>
+	<div class="app_nav">
+		<h1>
+			<span class="icon app-button icon-left" ng-click="$back()"></span>
+			<div class="app_nav_head">
+				<span class="app_nav_txt">积分明细</span>
+				<a class="header-right" href="#/point_exchange" style="font-size: 0.6rem;color: #666;">切换兑换记录</a>
+			</div>
+		</h1>
+	</div>
+	<div class="app-content">
+		<section class="section poing-section">
+            <div class="label-act"> 
+			   <a href="javascript:;">
+			     	<div class="title"><h2><span>可用积分：</span>{{point}}</h2></div>
+			     	<div class="sub" ng-click="rule()">积分规则<i class="iconfont icon-tishi" style="padding-left:0.2rem"></i></div>
+			    </a> 
+			 </div>
+		</section>   
+        <div class="item-list">
+		    <dl>
+		        <dd class="item-row-4">来源</dd>
+		        <dd class="item-row-2">积分变化</dd>
+		        <dd class="item-row-4">日期</dd>
+		    </dl>
+			<dl ng-repeat="item in List">
+		        <dd class="item-row-4">{{item.integralRecordDesc}}</dd>
+		        <dd class="item-row-2 number">
+		        	<span class="plus" ng-if="item.income!='0'&&item.income!=null"><span>+</span>{{item.income}}</span>
+		        	<span class="minus" ng-if="item.out!='0'&&item.out!=null"><span>-</span>{{item.out}}</span>
+		        </dd>
+		        <dd class="item-row-4">{{item.addTime | date : 'MM-dd hh:mm'}}</dd>
+			</dl>
+		</div>
+		<div class="data-tip">到底了</div>
+    </div>
+</div>

@@ -1,0 +1,26 @@
+<div ng-controller="MessageCtrl" infinite-scroll='loadMore()'
+		infinite-scroll-disabled='datas.busy' infinite-scroll-distance='1'>
+	<div class="app_nav">
+		<h1>
+			<span class="icon app-button icon-left" onclick="location.href='#/'"></span>
+			网站询盘
+			<span class="icon icon-youjian header-right" ng-click="bind()"></span>
+		</h1>
+	</div>
+	<div class="app-content">
+		<div class="message_list ng-scope " ng-repeat="message in messageList" ng-init="messageDetail(message.messageId)">
+			<dl class="{{message.recvState==00?'message_list_not_read':'app-button'}} "
+				ng-click="messageDetailId(message.messageId)">
+				<div class="behind">
+					<a href="#" class="ui-btn delete-btn">删除</a>
+				</div>
+				<a href="javascript:;" class="message_list_txt"><dd
+						class="message_title ng-binding">{{message.title}}</dd>
+					<dd class="message_time ng-binding">{{message.addTime}}</dd> <em
+					class="icon message_more icon-more"></em> </a>
+			</dl>
+		</div>
+		<div ng-show='datas.busy'>Loading data...</div>
+	</div>
+	<div ng-include="'modules/include/footer.html'"></div>
+</div>

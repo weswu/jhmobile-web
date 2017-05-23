@@ -1,0 +1,29 @@
+<div class="app-page" ng-controller="LogCtrl"
+	infinite-scroll='loadMore()' infinite-scroll-disabled='datas.busy'
+	infinite-scroll-distance='1'>
+	<!--操作记录-->
+	<div class="app_nav">
+		<h1>
+			<span class="icon app-button icon-left" ng-click="$back()"
+				data-clickable-class="active"
+				style="-webkit-tap-highlight-color: rgba(255, 255, 255, 0);"></span>
+			操作记录
+		</h1>
+    </div>
+	<div class="app-content app-scrollable">
+		<div class="record_list">
+			<dl class="record_list_first">
+				<dd class="record_time">操作时间</dd>
+				<dd class="record_desc">描述</dd>
+			</dl>
+			<dl ng-repeat="log in logList">
+				<dd class="record_time">
+					{{log.addTime}}<br> {{log.location}}
+				</dd>
+				<dd>{{log.logStr}}</dd>
+			</dl>
+		</div>
+		<div ng-show='datas.busy' style="text-align: center;padding: 0.5rem 0;">Loading data...</div>
+	</div>
+</div>
+<div ng-include="'modules/include/footer.html'"></div>

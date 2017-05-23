@@ -1,0 +1,32 @@
+<div class="app-page"  ng-controller="addBindCtrl">
+	<div class="app_nav">
+		<h1>
+			<span class="icon app-button icon-left" ng-click="$back()"></span>
+			域名添加
+		</h1>
+	</div>
+	<div class="app-content">
+		<div class="pro_detail detail">
+			<div class="detail_title detail_margin">
+				<p class="detail_name" >地址类型：</p>
+               <div class="controls-type">
+                        <label><input type="radio" name="type" value="D" class="inp-radio" ng-model="bind.type">&nbsp;域名</label>
+                        <label><input type="radio" name="type" value="A" class="inp-radio" ng-model="bind.type">&nbsp;地址</label>
+                        <label><input type="radio" name="type" value="I" class="inp-radio" ng-model="bind.type">&nbsp;图片</label>
+                        <label><input type="radio" name="type" value="M" class="inp-radio" ng-model="bind.type">&nbsp;手机</label>
+                </div>
+			</div>
+			<div class="detail_model detail_margin">
+                <p class="detail_name" >域名：</p>
+				<input type="text" ng-model="bind.address" />
+			</div>
+			<div class="detail_title detail_margin">
+				<p class="detail_name" >icp备案号：</p>
+                <input type="text"   class="detail_input" ng-model="bind.icp" />
+			</div>
+		</div>
+	</div>
+	<div  class="app_footer" ng-click="addBind(bind.address,bind.icp,bind.type)">
+		<div class="app-button app_btn">确定</div>
+	</div>
+</div>

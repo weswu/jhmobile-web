@@ -1,0 +1,23 @@
+<div class="app-page"  ng-controller="addLinkCtrl">
+	<div class="app_nav">
+		<h1>
+			<span class="icon app-button icon-left" ng-click="$back()"></span>
+			链接添加
+		</h1>
+	</div>
+	<div class="app-content">
+		<div class="pro_detail detail link_detail">
+			<div class="detail_title detail_margin">
+				<p class="detail_name" >链接名称：</p>
+                <input type="text"   class="detail_input" ng-model="link.name" />
+			</div>
+			<div class="detail_model detail_margin">
+                <p class="detail_name" >链接地址：</p>
+				<input type="text" ng-model="link.url" />
+			</div>
+		</div>
+	</div>
+	<div  class="app_footer" ng-click="addLink(link.name,link.url)">
+		<div class="app-button app_btn">确定</div>
+	</div>
+</div>

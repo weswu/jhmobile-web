@@ -1,0 +1,31 @@
+<div class="app-page" data-page="product_category_add"
+	ng-controller="addpCategoryCtrl" ng-init="show=false">
+	<div class="app_nav">
+		<h1>
+			<span class="icon app-button icon-left" ng-click="$back()"></span>
+			新增分类
+		</h1>
+	</div>
+	<div class="app-content">
+		<div class="category_add detail">
+			<div class="category_add_select">
+				<p>所属分类</p>
+				<div>
+					<select ng-model="categorySelect">
+						<option ng-repeat="category in cat"
+							value="{{category.categoryId}}">{{category.name}}</option>
+					</select>
+				</div>
+				<p class="font_12">注：未选择分类表示添加的是顶级分类</p>
+				<br>
+				<p>分类名称</p>
+				<div class="category_add_text">
+					<input type="text" placeholder="新分类的名称" ng-model="name">
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="app_footer" ng-click="saveProdect(categorySelect,name)">
+		<div class="app-button app_btn">确定</div>
+	</div>
+</div>

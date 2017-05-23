@@ -1,0 +1,82 @@
+<style>
+.order_category ul{width:100%}
+.order_category ul,.order_category ul>li{display:-webkit-box;display:-moz-box;display:-ms-box;display:-o-box;display:box}
+.order_category ul>li{-webkit-box-pack:center;-moz-box-pack:center;-ms-box-pack:center;-o-box-pack:center;box-pack:center;-webkit-box-align:center;-moz-box-align:center;-ms-box-align:center;-o-box-align:center;box-align:center;text-align:center;-moz-box-flex:1;-webkit-box-flex:1;box-flex:1;float:none;margin:0}
+.wcd-list img.blur{-webkit-filter:blur(2px)}
+.showVip{left: 0;z-index: 111;width:100%;height:100%;display:block;position:absolute;top:0;text-align:center;line-height:5.733rem;color:#fff;background-color:rgba(0,0,0,.6)}
+/*dialog*/
+.index_update{top:5%;width: 80%;left: 10%;}
+.index_update .content{padding:.5rem}
+.vipList{border-bottom:1px solid #eee;padding-bottom:.2rem}
+.vipList:last-child{border-bottom:none}
+.index_update .title{padding-top:.2rem;padding-bottom:.3rem}
+.index_update textarea{width:100%;padding:0.3rem;}
+.index_update li,.index_update ul{padding-bottom:0;margin-bottom:0}
+</style>
+<div class="app-page" ng-controller="WcdVipCtrl" 
+	infinite-scroll='loadMore()' infinite-scroll-disabled='busy'
+	infinite-scroll-distance='1' data-page="album">
+    <div class="app_nav">
+        <h1>
+          <span class="icon app-button icon-left" onclick="location.href='#/'"></span>
+			VIP专属
+		</h1>
+    </div>
+    <div	 class="app-content">
+        <div class="order_category">
+			<ul>
+				<li><a href="#/wcd"	class="order_category_li">我的微传单</a></li>
+				<li class="cur"><a href="#/wcd_vip" class="cur order_category_li">VIP专属</a></li>
+				<li><a href="#/wcd_case" class="order_category_li">案例展示</a></li>
+				<div class="clr"></div>
+			</ul>
+		</div>
+		<hr>
+        <div class="item-list wcd-list">
+		    <dl ng-repeat="wcd in wcdList">
+				<dd class="item-row-5 item-{{wcd.id}}">
+					<a href="javascript:;" ng-click="vip(wcd)">
+					    <img class="android-share" ng-src="{{wcd.sharepic}}" ng-class="{true:'blur',false:''}[!wcd.showVip]" title="{{wcd.seo_title}}" data-id="{{wcd.id}}"/>
+				        <div ng-if="!wcd.showVip" class="showVip">快速生成专属页面</div>
+					</a>
+				    <img src="http://wcd.jihui88.com/rest/comm/qrbar/create?w=158&amp;text=http://www.jihui88.com/wcd/html/{{wcd.id}}.html&title={{wcd.seo_title}}&pic={{wcd.sharepic}}" alt="" class="shareQr">
+					      <div class="wcd-info">
+                            <p class="ellipsis">{{wcd.seo_title}}</p>
+                            <p class="info"><span class="iconfont icon-xianshi"></span>{{wcd.views}}
+                            <span class="iconfont icon-liuyan"></span>{{wcd.mviews}}
+                            <span class="iconfont icon-fenxiang"></span>{{wcd.rviews}}</p>
+                            <div class="iconfont icon-qrcode" ng-click="shareClick(wcd.id)"></div>
+                         </div>
+			 	</dd>
+			  </dl>
+			<div ng-show='busy' class="loading">数据加载中...</div>
+		</div>
+    	
+   <div class="index_update">
+        <p>信息完善<a href="javascript:;" class="icon icon-close"></a></p>
+        <div class="content">
+        <div ng-repeat="v in vipList" class="vipList">
+        	<div class="title">{{v.label}}</div>
+        	<div ng-if="v.type=='PhotoUnit'"><img src="{{v.value}}" ng-click="vipImg($index)" style="width: 3rem;"></div>
+        	<div ng-if="v.type=='TextUnit'">
+        		<div ng-if="v.key=='ent_name'"><input type="text" name="{{v.key}}" value="{{v.value}}" ng-change="vipChange($index,v.value)" ng-model="v.value"/></div>
+        		<div ng-if="v.key!='ent_name'"><textarea ng-change="vipChange($index,v.value)" ng-model="v.value">{{v.value}}</textarea></div>
+        	</div>
+        </div>
+        </div>
+        <ul>
+            <li><a href="javascript:;" ng-click="vipSub()" style="text-align: center;">确定</a></li>
+        </ul>
+    </div>
+    <div class="index-mask"></div>
+    <div style="display:none"><input id="fileupload" type="file" name="Filedata" multiple></div>
+    <input type="checkbox" ng-model="loading" class="loading_click" ng-hide="true"/>
+	<div class="loading-modal" ng-if="loading" >
+    <div class="loading">
+        <img src="http://www.jihui88.com/member/modules/mobile/mobileManagement/images/loading.gif" alt=""/><span ng-bind="loading_text">加载中</span>
+    </div>
+	</div>
+
+    </div>
+</div>
+<div ng-include="'modules/include/footer.html'"></div>

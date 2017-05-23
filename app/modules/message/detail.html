@@ -1,0 +1,36 @@
+<div class="app-page" data-page="message_view" style=""
+	ng-controller="messageIdCtrl" ng-init="up=false;dwon=false">
+	<div class="app_nav">
+		<h1>
+			<span class="icon app-button icon-left" onclick="location.href='#/message/list?recvState=null'"></span>
+			询盘查看
+		</h1>
+	</div>
+	<div class="app-content app-scrollable">
+		<div class="message_view">
+			<dl>
+				<dt>标题:</dt>
+				<dd>{{message.title}}</dd>
+				<br>
+				<dt>时间:</dt>
+				<dd>{{message.addTime}}</dd>
+				<br>
+				<dt>发件人:</dt>
+				<dd>{{message.fromName}}</dd>
+				<br>
+				<dt>联系电话:</dt>
+				<dd><a href="tel:{{message.fromPhone}}">{{message.fromPhone}}</a></dd>
+				<br>
+				<dt>电子邮箱:</dt>
+				<dd>{{message.fromEmail}}</dd>
+				<br>
+				<dt>询盘内容:</dt>
+				<dd ng-bind-html="message.content | trustHtml">{{message.content}}</dd>
+			</dl>
+		</div>
+	</div>
+    <div class="app_footer">
+        <div class="app-button app_btn_left" style="background: #ff6000;" ng-click="viewMessage(message,0)" ng-if="up">上一条</div>
+        <div class="app-button app_btn_right" ng-click="viewMessage(message,1)" ng-if="dwon">下一条</div>
+    </div>
+</div>

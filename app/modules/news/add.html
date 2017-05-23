@@ -1,0 +1,36 @@
+<div class="app-page" data-page="news_add" ng-controller="addNewsCtrl">
+	<div class="app_nav">
+		<h1>
+			<span class="icon app-button icon-left" ng-click="$back()"></span>
+			<div class="app_nav_head">
+				<span class="app_nav_txt">发布新闻</span>
+			</div>
+		</h1>
+	</div>
+	<div class="app-content app-scrollable">
+		<div class="news_detail detail">
+			<div class="detail_title detail_margin">
+				<input type="text" placeholder="新闻标题" ng-model="title">
+			</div>
+			<div class="detail_category detail_margin">
+				<select ng-model="categorySelect">
+					<option ng-repeat="category in categoryList"
+						value="{{category.categoryId}}">{{category.name}}</option>
+				</select>
+			</div>
+			<div class="detail_detail  detail_margin">
+				<textarea id="xheditor" name="content" class="xheditor" rows="12" cols="80" style="width: 100%" ng-model="content" placeholder="新闻来源,选填"></textarea>
+			</div>
+			<div class="detail_title detail_margin">
+				<input type="text" placeholder="新闻来源,选填" ng-model="origin">
+			</div>
+			<div class="detail_title detail_margin">
+				<input type="text" placeholder="新闻作者,选填" ng-model="author">
+			</div>
+		</div>
+	</div>
+	<div class="app_footer"
+		ng-click="saveNews(title,categorySelect,author,origin)">
+		<div class="app-button app_btn">立即发布</div>
+	</div>
+</div>

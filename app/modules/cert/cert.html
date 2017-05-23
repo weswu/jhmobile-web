@@ -1,0 +1,59 @@
+<div class="app-page" ng-controller="CertCtrl"
+	infinite-scroll='loadMore()' infinite-scroll-disabled='busy'
+	infinite-scroll-distance='1' data-page="cert">
+	<div class="app_nav">
+	  <h1>
+            <span class="icon app-button icon-left" ng-click="$back()" ></span>
+			<div class="app_nav_head app_nav_margin" ng-click="selectCategory()">
+				<span class="app_nav_txt">证书管理</span> 
+				<em class="icon icon-xiala icon-small"></em>
+		     	<div ng-class="{true: '', false: 'search'}[category]"> 
+					<div class="product_category_select" style="display: block;">
+						<ul>
+							<li ng-repeat="category in CategoryList" ng-click="search(category.value,category.text,1)">{{category.text}}
+							<li>
+						</ul> 
+                    <div class="pro-mask"></div>
+				</div>
+			</div>
+			</div>
+			<span class="button-search icon icon-sousuo"
+				ng-click="certSearch=!certSearch;certSelect=false"></span>
+		</h1>
+		<div class="search_style" ng-class="certSearch==true?' ':'search'"
+			ng-init="certSearch=false">
+			<form ng-submit="certSearch=false;search(0,0,1,name)">
+				<input type="text" ng-model="name" class="input-small"
+					placeholder="请输入新闻标题" maxlength="10"> <input type="submit"
+					class="search-product icon" value="&#xe630;">
+			</form>
+		</div>
+        <div class="search-mask" ng-click="certSearch=!certSearch;"></div>
+	</div>
+	<div class="app-content">
+		<div class="news-list item-list">
+			<dl ng-class="cert.showSub==1?'show':''" ng-repeat="cert in certList">
+				<dt>
+				    <div class="item-img"><img src="http://img.easthardware.com/{{cert.attaPic}}"></div>
+				{{cert.name}} <br><span>{{cert.organize}}</span>
+				</dt>
+				<a href="javascript:;" class="icon pro_btn icon-yuanxingjiantouxia"
+					ng-click="show(cert)"> </a>
+				<div class="clr"></div>
+				<ul class="pro_display">
+					<li><a href="javascript:;" class="app-button"
+						ng-click="update(cert.certificateId)"> <em
+							class="icon icon-xiugai"></em> <span> 修改 </span>
+					</a></li>
+					<li ng-click="certDelete(cert.certificateId)"><a href="javascript:;">
+							<em class="icon icon-lajixiang"></em> <span> 删除 </span>
+					</a></li>
+				</ul>
+			</dl>
+			<div ng-show='busy'>Loading data...</div>
+		</div>
+	</div>
+	<div class="app_footer">
+		<div class="app-button app_btn" ng-click="addL()">添加证书</div>
+	</div>
+</div>

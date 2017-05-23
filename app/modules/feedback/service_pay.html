@@ -1,0 +1,149 @@
+<style>
+.sp_title{background:#f5f5f5;padding:.4rem .5rem;color:#000;font-weight:600;font-size:.55rem}
+.label-act{height:1.8rem}
+.label-act .sub span{color:#000;padding-left:10px}
+.ul-line{display:-moz-box;display:-webkit-box;display:-webkit-flex;display:-moz-flex;display:-ms-flexbox;display:-ms-flex;display:flex}
+.ul-line li{float:left;padding:.5rem 0;cursor:pointer;color:#999;-webkit-box-flex:1;-moz-box-flex:1;-webkit-flex:1 1 0;-moz-flex:1 1 0;-ms-flex:1 1 0;flex:1 1 0;text-align:center}
+.ul-line .active{color:#ff7300;border-bottom:.1rem solid #ff7300}
+.sp-view{padding:.2rem .5rem;line-height:1rem;border-bottom:1px solid #ddd;overflow:hidden;}
+    .sp-viewfl{ width: 100%;
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-box;
+    display: -o-box;
+    display: box;}
+    .sp-fl{
+    -webkit-box-pack: center;
+    -moz-box-pack: center;
+    -ms-box-pack: center;
+    -o-box-pack: center;
+    box-pack: center;
+    -webkit-box-align: center;
+    -moz-box-align: center;
+    -ms-box-align: center;
+    -o-box-align: center;
+    box-align: center;
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-box;
+    display: -o-box;
+    display: box;
+    }
+.sp-view .toggle{margin:auto 0;width: 1.1rem;background: none;padding: 0;-webkit-appearance:none;outline:0;appearance:none;border:none}
+.sp-view .toggle:before{content:"\e662"}
+.sp-view .toggle.checked:before{content:"\e64c"}
+.sp-view .time{color:#999;font-size:.55rem}
+.sp-view .complete{color:#F57527;font-size:.55rem}
+.sp-view .name{width: 70%;padding-left: 0.3rem;}
+.sp-view .name.sp-fl{width: 68%;}
+.sp-view .name.sp-fl{
+ -webkit-box-pack: initial;
+    -moz-box-pack: initial;
+    -ms-box-pack: initial;
+    -o-box-pack: initial;
+    box-pack: initial;
+    -webkit-box-align: initial;
+    -moz-box-align: initial;
+    -ms-box-align: initial;
+    -o-box-align: initial;
+    box-align: initial;
+}
+	.sp-type{
+		width: 0.7rem;
+		height: 0.7rem;
+		background: #dcdfe1;
+		display: inline-block;
+		border-radius: 50%;
+		border: 1px solid #6b6b6b;
+		vertical-align: middle;
+		margin-left: 0.1rem;
+		color: #009934;
+		text-align: center;
+		line-height: 0.7rem;font-size: 0.55rem;
+	}
+	.sp-type sup{
+		color: #fb3838;line-height: 0.45rem;
+	}
+	
+	
+.item-list dd {
+    line-height: 0.9rem;
+    padding: .4rem .2rem .4rem .5rem;
+} 
+.item-list .title3 {
+    color: #000;
+}
+</style>
+<div class="app-page" ng-controller="ServicePayCtrl">
+	<div class="app_nav">
+		<h1>
+			<span class="icon app-button icon-left" ng-click="$back()" data-clickable-class="active" ></span>
+              服务缴费
+		</h1>
+	</div>
+	<div class="app-content app-scrollable">
+		<div class="sp_title"> 缴费信息</div>
+        <section class="section">
+               <div class="label-act"> 
+		          <a href="javascript:;">
+			       <div class="sub">公司名:<span>{{company}}</span></div> 
+			       </a> 
+			   </div>
+			   <div class="label-act"> 
+			     <a href="javascript:;">
+			       <div class="sub">用户名:<span>{{username}}</span></div> 
+			       </a> 
+			   </div>
+			 </section>
+			 <hr style="height: 0.3rem;">
+			 <ul class="ul-line" ng-init="vm.activeTab=1">
+				<li class="active" ng-class="{active: vm.activeTab == 1}" ng-click="vm.activeTab = 1">待缴费</li>
+				<li ng-class="{active: vm.activeTab == 2}" ng-click="vm.activeTab = 2">历史缴费</li>
+				<li ng-class="{active: vm.activeTab == 3}" ng-click="vm.activeTab = 3">服务记录</li>
+			 </ul>
+			 <div class="item-list">
+			 <dl class="member_list_first">
+			    <dd class="item-row-3" ng-show="vm.activeTab == 3">负责人/时间</dd>
+				<dd class="item-row-7" ng-show="vm.activeTab == 3">主题</dd>
+			 </dl> 
+			<div class="tab-panel" ng-show="vm.activeTab == 1">
+			  	<div class="sp_title">待缴费信息</div>
+			  	<div ng-repeat="wp in waitPayList ">
+			  	 	<div class="sp-view clr sp-viewfl" ng-click="sum(wp,$event)" >
+			  	 		<i class="toggle icon sp-fl"></i>
+			  			<div class="sp-fl name"><img src="css/img/{{wp.type}}paid.gif"/>{{wp.name}}
+							<br><span class="time">{{wp.so_date | date : 'yyyy-MM-dd'}}</span></div>
+			  			<div class="sp-fl"><span class="red">￥{{wp.price}}</span>元<br>
+			  			{{wp.tip}}</div>
+			  	 	</div>
+			  	</div> 
+			  	<div class="loadData1 loadData">数据加载中...</div>
+			  	<div class="app_footer"  style="color:#666;line-height: 2.3rem; ">
+			  	    <div style="color: #777;font-size: 0.6rem;padding-left: 0.5rem;">
+			  	    	<span ng-click="toggleAll()" style=" padding-right: 0.2rem;">全选</span>
+			  	    	选中<span ng-model="acriveLength"  style="padding:0 0.1rem" >{{acriveLength}}</span>，
+			  	    	共计<span class="red" style="padding:0 0.2rem"  ng-model="totel">{{totel}}</span>元
+			  	    </div>
+					<div class="app-button" ng-click="spay()" style="background: #ff6000;color:#fff;right: 0;  padding: 0 0.7rem;position: absolute;">确定缴费</div>
+				</div>
+			</div>
+			<div class="tab-panel" ng-show="vm.activeTab == 2">
+			  	<div class="loadData2 loadData">数据加载中...</div>
+				<div ng-repeat="wp in logPayList">
+			  	 	<div class="sp-view clr">
+			  			<div class="fl name"><img src="css/img/allpaid.gif"/>{{wp.name}}
+							<br><span class="time">{{wp.so_date | date : 'yyyy-MM-dd'}}</span></div>
+			  			<div class="fr">￥{{wp.so_amount}}<br><span class="complete">交易成功</span></div>
+			  	 	</div>
+			  	</div> 
+			</div>
+			<div class="tab-panel" ng-show="vm.activeTab == 3">
+				<dl ng-repeat="pj in jList">
+			 		<dd class="item-row-3">{{pj.emp_name}}<br/>{{pj.jrnl_start_time | date : 'yyyy-MM-dd hh:mm'}}</dd>
+					<dd class="item-row-7 title3">{{pj.jrnl_subject64}}</dd>
+				</dl>
+			  	<div class="loadData3 loadData">数据加载中...</div>
+			</div>
+			</div>
+	</div>
+</div>

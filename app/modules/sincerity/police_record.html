@@ -1,0 +1,262 @@
+<style>
+.btn-info{color:#36f;font-size: 0.5rem;line-height: 1rem;}
+.tab-content select {
+    border-radius: .25rem;
+    width: 50%;
+    padding: .45rem .5rem;
+    border: 1px solid #d6d6d6;
+    font-size: .6rem;
+}
+.s_title{
+font-size: 0.8rem;
+    color: #000;
+    padding-bottom: 0.4rem;}
+    .siteServiceTypeRadio{
+    width:50%;    float: left;}
+</style>
+<div class="app-page" data-page="police_record" ng-controller="PoliceRecordCtrl">
+	<div class="app_nav">
+		<h1>
+			<span class="icon app-button icon-left" ng-click="$back()"></span>
+			<div class="app_nav_head">
+				<span class="app_nav_txt">公安备案</span>
+			</div>
+		</h1>
+	</div>
+
+	<div class="app-content">
+		<ul class="nav nav-tabs" ng-init="vm.activeTab=1">
+    		<li ng-class="{active: vm.activeTab == 1}"><a href="javascript:;" ng-click="vm.activeTab = 1">账号信息</a></li>
+    		<li ng-class="{active: vm.activeTab == 2}"><a href="javascript:;" ng-click="vm.activeTab = 2">填写开办主体</a></li>
+    		<li ng-class="{active: vm.activeTab == 3}"><a href="javascript:;" ng-click="vm.activeTab = 3">网站基本信息</a></li>
+    		<li ng-class="{active: vm.activeTab == 4}"><a href="javascript:;" ng-click="vm.activeTab = 4">网站负责人信息</a></li>
+    		<li ng-class="{active: vm.activeTab == 5}"><a href="javascript:;" ng-click="vm.activeTab = 5">截图并邮寄</a></li>
+  		</ul>
+  		<div class="tab-content tab-bordered">
+    		<div class="tab-panel" ng-show="vm.activeTab == 1">
+    		
+				<div class="detail_model detail_margin">
+					<span class="btn-info">
+					<p style="color: #f60;">【注】在PC上注册http://beian.gov.cn/user/registerurl</p>
+						操作成功后请保存以下信息
+					</span>
+				</div>
+        		<div class="tab_detail">
+					<div class="detail_model detail_margin">
+						用户名:
+						<input type="text" ng-model="webinfo.securityUsername" placeholder="用户名"/>
+					</div>
+					<div class="detail_model detail_margin">
+						密码:
+						<input type="text" ng-model="webinfo.securityPassword" placeholder="密码"/>
+					</div>
+					<div class="detail_model detail_margin">
+						邮箱:
+						<input type="text" ng-model="enterprise.email" placeholder="邮箱"/>
+					</div>
+					<div class="detail_model detail_margin">
+						手机号码:
+						<input type="text" ng-model="principal.cellphone" placeholder="手机号码"/>
+					</div>
+    			</div>
+			</div>
+    		<div class="tab-panel" ng-show="vm.activeTab == 2">
+        		<div class="tab_detail">
+					<div class="detail_model detail_margin">
+						开办主体性质:
+						<select ng-model="enterprise.type" ng-options="eT.value as eT.text for eT in enterpriseType">
+						</select>
+					</div>
+					
+					<hr style="height: 1px;margin-bottom: 0.7rem;background: #ddd;">	
+						
+					<div class="s_title">主办单位信息</div>	
+					<div class="detail_model detail_margin">
+						主办单位名称:
+						<input type="text" ng-model="enterprise.name" placeholder="主办单位名称"/>
+					</div>
+					<div class="detail_model detail_margin">
+						主办单位证件类型:
+						<select ng-model="enterprise.certType" ng-options="eCT.value as eCT.text for eCT in enterpriseCertType">
+						</select>
+					</div>
+					<div class="detail_model detail_margin">
+						主办单位证件号:
+						<input type="text" ng-model="enterprise.certNumber" placeholder="手机号码"/>
+					</div>
+					<div class="detail_model detail_margin">
+						法人代表人姓名:
+						<input type="text" ng-model="enterprise.legalPre" placeholder="手机号码"/>
+					</div>
+					
+					<hr style="height: 1px;margin-bottom: 0.7rem;background: #ddd;">	
+						
+					<div class="s_title">负责人信息</div>	
+					<div class="detail_model detail_margin">
+						负责人姓名:
+						<input type="text" ng-model="principal.name" placeholder="负责人姓名"/>
+					</div>
+					<div class="detail_model detail_margin">
+						负责人证件类型:
+						<select ng-model="principal.certType" ng-options="pCT.value as pCT.text for pCT in principalCertType">
+						</select>
+					</div>
+					<div class="detail_model detail_margin">
+						负责人证件号码:
+						<input type="text" ng-model="principal.certNumber" placeholder="负责人姓名"/>
+					</div>
+					<div class="detail_model detail_margin">
+						负责人详细地址:
+						<input type="text" ng-model="principal.address" placeholder="详细地址"/>
+					</div>
+					<div class="detail_model detail_margin">
+						办公室电话:
+						<input type="text" ng-model="principal.phone" placeholder="办公室电话"/>
+					</div>
+					<div class="detail_model detail_margin">
+						手机号码:
+						<input type="text" ng-model="principal.cellphone" placeholder="手机号码"/>
+					</div>
+					<div class="detail_model detail_margin">
+						负责人邮箱:
+						<input type="text" ng-model="principal.email" placeholder="负责人邮箱"/>
+					</div>
+
+				</div>	
+    		</div>
+    		<div class="tab-panel" ng-show="vm.activeTab == 3">
+    		
+				<div class="s_title">网站信息</div>	
+        		<div class="tab_detail">
+					<div class="detail_model detail_margin">
+						网站名称:
+						<input type="text" ng-model="enterprise.name" placeholder="网站名称"/>
+					</div>
+					<div class="detail_model detail_margin">
+						是否有工信部备案号:
+						<select ng-model="principal.isIcp" ng-options="iT.value as iT.text for iT in isIcp">
+						</select>
+					</div>	
+					<div class="detail_model detail_margin">
+						工信部备案号:
+						<input type="text" ng-model="bind.icp" placeholder="工信部备案号"/>
+					</div>
+					<div class="detail_model detail_margin">
+						主域名:
+						<input type="text" ng-model="bind.address" placeholder="主域名"/>
+					</div>	
+					<div class="detail_model detail_margin">
+						IP:
+						<input type="text" ng-model="bind.ip" placeholder="IP地址"/>
+					</div>	
+					
+					<hr style="height: 1px;margin-bottom: 0.7rem;background: #ddd;">	
+						
+					<div class="s_title">网站接入服务商</div>	
+					<div class="detail_model detail_margin">
+						接入商所属地区管辖:
+						<select ng-model="webinfo.ispBound" ng-options="item.value as item.text for item in webinfoIspBoundSelect">
+						</select>
+					</div>	
+					<div class="detail_model detail_margin">
+						名称:
+						<select ng-model="webinfo.ispName" ng-options="item.value as item.text for item in webinfoIspNameSelect">
+						</select>
+					</div>	
+					<div class="detail_model detail_margin">
+						网站接入方式:
+						<select ng-model="webinfo.ispType" ng-options="item.value as item.text for item in webinfoIspTypeSelect">
+						</select>
+					</div>	
+					
+					<hr style="height: 1px;margin-bottom: 0.7rem;background: #ddd;">	
+						
+					<div class="s_title">域名注册服务商</div>	
+					<div class="detail_model detail_margin">
+						接入商所属地区管辖:
+						<select ng-model="webinfo.domainBound" ng-options="item.value as item.text for item in webinfoDomainBoundSelect">
+						</select>
+					</div>	
+					<div class="detail_model detail_margin">
+						名称:
+						<select ng-model="webinfo.domainName" ng-options="item.value as item.text for item in webinfoDomainNameSelect">
+						</select>
+					</div>	
+					
+					 <hr style="height: 1px;margin-bottom: 0.7rem;background: #ddd;">	
+						
+					<div class="s_title">服务类型</div>	
+					<div class="detail_model detail_margin">
+						<div>提供互联网交互服务:</div>
+						
+						<div ng-repeat="e in siteServiceTypeRadio" class="siteServiceTypeRadio">
+               
+						<label class="btn btn-primary">
+                    		<input type="checkbox" name="siteServiceType" ng-model="enterprise.siteServiceType" value="{{e.value}}" ng-click="siteServiceTypeClick($event)" />
+                   			{{e.text}}
+                   		</label>
+						
+                
+            			</div>
+						
+					</div>		
+				</div>	
+    		</div>
+    		<div class="tab-panel" ng-show="vm.activeTab == 4">
+        		<div class="tab_detail">
+					<div class="detail_model detail_margin">
+						负责人姓名:
+						<input type="text" ng-model="principal.name" placeholder="负责人姓名"/>
+					</div>
+					<div class="detail_model detail_margin">
+						负责人证件类型:
+						<select ng-model="principal.certType" ng-options="pCT.value as pCT.text for pCT in principalCertType">
+						</select>
+					</div>	
+					<div class="detail_model detail_margin">
+						负责人证件号码:
+						<input type="text" ng-model="principal.certNumber" placeholder="负责人证件号码"/>
+					</div>
+					<div class="detail_model detail_margin">
+						手机号码:
+						<input type="text" ng-model="principal.cellphone" placeholder="手机号码"/>
+					</div>	
+					<div class="detail_model detail_margin">
+						办公室电话:
+						<input type="text" ng-model="principal.phone" placeholder="办公室电话"/>
+					</div>
+					<div class="detail_model detail_margin">
+						电子邮件地址:
+						<input type="text" ng-model="principal.email" placeholder="电子邮件地址"/>
+					</div>	
+					
+					<hr style="height: 1px;margin-bottom: 0.7rem;">	
+						
+					<div class="s_title">网站应急联络人</div>	
+					<div class="detail_model detail_margin">
+						联络人姓名:
+						<input type="text" ng-model="emergency.name" placeholder="联络人姓名"/>
+					</div>
+					<div class="detail_model detail_margin">
+						联络人证件类型:
+						<select ng-model="emergency.certType" ng-options="pCT.value as pCT.text for pCT in principalCertType">
+						</select>
+					</div>	
+					<div class="detail_model detail_margin">
+						联络人证件号码:
+						<input type="text" ng-model="emergency.certNumber" placeholder="联络人证件号码"/>
+					</div>
+				</div>	
+    		</div>
+    		<div class="tab-panel" ng-show="vm.activeTab == 5">
+        		<div class="tab_detail">
+					<span>审核通过后。在http://www.beian.gov.cn/portal/recordQuery上将查出来的结果截图，并将截图发送到有孚邮箱（beian@sundns.com）。</span>
+<img style="width: 100%;    padding-top: 0.5rem;" src="http://img.easthardware.com/upload/j/j2/jihui88/picture/2016/12/02/b4ed099e-95ad-4fcd-a1ee-77ce6a0a2843.png" alt="websie_record_infot.png">
+				</div>	
+    		</div>
+  		</div>
+	</div>
+	<div class="app_footer" ng-click="update()">
+		<div class="app-button app_btn">确定</div>
+	</div>
+</div>

@@ -1,0 +1,44 @@
+<div class="app-page"  ng-controller="addCertCtrl">
+	<div class="app_nav">
+		<h1>
+			<span class="icon app-button icon-left" ng-click="$back()"></span>
+		    {{pageTitle}}
+		</h1>
+	</div>
+	<div class="app-content">
+		<div class="pro_detail detail">
+			<div class="detail_title detail_margin">
+		    	<p class="detail_name" >证书名称：</p>
+				<input type="text" ng-model="cert.name" value="{{cert.name}}" placeholder="证书名称" />
+			</div>
+			<div class="detail_category detail_margin">
+		    	<p class="detail_name" >证书分类：</p>
+				<select ng-model="cert.type">
+					<option ng-repeat="category in categoryList"
+						value="{{category.value}}" >{{category.text}}</option>
+				</select>
+			</div>
+			<div class="detail_model detail_margin">
+                <p class="detail_name" >发证机构：</p>
+				<input type="text" ng-model="cert.organize" value="{{cert.organize}}" placeholder="发证机构" />
+			</div>
+			<div class="detail_title detail_margin cert-img">
+				<p class="detail_name" >证书图片：</p>
+				<img class="fileupload" src="http://img.easthardware.com/{{cert.attaPic}}" ng-model="cert.attaPic" > 
+				<div style="display:none">   <input id="fileupload" type="file" name="Filedata" multiple>
+				</div>
+			  
+			</div>
+		</div>
+	</div>
+	<div  class="app_footer" ng-click="addCert(cert.name,cert.type,cert.organize)">
+		<div class="app-button app_btn">确定</div>
+	</div>
+<input type="checkbox" ng-model="loading" class="loading_click" ng-hide="true"/>
+<div class="loading-modal" ng-if="loading" >
+    <div class="loading">
+        <img src="http://www.jihui88.com/member/modules/mobile/mobileManagement/images/loading.gif" alt=""/><span ng-bind="loading_text">加载中</span>
+    </div>
+</div>
+
+</div>

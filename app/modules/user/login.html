@@ -1,0 +1,61 @@
+<style>
+body{background:#eee;overflow:hidden}
+.footer{display:none!important}
+.copy{text-align:center;color:#888;margin-top:4rem;width:100%}
+.copy a{color:#888;text-decoration:underline}
+.login_help{line-height:1.5rem}
+li{float:left;background:#fff;border-radius:100%;width:1.5rem;height:1.5rem;line-height:1.5rem;text-align:center;vertical-align:middle;margin-left:.5rem;color:#666}
+
+/*下载广告*/
+.f39dsk{background-color:#5f646e;position:fixed;bottom:0;left:0;padding:6px 0 6px 30px;height:42px;line-height:42px;width:100%;box-sizing:border-box;color:#fff;display:flex;display:-webkit-box-flex}
+.f39dsk img{width:30px;display:inline-block;vertical-align:top;margin-right:8px;border-radius:3px;height:30px}
+.f39dsk .n48-dl{right:0;top:0;position:absolute;align-items:center;color:#fff;background-color:#FF5000;height:42px;text-align:center;font-weight:400;font-size:14px;padding:0 8px}
+.f39dsk span{-webkit-box-flex:1;flex:1;display:block;line-height:30px}
+.f39dsk .m48{margin:0 8px 0 0;width:30px;height:30px;display:inline-block;vertical-align:top}
+</style>
+<div class="app-page" ng-controller="LoginCtrl">
+	<form ng-submit="submit()">
+		<div class="app_nav">
+			<h1>
+				<div class="app_nav_head">
+					<span class="app_nav_txt">机汇网会员登录</span>
+				</div>
+				
+			</h1>
+		</div>
+		<div class="login">
+			<div class="login_form">
+				<div class="form-group">
+					<label> 帐号 </label> 
+					<input type="text" id="username" ng-model="user.username"  required placeholder="请输入登录帐号">
+				</div>
+				<div class="form-group">
+					<label> 登录密码 </label> 
+					<input type="password" id="password" ng-model="user.password"  required placeholder="请输入密码">
+				</div>
+				<button ng-disabled="form.$invalid" class="app-button" type="submit" data-target="home">登录</button>
+				<ul class="otherLogin">
+               		<!-- <li><i class="icon icon-weiwangzhan"></i></li>
+               		<li><i class="icon icon-qq"></i></li> -->
+               		<li style="display:none"><a href="http://app.jihui88.com/#/login?WeChatLogin"><i class="icon icon-weixin" style="color: #3eb94e;"></i></a></li>
+               	</ul>	
+                <a class="login_help" href="tel:4007111011">登录遇到问题?</a>
+                <div class="clr"></div>
+                <a href="javascript:;" onclick="location.href='#/reg'" class="login_reg">免费注册</a>
+               	
+			</div>
+
+		</div>
+<div class="copy">
+	浙江机汇网络科技有限公司版权所有<br />
+         服务热线：<a href="tel:4007111011" >400-7111-011</a>
+</div>
+
+              
+	</form>
+</div>
+<a class="f39dsk" href="http://app.jihui88.com/download.html">
+    <b class="m48"><img src="http://img.easthardware.com/upload/j/j2/jihui/picture/2015/12/08/9df67a15-7379-4374-b575-3fb6f55efa02.png" alt=""></b>
+    <span>机汇网后台管理APP</span>
+    <b class="n48-dl">立即安装</b>
+</a>
