@@ -1,0 +1,29 @@
+<div class="app-page" data-page="product_category" ng-controller="productCCtrl">
+	<div class="app_nav">
+		<h1>
+			<span class="icon app-button icon-left" ng-click="$back()"></span>
+			分类管理
+		</h1>
+	</div>
+	<div class="app-content">
+		<div class="news_list category_list detail">
+			<ul ng-repeat="category in categoryList">
+				<li data-id={{category.id}}
+					class="first_level category{{category.grade}} b_{{category.belongId}} id_{{category.id}}">
+                    <em class="icon icon-xiala"></em>
+					<input type="text"
+					class="category_list_text" ng-model="category.name"
+					value="{{category.name}}"> <input type="submit" value="删除"
+					class="category_list_delete"
+					ng-click="categoryDel(category.categoryId)">
+				</li>
+			</ul>
+		</div>
+	</div>
+	<div class="app_footer">
+		<div class="app-button app_btn_left" ng-click="addCategory()">
+			新增分类</div>
+		<div class="app-button app_btn_right"
+			ng-click="productUpdate(categoryList)">保存修改</div>
+	</div>
+</div>

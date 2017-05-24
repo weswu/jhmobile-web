@@ -1,0 +1,75 @@
+<style>
+.item-list dd { padding: .5rem .2rem 1.7rem .5rem;}
+</style>
+<div class="app-page" ng-controller="NewsCtrl"
+	infinite-scroll='loadMore()' infinite-scroll-disabled='datas.busy'
+	infinite-scroll-distance='1' data-page="news">
+	<div class="app_nav">
+		<h1>
+			<span class="icon app-button icon-left" ng-click="$back()"></span>
+			<div class="app_nav_head app_nav_margin" ng-click="newsSearch=false;newsSl(newsSelect)">
+				<span class="app_nav_txt">全部新闻</span> 
+				<em class="icon icon-xiala icon-small"></em>
+				<div ng-class="{true: '', false: 'search'}[newsSelect]">
+					<div class="product_category_select" style="display: block;">
+						<ul>
+							<!-- <li  ng-click="search(0,0,0)">全部新闻</li> -->
+							<li ng-repeat="category in addCategory" ng-click="search(category.id,category.name,0)">{{category.name}}
+							<li>
+						</ul>
+					</div>
+                    <div class="pro-mask"></div>
+				</div>
+			</div>
+			<span class="button-search icon icon-sousuo"
+				ng-click="newsSearch=!newsSearch;newsSelect=false"></span>
+		</h1>
+		<div class="search_style" ng-class="newsSearch==true?' ':'search'"
+			ng-init="newsSearch=false">
+			<form ng-submit="newsSearch=false;search(nTitle,0,1)">
+				<input type="text" ng-model="nTitle" class="input-small"
+					placeholder="请输入新闻标题" maxlength="10"> <input type="submit"
+					class="search-product icon" value="&#xe630;">
+			</form>
+		</div>
+        <div class="search-mask"></div>
+	</div>
+	<div class="app-content">
+		<div class="news-list item-list">
+			<dl ng-class="news.showSub==1?'show':''" ng-repeat="news in newsList">
+				<dd>
+					{{news.title}}<span class="renqi">发布时间:&nbsp;{{news.addTime}}&nbsp;&nbsp;&nbsp;
+					人气:&nbsp;{{news.viewsum}}</span>
+				</dd>
+				<a href="javascript:;" class="icon pro_btn icon-yuanxingjiantouxia"
+					ng-click="show(news)"> </a>
+				<div class="clr"></div>
+				<ul class="pro_display">
+					<li ng-click="newsDisplay(news)"
+						class="{{news.display==01?'chengse_txt':''}}"><a
+						href="javascript:;"> <em class="icon icon-yincang"></em> <span>
+								{{news.display==01?'已显示':'已隐藏'}} </span>
+					</a></li>
+					<li class="{{news.topnews==01?'chengse_txt':''}}"
+						ng-click="newsTopnews(news)"><a href="javascript:;"> <em
+							class="icon icon-zhidingicon"></em> <span>
+								{{news.topnews==01?'已置顶':'未置顶'}} </span>
+					</a></li>
+					<li><a href="javascript:;" class="app-button"
+						ng-click="newsUpdate(news.newsId,news.title)"> <em
+							class="icon icon-xiugai"></em> <span> 修改 </span>
+					</a></li>
+					<li ng-click="newsDelete(news.newsId)"><a href="javascript:;">
+							<em class="icon icon-lajixiang"></em> <span> 删除 </span>
+					</a></li>
+				</ul>
+			</dl>
+			<div ng-show='datas.busy'>Loading data...</div>
+		</div>
+	</div>
+	<div class="app_footer">
+		<div class="app-button app_btn_left" ng-click="addNews()">发布新闻</div>
+		<div class="app-button app_btn_right"
+			onclick="location.href='#/news/category/list'">分类管理</div>
+	</div>
+</div>

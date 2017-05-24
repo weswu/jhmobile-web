@@ -1,0 +1,41 @@
+<div class="app-page" data-page="order_sending"
+	ng-controller="sendingCtrl">
+	<div class="app_nav">
+		<h1>
+			<span class="icon app-button icon-left" ng-click="$back()"></span> 发货
+		</h1>
+	</div>
+	<div class="app-content">
+		<div class="order_sending">
+			<h3 class="order_sending_h3">收货信息</h3>
+			<div class="order_sending_address">
+				<p>
+					<span class="sending_fl">收货人：</span><span class="sending_fr">{{shipName}}
+					</span>
+				</p>
+				<p ng-if="sPhone">
+					<span class="sending_fl">电话：</span><span class="receiving_fr">{{shipPhone}}</span>
+				</p>
+				<p ng-if="sMobile">
+					<span class="sending_fl">手机：</span><span class="receiving_fr">{{shipMobile}}</span>
+				</p>
+				<p>
+					<span class="sending_fl">收货地址：</span><span class="sending_fr">{{shipAddress}}</span>
+				</p>
+			</div>
+
+			<h3 class="order_sending_h3 order_sending_title">物流信息</h3>
+			<div class="order_sending_express">
+				<select ng-model="exp">
+					<option ng-repeat="ex in express" value="{{ex.com}}">{{ex.name}}</option>
+				</select> <input ng-model="cost" placeholder="请填写运费"> <br> <br>
+				<br> <input ng-model="deliverySn" placeholder="请填写运单号">
+			</div>
+		</div>
+	</div>
+
+	<div class="app_footer">
+		<div class="app-button app_btn"
+			ng-click="saveExpress(orderId,exp,cost,deliverySn)">确认发货</div>
+	</div>
+</div>

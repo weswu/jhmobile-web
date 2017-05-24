@@ -1,0 +1,149 @@
+<div class="app-page" data-page="pay_order" ng-controller="PayOrderCtrl" ng-init="mName=false;mVersions=false;mEndTime=false" >
+	<div class="app_nav">
+		<h1>
+			<span class="icon app-button icon-left" ng-click="$back()"></span>
+			<div class="app_nav_head">
+				<span class="app_nav_txt">确认订单</span>
+			</div>
+		</h1>
+	</div>
+    <style>
+        .pay_order {
+            padding: .5rem;
+        }
+        .pay_order h3 {
+            border-bottom: 1px solid #eee;
+            padding: .5rem 0;
+            font-size: .75rem;
+            font-weight: normal;
+        }
+        .pay_order_fl {
+            float: left;
+            text-align: right;
+            width: 29%;
+            color: #a8a8a8;
+            padding-top: .2rem;
+        }
+        .pay_order_fr {
+            float: left;
+            width: 70%;
+            padding-top: .2rem;
+        }
+        .pay_order p {
+            line-height: 1.5;
+            clear: both;
+            overflow: hidden;
+        }
+
+        .wxpay-icon {
+            background: url(http://img.easthardware.com/upload/j/j2/jihui/picture/2016/01/19/593e050d-8d10-4d2d-9617-2f388a1606cd.png) no-repeat;
+        }
+        .alipay-icon {
+            background: url(http://img.easthardware.com/upload/j/j2/jihui/picture/2016/01/19/0e2ab2f0-41f8-44cf-b5dd-b0f8c70dc7f2.png) no-repeat;
+        }
+        .card-icon {
+            background: url(http://img.easthardware.com/upload/j/j2/jihui/picture/2016/01/19/55489848-a0e7-455d-9aab-d2a700907665.png) no-repeat;
+        }
+        .channel-icon {
+            display: block;
+            height: 2rem;
+            width: 2rem;
+            background-size: cover;
+            float: left;
+        }
+        .row-container {
+            position: relative;
+            line-height: 2rem;
+            height: 2rem;
+            margin: 0 .5rem;
+            padding: .5rem 0;
+            border-bottom: 1px solid #eee;
+        }
+        .channel-name {
+            font-size: .7rem;
+            margin-left:.8rem;
+        }
+        .row-container.selected:after {
+            content: "\e64c";
+            font-family: "iconfont" !important;
+            font-size: 1.2rem;
+            color: #ff642f;
+            font-style: normal;
+            position: absolute;
+            right: .5rem;
+        }
+        .app_pay_order {
+            width: 100%;
+            display: block;
+            background: #ff642f;
+            text-align: center;
+            color: #fff;
+            padding: .5rem;
+            box-sizing: border-box;
+            border-radius: .25rem;
+            font-size: .7rem;
+            margin-top: 1.5rem ;
+            border:none;
+        }
+        .pay_order p:first-of-type {
+            margin-top: .5rem;
+        }
+    </style>
+	<div class="app-content">
+        <div class="pay_order">
+            <h3>订单创建完成</h3>
+            <p>
+                <span class="pay_order_fl">您的订单号是：</span>
+                <span class="pay_order_fr">{{renew.orderSn}}</span>
+            </p>
+            <p>
+                <span class="pay_order_fl">订单名称：</span>
+                <span class="pay_order_fr">{{renew.name}}</span>
+            </p>
+            <p>
+                <span class="pay_order_fl">续费时间：</span>
+                <span class="pay_order_fr"><span>{{renew.payMoney}}</span>天</span>
+            </p>
+            <p>
+                <span class="pay_order_fl">订单金额：</span>
+                <span class="pay_order_fr"><span>{{renew.money}}</span>元</span>
+            </p>
+        </div>
+        <div class="pay_order ">
+            <h3>选择支付方式</h3>
+            <ul>
+                <li class="row-container selected weixinform">
+                    <span class="channel-icon wxpay-icon"></span>
+                    <span class="channel-name">微信支付</span>
+                </li>
+                <li class="row-container payform">
+                        <span class="channel-icon alipay-icon"></span>
+                        <span class="channel-name">支付宝支付</span>
+                </li>
+                <!-- <li class="row-container">
+                    <span class="channel-icon card-icon"></span>
+                    <span class="channel-name">银行卡支付</span>
+                </li> -->
+            </ul>
+            <a class="app_pay_order" href="javascript:;">确认支付</a>
+                <form name="alipayment" action="http://www.jihui88.com/pay/websiteRenew/alipayapi.jsp" method="post" id="payform">
+						<input  type="hidden"  name="WIDout_trade_no" value="{{renew.id}}"/>
+						<input  type="hidden"  name="WIDsubject" value="{{renew.name}}"/>
+						<input  type="hidden"  name="WIDtotal_fee" value="{{renew.money}}"/>
+						<input  type="hidden"  name="WIDshow_url" value="http://"/>
+						<input  type="hidden"  name="WIDbody" value="{{renew.orderSn}}"/>
+						<input type="hidden" name="_input_charset" value="utf-8"/>
+						
+		</form>
+	<form name="pay" action="http://www.jihui88.com/rest/pay/renew/wxPay" method="post" id="weixinform" >
+						<input  type="hidden"  name="orderId" value="{{renew.id}}"/>
+						<input  type="hidden"  name="WIDsubject" value="{{renew.name}}"/>
+						<input  type="hidden"  name="WIDtotal_fee" value="{{renew.money}}"/>
+						<input  type="hidden"  name="WIDshow_url" value="http://"/>
+						<input  type="hidden"  name="WIDbody" value="{{renew.orderSn}}"/>
+						<input type="hidden" name="_input_charset" value="utf-8"/>
+		</form>
+        </div>
+    </div>
+    
+</div>

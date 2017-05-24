@@ -1,0 +1,35 @@
+<div class="app-page" ng-controller="linkCtrl"
+	infinite-scroll='loadMore()' infinite-scroll-disabled='datas.busy'
+	infinite-scroll-distance='1' data-page="link">
+	<div class="app_nav">
+		<h1>
+			<div class="app_nav_head">
+				<span class="icon app-button icon-left" ng-click="$back()"></span>
+				<span class="app_nav_txt">友情链接</span>
+			</div>
+		</h1>
+	</div>
+	<div class="app-content">
+		<div class="news-list item-list" ng-repeat="link in linkList">
+			<dl ng-class="link.state==1?'show':''">
+				<dd>
+					{{link.name}}<span class="renqi">{{link.url}}</span>
+				</dd>
+				<a href="javascript:;" class="icon pro_btn icon-yuanxingjiantouxia"
+					ng-click="show(link)"> </a>
+				<div class="clr"></div> 
+				<ul class="pro_display" >
+					<li ng-click="linkUpdate(link.linkId)" ><a href="javascript:;" class="app-button"> <em
+							class="icon icon-xiugai"> </em> <span> 修改 </span>
+					</a></li>
+					<li ng-click="linkDelete(link.linkId)"><a href="javascript:;"> <em
+							class="icon icon-lajixiang"> </em> <span> 删除 </span>
+					</a></li>
+				</ul>
+			</dl>
+		</div>
+	</div>
+	<div class="app_footer">
+		<div class="app-button app_btn" ng-click="addL()">添加友情链接</div>
+	</div>
+</div>

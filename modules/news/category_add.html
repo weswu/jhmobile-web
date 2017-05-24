@@ -1,0 +1,30 @@
+<div class="app-page" data-page="news_category_add" style=""
+	ng-controller="addCategoryCtrl">
+	<div class="app_nav">
+		<h1>
+			<span class="icon app-button icon-left" ng-click="$back()"></span>
+			新增分类
+		</h1>
+	</div>
+	<div class="app-content app-scrollable">
+		<div class="category_add detail">
+			<div class="category_add_select">
+				<p>所属分类</p>
+				<select ng-model="categorySelect"
+					ng-options="category.categoryId as category.name for category in addCategory">
+				</select>
+				<p class="font_12">注：未选择分类表示添加的是顶级分类</p>
+				<br> <br>
+				<div class="category_add_select"></div>
+				<p>分类名称</p>
+				<div class="category_add_text">
+					<input type="text" placeholder="输入分类名称" ng-model="categoryName">
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="app_footer">
+		<div class="app-button app_btn"
+			ng-click="add(categorySelect,categoryName)">确定</div>
+	</div>
+</div>

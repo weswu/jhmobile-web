@@ -1,0 +1,100 @@
+<div class="app-page" data-page="user" ng-controller="UserCtrl">
+	<div class="app_nav">
+		<h1>
+			<span class="icon app-button icon-left" ng-click="$back()"></span>
+			<div class="app_nav_head">
+				<span class="app_nav_txt">账号资料</span>
+			</div>
+		</h1>
+	</div>
+	<div class="app-content">
+		<div class="user_view">
+	    	<dl>
+                <dt>
+                <li class="fl">性别：</li>
+               <li class="fr"><select name="sex" class="user_view_input" ng-model="user.sex">
+                    <option value="01">女</option>
+                    <option value="00">男</option>
+                </select></li>
+                </dt>
+            </dl>
+			<dl>
+				<dt>
+					<li class="fl"><span style="color:#FF0000">*</span>姓名：</li>
+					<li class="fr"><input type="text" class="user_view_input" ng-model="user.name"></li>
+				</dt>
+			</dl>
+            <dl>
+                <dt>
+                <li class="fl"><span style="color:#FF0000">*</span>职务：</li>
+                <li class="fr"><input type="text" class="user_view_input" ng-model="user.position"></li>
+                </dt>
+            </dl>
+            <dl>
+                <dt>
+                <li class="fl">手机：</li>
+                <li class="fr"><input type="text" class="user_view_input" ng-model="user.cellphone"></li>
+                </dt>
+            </dl>
+            <dl>
+                <dt>
+                <li class="fl"><span style="color:#FF0000">*</span>电话：</li>
+                <li class="fr"><input type="text" class="user_view_input" ng-model="user.phone"></li>
+                </dt>
+            </dl>
+			<dl>
+				<dt>
+					<li class="fl">传真：</li>
+					<li class="fr"><input type="text" class="user_view_input" ng-model="user.fax"></li>
+				</dt>
+			</dl>
+			<dl>
+				<dt>
+					<li class="fl">地址：</li>
+					<li class="fr"><input type="text" class="user_view_input" ng-model="user.address"></li>
+					
+				</dt>
+			</dl>
+			<dl>
+				<dt>
+					<li class="fl">&nbsp;</li>
+					<li class="fr"><a class="" ng-click="map()" style="color:#f60;padding: .45rem .5rem;display: block;">地图定位</a></li>
+					
+				</dt>
+			</dl>
+			<dl>
+				<dt>
+					<li class="fl">Email：</li>
+					<li class="fr"><input type="text" class="user_view_input" ng-model="user.email" style="background: #eee;" disabled></li>
+				</dt>
+			</dl>
+            <dl>
+                <dt>
+                <li class="fl">QQ：</li>
+                <li class="fr"><input type="text" class="user_view_input" ng-model="user.qq"></li>
+                </dt>
+            </dl>
+            <dl>
+                <dt>
+                <li class="fl">MSN：</li>
+                <li class="fr"><input type="text" class="user_view_input" ng-model="user.msn"></li>
+                </dt>
+            </dl>
+            <dl>
+                <dt>
+                <li class="fl">邮编：</li>
+                <li class="fr"><input type="text" class="user_view_input"  ng-model="user.zipcode"></li>
+                </dt>
+            </dl>
+			<dl>
+                <dt>
+                <li class="fl">公司主页：</li>
+                <li class="fr"><input type="text" class="user_view_input"  ng-model="user.url"></li>
+                </dt>
+            </dl>
+		</div>
+	</div>
+	<div class="app_footer" ng-click="userUpdate()">
+		<div class="app-button app_btn">确定</div>
+	</div>
+</div>

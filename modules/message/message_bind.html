@@ -1,0 +1,26 @@
+<div class="app-page"  ng-controller="MessageBindCtrl">
+	<div class="app_nav">
+		<h1>
+			<span class="icon app-button icon-left" ng-click="bind()"></span>
+			绑定邮箱
+		</h1>
+	</div>
+    <div class="app-content">
+		<div class="pro_detail detail">
+			<div class="detail_title detail_margin">
+				<p class="detail_name" >邮箱提醒：</p>
+               <div class="controls-type">
+                        <label><input type="radio" name="state" value="01" class="inp-radio" ng-model="message.state">&nbsp;是</label>
+                        <label><input type="radio" name="state" value="00" class="inp-radio" ng-model="message.state">&nbsp;否</label>
+                </div>
+			</div>
+			<div class="detail_model detail_margin">
+                <p class="detail_name" >电子邮箱：</p>
+				<input type="text" ng-model="message.key" />
+			</div>
+		</div>
+	</div>
+	<div  class="app_footer" ng-click="addBind(message)">
+		<div class="app-button app_btn">确定</div>
+	</div>
+</div>

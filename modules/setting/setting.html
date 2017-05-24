@@ -1,0 +1,138 @@
+<div class="app-page page-background" ng-controller="settingCtrl">
+        <div class="app_nav">
+            <h1>
+                <span class="icon app-button icon-left" ng-click="back()" ></span>
+                <div class="app_nav_head"><span class="app_nav_txt">设置</span></div>
+            </h1>
+        </div>
+        <div class="app-content app-scrollable" >
+        <hr>
+           <section class="section">
+               <div class="label-act">
+			     <a href="#/user">
+			       <div class="title"><h2>账号资料</h2></div>
+			       <div class="arrow"><span class="iconfont icon-more"></span></div>
+			       </a>
+			   </div>
+			   <div class="label-act">
+			     <a href="#/enterprise">
+			       <div class="title"><h2>企业资料</h2></div>
+			       <div class="arrow"><span class="iconfont icon-more"></span></div>
+			       </a>
+			   </div>
+			   <div class="label-act">
+			     <a href="#/contact">
+			       <div class="title"><h2>企业联系人</h2></div>
+			       <div class="arrow"><span class="iconfont icon-more"></span></div>
+			       </a>
+			   </div>
+			   <div class="label-act">
+			     <a href="mobile/index.html#/beian">
+			       <div class="title"><h2>备案管理</h2></div>
+			       <div class="arrow"><span class="iconfont icon-more"></span></div>
+			       </a>
+			   </div>
+			   <div class="label-act">
+			     <a href="#/cert">
+			       <div class="title"><h2>公司证书</h2></div>
+			       <div class="arrow"><span class="iconfont icon-more"></span></div>
+			       </a>
+			   </div>
+			   <div class="label-act">
+			     <a href="#/bind">
+			       <div class="title"><h2>域名绑定</h2></div>
+			       <div class="arrow"><span class="iconfont icon-more"></span></div>
+			       </a>
+			   </div>
+			   <div class="label-act">
+			     <a href="#/album">
+			       <div class="title"><h2>相册</h2></div>
+			       <div class="arrow"><span class="iconfont icon-more"></span></div>
+			       </a>
+			   </div>
+			   <div class="label-act">
+			     <a href="#/link/list">
+			       <div class="title"><h2>友情链接</h2></div>
+			       <div class="arrow"><span class="iconfont icon-more"></span></div>
+			       </a>
+			   </div>
+			   <div class="label-act">
+			     <a href="javascript:;"  id="app-update">
+			       <div class="title"><h2>一键发布</h2></div>
+			       <div class="arrow"><span class="iconfont icon-more"></span></div>
+			       </a>
+			   </div>
+			   <div class="label-act">
+			     <a href="#/receipt">
+			       <div class="title"><h2>开具发票</h2></div>
+			       <div class="arrow"><span class="iconfont icon-more"></span></div>
+			       </a>
+			   </div>
+           </section>
+           <hr>
+           <section class="section">
+			   <div class="label-act">
+			     <a href="#/account">
+			       <div class="title"><h2>账号与安全</h2></div>
+			       <div class="arrow"><span class="iconfont icon-more"></span></div>
+			       </a>
+			   </div>
+               <div class="label-act">
+			     <a href="#/service_feedback">
+			       <div class="title"><h2>服务反馈</h2></div>
+			       <div class="arrow"><span class="iconfont icon-more"></span></div>
+			       </a>
+			   </div>
+			   <div class="label-act">
+			     <a href="#/log/list">
+			       <div class="title"><h2>操作记录</h2></div>
+			       <div class="arrow"><span class="iconfont icon-more"></span></div>
+			       </a>
+			   </div>
+           </section>
+           <hr>
+           <section class="section">
+               <div class="label-act">
+			     <a href="http://m.jihui88.com/" target="_blank">
+			       <div class="title"><h2>机汇微商城</h2></div>
+			       <div class="arrow"><span class="iconfont icon-more"></span></div>
+			       </a>
+			   </div>
+               <div class="label-act">
+			     <a href="#/sale">
+			       <div class="title"><h2>促销活动</h2></div>
+			       <div class="arrow"><span class="iconfont icon-more"></span></div>
+			       </a>
+			   </div>
+			   <div class="label-act">
+			     <a href="#/service">
+			       <div class="title"><h2>服务中心</h2></div>
+			       <div class="arrow"><span class="iconfont icon-more"></span></div>
+			       </a>
+			   </div>
+               <div class="label-act">
+			     <a href="#/about">
+			       <div class="title"><h2>关于机汇网</h2></div>
+			       <div class="arrow"><span class="iconfont icon-more"></span></div>
+			       </a>
+			   </div>
+           </section>
+        </div>
+
+        <div class="app_footer" ng-click="quit()">
+            <div  class="app-button app_btn app-button">退出当前帐号</div>
+        </div>
+
+    <div class="index_update">
+        <p>页面发布<a href="javascript:;" class="icon icon-close"></a></p>
+        <ul>
+            <li>电脑网站：</li>
+            <li><a href="javascript:;" ng-click="navigationPage()">发布网站导航页面</a></li>
+            <li><a href="javascript:;" ng-click="categoryPage()">发布网站分类页面</a></li>
+            <li><a href="javascript:;" ng-click="pcPage()">发布网站详细页面</a></li>
+            <li>手机网站：</li>
+            <li><a href="javascript:;" ng-click="mobilePage()">发布手机网站页面</a></li>
+        </ul>
+    </div>
+    <div class="index-mask"></div>
+</div>

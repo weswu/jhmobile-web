@@ -1,0 +1,37 @@
+<div class="app-page" data-page="news_detail"  ng-controller="newsIdCtrl">
+	<div class="app_nav">
+		<h1>
+			<span class="icon app-button icon-left" ng-click="$back()"></span>
+			新闻修改
+		</h1>
+	</div>
+	
+	<div class="app-content app-scrollable">
+		<div class="news_detail detail">
+			<div class="detail_title detail_margin">
+				<p class="detail_name">新闻标题：</p>
+				<input type="text" ng-model="newsTitle">
+			</div>
+			<div class="detail_category detail_margin">
+				<p class="detail_name">所在分类：</p>
+				<select ng-model="categorySelect"
+					ng-options="category.categoryId as category.name for category in categoryList">
+				</select>
+			</div>
+			<p class="detail_name">内容：</p>
+			<textarea id="xheditor" name="content" class="xheditor" rows="12" cols="80" style="width: 100%" ng-model="content"></textarea>
+			<div class="detail_title detail_margin">
+				<p class="detail_name">来源：</p>
+				<input type="text" placeholder="选填" ng-model="origin">
+			</div>
+			<div class="detail_title detail_margin">
+				<p class="detail_name">作者：</p>
+				<input type="text" placeholder="选填" ng-model="author">
+			</div>
+		</div>
+	</div>
+	<div class="app_footer"
+		ng-click="update(newsId,newsTitle,categorySelect,origin,author)">
+		<div class="app-button app_btn">确定</div>
+	</div>
+</div>

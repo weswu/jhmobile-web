@@ -1,0 +1,25 @@
+<div class="app-page page-background"  ng-controller="DataACtrl" infinite-scroll='loadMore()' infinite-scroll-disabled='datas.busy' infinite-scroll-distance='1' >
+	<div class="app_nav">
+		<h1>
+			<div class="app_nav_head">
+				<span class="icon app-button icon-left" ng-click="$back()"></span>
+				<span class="app_nav_txt">客户购买金额排行<span class="font_14"></span></span>
+			</div>
+		</h1>
+	</div>
+
+	<div class="app-content">	
+		<div class=" item-list">
+		 <dl>
+		        <dd class="item-row-2">排行</dd>
+		        <dd class="item-row-4">客户</dd>
+		        <dd class="item-row-4">金额</dd>
+		    </dl>
+			<dl ng-repeat="item in dataList">
+		        <dd class="item-row-2">{{item.dx}}</dd>
+		         <dd class="item-row-4">	{{item.name}}</dd>
+		        <dd class="item-row-4">{{item.amount  | currency:'￥'}}</dd>
+			</dl>
+		</div>
+	</div>
+</div>
