@@ -14,6 +14,11 @@
       <mu-tab value="4" title="网站负责人信息"/>
       <mu-tab value="5" title="截图并邮寄"/>
     </mu-tabs>
+    <mu-popup position="top" :overlay="false" popupClass="demo-popup-top" :open="topPopup">
+      更新成功
+    </mu-popup>
+    <mu-circular-progress :size="50" :strokeWidth="5" style="position: absolute;z-index: 999;left: 50%;margin-left: -25px;top:30%"  v-if="isloading"/>
+
     <div class="activeTab">
       <div v-if="activeTab === '1'">
         <div>
@@ -23,27 +28,344 @@
         <p>
           <mu-text-field label="用户名" hintText="请输入用户名" v-model="webinfo.securityUsername"/>
           <mu-text-field label="密码" hintText="请输入密码" v-model="webinfo.securityPassword"/>
-          <mu-text-field label="邮箱" hintText="请输入邮箱" v-model="enterprise.email"/>
+          <mu-text-field label="邮箱" hintText="请输入邮箱" type="email" v-model="enterprise.email"/>
           <mu-text-field label="手机号码" hintText="请输入手机号码" v-model="principal.cellphone"/>
         </p>
         <p>
-          <mu-raised-button label="确定" class="demo-raised-button" secondary fullWidth backgroundColor="#ff6000"/>
+          <mu-raised-button label="确定" @click="submit('2')" class="demo-raised-button" secondary fullWidth backgroundColor="#ff6000"/>
         </p>
       </div>
 
       <div v-if="activeTab === '2'">
         <p>
-          <mu-select-field v-model="enterprise.type" :labelFocusClass="['label-foucs']" label="开办主体性质">
-            <mu-menu-item v-for="v,index in enterpriseTypeSelect" :key="v.value" :value="index" :title="v.text" />
+          <mu-select-field v-model="enterprise.certType" :labelFocusClass="['label-foucs']" label="开办主体性质">
+            <mu-menu-item v-for="v,index in enterpriseCertTypeSelect" :value="v.value" :title="v.text" />
           </mu-select-field>
         </p>
         <h3>主办单位信息</h3>
         <p>
-          <mu-text-field label="主办单位名称" hintText="请输入内容"/>
+          <mu-text-field label="主办单位名称" hintText="请输入主办单位名称" v-model="enterprise.name"/>
+          <mu-select-field v-model="enterprise.type" :labelFocusClass="['label-foucs']" label="主办单位证件类型">
+            <mu-menu-item v-for="v,index in enterpriseTypeSelect" :value="v.value" :title="v.text" />
+          </mu-select-field>
+          <mu-text-field label="主办单位证件号" hintText="请输入主办单位证件号" v-model="enterprise.certNumber"/>
+          <mu-text-field label="主办单位有效证件" hintText="主办单位有效证件" v-model="enterprise.certPic" class="img-upload"/>
+          <div @click="uploadImg(1)"">
+            <vue-clip :options="options" class="upload-fl" :on-sending="sending" :on-complete="complete"">
+              <template slot="clip-uploader-action">
+                <div>
+                  <div class="dz-message"><mu-raised-button label="上传" class="demo-raised-button"/></div>
+                </div>
+              </template>
+            </vue-clip>
+          </div>
+          <mu-text-field label="法人代表人姓名" hintText="请输入法人代表人姓名" v-model="enterprise.legalPre"/>
+
+          单位办公地址<br>
+          <mu-select-field v-model="address.ent1" :labelFocusClass="['label-foucs']" label="省" @input="provinceChange(1)" :maxHeight="300" style="width:30%">
+            <mu-menu-item v-for="v,index in provinceSelect" :value="v.path" :title="v.name"/>
+          </mu-select-field>
+          <mu-select-field v-model="address.ent2" :labelFocusClass="['label-foucs']" label="市" @input="cityChange(1)" :maxHeight="300" style="width:30%;margin-left:3.5%">
+            <mu-menu-item v-model="citySelect.ent" v-for="v,index in citySelect.ent" :value="v.id" :title="v.name" />
+          </mu-select-field>
+          <mu-select-field v-model="address.ent3" :labelFocusClass="['label-foucs']" label="县" @input="countChange(1)" :maxHeight="300" style="width:30%;margin-left:3.5%">
+            <mu-menu-item v-for="v,index in countySelect.ent" v-model="countySelect.ent" :value="v.id" :title="v.name" />
+          </mu-select-field>
+          <mu-text-field label="详细地址" hintText="请输入详细地址" v-model="enterprise.dist"/>
+
+        </p>
+        <h3>负责人信息</h3>
+        <p>
+          <mu-text-field label="负责人姓名" hintText="请输入负责人姓名" fullWidth v-model="principal.name"/>
+          <mu-select-field v-model="principal.certType" :labelFocusClass="['label-foucs']" label="负责人证件类型">
+            <mu-menu-item v-for="v,index in enterpriseTypeSelect" :value="v.value" :title="v.text" />
+          </mu-select-field>
+          <mu-text-field label="负责人证件号码" hintText="请输入负责人证件号码" v-model="principal.certNumber"/>
+
+          证件有效期：<br/>
+          <mu-date-picker hintText="证件有效期" v-model="principal.certIndate"/>
+
+          <mu-text-field label="负责人证件(正面)" hintText="负责人证件(正面)" v-model="principal.certFrontPic" class="img-upload"/>
+          <div @click="uploadImg(2)"">
+            <vue-clip :options="options" class="upload-fl" :on-sending="sending" :on-complete="complete"">
+              <template slot="clip-uploader-action">
+                <div>
+                  <div class="dz-message"><mu-raised-button label="上传" class="demo-raised-button"/></div>
+                </div>
+              </template>
+            </vue-clip>
+          </div>
+          <mu-text-field label="负责人证件(反面)" hintText="负责人证件(反面)" v-model="principal.certReversePic" class="img-upload"/>
+          <div @click="uploadImg(3)"">
+            <vue-clip :options="options" class="upload-fl" :on-sending="sending" :on-complete="complete"">
+              <template slot="clip-uploader-action">
+                <div>
+                  <div class="dz-message"><mu-raised-button label="上传" class="demo-raised-button"/></div>
+                </div>
+              </template>
+            </vue-clip>
+          </div>
+          <mu-text-field label="负责人证件(手持)" hintText="负责人证件(手持)" v-model="principal.certHandPic" class="img-upload"/>
+          <div @click="uploadImg(4)"">
+            <vue-clip :options="options" class="upload-fl" :on-sending="sending" :on-complete="complete"">
+              <template slot="clip-uploader-action">
+                <div>
+                  <div class="dz-message"><mu-raised-button label="上传" class="demo-raised-button"/></div>
+                </div>
+              </template>
+            </vue-clip>
+          </div>
+
+          负责人常住地址<br>
+          <mu-select-field v-model="address.pri1" :labelFocusClass="['label-foucs']" label="省" @input="provinceChange(2)" :maxHeight="300" style="width:30%">
+            <mu-menu-item v-for="v,index in provinceSelect" :value="v.path" :title="v.name"/>
+          </mu-select-field>
+          <mu-select-field v-model="address.pri2" :labelFocusClass="['label-foucs']" label="市" @input="cityChange(2)" :maxHeight="300" style="width:30%;margin-left:3.5%">
+            <mu-menu-item v-for="v,index in citySelect.pri" v-model="citySelect.pri" :value="v.id" :title="v.name" />
+          </mu-select-field>
+          <mu-select-field v-model="address.pri3" :labelFocusClass="['label-foucs']" label="县" @input="countChange(2)" :maxHeight="300" style="width:30%;margin-left:3.5%">
+            <mu-menu-item v-for="v,index in countySelect.pri" v-model="countySelect.pri" :value="v.id" :title="v.name" />
+          </mu-select-field>
+          <mu-text-field label="详细地址" hintText="请输入详细地址" v-model="enterprise.address"/>
+
+          <mu-text-field label="办公室电话" hintText="请输入办公室电话" v-model="principal.phone"/>
+          <mu-text-field label="手机号码" hintText="请输入手机号码" v-model="principal.cellphone"/>
+          <mu-text-field label="负责人邮箱" hintText="请输入负责人邮箱" v-model="principal.email"/>
+        </p>
+        <p>
+          <mu-raised-button label="确定" @click="submit('3')" class="demo-raised-button" secondary fullWidth backgroundColor="#ff6000"/>
         </p>
       </div>
 
+      <div v-if="activeTab === '3'">
+        <h3>网站信息</h3>
+        <p>
+          <mu-text-field label="网站名称" hintText="请输入网站名称" v-model="enterprise.name"/>
+          <mu-select-field v-model="principal.isIcp" :labelFocusClass="['label-foucs']" label="是否有工信部备案号">
+            <mu-menu-item v-for="v,index in isIcpSelect" :value="v.value" :title="v.text" />
+          </mu-select-field>
+          <mu-text-field label="工信部备案号" hintText="请输入工信部备案号" v-model="bind.icp"/>
+          网站开通时期<br/>
+          <mu-date-picker hintText="网站开通时期" v-model="bind.applyTime"/>
+          <mu-text-field label="主域名" hintText="请输入主域名" v-model="bind.address"/>
+          <mu-text-field label="域名证书" hintText="域名证书" v-model="enterprise.domainCertPic" class="img-upload"/>
+          <div @click="uploadImg(5)"">
+            <vue-clip :options="options" class="upload-fl" :on-sending="sending" :on-complete="complete"">
+              <template slot="clip-uploader-action">
+                <div>
+                  <div class="dz-message"><mu-raised-button label="上传" class="demo-raised-button"/></div>
+                </div>
+              </template>
+            </vue-clip>
+          </div>
+          <mu-text-field label="IP" hintText="请输入IP" v-model="bind.ip"/>
+        </p>
+        <h3>网站接入服务商</h3>
+        <p>
+          <mu-select-field v-model="webinfo.ispBound" :labelFocusClass="['label-foucs']" label="接入商所属地区管辖">
+            <mu-menu-item v-for="v,index in webinfoIspBoundSelect" :value="v.value" :title="v.text" />
+          </mu-select-field>
 
+          接入商所属区域<br>
+          <mu-select-field v-model="address.isp1" :labelFocusClass="['label-foucs']" label="省" @input="provinceChange(3)" :maxHeight="300" style="width:30%">
+            <mu-menu-item v-for="v,index in provinceSelect" :value="v.path" :title="v.name"/>
+          </mu-select-field>
+          <mu-select-field v-model="address.isp2" :labelFocusClass="['label-foucs']" label="市" @input="cityChange(3)" :maxHeight="300" style="width:30%;margin-left:3.5%">
+            <mu-menu-item v-for="v,index in citySelect.isp" v-model="citySelect.isp" :value="v.id" :title="v.name" />
+          </mu-select-field>
+          <mu-select-field v-model="address.isp3" :labelFocusClass="['label-foucs']" label="县" @input="countChange(3)" :maxHeight="300" style="width:30%;margin-left:3.5%">
+            <mu-menu-item v-for="v,index in countySelect.isp" v-model="countySelect.isp" :value="v.id" :title="v.name" />
+          </mu-select-field>
+
+          <mu-select-field v-model="webinfo.ispName" :labelFocusClass="['label-foucs']" label="名称">
+            <mu-menu-item v-for="v,index in webinfoIspNameSelect" :value="v.value" :title="v.text" />
+          </mu-select-field>
+          <mu-select-field v-model="webinfo.ispType" :labelFocusClass="['label-foucs']" label="网站接入方式">
+            <mu-menu-item v-for="v,index in webinfoIspTypeSelect" :value="v.value" :title="v.text" />
+          </mu-select-field>
+        </p>
+        <h3>域名注册服务商</h3>
+        <p>
+          <mu-select-field v-model="webinfo.domainBound" :labelFocusClass="['label-foucs']" label="接入商所属地区管辖">
+            <mu-menu-item v-for="v,index in webinfoDomainBoundSelect" :value="v.value" :title="v.text" />
+          </mu-select-field>
+
+          域名服务商所属区域<br>
+          <mu-select-field v-model="address.dom1" :labelFocusClass="['label-foucs']" label="省" @input="provinceChange(4)" :maxHeight="300" style="width:30%">
+            <mu-menu-item v-for="v,index in provinceSelect" :value="v.path" :title="v.name"/>
+          </mu-select-field>
+          <mu-select-field v-model="address.dom2" :labelFocusClass="['label-foucs']" label="市" @input="cityChange(4)" :maxHeight="300" style="width:30%;margin-left:3.5%">
+            <mu-menu-item v-for="v,index in citySelect.dom" v-model="citySelect.dom" :value="v.id" :title="v.name" />
+          </mu-select-field>
+          <mu-select-field v-model="address.dom3" :labelFocusClass="['label-foucs']" label="县" @input="countChange(4)" :maxHeight="300" style="width:30%;margin-left:3.5%">
+            <mu-menu-item v-for="v,index in countySelect.dom" v-model="countySelect.dom" :value="v.id" :title="v.name" />
+          </mu-select-field>
+
+          <mu-select-field v-model="webinfo.domainName" :labelFocusClass="['label-foucs']" label="名称">
+            <mu-menu-item v-for="v,index in webinfoDomainNameSelect" :value="v.value" :title="v.text" />
+          </mu-select-field>
+        </p>
+        <h3>服务类型</h3>
+        <p>
+            供互联网交互服务 <a style="font-size: 12px;padding-left: 10px;" href="javascript:;"  @click="open('bottom')">什么是交互式服务？</a>
+        </p>
+        <p>
+          <mu-radio name="group" nativeValue="00" v-model="enterprise.siteServiceType" label="www服务" class="demo-radio"/>
+          <mu-radio name="group" nativeValue="01" v-model="enterprise.siteServiceType" label="wap服务" class="demo-radio"/>
+          <mu-radio name="group" nativeValue="02" v-model="enterprise.siteServiceType" label="博客个人空间" class="demo-radio"/>
+          <mu-radio name="group" nativeValue="03" v-model="enterprise.siteServiceType" label="论坛BBS" class="demo-radio"/>
+          <mu-radio name="group" nativeValue="04" v-model="enterprise.siteServiceType" label="聊天室" class="demo-radio"/>
+          <mu-radio name="group" nativeValue="05" v-model="enterprise.siteServiceType" label="社交网站" class="demo-radio"/>
+          <mu-radio name="group" nativeValue="06" v-model="enterprise.siteServiceType" label="电子邮件" class="demo-radio"/>
+          <mu-radio name="group" nativeValue="07" v-model="enterprise.siteServiceType" label="即时通讯" class="demo-radio"/>
+          <mu-radio name="group" nativeValue="08" v-model="enterprise.siteServiceType" label="搜索引擎" class="demo-radio"/>
+          <mu-radio name="group" nativeValue="09" v-model="enterprise.siteServiceType" label="网络新闻" class="demo-radio"/>
+          <mu-radio name="group" nativeValue="10" v-model="enterprise.siteServiceType" label="网络音乐" class="demo-radio"/>
+          <mu-radio name="group" nativeValue="11" v-model="enterprise.siteServiceType" label="网络文字" class="demo-radio"/>
+          <mu-radio name="group" nativeValue="12" v-model="enterprise.siteServiceType" label="网络音视频" class="demo-radio"/>
+          <mu-radio name="group" nativeValue="13" v-model="enterprise.siteServiceType" label="网络游戏" class="demo-radio"/>
+          <mu-radio name="group" nativeValue="14" v-model="enterprise.siteServiceType" label="网络下载" class="demo-radio"/>
+          <mu-radio name="group" nativeValue="15" v-model="enterprise.siteServiceType" label="app服务" class="demo-radio"/>
+          <mu-radio name="group" nativeValue="16" v-model="enterprise.siteServiceType" label="云计算" class="demo-radio"/>
+          <mu-radio name="group" nativeValue="17" v-model="enterprise.siteServiceType" label="供求信息发布" class="demo-radio"/>
+          <mu-radio name="group" nativeValue="18" v-model="enterprise.siteServiceType" label="旅游预订" class="demo-radio"/>
+          <mu-radio name="group" nativeValue="19" v-model="enterprise.siteServiceType" label="移动应用商店" class="demo-radio"/>
+          <mu-radio name="group" nativeValue="20" v-model="enterprise.siteServiceType" label="第三方支付" class="demo-radio"/>
+          <mu-radio name="group" nativeValue="21" v-model="enterprise.siteServiceType" label="网上银行" class="demo-radio"/>
+          <mu-radio name="group" nativeValue="22" v-model="enterprise.siteServiceType" label="财经服务" class="demo-radio"/>
+          <mu-radio name="group" nativeValue="23" v-model="enterprise.siteServiceType" label="网络购物" class="demo-radio"/>
+          <mu-radio name="group" nativeValue="24" v-model="enterprise.siteServiceType" label="云存储" class="demo-radio"/>
+          <mu-radio name="group" nativeValue="25" v-model="enterprise.siteServiceType" label="FTP下载" class="demo-radio"/>
+          <mu-radio name="group" nativeValue="26" v-model="enterprise.siteServiceType" label="P2P金融" class="demo-radio"/>
+          <mu-popup position="bottom" popupClass="demo-popup-bottom" :open="bottomPopup" @close="close('bottom')">
+          <mu-appbar title="交互式服务">
+            <mu-flat-button slot="right" label="关闭" color="white" @click="close('bottom')"/>
+            </mu-appbar>
+            <mu-content-block>
+              <p>
+                交互式服务，是指为用户提供向社会公众发布文字、图片、音视频服等信息的服务，包括但不限于论坛、社区、贴吧、文字、或者音视频聊天室、微博客、博客、即时通信、分享存储、第三方支付、移动应用商店等互联网信息服务。
+              </p>
+            </mu-content-block>
+          </mu-popup>
+        </p>
+
+        <h3>互联网危险品信息发布 <a style="font-size: 12px;padding-left: 10px;" href="http://beian.gov.cn/portal/topicDetail?id=37" target="_blank">什么是危险物品？</a></h3>
+        <p>
+            供涉及管制物品信息发布服务:
+        </p>
+        <mu-radio name="group" nativeValue="01" v-model="webinfo.gzwpPublishServer" label="管制器具" class="demo-radio"/>
+        <mu-radio name="group" nativeValue="02" v-model="webinfo.gzwpPublishServer" label="警用装备" class="demo-radio"/>
+        <mu-radio name="group" nativeValue="03" v-model="webinfo.gzwpPublishServer" label="放射性物品" class="demo-radio"/>
+        <mu-radio name="group" nativeValue="04" v-model="webinfo.gzwpPublishServer" label="枪支弹药" class="demo-radio"/>
+        <mu-radio name="group" nativeValue="05" v-model="webinfo.gzwpPublishServer" label="民爆物品" class="demo-radio"/>
+        <mu-radio name="group" nativeValue="06" v-model="webinfo.gzwpPublishServer" label="剧毒化学物" class="demo-radio"/>
+        <mu-radio name="group" nativeValue="07" v-model="webinfo.gzwpPublishServer" label="易制爆危险化学品" class="demo-radio"/>
+
+        <h3>相关前置
+          <a style="font-size: 12px;padding-left: 10px;" href="http://baike.baidu.com/link?url=cD-lfS01za3lE4QqfGwKcGu6t1BgBwhnUr_gHcDksP-M43kwa2CniKfk94mAKj4iSZV5JbDm1fs4TyZh1CZ4tK" target="_blank">什么是相关前置许可？</a>
+        </h3>
+        <mu-radio name="group" nativeValue="01" v-model="webinfo.advanceLicense" label="新闻" class="demo-radio"/>
+        <mu-radio name="group" nativeValue="02" v-model="webinfo.advanceLicense" label="出版" class="demo-radio"/>
+        <mu-radio name="group" nativeValue="03" v-model="webinfo.advanceLicense" label="教育" class="demo-radio"/>
+        <mu-radio name="group" nativeValue="04" v-model="webinfo.advanceLicense" label="运动保健" class="demo-radio"/>
+        <mu-radio name="group" nativeValue="05" v-model="webinfo.advanceLicense" label="医疗保健" class="demo-radio"/>
+        <mu-radio name="group" nativeValue="06" v-model="webinfo.advanceLicense" label="其他" class="demo-radio"/>
+
+        <h3>网站语种
+          <span style="font-size: 12px;padding-left: 10px;font-weight: normal;">（含全部或部分使用的方言种类）</span>
+        </h3>
+        <mu-radio name="group" nativeValue="01" v-model="webinfo.lan" label="英语" class="demo-radio"/>
+        <mu-radio name="group" nativeValue="02" v-model="webinfo.lan" label="法语" class="demo-radio"/>
+        <mu-radio name="group" nativeValue="03" v-model="webinfo.lan" label="俄语" class="demo-radio"/>
+        <mu-radio name="group" nativeValue="04" v-model="webinfo.lan" label="西班牙语" class="demo-radio"/>
+        <mu-radio name="group" nativeValue="05" v-model="webinfo.lan" label="中文简体" class="demo-radio"/>
+        <mu-radio name="group" nativeValue="06" v-model="webinfo.lan" label="中文繁体" class="demo-radio"/>
+        <mu-radio name="group" nativeValue="07" v-model="webinfo.lan" label="维吾尔语" class="demo-radio"/>
+        <mu-radio name="group" nativeValue="08" v-model="webinfo.lan" label="哈萨克语" class="demo-radio"/>
+        <mu-radio name="group" nativeValue="09" v-model="webinfo.lan" label="蒙古语" class="demo-radio"/>
+        <mu-radio name="group" nativeValue="10" v-model="webinfo.lan" label="藏语" class="demo-radio"/>
+        <mu-radio name="group" nativeValue="11" v-model="webinfo.lan" label="阿拉伯语" class="demo-radio"/>
+        <mu-radio name="group" nativeValue="12" v-model="webinfo.lan" label="朝鲜语" class="demo-radio"/>
+        <mu-radio name="group" nativeValue="13" v-model="webinfo.lan" label="日语" class="demo-radio"/>
+        <mu-radio name="group" nativeValue="14" v-model="webinfo.lan" label="德语" class="demo-radio"/>
+        <mu-radio name="group" nativeValue="15" v-model="webinfo.lan" label="其他" class="demo-radio"/>
+
+        <p>
+          <mu-raised-button label="确定" @click="submit('4')" class="demo-raised-button" secondary fullWidth backgroundColor="#ff6000"/>
+        </p>
+      </div>
+
+      <div v-if="activeTab === '4'">
+        <h3>网站安全负责人信息
+          <span style="font-size: 12px;padding-left: 10px;font-weight: normal;">同主体负责人信息</span>
+        </h3>
+        <p>
+          <mu-text-field label="负责人姓名" hintText="请输入负责人姓名" v-model="principal.name"/>
+          <mu-select-field v-model="principal.certType" :labelFocusClass="['label-foucs']" label="负责人证件类型">
+            <mu-menu-item v-for="v,index in certTypeSelect" :value="v.value" :title="v.text" />
+          </mu-select-field>
+          <mu-text-field label="负责人证件号码" hintText="请输入负责人证件号码" v-model="principal.certNumber"/>
+          证件有效期<br/>
+          <mu-date-picker hintText="证件有效期" v-model="principal.certIndate"/>
+
+          <mu-text-field label="负责人证件(正面)" hintText="负责人证件(正面)" v-model="principal.certFrontPic" class="img-upload"/>
+          <div @click="uploadImg(2)"">
+            <vue-clip :options="options" class="upload-fl" :on-sending="sending" :on-complete="complete"">
+              <template slot="clip-uploader-action">
+                <div>
+                  <div class="dz-message"><mu-raised-button label="上传" class="demo-raised-button"/></div>
+                </div>
+              </template>
+            </vue-clip>
+          </div>
+          <mu-text-field label="负责人证件(反面)" hintText="负责人证件(反面)" v-model="principal.certReversePic" class="img-upload"/>
+          <div @click="uploadImg(3)"">
+            <vue-clip :options="options" class="upload-fl" :on-sending="sending" :on-complete="complete"">
+              <template slot="clip-uploader-action">
+                <div>
+                  <div class="dz-message"><mu-raised-button label="上传" class="demo-raised-button"/></div>
+                </div>
+              </template>
+            </vue-clip>
+          </div>
+          <mu-text-field label="负责人证件(手持)" hintText="负责人证件(手持)" v-model="principal.certHandPic" class="img-upload"/>
+          <div @click="uploadImg(4)"">
+            <vue-clip :options="options" class="upload-fl" :on-sending="sending" :on-complete="complete"">
+              <template slot="clip-uploader-action">
+                <div>
+                  <div class="dz-message"><mu-raised-button label="上传" class="demo-raised-button"/></div>
+                </div>
+              </template>
+            </vue-clip>
+          </div>
+
+          <mu-text-field label="手机号码" hintText="请输入手机号码" v-model="principal.cellphone"/>
+          <mu-text-field label="电子邮件地址" hintText="请输入电子邮件地址" v-model="principal.email"/>
+        </p>
+        <h3>网站应急联络人
+          <mu-checkbox label="同主体负责人信息" class="demo-checkbox" v-model="same" style="font-size: 12px;padding-left: 10px;font-weight: normal;"/>
+        </h3>
+        <p>
+          <mu-text-field label="联络人姓名" hintText="请输入联络人姓名" v-model="emergency.name"/>
+          <mu-select-field v-model="emergency.certType" :labelFocusClass="['label-foucs']" label="联络人证件类型">
+            <mu-menu-item v-for="v,index in certTypeSelect" :value="v.value" :title="v.text" />
+          </mu-select-field>
+          <mu-text-field label="联络人证件号码" hintText="请输入联络人证件号码" v-model="emergency.certNumber"/>
+          证件有效期<br/>
+          <mu-date-picker hintText="证件有效期" v-model="emergency.certIndate"/>
+        </p>
+        <p>
+          <mu-raised-button label="确定" @click="submit('5')" class="demo-raised-button" secondary fullWidth backgroundColor="#ff6000"/>
+        </p>
+      </div>
+
+      <div v-if="activeTab === '5'">
+        <p>审核通过后。在<a href="http://www.beian.gov.cn/portal/recordQuery" target="_blank">http://www.beian.gov.cn/portal/recordQuery</a>
+          上将查出来的结果截图，并将截图发送到有孚邮箱（beian@sundns.com）。
+        </p>
+        <div>示例：</div>
+        <img style="width: 100%;" src="http://img.jihui88.com/upload/j/j2/jihui88/picture/2016/12/02/b4ed099e-95ad-4fcd-a1ee-77ce6a0a2843.png" alt="websie_record_infot.png">
+      </div>
     </div>
 
   </div>
@@ -71,15 +393,184 @@
   .mu-text-field.mu-select-field{
     width: 50%;
   }
+  .img-upload{
+    width: 65%;margin-right:3%;    float: left;
+  }
+  .upload-fl{
+    float: left;padding-top: 15px;
+  }
 </style>
 <script>
+const provinceList = [
+  {
+    name: '北京',
+    path: '402881882ba8753a012ba8bf474d001c'
+  },
+  {
+    name: '天津',
+    path: '402881882ba8753a012ba8c389a2002f'
+  },
+  {
+    name: '河北省',
+    path: '402881882ba8753a012ba8c689d30042'
+  },
+  {
+    name: '山西省',
+    path: '402881882ba8753a012ba8c8f0b1004e'
+  },
+  {
+    name: '内蒙古自治区',
+    path: '402881882ba8753a012ba8cb1bbf005a'
+  },
+  {
+    name: '辽宁省',
+    path: '402881882ba8753a012ba8cd6a230067'
+  },
+  {
+    name: '吉林省',
+    path: '402881882ba8753a012ba8d010f90076'
+  },
+  {
+    name: '黑龙江省',
+    path: '402881882ba8753a012ba8d1b0310080'
+  },
+  {
+    name: '上海市',
+    path: '402881882ba8753a012ba8d3f4f1008e'
+  },
+  {
+    name: '江苏省',
+    path: '402881882ba8753a012ba8d780a800a2'
+  },
+  {
+    name: '浙江省',
+    path: '402881882ba8753a012ba8da48e000b0'
+  },
+  {
+    name: '安徽省',
+    path: '402881882ba8753a012ba8dc469500bc'
+  },
+  {
+    name: '福建省',
+    path: '402881882ba8753a012ba8e0243500ce'
+  },
+  {
+    name: '江西省',
+    path: '402881882ba8753a012ba8e362b600d8'
+  },
+  {
+    name: '山东省',
+    path: '402881882ba8753a012ba8e5f7d800e4'
+  },
+  {
+    name: '河南省',
+    path: '402881882ba8753a012ba92ba9c300f6'
+  },
+  {
+    name: '湖北省',
+    path: '402881882ba8753a012ba92e37a20108'
+  },
+  {
+    name: '湖南省',
+    path: '402881882ba8753a012ba930d6690115'
+  },
+  {
+    name: '广东省',
+    path: '402881882ba8753a012ba9342b210124'
+  },
+  {
+    name: '广西壮族自治区',
+    path: '402881882ba8753a012ba9376770013a'
+  },
+  {
+    name: '海南省',
+    path: '402881882ba8753a012ba939ac010149'
+  },
+  {
+    name: '重庆市',
+    path: '402881882ba8753a012ba93a6743014c'
+  },
+  {
+    name: '四川省',
+    path: '402881882ba8753a012ba93d95780160'
+  },
+  {
+    name: '贵州省',
+    path: '402881882ba8753a012ba940dad00173'
+  },
+  {
+    name: '云南省',
+    path: '402881882ba8753a012ba942d1dd017a'
+  },
+  {
+    name: '西藏自治区',
+    path: '402881882ba8753a012ba94474040183'
+  },
+  {
+    name: '陕西省',
+    path: '402881882ba8753a012ba945a63a018b'
+  },
+  {
+    name: '甘肃省',
+    path: '402881882ba8753a012ba94704c10196'
+  },
+  {
+    name: '青海省',
+    path: '402881882ba8753a012ba949336801a4'
+  },
+  {
+    name: '宁夏回族自治区',
+    path: '402881882ba8753a012ba94a847201ac'
+  },
+  {
+    name: '新疆维吾尔自治区',
+    path: '402881882ba8753a012ba94b61c201b2'
+  },
+  {
+    name: '台湾省',
+    path: '402881882ba8753a012ba94dc00501bd'
+  },
+  {
+    name: '香港特别行政区',
+    path: '402881882ba8753a012ba94de66901be'
+  },
+  {
+    name: '澳门特别行政区',
+    path: '402881882ba8753a012ba94e039601bf'
+  }
+]
 import api from '../api'
 export default {
   data () {
     return {
+      options: {
+        url: '/rest/api/album/fileupload',
+        paramName: 'Filedata',
+        acceptedFiles: 'image/*,application/pdf'
+      },
       activeTab: '1',
+      isloading: false,
       title: '工信备案',
-      enterpriseTypeSelect: [{text: '军队', value: '04'},
+      topPopup: false,
+      bottomPopup: false,
+      same: false,
+      upload: 0,
+      address: {},
+      provinceSelect: provinceList,
+      citySelect: {
+        ent: [],
+        pri: [],
+        isp: [],
+        dom: []
+      },
+      countySelect: {
+        ent: [],
+        pri: [],
+        isp: [],
+        dom: []
+      },
+      enterpriseTypeSelect: [
+        {text: '军队', value: '04'},
         {text: '政府机关', value: '05'},
         {text: '事业单位', value: '03'},
         {text: '企业', value: '01'},
@@ -89,6 +580,49 @@ export default {
         {text: '民办非企业', value: '07'},
         {text: '基金会', value: '08'},
         {text: '律师事务所', value: '09'}
+      ],
+      enterpriseCertTypeSelect: [
+        {text: '统一社会信用代码证', value: '00'},
+        {text: '营业执照证书', value: '01'},
+        {text: '组织机构代码证', value: '02'},
+        {text: '其他', value: '03'}
+      ],
+      isIcpSelect: [
+        {text: '是', value: '01'},
+        {text: '否', value: '02'}
+      ],
+      webinfoIspBoundSelect: [
+        {text: '境内', value: '01'},
+        {text: '境外', value: '02'}
+      ],
+      webinfoIspNameSelect: [
+        {text: '上海有孚计算机网络有限公司', value: '01'}
+      ],
+      webinfoIspTypeSelect: [
+        {text: '租赁虚拟空间', value: '01'}
+      ],
+      webinfoDomainBoundSelect: [
+        {text: '境内', value: '01'},
+        {text: '境外', value: '02'}
+      ],
+      webinfoDomainNameSelect: [
+        {text: '租赁虚拟空间', value: '01'}
+      ],
+      certTypeSelect: [
+        {text: '居民身份证', value: '01'},
+        {text: '临时居民身份证', value: '02'},
+        {text: '军官证', value: '03'},
+        {text: '学生证', value: '04'},
+        {text: '机动车驾驶证', value: '05'},
+        {text: '外交护照', value: '06'},
+        {text: '公务护照', value: '07'},
+        {text: '因公普通护照', value: '08'},
+        {text: '普通护照', value: '09'},
+        {text: '入出境通行证', value: '10'},
+        {text: '香港特别行政区护照', value: '11'},
+        {text: '澳门特别行政区护照', value: '12'},
+        {text: '其他证件', value: '13'},
+        {text: '居住证', value: '14'}
       ],
       user: {},
       enterprise: {},
@@ -101,6 +635,24 @@ export default {
   created () {
     this.get()
   },
+  watch: {
+    same: function () {
+      if (this.same) {
+        this.emergency.name = this.principal.name
+        this.emergency.certType = this.principal.certType
+        this.emergency.certNumber = this.principal.certNumber
+        this.emergency.certIndate = this.principal.certIndate
+      }
+    },
+    principal: function () {
+      if (this.same) {
+        this.emergency.name = this.principal.name
+        this.emergency.certType = this.principal.certType
+        this.emergency.certNumber = this.principal.certNumber
+        this.emergency.certIndate = this.principal.certIndate
+      }
+    }
+  },
   methods: {
     back () {
       this.$router.go(-1)
@@ -108,16 +660,182 @@ export default {
     handleTabChange (val) {
       this.activeTab = val
     },
+    sending (file, xhr, formData) {
+      this.isloading = true
+    },
+    complete (file, status, xhr) {
+      this.isloading = false
+      if (status === 'success') {
+        console.log('data:' + xhr.response)
+        if (this.upload === 1) { this.enterprise.certPic = JSON.parse(xhr.response).attributes.data }
+        if (this.upload === 2) { this.principal.certFrontPic = JSON.parse(xhr.response).attributes.data }
+        if (this.upload === 3) { this.principal.certReversePic = JSON.parse(xhr.response).attributes.data }
+        if (this.upload === 4) { this.principal.certHandPic = JSON.parse(xhr.response).attributes.data }
+        if (this.upload === 5) { this.enterprise.domainCertPic = JSON.parse(xhr.response).attributes.data }
+      }
+    },
+    open (position) {
+      this[position + 'Popup'] = true
+    },
+    close (position) {
+      this[position + 'Popup'] = false
+    },
+    uploadImg (val) {
+      console.log('upload:' + val)
+      this.upload = val
+    },
+    provinceChange (val) {
+      if (val === 1) {
+        this.enterprise.address = this.address.ent1
+        this.citySelect.ent = this.getPath(this.address.ent1)
+        this.citySelect.ent = [
+          {
+            name: '香港特别行政区',
+            id: '402881882ba8753a012ba94de66901be'
+          },
+          {
+            name: '澳门特别行政区',
+            id: '402881882ba8753a012ba94e039601bf'
+          },
+          {
+            name: '香港特别行政区2',
+            id: '402881882ba8753a012ba94de66901be'
+          },
+          {
+            name: '澳门特别行政区2',
+            id: '402881882ba8753a012ba94e039601bf'
+          },
+          {
+            name: '香港特别行政区3',
+            id: '402881882ba8753a012ba94de66901be'
+          },
+          {
+            name: '澳门特别行政区3',
+            id: '402881882ba8753a012ba94e039601bf'
+          }
+        ]
+        console.log('ent----' + this.citySelect.ent)
+      }
+      if (val === 2) {
+        this.principal.area = this.address.pri1
+        this.citySelect.pri = this.getPath(this.address.pri1)
+      }
+      if (val === 3) {
+        this.webinfo.ispArea = this.address.isp1
+        this.citySelect.isp = this.getPath(this.address.isp1)
+      }
+      if (val === 4) {
+        this.webinfo.domainArea = this.address.dom1
+        this.citySelect.dom = this.getPath(this.address.dom1)
+      }
+    },
+    cityChange (val) {
+      if (val === 1) {
+        this.enterprise.address = this.address.ent1 + ',' + this.address.ent2
+        this.countySelect.ent = this.getPath(this.address.ent2)
+      }
+      if (val === 2) {
+        this.principal.area = this.address.pri1 + ',' + this.address.pri2
+        this.countySelect.pri = this.getPath(this.address.pri2)
+      }
+      if (val === 3) {
+        this.webinfo.ispArea = this.address.isp1 + ',' + this.address.isp2
+        this.countySelect.isp = this.getPath(this.address.isp2)
+      }
+      if (val === 4) {
+        this.webinfo.domainArea = this.address.dom1 + ',' + this.address.dom2
+        this.countySelect.dom = this.getPath(this.address.dom2)
+      }
+    },
+    countChange (val) {
+      if (val === 1) {
+        this.enterprise.address = this.address.ent1 + ',' + this.address.ent2 + ',' + this.address.ent3
+      }
+      if (val === 2) {
+        this.principal.area = this.address.pri1 + ',' + this.address.pri2 + ',' + this.address.pri3
+      }
+      if (val === 3) {
+        this.webinfo.ispArea = this.address.isp1 + ',' + this.address.isp2 + ',' + this.address.isp3
+      }
+      if (val === 4) {
+        this.webinfo.domainArea = this.address.dom1 + ',' + this.address.dom2 + ',' + this.address.dom3
+      }
+    },
+    getPath (path) {
+      this.$http.get(api.getAreaPath(path)).then((res) => {
+        return res.data.attributes.data
+      })
+    },
     get () {
       this.$http.get(api.getBeian()).then((res) => {
-        console.log('获取数据')
         this.user = res.data.attributes.data.user
         this.enterprise = res.data.attributes.data.enterprise
         this.principal = res.data.attributes.data.principal
         this.bind = res.data.attributes.data.bind
         this.webinfo = res.data.attributes.data.webinfo
         this.emergency = res.data.attributes.data.emergency
+        this.principal.principal = this.format(this.principal.principal)
+        this.bind.applyTime = this.format(this.bind.applyTime)
+        this.principal.certIndate = this.format(this.principal.certIndate)
+        this.emergency.certIndate = this.format(this.emergency.certIndate)
+        if (this.emergency.name === this.principal.name && this.emergency.certType === this.principal.certType && this.emergency.certNumber === this.principal.certNumber && this.emergency.certIndate === this.principal.certIndate) {
+          this.same = true
+        }
+        if (this.webinfo.ispArea === null) {
+          this.webinfo.ispArea = '402881882ba8753a012ba8d3f4f1008e,402881882ba8753a012ba8d57b430097'
+        }
+        if (this.webinfo.domainArea === null) {
+          this.webinfo.domainArea = '402881882ba8753a012ba8da48e000b0,402881882ba8753a012ba8da7d2f00b1,402881e44da29af5014da35e28060334'
+        }
+        if (this.enterprise.address != null) {
+          this.address.ent1 = this.enterprise.address.split(',')[0]
+          this.address.ent2 = this.enterprise.address.split(',')[1]
+          this.address.ent3 = this.enterprise.address.split(',')[2]
+        }
+        if (this.principal.area != null) {
+          this.address.pri1 = this.webinfo.ispArea.split(',')[0]
+          this.address.pri2 = this.webinfo.ispArea.split(',')[1]
+          this.address.pri3 = this.webinfo.ispArea.split(',')[2]
+        }
+        this.address.isp1 = this.webinfo.ispArea.split(',')[0]
+        this.address.isp2 = this.webinfo.ispArea.split(',')[1]
+        this.address.isp3 = this.webinfo.ispArea.split(',')[2]
+        this.address.dom1 = this.webinfo.domainArea.split(',')[0]
+        this.address.dom2 = this.webinfo.domainArea.split(',')[1]
+        this.address.dom3 = this.webinfo.domainArea.split(',')[2]
       })
+    },
+    submit (val) {
+      this.$http.post('/rest/api/profile/detail/all', {
+        user: this.user,
+        enterprise: this.enterprise,
+        principal: this.principal,
+        bind: this.bind,
+        webinfo: this.webinfo,
+        emergency: this.emergency
+      },
+      {headers: {'Content-Type': 'application/x-www-form-urlencoded'}}).then((res) => {
+        this.activeTab = val
+        if (val) {
+          setTimeout(() => {
+            this.topPopup = false
+          }, 2000)
+        }
+        this.principal = res.data.attributes.data.principal
+        this.bind = res.data.attributes.data.bind
+        this.webinfo = res.data.attributes.data.webinfo
+        this.emergency = res.data.attributes.data.emergency
+      })
+    },
+    format (value) {
+      var time = new Date(parseInt(value))
+      var y = time.getFullYear()
+      var m = time.getMonth() + 1
+      var d = time.getDate()
+      return y + '-' + this.add0(m) + '-' + this.add0(d)
+    },
+    add0 (m) {
+      return m < 10 ? '0' + m : m
     }
   }
 }

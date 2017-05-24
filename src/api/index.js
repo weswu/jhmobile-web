@@ -23,7 +23,10 @@ export default {
   getBeian () {
     return _websiteUrl + '/rest/api/profile/detail'
   },
-  setBeian (words) {
+  setBeian () {
     return _websiteUrl + '/rest/api/profile/detail/all'
+  },
+  getAreaPath (path) {
+    return _websiteUrl + '/rest/api/area/list?path=' + path
   }
 }

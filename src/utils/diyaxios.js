@@ -6,7 +6,11 @@ axios.interceptors.response.use((res) => {
     window.alert('请求超时！')
   }
   if (res.data.success === false) {
-    window.alert('数据返回有误')
+    if (res.data.msg === '未登陆') {
+      window.location.href = window.location.origin
+    } else {
+      window.alert('数据返回有误')
+    }
     return Promise.reject(res)
   }
   return res

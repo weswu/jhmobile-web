@@ -6,6 +6,9 @@
       <div class="play-name"><span>{{title}}</span></div>
     </div>
   </mu-appbar>
+  <mu-popup position="top" :overlay="false" popupClass="demo-popup-top" :open="topPopup">
+    更新成功
+  </mu-popup>
   <div class="container">
     <mu-tabs :value="activeTab" @change="handleTabChange" class="view-tabs">
       <mu-tab value="1" title="工商红盾申请"/>
@@ -26,7 +29,7 @@
           <mu-text-field label="管理员/联系人Email" hintText="请输入Email" v-model="principal.email"/>
         </p>
         <p>
-          <mu-raised-button label="提交" @click="submit(2)" class="demo-raised-button" secondary fullWidth backgroundColor="#ff6000"/>
+          <mu-raised-button label="提交" @click="submit('2')" class="demo-raised-button" secondary fullWidth backgroundColor="#ff6000"/>
         </p>
       </div>
 
@@ -39,7 +42,7 @@
           <mu-text-field hintText="请输入获取到的代码" multiLine :rows="8" :rowsMax="10"/>
         </p>
         <p>
-          <mu-raised-button label="提交" @click="submit(3)" class="demo-raised-button" secondary fullWidth backgroundColor="#ff6000"/>
+          <mu-raised-button label="提交" @click="submit('3')" class="demo-raised-button" secondary fullWidth backgroundColor="#ff6000"/>
         </p>
       </div>
 
@@ -69,6 +72,16 @@
       color: @primaryColor;
     }
   }
+  .demo-popup-top{
+    width: 100%;
+    opacity: .8;
+    height: 48px;
+    line-height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    max-width: 375px;
+  }
   .activeTab{
     padding:10px;
   }
@@ -77,12 +90,12 @@
   }
 </style>
 <script>
-import api from '../api'
 export default {
   data () {
     return {
       activeTab: '1',
       title: '工商红盾',
+      topPopup: false,
       user: {},
       enterprise: {},
       principal: {},
@@ -102,8 +115,7 @@ export default {
       this.activeTab = val
     },
     get () {
-      this.$http.get(api.getBeian()).then((res) => {
-        console.log('获取数据')
+      this.$http.get('/rest/api/profile/detail').then((res) => {
         this.user = res.data.attributes.data.user
         this.enterprise = res.data.attributes.data.enterprise
         this.principal = res.data.attributes.data.principal
@@ -113,17 +125,26 @@ export default {
       })
     },
     submit (val) {
-      this.$http.post(api.setBeian(),{
+      this.$http.post('/rest/api/profile/detail/all', {
         user: this.user,
         enterprise: this.enterprise,
         principal: this.principal,
         bind: this.bind,
         webinfo: this.webinfo,
         emergency: this.emergency
-      }).then((res) => {
-        console.log('获取数据')
+      },
+      {headers: {'Content-Type': 'application/x-www-form-urlencoded'}}).then((res) => {
+        this.activeTab = val
+        if (val) {
+          setTimeout(() => {
+            this.topPopup = false
+          }, 2000)
+        }
+        this.principal = res.data.attributes.data.principal
+        this.bind = res.data.attributes.data.bind
+        this.webinfo = res.data.attributes.data.webinfo
+        this.emergency = res.data.attributes.data.emergency
       })
-      this.activeTab = val
     }
   }
 }
