@@ -6,16 +6,16 @@
       <div class="play-name"><span>{{title}}</span></div>
     </div>
   </mu-appbar>
-  <mu-popup position="top" :overlay="false" popupClass="demo-popup-top" :open="topPopup">
-    更新成功
-  </mu-popup>
-  <mu-circular-progress :size="50" :strokeWidth="5" style="position: absolute;z-index: 999;left: 50%;margin-left: -25px;top:30%"  v-if="isloading"/>
   <div class="container">
     <mu-tabs :value="activeTab" @change="handleTabChange" class="view-tabs">
       <mu-tab value="1" title="账号注册"/>
       <mu-tab value="2" title="填写备案信息"/>
       <mu-tab value="3" title="完善信息"/>
     </mu-tabs>
+    <mu-popup position="top" :overlay="false" :open="topPopup" >
+      <div class="demo-popup-top">更新成功</div>
+    </mu-popup>
+    <mu-circular-progress :size="50" :strokeWidth="5" style="position: fixed;z-index: 999;left: 50%;margin-left: -25px;top:30%"  v-if="isloading"/>
     <div class="activeTab">
       <div v-if="activeTab === '1'">
         <div style="color: #f60;">
@@ -212,6 +212,7 @@
     align-items: center;
     justify-content: center;
     max-width: 375px;
+    padding: 0 30px;
   }
   .activeTab{
     padding:10px;
@@ -231,6 +232,9 @@
   .upload-fl{
     float: left;padding-top: 15px;
   }
+  .demo-raised-button{
+    font-size: 16px;
+  }
 </style>
 <script>
 export default {
@@ -243,9 +247,10 @@ export default {
       },
       activeTab: '1',
       isloading: false,
-      title: '工商红盾',
+      title: '工信备案',
       topPopup: false,
       bottomPopup: false,
+      dialog: false,
       same1: false,
       same2: false,
       same3: false,
@@ -359,15 +364,17 @@ export default {
       },
       {headers: {'Content-Type': 'application/x-www-form-urlencoded'}}).then((res) => {
         this.activeTab = val
+        document.body.scrollTop = 0
         if (val) {
+          this.topPopup = true
           setTimeout(() => {
             this.topPopup = false
           }, 2000)
         }
-        this.principal = res.data.attributes.data.principal
-        this.bind = res.data.attributes.data.bind
-        this.webinfo = res.data.attributes.data.webinfo
-        this.emergency = res.data.attributes.data.emergency
+        this.principal.principalId = res.data.attributes.data.principal.principalId
+        this.bind.bindId = res.data.attributes.data.bind.bindId
+        this.webinfo.webinfoId = res.data.attributes.data.webinfo.webinfoId
+        this.emergency.principalId = res.data.attributes.data.emergency.principalId
       })
     }
   }

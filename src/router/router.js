@@ -28,6 +28,9 @@ const router = new VueRouter({
       }
     ]
   }, {
+    path: '/main',
+    component: require('../views/main')
+  }, {
     path: '/beian',
     component: require('../views/beian')
   }, {
@@ -48,7 +51,7 @@ const router = new VueRouter({
     name: 'playListDetail',
     component: require('../views/playListDetail')
   }, {
-    path: '*', redirect: '/index/rage'
+    path: '*', redirect: '/main'
   }]
 })
 

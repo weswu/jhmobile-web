@@ -1,0 +1,26 @@
+<div class="app-page page-background" ng-controller="infoCtrl">
+        <div class="app_nav">
+            <h1>
+                <span class="icon app-button icon-left" ng-click="$back()" ></span>
+                <div class="app_nav_head"><span class="app_nav_txt">数据</span></div>
+            </h1>
+        </div>
+        <div class="app-content app-scrollable" >
+        <hr>
+           <section class="section">
+        <div class="label-act">
+			     <a href="#/product/list">
+			       <div class="title"><h2>产品</h2></div>
+			       <div class="arrow"><span class="iconfont icon-more"></span></div>
+			       </a>
+			   </div>
+			   <div class="label-act">
+			     <a href="#/news/list">
+			       <div class="title"><h2>新闻</h2></div>
+			       <div class="arrow"><span class="iconfont icon-more"></span></div>
+			       </a>
+			   </div>
+           </section>
+        </div>
+      <div ng-include="'modules/include/footer.html'"></div>
+</div>

@@ -1,5 +1,5 @@
 <template>
-<div>
+<div id="beian">
   <mu-appbar>
     <mu-icon-button icon='arrow_back' @click="back"  slot="left"/>
     <div class="play-title">
@@ -14,10 +14,10 @@
       <mu-tab value="4" title="网站负责人信息"/>
       <mu-tab value="5" title="截图并邮寄"/>
     </mu-tabs>
-    <mu-popup position="top" :overlay="false" popupClass="demo-popup-top" :open="topPopup">
-      更新成功
+    <mu-popup position="top" :overlay="false" :open="topPopup" >
+      <div class="demo-popup-top">更新成功</div>
     </mu-popup>
-    <mu-circular-progress :size="50" :strokeWidth="5" style="position: absolute;z-index: 999;left: 50%;margin-left: -25px;top:30%"  v-if="isloading"/>
+    <mu-circular-progress :size="50" :strokeWidth="5" style="position: fixed;z-index: 999;left: 50%;margin-left: -25px;top:30%"  v-if="isloading"/>
 
     <div class="activeTab">
       <div v-if="activeTab === '1'">
@@ -60,16 +60,16 @@
             </vue-clip>
           </div>
           <mu-text-field label="法人代表人姓名" hintText="请输入法人代表人姓名" v-model="enterprise.legalPre"/>
-
           单位办公地址<br>
+          <span v-model="citySelect.ent"></span><span v-model="countySelect.ent"></span>
           <mu-select-field v-model="address.ent1" :labelFocusClass="['label-foucs']" label="省" @input="provinceChange(1)" :maxHeight="300" style="width:30%">
             <mu-menu-item v-for="v,index in provinceSelect" :value="v.path" :title="v.name"/>
           </mu-select-field>
           <mu-select-field v-model="address.ent2" :labelFocusClass="['label-foucs']" label="市" @input="cityChange(1)" :maxHeight="300" style="width:30%;margin-left:3.5%">
-            <mu-menu-item v-model="citySelect.ent" v-for="v,index in citySelect.ent" :value="v.id" :title="v.name" />
+            <mu-menu-item v-for="v,index in citySelect.ent" :value="v.id" :title="v.name" />
           </mu-select-field>
           <mu-select-field v-model="address.ent3" :labelFocusClass="['label-foucs']" label="县" @input="countChange(1)" :maxHeight="300" style="width:30%;margin-left:3.5%">
-            <mu-menu-item v-for="v,index in countySelect.ent" v-model="countySelect.ent" :value="v.id" :title="v.name" />
+            <mu-menu-item v-for="v,index in countySelect.ent" :value="v.id" :title="v.name" />
           </mu-select-field>
           <mu-text-field label="详细地址" hintText="请输入详细地址" v-model="enterprise.dist"/>
 
@@ -115,18 +115,19 @@
               </template>
             </vue-clip>
           </div>
-
+          <br style="clear:both"/>
           负责人常住地址<br>
+          <span v-model="citySelect.pri"></span><span v-model="countySelect.pri"></span>
           <mu-select-field v-model="address.pri1" :labelFocusClass="['label-foucs']" label="省" @input="provinceChange(2)" :maxHeight="300" style="width:30%">
             <mu-menu-item v-for="v,index in provinceSelect" :value="v.path" :title="v.name"/>
           </mu-select-field>
           <mu-select-field v-model="address.pri2" :labelFocusClass="['label-foucs']" label="市" @input="cityChange(2)" :maxHeight="300" style="width:30%;margin-left:3.5%">
-            <mu-menu-item v-for="v,index in citySelect.pri" v-model="citySelect.pri" :value="v.id" :title="v.name" />
+            <mu-menu-item v-for="v,index in citySelect.pri" :value="v.id" :title="v.name" />
           </mu-select-field>
           <mu-select-field v-model="address.pri3" :labelFocusClass="['label-foucs']" label="县" @input="countChange(2)" :maxHeight="300" style="width:30%;margin-left:3.5%">
-            <mu-menu-item v-for="v,index in countySelect.pri" v-model="countySelect.pri" :value="v.id" :title="v.name" />
+            <mu-menu-item v-for="v,index in countySelect.pri" :value="v.id" :title="v.name" />
           </mu-select-field>
-          <mu-text-field label="详细地址" hintText="请输入详细地址" v-model="enterprise.address"/>
+          <mu-text-field label="详细地址" hintText="请输入详细地址" v-model="principal.address"/>
 
           <mu-text-field label="办公室电话" hintText="请输入办公室电话" v-model="principal.phone"/>
           <mu-text-field label="手机号码" hintText="请输入手机号码" v-model="principal.cellphone"/>
@@ -166,15 +167,17 @@
             <mu-menu-item v-for="v,index in webinfoIspBoundSelect" :value="v.value" :title="v.text" />
           </mu-select-field>
 
+          <br style="clear:both"/>
           接入商所属区域<br>
+          <span v-model="citySelect.isp"></span><span v-model="countySelect.isp"></span>
           <mu-select-field v-model="address.isp1" :labelFocusClass="['label-foucs']" label="省" @input="provinceChange(3)" :maxHeight="300" style="width:30%">
             <mu-menu-item v-for="v,index in provinceSelect" :value="v.path" :title="v.name"/>
           </mu-select-field>
           <mu-select-field v-model="address.isp2" :labelFocusClass="['label-foucs']" label="市" @input="cityChange(3)" :maxHeight="300" style="width:30%;margin-left:3.5%">
-            <mu-menu-item v-for="v,index in citySelect.isp" v-model="citySelect.isp" :value="v.id" :title="v.name" />
+            <mu-menu-item v-for="v,index in citySelect.isp" :value="v.id" :title="v.name" />
           </mu-select-field>
           <mu-select-field v-model="address.isp3" :labelFocusClass="['label-foucs']" label="县" @input="countChange(3)" :maxHeight="300" style="width:30%;margin-left:3.5%">
-            <mu-menu-item v-for="v,index in countySelect.isp" v-model="countySelect.isp" :value="v.id" :title="v.name" />
+            <mu-menu-item v-for="v,index in countySelect.isp" :value="v.id" :title="v.name" />
           </mu-select-field>
 
           <mu-select-field v-model="webinfo.ispName" :labelFocusClass="['label-foucs']" label="名称">
@@ -190,15 +193,17 @@
             <mu-menu-item v-for="v,index in webinfoDomainBoundSelect" :value="v.value" :title="v.text" />
           </mu-select-field>
 
+          <br style="clear:both"/>
           域名服务商所属区域<br>
+          <span v-model="citySelect.dom"></span><span v-model="countySelect.dom"></span>
           <mu-select-field v-model="address.dom1" :labelFocusClass="['label-foucs']" label="省" @input="provinceChange(4)" :maxHeight="300" style="width:30%">
             <mu-menu-item v-for="v,index in provinceSelect" :value="v.path" :title="v.name"/>
           </mu-select-field>
           <mu-select-field v-model="address.dom2" :labelFocusClass="['label-foucs']" label="市" @input="cityChange(4)" :maxHeight="300" style="width:30%;margin-left:3.5%">
-            <mu-menu-item v-for="v,index in citySelect.dom" v-model="citySelect.dom" :value="v.id" :title="v.name" />
+            <mu-menu-item v-for="v,index in citySelect.dom" :value="v.id" :title="v.name" />
           </mu-select-field>
           <mu-select-field v-model="address.dom3" :labelFocusClass="['label-foucs']" label="县" @input="countChange(4)" :maxHeight="300" style="width:30%;margin-left:3.5%">
-            <mu-menu-item v-for="v,index in countySelect.dom" v-model="countySelect.dom" :value="v.id" :title="v.name" />
+            <mu-menu-item v-for="v,index in countySelect.dom" :value="v.id" :title="v.name" />
           </mu-select-field>
 
           <mu-select-field v-model="webinfo.domainName" :labelFocusClass="['label-foucs']" label="名称">
@@ -210,33 +215,33 @@
             供互联网交互服务 <a style="font-size: 12px;padding-left: 10px;" href="javascript:;"  @click="open('bottom')">什么是交互式服务？</a>
         </p>
         <p>
-          <mu-radio name="group" nativeValue="00" v-model="enterprise.siteServiceType" label="www服务" class="demo-radio"/>
-          <mu-radio name="group" nativeValue="01" v-model="enterprise.siteServiceType" label="wap服务" class="demo-radio"/>
-          <mu-radio name="group" nativeValue="02" v-model="enterprise.siteServiceType" label="博客个人空间" class="demo-radio"/>
-          <mu-radio name="group" nativeValue="03" v-model="enterprise.siteServiceType" label="论坛BBS" class="demo-radio"/>
-          <mu-radio name="group" nativeValue="04" v-model="enterprise.siteServiceType" label="聊天室" class="demo-radio"/>
-          <mu-radio name="group" nativeValue="05" v-model="enterprise.siteServiceType" label="社交网站" class="demo-radio"/>
-          <mu-radio name="group" nativeValue="06" v-model="enterprise.siteServiceType" label="电子邮件" class="demo-radio"/>
-          <mu-radio name="group" nativeValue="07" v-model="enterprise.siteServiceType" label="即时通讯" class="demo-radio"/>
-          <mu-radio name="group" nativeValue="08" v-model="enterprise.siteServiceType" label="搜索引擎" class="demo-radio"/>
-          <mu-radio name="group" nativeValue="09" v-model="enterprise.siteServiceType" label="网络新闻" class="demo-radio"/>
-          <mu-radio name="group" nativeValue="10" v-model="enterprise.siteServiceType" label="网络音乐" class="demo-radio"/>
-          <mu-radio name="group" nativeValue="11" v-model="enterprise.siteServiceType" label="网络文字" class="demo-radio"/>
-          <mu-radio name="group" nativeValue="12" v-model="enterprise.siteServiceType" label="网络音视频" class="demo-radio"/>
-          <mu-radio name="group" nativeValue="13" v-model="enterprise.siteServiceType" label="网络游戏" class="demo-radio"/>
-          <mu-radio name="group" nativeValue="14" v-model="enterprise.siteServiceType" label="网络下载" class="demo-radio"/>
-          <mu-radio name="group" nativeValue="15" v-model="enterprise.siteServiceType" label="app服务" class="demo-radio"/>
-          <mu-radio name="group" nativeValue="16" v-model="enterprise.siteServiceType" label="云计算" class="demo-radio"/>
-          <mu-radio name="group" nativeValue="17" v-model="enterprise.siteServiceType" label="供求信息发布" class="demo-radio"/>
-          <mu-radio name="group" nativeValue="18" v-model="enterprise.siteServiceType" label="旅游预订" class="demo-radio"/>
-          <mu-radio name="group" nativeValue="19" v-model="enterprise.siteServiceType" label="移动应用商店" class="demo-radio"/>
-          <mu-radio name="group" nativeValue="20" v-model="enterprise.siteServiceType" label="第三方支付" class="demo-radio"/>
-          <mu-radio name="group" nativeValue="21" v-model="enterprise.siteServiceType" label="网上银行" class="demo-radio"/>
-          <mu-radio name="group" nativeValue="22" v-model="enterprise.siteServiceType" label="财经服务" class="demo-radio"/>
-          <mu-radio name="group" nativeValue="23" v-model="enterprise.siteServiceType" label="网络购物" class="demo-radio"/>
-          <mu-radio name="group" nativeValue="24" v-model="enterprise.siteServiceType" label="云存储" class="demo-radio"/>
-          <mu-radio name="group" nativeValue="25" v-model="enterprise.siteServiceType" label="FTP下载" class="demo-radio"/>
-          <mu-radio name="group" nativeValue="26" v-model="enterprise.siteServiceType" label="P2P金融" class="demo-radio"/>
+          <mu-radio name="siteServiceType" nativeValue="00" v-model="enterprise.siteServiceType" label="www服务" class="demo-radio"/>
+          <mu-radio name="siteServiceType" nativeValue="01" v-model="enterprise.siteServiceType" label="wap服务" class="demo-radio"/>
+          <mu-radio name="siteServiceType" nativeValue="02" v-model="enterprise.siteServiceType" label="博客个人空间" class="demo-radio"/>
+          <mu-radio name="siteServiceType" nativeValue="03" v-model="enterprise.siteServiceType" label="论坛BBS" class="demo-radio"/>
+          <mu-radio name="siteServiceType" nativeValue="04" v-model="enterprise.siteServiceType" label="聊天室" class="demo-radio"/>
+          <mu-radio name="siteServiceType" nativeValue="05" v-model="enterprise.siteServiceType" label="社交网站" class="demo-radio"/>
+          <mu-radio name="siteServiceType" nativeValue="06" v-model="enterprise.siteServiceType" label="电子邮件" class="demo-radio"/>
+          <mu-radio name="siteServiceType" nativeValue="07" v-model="enterprise.siteServiceType" label="即时通讯" class="demo-radio"/>
+          <mu-radio name="siteServiceType" nativeValue="08" v-model="enterprise.siteServiceType" label="搜索引擎" class="demo-radio"/>
+          <mu-radio name="siteServiceType" nativeValue="09" v-model="enterprise.siteServiceType" label="网络新闻" class="demo-radio"/>
+          <mu-radio name="siteServiceType" nativeValue="10" v-model="enterprise.siteServiceType" label="网络音乐" class="demo-radio"/>
+          <mu-radio name="siteServiceType" nativeValue="11" v-model="enterprise.siteServiceType" label="网络文字" class="demo-radio"/>
+          <mu-radio name="siteServiceType" nativeValue="12" v-model="enterprise.siteServiceType" label="网络音视频" class="demo-radio"/>
+          <mu-radio name="siteServiceType" nativeValue="13" v-model="enterprise.siteServiceType" label="网络游戏" class="demo-radio"/>
+          <mu-radio name="siteServiceType" nativeValue="14" v-model="enterprise.siteServiceType" label="网络下载" class="demo-radio"/>
+          <mu-radio name="siteServiceType" nativeValue="15" v-model="enterprise.siteServiceType" label="app服务" class="demo-radio"/>
+          <mu-radio name="siteServiceType" nativeValue="16" v-model="enterprise.siteServiceType" label="云计算" class="demo-radio"/>
+          <mu-radio name="siteServiceType" nativeValue="17" v-model="enterprise.siteServiceType" label="供求信息发布" class="demo-radio"/>
+          <mu-radio name="siteServiceType" nativeValue="18" v-model="enterprise.siteServiceType" label="旅游预订" class="demo-radio"/>
+          <mu-radio name="siteServiceType" nativeValue="19" v-model="enterprise.siteServiceType" label="移动应用商店" class="demo-radio"/>
+          <mu-radio name="siteServiceType" nativeValue="20" v-model="enterprise.siteServiceType" label="第三方支付" class="demo-radio"/>
+          <mu-radio name="siteServiceType" nativeValue="21" v-model="enterprise.siteServiceType" label="网上银行" class="demo-radio"/>
+          <mu-radio name="siteServiceType" nativeValue="22" v-model="enterprise.siteServiceType" label="财经服务" class="demo-radio"/>
+          <mu-radio name="siteServiceType" nativeValue="23" v-model="enterprise.siteServiceType" label="网络购物" class="demo-radio"/>
+          <mu-radio name="siteServiceType" nativeValue="24" v-model="enterprise.siteServiceType" label="云存储" class="demo-radio"/>
+          <mu-radio name="siteServiceType" nativeValue="25" v-model="enterprise.siteServiceType" label="FTP下载" class="demo-radio"/>
+          <mu-radio name="siteServiceType" nativeValue="26" v-model="enterprise.siteServiceType" label="P2P金融" class="demo-radio"/>
           <mu-popup position="bottom" popupClass="demo-popup-bottom" :open="bottomPopup" @close="close('bottom')">
           <mu-appbar title="交互式服务">
             <mu-flat-button slot="right" label="关闭" color="white" @click="close('bottom')"/>
@@ -253,42 +258,42 @@
         <p>
             供涉及管制物品信息发布服务:
         </p>
-        <mu-radio name="group" nativeValue="01" v-model="webinfo.gzwpPublishServer" label="管制器具" class="demo-radio"/>
-        <mu-radio name="group" nativeValue="02" v-model="webinfo.gzwpPublishServer" label="警用装备" class="demo-radio"/>
-        <mu-radio name="group" nativeValue="03" v-model="webinfo.gzwpPublishServer" label="放射性物品" class="demo-radio"/>
-        <mu-radio name="group" nativeValue="04" v-model="webinfo.gzwpPublishServer" label="枪支弹药" class="demo-radio"/>
-        <mu-radio name="group" nativeValue="05" v-model="webinfo.gzwpPublishServer" label="民爆物品" class="demo-radio"/>
-        <mu-radio name="group" nativeValue="06" v-model="webinfo.gzwpPublishServer" label="剧毒化学物" class="demo-radio"/>
-        <mu-radio name="group" nativeValue="07" v-model="webinfo.gzwpPublishServer" label="易制爆危险化学品" class="demo-radio"/>
+        <mu-radio name="gzwpPublishServer" nativeValue="01" v-model="webinfo.gzwpPublishServer" label="管制器具" class="demo-radio"/>
+        <mu-radio name="gzwpPublishServer" nativeValue="02" v-model="webinfo.gzwpPublishServer" label="警用装备" class="demo-radio"/>
+        <mu-radio name="gzwpPublishServer" nativeValue="03" v-model="webinfo.gzwpPublishServer" label="放射性物品" class="demo-radio"/>
+        <mu-radio name="gzwpPublishServer" nativeValue="04" v-model="webinfo.gzwpPublishServer" label="枪支弹药" class="demo-radio"/>
+        <mu-radio name="gzwpPublishServer" nativeValue="05" v-model="webinfo.gzwpPublishServer" label="民爆物品" class="demo-radio"/>
+        <mu-radio name="gzwpPublishServer" nativeValue="06" v-model="webinfo.gzwpPublishServer" label="剧毒化学物" class="demo-radio"/>
+        <mu-radio name="gzwpPublishServer" nativeValue="07" v-model="webinfo.gzwpPublishServer" label="易制爆危险化学品" class="demo-radio"/>
 
         <h3>相关前置
           <a style="font-size: 12px;padding-left: 10px;" href="http://baike.baidu.com/link?url=cD-lfS01za3lE4QqfGwKcGu6t1BgBwhnUr_gHcDksP-M43kwa2CniKfk94mAKj4iSZV5JbDm1fs4TyZh1CZ4tK" target="_blank">什么是相关前置许可？</a>
         </h3>
-        <mu-radio name="group" nativeValue="01" v-model="webinfo.advanceLicense" label="新闻" class="demo-radio"/>
-        <mu-radio name="group" nativeValue="02" v-model="webinfo.advanceLicense" label="出版" class="demo-radio"/>
-        <mu-radio name="group" nativeValue="03" v-model="webinfo.advanceLicense" label="教育" class="demo-radio"/>
-        <mu-radio name="group" nativeValue="04" v-model="webinfo.advanceLicense" label="运动保健" class="demo-radio"/>
-        <mu-radio name="group" nativeValue="05" v-model="webinfo.advanceLicense" label="医疗保健" class="demo-radio"/>
-        <mu-radio name="group" nativeValue="06" v-model="webinfo.advanceLicense" label="其他" class="demo-radio"/>
+        <mu-radio name="advanceLicense" nativeValue="01" v-model="webinfo.advanceLicense" label="新闻" class="demo-radio"/>
+        <mu-radio name="advanceLicense" nativeValue="02" v-model="webinfo.advanceLicense" label="出版" class="demo-radio"/>
+        <mu-radio name="advanceLicense" nativeValue="03" v-model="webinfo.advanceLicense" label="教育" class="demo-radio"/>
+        <mu-radio name="advanceLicense" nativeValue="04" v-model="webinfo.advanceLicense" label="运动保健" class="demo-radio"/>
+        <mu-radio name="advanceLicense" nativeValue="05" v-model="webinfo.advanceLicense" label="医疗保健" class="demo-radio"/>
+        <mu-radio name="advanceLicense" nativeValue="06" v-model="webinfo.advanceLicense" label="其他" class="demo-radio"/>
 
         <h3>网站语种
           <span style="font-size: 12px;padding-left: 10px;font-weight: normal;">（含全部或部分使用的方言种类）</span>
         </h3>
-        <mu-radio name="group" nativeValue="01" v-model="webinfo.lan" label="英语" class="demo-radio"/>
-        <mu-radio name="group" nativeValue="02" v-model="webinfo.lan" label="法语" class="demo-radio"/>
-        <mu-radio name="group" nativeValue="03" v-model="webinfo.lan" label="俄语" class="demo-radio"/>
-        <mu-radio name="group" nativeValue="04" v-model="webinfo.lan" label="西班牙语" class="demo-radio"/>
-        <mu-radio name="group" nativeValue="05" v-model="webinfo.lan" label="中文简体" class="demo-radio"/>
-        <mu-radio name="group" nativeValue="06" v-model="webinfo.lan" label="中文繁体" class="demo-radio"/>
-        <mu-radio name="group" nativeValue="07" v-model="webinfo.lan" label="维吾尔语" class="demo-radio"/>
-        <mu-radio name="group" nativeValue="08" v-model="webinfo.lan" label="哈萨克语" class="demo-radio"/>
-        <mu-radio name="group" nativeValue="09" v-model="webinfo.lan" label="蒙古语" class="demo-radio"/>
-        <mu-radio name="group" nativeValue="10" v-model="webinfo.lan" label="藏语" class="demo-radio"/>
-        <mu-radio name="group" nativeValue="11" v-model="webinfo.lan" label="阿拉伯语" class="demo-radio"/>
-        <mu-radio name="group" nativeValue="12" v-model="webinfo.lan" label="朝鲜语" class="demo-radio"/>
-        <mu-radio name="group" nativeValue="13" v-model="webinfo.lan" label="日语" class="demo-radio"/>
-        <mu-radio name="group" nativeValue="14" v-model="webinfo.lan" label="德语" class="demo-radio"/>
-        <mu-radio name="group" nativeValue="15" v-model="webinfo.lan" label="其他" class="demo-radio"/>
+        <mu-radio name="lan" nativeValue="01" v-model="webinfo.lan" label="英语" class="demo-radio"/>
+        <mu-radio name="lan" nativeValue="02" v-model="webinfo.lan" label="法语" class="demo-radio"/>
+        <mu-radio name="lan" nativeValue="03" v-model="webinfo.lan" label="俄语" class="demo-radio"/>
+        <mu-radio name="lan" nativeValue="04" v-model="webinfo.lan" label="西班牙语" class="demo-radio"/>
+        <mu-radio name="lan" nativeValue="05" v-model="webinfo.lan" label="中文简体" class="demo-radio"/>
+        <mu-radio name="lan" nativeValue="06" v-model="webinfo.lan" label="中文繁体" class="demo-radio"/>
+        <mu-radio name="lan" nativeValue="07" v-model="webinfo.lan" label="维吾尔语" class="demo-radio"/>
+        <mu-radio name="lan" nativeValue="08" v-model="webinfo.lan" label="哈萨克语" class="demo-radio"/>
+        <mu-radio name="lan" nativeValue="09" v-model="webinfo.lan" label="蒙古语" class="demo-radio"/>
+        <mu-radio name="lan" nativeValue="10" v-model="webinfo.lan" label="藏语" class="demo-radio"/>
+        <mu-radio name="lan" nativeValue="11" v-model="webinfo.lan" label="阿拉伯语" class="demo-radio"/>
+        <mu-radio name="lan" nativeValue="12" v-model="webinfo.lan" label="朝鲜语" class="demo-radio"/>
+        <mu-radio name="lan" nativeValue="13" v-model="webinfo.lan" label="日语" class="demo-radio"/>
+        <mu-radio name="lan" nativeValue="14" v-model="webinfo.lan" label="德语" class="demo-radio"/>
+        <mu-radio name="lan" nativeValue="15" v-model="webinfo.lan" label="其他" class="demo-radio"/>
 
         <p>
           <mu-raised-button label="确定" @click="submit('4')" class="demo-raised-button" secondary fullWidth backgroundColor="#ff6000"/>
@@ -387,6 +392,17 @@
   .activeTab{
     padding:10px;
   }
+  .demo-popup-top{
+    width: 100%;
+    opacity: .8;
+    height: 48px;
+    line-height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    max-width: 375px;
+    padding: 0 30px;
+  }
   .mu-text-field{
     width: 100%;
   }
@@ -398,6 +414,9 @@
   }
   .upload-fl{
     float: left;padding-top: 15px;
+  }
+  .demo-raised-button{
+    font-size: 16px;
   }
 </style>
 <script>
@@ -550,7 +569,7 @@ export default {
       },
       activeTab: '1',
       isloading: false,
-      title: '工信备案',
+      title: '公安备案',
       topPopup: false,
       bottomPopup: false,
       same: false,
@@ -687,64 +706,38 @@ export default {
     provinceChange (val) {
       if (val === 1) {
         this.enterprise.address = this.address.ent1
-        this.citySelect.ent = this.getPath(this.address.ent1)
-        this.citySelect.ent = [
-          {
-            name: '香港特别行政区',
-            id: '402881882ba8753a012ba94de66901be'
-          },
-          {
-            name: '澳门特别行政区',
-            id: '402881882ba8753a012ba94e039601bf'
-          },
-          {
-            name: '香港特别行政区2',
-            id: '402881882ba8753a012ba94de66901be'
-          },
-          {
-            name: '澳门特别行政区2',
-            id: '402881882ba8753a012ba94e039601bf'
-          },
-          {
-            name: '香港特别行政区3',
-            id: '402881882ba8753a012ba94de66901be'
-          },
-          {
-            name: '澳门特别行政区3',
-            id: '402881882ba8753a012ba94e039601bf'
-          }
-        ]
-        console.log('ent----' + this.citySelect.ent)
+        this.getPath(val, 1, this.address.ent1)
       }
       if (val === 2) {
         this.principal.area = this.address.pri1
-        this.citySelect.pri = this.getPath(this.address.pri1)
+        this.getPath(val, 1, this.address.pri1)
       }
       if (val === 3) {
         this.webinfo.ispArea = this.address.isp1
-        this.citySelect.isp = this.getPath(this.address.isp1)
+        this.getPath(val, 1, this.address.isp1)
       }
       if (val === 4) {
         this.webinfo.domainArea = this.address.dom1
-        this.citySelect.dom = this.getPath(this.address.dom1)
+        this.getPath(val, 1, this.address.dom1)
       }
     },
     cityChange (val) {
+      console.log('cityChange----' + val)
       if (val === 1) {
         this.enterprise.address = this.address.ent1 + ',' + this.address.ent2
-        this.countySelect.ent = this.getPath(this.address.ent2)
+        this.getPath(val, 2, this.address.ent2)
       }
       if (val === 2) {
         this.principal.area = this.address.pri1 + ',' + this.address.pri2
-        this.countySelect.pri = this.getPath(this.address.pri2)
+        this.getPath(val, 2, this.address.pri2)
       }
       if (val === 3) {
         this.webinfo.ispArea = this.address.isp1 + ',' + this.address.isp2
-        this.countySelect.isp = this.getPath(this.address.isp2)
+        this.getPath(val, 2, this.address.isp2)
       }
       if (val === 4) {
         this.webinfo.domainArea = this.address.dom1 + ',' + this.address.dom2
-        this.countySelect.dom = this.getPath(this.address.dom2)
+        this.getPath(val, 2, this.address.dom2)
       }
     },
     countChange (val) {
@@ -761,9 +754,20 @@ export default {
         this.webinfo.domainArea = this.address.dom1 + ',' + this.address.dom2 + ',' + this.address.dom3
       }
     },
-    getPath (path) {
+    getPath (val, num, path) {
       this.$http.get(api.getAreaPath(path)).then((res) => {
-        return res.data.attributes.data
+        if (num === 1) {
+          if (val === 1) { this.citySelect.ent = res.data.attributes.data }
+          if (val === 2) { this.citySelect.pri = res.data.attributes.data }
+          if (val === 3) { this.citySelect.isp = res.data.attributes.data }
+          if (val === 4) { this.citySelect.dom = res.data.attributes.data }
+        }
+        if (num === 2) {
+          if (val === 1) { this.countySelect.ent = res.data.attributes.data }
+          if (val === 2) { this.countySelect.pri = res.data.attributes.data }
+          if (val === 3) { this.countySelect.isp = res.data.attributes.data }
+          if (val === 4) { this.countySelect.dom = res.data.attributes.data }
+        }
       })
     },
     get () {
@@ -774,13 +778,22 @@ export default {
         this.bind = res.data.attributes.data.bind
         this.webinfo = res.data.attributes.data.webinfo
         this.emergency = res.data.attributes.data.emergency
-        this.principal.principal = this.format(this.principal.principal)
-        this.bind.applyTime = this.format(this.bind.applyTime)
-        this.principal.certIndate = this.format(this.principal.certIndate)
-        this.emergency.certIndate = this.format(this.emergency.certIndate)
+        // 无字段--是否有工信部备案号
+        if (this.bind.icp) { this.principal.isIcp = '01' }
+        // 格式化时间
+        if (this.principal.certIndate !== null && this.principal.certIndate !== '') {
+          this.principal.certIndate = this.format(this.principal.certIndate)
+        }
+        if (this.emergency.certIndate !== null && this.emergency.certIndate !== '') {
+          this.emergency.certIndate = this.format(this.emergency.certIndate)
+        }
+        if (this.bind.applyTime !== null && this.bind.applyTime !== '') {
+          this.bind.applyTime = this.format(this.bind.applyTime)
+        }
         if (this.emergency.name === this.principal.name && this.emergency.certType === this.principal.certType && this.emergency.certNumber === this.principal.certNumber && this.emergency.certIndate === this.principal.certIndate) {
           this.same = true
         }
+        // 地址
         if (this.webinfo.ispArea === null) {
           this.webinfo.ispArea = '402881882ba8753a012ba8d3f4f1008e,402881882ba8753a012ba8d57b430097'
         }
@@ -789,20 +802,44 @@ export default {
         }
         if (this.enterprise.address != null) {
           this.address.ent1 = this.enterprise.address.split(',')[0]
-          this.address.ent2 = this.enterprise.address.split(',')[1]
-          this.address.ent3 = this.enterprise.address.split(',')[2]
+          if (this.address.ent1) {
+            this.address.ent2 = this.enterprise.address.split(',')[1]
+            this.getPath(1, 1, this.address.ent1)
+          }
+          if (this.address.ent2) {
+            this.address.ent3 = this.enterprise.address.split(',')[2]
+            this.getPath(1, 2, this.address.ent2)
+          }
         }
         if (this.principal.area != null) {
-          this.address.pri1 = this.webinfo.ispArea.split(',')[0]
-          this.address.pri2 = this.webinfo.ispArea.split(',')[1]
-          this.address.pri3 = this.webinfo.ispArea.split(',')[2]
+          this.address.pri1 = this.principal.area.split(',')[0]
+          if (this.address.pri1) {
+            this.address.pri2 = this.principal.area.split(',')[1]
+            this.getPath(2, 1, this.address.pri1)
+          }
+          if (this.address.pri2) {
+            this.address.pri3 = this.principal.area.split(',')[2]
+            this.getPath(2, 2, this.address.pri2)
+          }
         }
         this.address.isp1 = this.webinfo.ispArea.split(',')[0]
-        this.address.isp2 = this.webinfo.ispArea.split(',')[1]
-        this.address.isp3 = this.webinfo.ispArea.split(',')[2]
+        if (this.address.isp1) {
+          this.address.isp2 = this.webinfo.ispArea.split(',')[1]
+          this.getPath(3, 1, this.address.isp1)
+        }
+        if (this.address.isp2) {
+          this.address.isp3 = this.webinfo.ispArea.split(',')[2]
+          this.getPath(3, 2, this.address.isp2)
+        }
         this.address.dom1 = this.webinfo.domainArea.split(',')[0]
-        this.address.dom2 = this.webinfo.domainArea.split(',')[1]
-        this.address.dom3 = this.webinfo.domainArea.split(',')[2]
+        if (this.address.dom1) {
+          this.address.dom2 = this.webinfo.domainArea.split(',')[1]
+          this.getPath(4, 1, this.address.dom1)
+        }
+        if (this.address.dom2) {
+          this.address.dom3 = this.webinfo.domainArea.split(',')[2]
+          this.getPath(4, 2, this.address.dom2)
+        }
       })
     },
     submit (val) {
@@ -816,15 +853,17 @@ export default {
       },
       {headers: {'Content-Type': 'application/x-www-form-urlencoded'}}).then((res) => {
         this.activeTab = val
+        document.body.scrollTop = 0
         if (val) {
+          this.topPopup = true
           setTimeout(() => {
             this.topPopup = false
           }, 2000)
         }
-        this.principal = res.data.attributes.data.principal
-        this.bind = res.data.attributes.data.bind
-        this.webinfo = res.data.attributes.data.webinfo
-        this.emergency = res.data.attributes.data.emergency
+        this.principal.principalId = res.data.attributes.data.principal.principalId
+        this.bind.bindId = res.data.attributes.data.bind.bindId
+        this.webinfo.webinfoId = res.data.attributes.data.webinfo.webinfoId
+        this.emergency.principalId = res.data.attributes.data.emergency.principalId
       })
     },
     format (value) {

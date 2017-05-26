@@ -23,9 +23,23 @@ app.config([ "$routeProvider", function($routeProvider) {
 		templateUrl : 'modules/setting/weixin.html'
 	}).when('/weixinBind',{
 		templateUrl : 'modules/setting/weixinBind.html'
+	}).when('/info',{
+		templateUrl : 'modules/setting/info.html'
+	}).when('/me',{
+		templateUrl : 'modules/setting/me.html'
 	})
 } ]);
 
+app.controller("infoCtrl", [ "$scope", "$rootScope", "$location", "$http","API_END_POINT",
+	function($scope, $rootScope, $location, $http, API_END_POINT) {
+
+		$scope.footerInfo=true;
+		}]);
+app.controller("meCtrl", [ "$scope", "$rootScope", "$location", "$http","API_END_POINT",
+	function($scope, $rootScope, $location, $http, API_END_POINT) {
+
+		$scope.footerMe=true;
+		}]);
 app.controller("settingCtrl", [ "$scope", "$rootScope", "$location", "$http","API_END_POINT",
 	function($scope, $rootScope, $location, $http, API_END_POINT) {
 		$scope.quit = function() {
@@ -150,7 +164,7 @@ app.controller("mobileCtrl", [ "$scope", "$rootScope", "$location", "$http","API
 		$('.btn-bind,.search-mask').hide();
 	}
 	$scope.bind = function() {
-		alert('开发中'); 
+		alert('开发中');
     	$scope.mobile='未绑定';
 		$('.btn-bind,.search-mask').hide();
 	}
@@ -207,7 +221,7 @@ app.controller("qqCtrl", [ "$scope", "$rootScope", "$location", "$http","API_END
         	$('.btn-bind,.search-mask').hide();
         }
         $scope.bind = function() {
-        	//alert('开发中...'); 
+        	//alert('开发中...');
         	$scope.qq='';
         	$('.btn-bind,.search-mask').hide();
         }
@@ -227,7 +241,7 @@ app.controller("qqBindCtrl", [ "$scope", "$rootScope", "$location", "$http","API
 		$('.wes-dialog,.search-mask').hide();
 	}
 	$scope.bind = function() {
-		alert('开发中...'); 
+		alert('开发中...');
 		$('.wes-dialog,.search-mask').hide();
     	$location.path('/account');
 	}
@@ -243,7 +257,7 @@ app.controller("weixinCtrl", [ "$scope", "$rootScope", "$location", "$http","API
         	$('.btn-bind,.search-mask').hide();
         }
         $scope.bind = function() {
-        	//alert('开发中...'); 
+        	//alert('开发中...');
         	$scope.weixin='';
         	$('.btn-bind,.search-mask').hide();
         }
@@ -263,7 +277,7 @@ app.controller("weixinBindCtrl", [ "$scope", "$rootScope", "$location", "$http",
 		$('.wes-dialog,.search-mask').hide();
 	}
 	$scope.bind = function() {
-		alert('开发中...'); 
+		alert('开发中...');
 		$('.wes-dialog,.search-mask').hide();
     	$location.path('/account');
 	}

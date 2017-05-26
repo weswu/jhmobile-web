@@ -9,7 +9,7 @@ import MuseUI from 'muse-ui'
 import 'muse-ui/dist/muse-ui.css'
 import 'assets/theme.less'
 import VueClip from 'vue-clip'
-
+// use
 Vue.use(VueClip)
 Vue.use(MuseUI)
 Vue.prototype.$http = Axios // 类似于vue-resource的调用方法，之后可以在实例里直接用this.$http.get()等

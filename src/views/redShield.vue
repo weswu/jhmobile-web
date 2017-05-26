@@ -6,15 +6,15 @@
       <div class="play-name"><span>{{title}}</span></div>
     </div>
   </mu-appbar>
-  <mu-popup position="top" :overlay="false" popupClass="demo-popup-top" :open="topPopup">
-    更新成功
-  </mu-popup>
   <div class="container">
     <mu-tabs :value="activeTab" @change="handleTabChange" class="view-tabs">
       <mu-tab value="1" title="工商红盾申请"/>
       <mu-tab value="2" title="输入代码"/>
       <mu-tab value="3" title="放置标识"/>
     </mu-tabs>
+    <mu-popup position="top" :overlay="false" :open="topPopup" >
+      <div class="demo-popup-top">更新成功</div>
+    </mu-popup>
     <div class="activeTab">
       <div v-if="activeTab === '1'">
         <div style="color: #f60;">
@@ -81,12 +81,16 @@
     align-items: center;
     justify-content: center;
     max-width: 375px;
+    padding: 0 30px;
   }
   .activeTab{
     padding:10px;
   }
   .mu-text-field{
     width: 100%;
+  }
+  .demo-raised-button{
+    font-size: 16px;
   }
 </style>
 <script>
@@ -135,15 +139,17 @@ export default {
       },
       {headers: {'Content-Type': 'application/x-www-form-urlencoded'}}).then((res) => {
         this.activeTab = val
+        document.body.scrollTop = 0
         if (val) {
+          this.topPopup = true
           setTimeout(() => {
             this.topPopup = false
           }, 2000)
         }
-        this.principal = res.data.attributes.data.principal
-        this.bind = res.data.attributes.data.bind
-        this.webinfo = res.data.attributes.data.webinfo
-        this.emergency = res.data.attributes.data.emergency
+        this.principal.principalId = res.data.attributes.data.principal.principalId
+        this.bind.bindId = res.data.attributes.data.bind.bindId
+        this.webinfo.webinfoId = res.data.attributes.data.webinfo.webinfoId
+        this.emergency.principalId = res.data.attributes.data.emergency.principalId
       })
     }
   }
