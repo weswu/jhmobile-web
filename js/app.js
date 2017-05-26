@@ -5,6 +5,7 @@ var CONST = {
 		enterprise:{}
 };
 if(location.href.indexOf('m1.jihui88.com') > -1){CONST.HOST='m1.jihui88.com'};
+if(location.href.indexOf('a.jihui88.com') > -1){CONST.HOST='a.jihui88.com'};
 var app = angular.module('pageRoute',['ngRoute', 'ngAPI','infinite-scroll'])
     .constant('HOST',CONST.HOST).constant('API_END_POINT','http://'+CONST.HOST+'/rest/api/')
     .filter('state', function() {
@@ -88,7 +89,7 @@ var app = angular.module('pageRoute',['ngRoute', 'ngAPI','infinite-scroll'])
 		$rootScope.alerts.splice(index, 1);
 	};
 	$rootScope.user = null;
-	$rootScope.$back = function() { 
+	$rootScope.$back = function() {
 	    window.history.back();
 	  };
 	$rootScope.isLogin = function() {
@@ -129,7 +130,7 @@ var app = angular.module('pageRoute',['ngRoute', 'ngAPI','infinite-scroll'])
 		}
 	};
 	$rootScope.checkLogin();
-	
+
 	$rootScope.picUrl= function (src, zoom) {
 		  if (angular.isString(src)) {
 		    var type = src.substring(src.lastIndexOf(".") + 1, src.length);
@@ -145,7 +146,7 @@ var app = angular.module('pageRoute',['ngRoute', 'ngAPI','infinite-scroll'])
 app.config(function($httpProvider) {
     $httpProvider.defaults.headers.put['Content-Type'] = 'application/x-www-form-urlencoded';
     $httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
- 
+
     // Override $http service's default transformRequest
     $httpProvider.defaults.transformRequest = [function(data) {
         /**
@@ -156,10 +157,10 @@ app.config(function($httpProvider) {
         var param = function(obj) {
             var query = '';
             var name, value, fullSubName, subName, subValue, innerObj, i;
- 
+
             for (name in obj) {
                 value = obj[name];
- 
+
                 if (value instanceof Array) {
                     for (i = 0; i < value.length; ++i) {
                         subValue = value[i];
@@ -181,10 +182,10 @@ app.config(function($httpProvider) {
                             + encodeURIComponent(value) + '&';
                 }
             }
- 
+
             return query.length ? query.substr(0, query.length - 1) : query;
         };
- 
+
         return angular.isObject(data) && String(data) !== '[object File]'  ? param(data)  : data;
     }];
 });

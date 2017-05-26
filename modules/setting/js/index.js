@@ -33,10 +33,12 @@ app.config([ "$routeProvider", function($routeProvider) {
 app.controller("infoCtrl", [ "$scope", "$rootScope", "$location", "$http","API_END_POINT",
 	function($scope, $rootScope, $location, $http, API_END_POINT) {
 
+		$scope.footerInfo=true;
 		}]);
 app.controller("meCtrl", [ "$scope", "$rootScope", "$location", "$http","API_END_POINT",
 	function($scope, $rootScope, $location, $http, API_END_POINT) {
 
+		$scope.footerMe=true;
 		}]);
 app.controller("settingCtrl", [ "$scope", "$rootScope", "$location", "$http","API_END_POINT",
 	function($scope, $rootScope, $location, $http, API_END_POINT) {
