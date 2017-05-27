@@ -6,16 +6,16 @@
       <div class="play-name"><span>{{title}}</span></div>
     </div>
   </mu-appbar>
-  <div class="container">
-    <mu-tabs :value="activeTab" @change="handleTabChange" class="view-tabs">
-      <mu-tab value="1" title="工商红盾申请"/>
-      <mu-tab value="2" title="输入代码"/>
-      <mu-tab value="3" title="放置标识"/>
-    </mu-tabs>
-    <mu-popup position="top" :overlay="false" :open="topPopup" >
-      <div class="demo-popup-top">更新成功</div>
-    </mu-popup>
-    <div class="activeTab">
+  <mu-tabs :value="activeTab" @change="handleTabChange" class="view-tabs">
+    <mu-tab value="1" title="工商红盾申请"/>
+    <mu-tab value="2" title="输入代码"/>
+    <mu-tab value="3" title="放置标识"/>
+  </mu-tabs>
+  <mu-popup position="top" :overlay="false" :open="topPopup" >
+    <div class="demo-popup-top">更新成功</div>
+  </mu-popup>
+  <div class="container p10">
+
       <div v-if="activeTab === '1'">
         <div style="color: #f60;">
           <div style="color: #36f;">【注】在PC上注册账号<br/>http://zjnet.zjaic.gov.cn/sign/addSignOnline.action</div>
@@ -29,7 +29,7 @@
           <mu-text-field label="管理员/联系人Email" hintText="请输入Email" v-model="principal.email"/>
         </p>
         <p>
-          <mu-raised-button label="提交" @click="submit('2')" class="demo-raised-button" secondary fullWidth backgroundColor="#ff6000"/>
+          <mu-raised-button label="提交" @click="submit('2')" class="submit-raised-button" primary fullWidth/>
         </p>
       </div>
 
@@ -42,7 +42,7 @@
           <mu-text-field hintText="请输入获取到的代码" multiLine :rows="8" :rowsMax="10"/>
         </p>
         <p>
-          <mu-raised-button label="提交" @click="submit('3')" class="demo-raised-button" secondary fullWidth backgroundColor="#ff6000"/>
+          <mu-raised-button label="提交" @click="submit('3')" class="submit-raised-button" primary fullWidth/>
         </p>
       </div>
 
@@ -54,7 +54,6 @@
         </div>
       </div>
 
-    </div>
 
   </div>
 </div>
@@ -82,15 +81,6 @@
     justify-content: center;
     max-width: 375px;
     padding: 0 30px;
-  }
-  .activeTab{
-    padding:10px;
-  }
-  .mu-text-field{
-    width: 100%;
-  }
-  .demo-raised-button{
-    font-size: 16px;
   }
 </style>
 <script>

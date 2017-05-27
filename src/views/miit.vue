@@ -6,17 +6,17 @@
       <div class="play-name"><span>{{title}}</span></div>
     </div>
   </mu-appbar>
-  <div class="container">
-    <mu-tabs :value="activeTab" @change="handleTabChange" class="view-tabs">
-      <mu-tab value="1" title="账号注册"/>
-      <mu-tab value="2" title="填写备案信息"/>
-      <mu-tab value="3" title="完善信息"/>
-    </mu-tabs>
-    <mu-popup position="top" :overlay="false" :open="topPopup" >
-      <div class="demo-popup-top">更新成功</div>
-    </mu-popup>
-    <mu-circular-progress :size="50" :strokeWidth="5" style="position: fixed;z-index: 999;left: 50%;margin-left: -25px;top:30%"  v-if="isloading"/>
-    <div class="activeTab">
+  <mu-tabs :value="activeTab" @change="handleTabChange" class="view-tabs">
+    <mu-tab value="1" title="账号注册"/>
+    <mu-tab value="2" title="填写备案信息"/>
+    <mu-tab value="3" title="完善信息"/>
+  </mu-tabs>
+  <mu-popup position="top" :overlay="false" :open="topPopup" >
+    <div class="demo-popup-top">更新成功</div>
+  </mu-popup>
+  <mu-circular-progress :size="50" :strokeWidth="5" style="position: fixed;z-index: 999;left: 50%;margin-left: -25px;top:30%"  v-if="isloading"/>
+
+  <div class="container p10">
       <div v-if="activeTab === '1'">
         <div style="color: #f60;">
           <div style="color: #36f;">ICP备案地址<br/>http://icp.sundns.com/login.php</div>
@@ -28,7 +28,7 @@
           <mu-text-field label="用户密码" hintText="请输入用户密码" v-model="webinfo.bizicbPassword"/>
         </p>
         <p>
-          <mu-raised-button label="提交" @click="submit('2')" class="demo-raised-button" secondary fullWidth backgroundColor="#ff6000"/>
+          <mu-raised-button label="提交" @click="submit('2')" class="demo-raised-button" primary fullWidth/>
         </p>
       </div>
 
@@ -44,7 +44,7 @@
           <mu-text-field label="主办单位有效证件号码" hintText="请输入证件号码" v-model="enterprise.certNumber"/>
         </p>
         <p>
-          <mu-raised-button label="提交" @click="submit('3')" class="demo-raised-button" secondary fullWidth backgroundColor="#ff6000"/>
+          <mu-raised-button label="提交" @click="submit('3')" class="demo-raised-button" primary fullWidth/>
         </p>
       </div>
 
@@ -181,11 +181,10 @@
           </mu-content-block>
         </mu-popup>
         <p>
-          <mu-raised-button label="提交" @click="submit('3')" class="demo-raised-button" secondary fullWidth backgroundColor="#ff6000"/>
+          <mu-raised-button label="提交" @click="submit('3')" class="demo-raised-button" primary fullWidth/>
         </p>
       </div>
 
-    </div>
 
   </div>
 </div>
@@ -214,26 +213,14 @@
     max-width: 375px;
     padding: 0 30px;
   }
-  .activeTab{
-    padding:10px;
-  }
-  .mu-text-field{
-    width: 100%;
-  }
   .principal-inp-left{
     width: 68%;margin-right:3%
-  }
-  .mu-text-field.mu-select-field{
-    width: 50%;
   }
   .img-upload{
     width: 65%;margin-right:3%;    float: left;
   }
   .upload-fl{
     float: left;padding-top: 15px;
-  }
-  .demo-raised-button{
-    font-size: 16px;
   }
 </style>
 <script>

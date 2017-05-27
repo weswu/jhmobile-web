@@ -27,32 +27,25 @@ const router = new VueRouter({
         component: require('../views/hotSinger')
       }
     ]
-  }, {
-    path: '/main',
-    component: require('../views/main')
-  }, {
-    path: '/beian',
-    component: require('../views/beian')
-  }, {
-    path: '/redShield',
-    component: require('../views/redShield')
-  }, {
-    path: '/miit',
-    component: require('../views/miit')
-  }, {
-    path: '/policeRecord',
-    component: require('../views/policeRecord')
-  }, {
-    name: 'playerDetail',
-    path: '/playerDetail/:id',
-    component: require('../views/playerDetail')
-  }, {
-    path: '/playListDetail/:id',
-    name: 'playListDetail',
-    component: require('../views/playListDetail')
-  }, {
-    path: '*', redirect: '/main'
-  }]
+  },
+  { path: '/main',
+    component: require('../pages/main/main'),
+    children: [
+      { path: 'home', component: require('../pages/main/home') },
+      { path: 'info', component: require('../pages/main/info') },
+      { path: 'message', component: require('../pages/main/message') },
+      { path: 'me', component: require('../pages/main/me') }
+    ]
+  },
+  { path: '/login', component: require('../views/login') },
+  { path: '/beian', component: require('../views/beian') },
+  { path: '/redShield', component: require('../views/redShield') },
+  { path: '/miit', component: require('../views/miit') },
+  { path: '/policeRecord', component: require('../views/policeRecord') },
+  { name: 'playerDetail', path: '/playerDetail/:id', component: require('../views/playerDetail') },
+  { path: '/playListDetail/:id', name: 'playListDetail', component: require('../views/playListDetail') },
+  { path: '*', redirect: '/main/home' }
+  ]
 })
 
 export default router

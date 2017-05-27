@@ -6,20 +6,19 @@
       <div class="play-name"><span>{{title}}</span></div>
     </div>
   </mu-appbar>
-  <div class="container">
-    <mu-tabs :value="activeTab" @change="handleTabChange" class="view-tabs">
-      <mu-tab value="1" title="账号信息"/>
-      <mu-tab value="2" title="填写开办主体"/>
-      <mu-tab value="3" title="网站基本信息"/>
-      <mu-tab value="4" title="网站负责人信息"/>
-      <mu-tab value="5" title="截图并邮寄"/>
-    </mu-tabs>
-    <mu-popup position="top" :overlay="false" :open="topPopup" >
-      <div class="demo-popup-top">更新成功</div>
-    </mu-popup>
-    <mu-circular-progress :size="50" :strokeWidth="5" style="position: fixed;z-index: 999;left: 50%;margin-left: -25px;top:30%"  v-if="isloading"/>
+  <mu-tabs :value="activeTab" @change="handleTabChange" class="view-tabs">
+    <mu-tab value="1" title="账号信息"/>
+    <mu-tab value="2" title="填写开办主体"/>
+    <mu-tab value="3" title="网站基本信息"/>
+    <mu-tab value="4" title="网站负责人信息"/>
+    <mu-tab value="5" title="截图并邮寄"/>
+  </mu-tabs>
+  <mu-popup position="top" :overlay="false" :open="topPopup" >
+    <div class="demo-popup-top">更新成功</div>
+  </mu-popup>
+  <mu-circular-progress :size="50" :strokeWidth="5" style="position: fixed;z-index: 999;left: 50%;margin-left: -25px;top:30%"  v-if="isloading"/>
 
-    <div class="activeTab">
+  <div class="container p10">
       <div v-if="activeTab === '1'">
         <div>
         <div style="color: #f60;">【注】在PC上注册账号http://beian.gov.cn/user/registerurl</div>
@@ -32,7 +31,7 @@
           <mu-text-field label="手机号码" hintText="请输入手机号码" v-model="principal.cellphone"/>
         </p>
         <p>
-          <mu-raised-button label="确定" @click="submit('2')" class="demo-raised-button" secondary fullWidth backgroundColor="#ff6000"/>
+          <mu-raised-button label="确定" @click="submit('2')" class="demo-raised-button" primary fullWidth/>
         </p>
       </div>
 
@@ -134,7 +133,7 @@
           <mu-text-field label="负责人邮箱" hintText="请输入负责人邮箱" v-model="principal.email"/>
         </p>
         <p>
-          <mu-raised-button label="确定" @click="submit('3')" class="demo-raised-button" secondary fullWidth backgroundColor="#ff6000"/>
+          <mu-raised-button label="确定" @click="submit('3')" class="demo-raised-button" primary fullWidth/>
         </p>
       </div>
 
@@ -296,7 +295,7 @@
         <mu-radio name="lan" nativeValue="15" v-model="webinfo.lan" label="其他" class="demo-radio"/>
 
         <p>
-          <mu-raised-button label="确定" @click="submit('4')" class="demo-raised-button" secondary fullWidth backgroundColor="#ff6000"/>
+          <mu-raised-button label="确定" @click="submit('4')" class="demo-raised-button" primary fullWidth/>
         </p>
       </div>
 
@@ -360,7 +359,7 @@
           <mu-date-picker hintText="证件有效期" v-model="emergency.certIndate"/>
         </p>
         <p>
-          <mu-raised-button label="确定" @click="submit('5')" class="demo-raised-button" secondary fullWidth backgroundColor="#ff6000"/>
+          <mu-raised-button label="确定" @click="submit('5')" class="demo-raised-button" primary fullWidth/>
         </p>
       </div>
 
@@ -371,7 +370,6 @@
         <div>示例：</div>
         <img style="width: 100%;" src="http://img.jihui88.com/upload/j/j2/jihui88/picture/2016/12/02/b4ed099e-95ad-4fcd-a1ee-77ce6a0a2843.png" alt="websie_record_infot.png">
       </div>
-    </div>
 
   </div>
 </div>
@@ -389,9 +387,6 @@
       color: @primaryColor;
     }
   }
-  .activeTab{
-    padding:10px;
-  }
   .demo-popup-top{
     width: 100%;
     opacity: .8;
@@ -403,20 +398,11 @@
     max-width: 375px;
     padding: 0 30px;
   }
-  .mu-text-field{
-    width: 100%;
-  }
-  .mu-text-field.mu-select-field{
-    width: 50%;
-  }
   .img-upload{
     width: 65%;margin-right:3%;    float: left;
   }
   .upload-fl{
     float: left;padding-top: 15px;
-  }
-  .demo-raised-button{
-    font-size: 16px;
   }
 </style>
 <script>
