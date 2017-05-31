@@ -38,10 +38,11 @@ const router = new VueRouter({
     ]
   },
   { path: '/login', component: require('../views/login') },
-  { path: '/beian', component: require('../views/beian') },
-  { path: '/redShield', component: require('../views/redShield') },
-  { path: '/miit', component: require('../views/miit') },
-  { path: '/policeRecord', component: require('../views/policeRecord') },
+  { path: '/member', component: require('../pages/member/member') },
+  { path: '/beian', component: require('../pages/beian/beian') },
+  { path: '/redShield', component: require('../pages/beian/redShield') },
+  { path: '/miit', component: require('../pages/beian/miit') },
+  { path: '/policeRecord', component: require('../pages/beian/policeRecord') },
   { name: 'playerDetail', path: '/playerDetail/:id', component: require('../views/playerDetail') },
   { path: '/playListDetail/:id', name: 'playListDetail', component: require('../views/playListDetail') },
   { path: '*', redirect: '/main/home' }

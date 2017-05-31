@@ -376,7 +376,7 @@
 </template>
 
 <style lang="less" scoped>
-  @import "../assets/theme.less";
+  @import "../../assets/theme.less";
   .view-tabs {
     background-color: #fff;
     color: rgba(0,0,0,.87);
@@ -544,7 +544,7 @@ const provinceList = [
     path: '402881882ba8753a012ba94e039601bf'
   }
 ]
-import api from '../api'
+import api from '../../api'
 export default {
   data () {
     return {

@@ -60,7 +60,7 @@
 </template>
 
 <style lang="less" scoped>
-  @import "../assets/theme.less";
+  @import "../../assets/theme.less";
   .view-tabs {
     background-color: #fff;
     color: rgba(0,0,0,.87);

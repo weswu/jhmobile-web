@@ -22,6 +22,7 @@
           <div style="color: #36f;">ICP备案地址<br/>http://icp.sundns.com/login.php</div>
           操作成功后请保存以下信息
         </div>
+
         <p>
           <mu-text-field label="用户名称" hintText="请输入用户名称" v-model="webinfo.bizicbUsername"/>
           <mu-text-field label="用户邮箱" hintText="请输入用户邮箱" v-model="enterprise.email"/>
@@ -63,12 +64,18 @@
 
           <mu-text-field label="营业执照副本彩色照片" hintText="营业执照副本彩色照片" v-model="enterprise.certPic" class="img-upload"/>
           <div @click="uploadImg(1)"">
-          <vue-clip :options="options" class="upload-fl" :on-sending="sending" :on-complete="complete"">
+          <vue-clip :options="options" class="upload-fl" :on-init="init" :on-sending="sending" :on-added-file="addedFile" :on-complete="complete"">
             <template slot="clip-uploader-action">
               <div>
                 <div class="dz-message"><mu-raised-button label="上传" class="demo-raised-button"/></div>
               </div>
             </template>
+            <template slot="clip-uploader-body" scope="props">
+     <div v-for="file in props.files">
+       <img v-bind:src="file.dataUrl" />
+       {{ file.name }}
+     </div>
+   </template>
           </vue-clip>
           </div>
           <mu-text-field label="法人身份证正反面照片" hintText="法人身份证正反面照片" v-model="enterprise.legalPersonPhoto" class="img-upload"/>
@@ -191,7 +198,7 @@
 </template>
 
 <style lang="less" scoped>
-  @import "../assets/theme.less";
+  @import "../../assets/theme.less";
   .view-tabs {
     background-color: #fff;
     color: rgba(0,0,0,.87);
@@ -224,10 +231,12 @@
   }
 </style>
 <script>
+import lrz from 'lrz'
 export default {
   data () {
     return {
       options: {
+        width: 500,
         url: '/rest/api/album/fileupload',
         paramName: 'Filedata',
         acceptedFiles: 'image/*,application/pdf'
@@ -295,8 +304,57 @@ export default {
     handleTabChange (val) {
       this.activeTab = val
     },
+    uploadImage (e) {
+      lrz(e.target.files[0], {width: 800, fieldName: 'Filedata'})
+        .then(function (rst) {
+          // 处理成功会执行<input type="file" name="Filedata" accept="image/*" @change="uploadImage($event)">
+          console.log(rst)
+          // 这里该上传给后端啦
+          /* ==================================================== */
+          // 原生ajax上传代码，所以看起来特别多 ╮(╯_╰)╭，但绝对能用
+          // 其他框架，例如jQuery处理formData略有不同，请自行google，baidu。
+          let xhr = new XMLHttpRequest()
+          xhr.open('POST', '/rest/api/album/fileupload')
+          xhr.onload = function () {
+            if (xhr.status === 200) {
+              // 上传成功
+              this.isloading = false
+            } else {
+              // 处理其他情况
+            }
+          }
+          xhr.onerror = function () {
+              // 处理错误
+          }
+          xhr.upload.onprogress = function (e) {
+            // 上传进度
+            this.isloading = true
+            // var percentComplete = ((e.loaded / e.total) || 0) * 100
+          }
+          // 添加参数
+          rst.formData.append('fileLen', rst.fileLen)
+          // 触发上传
+          xhr.send(rst.formData)
+          /* ==================================================== */
+          return rst
+        })
+        .catch(function (err) {
+          console.log(err)
+          // 处理失败会执行
+        })
+        .always(function () {
+          // 不管是成功失败，都会执行
+        })
+    },
+    init (uploader) {
+      // javascript uploader instanc
+    },
+    addedFile (file) {
+      console.log('addedFile')
+    },
     sending (file, xhr, formData) {
       this.isloading = true
+      console.log(file)
     },
     complete (file, status, xhr) {
       this.isloading = false

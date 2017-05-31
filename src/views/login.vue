@@ -25,7 +25,7 @@ export default {
       this.submit()
     },
     submit () {
-      this.$http.post('http://m1.jihui88.com/rest/api/user/login', {
+      this.$http.post('/rest/api/user/login', {
         username: this.username,
         password: this.password
       }).then((res) => {
