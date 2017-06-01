@@ -27,28 +27,28 @@ app.controller("PointCtrl", [ "$scope", "$rootScope", "$location", "$http","API_
 			$scope.enterName=CONST.enterprise.name
 		}).error(function(data) {
 			$scope.enterName=CONST.user.username;$scope.username='';
-		});	
+		});
 	}else{
-		$scope.enterName=CONST.enterprise.name 
+		$scope.enterName=CONST.enterprise.name
 	}
 	if($scope.enterName === null || $scope.enterName === ''){
 		$scope.enterName=CONST.user.username;$scope.username='';
 	}
   $scope.point=0;$scope.rank=0;
   $scope.phone=CONST.user.cellphone;
-  
+
 	$http.get(API_END_POINT + 'point/info').success(
 		function(data) {
 			if(data.msg==="未登陆"){$location.path('/login')}
-			$scope.point=data.attributes.point || 0;	
-			$scope.rank=data.attributes.rank || 0;	
+			$scope.point=data.attributes.point || 0;
+			$scope.rank=data.attributes.rank || 0;
 			CONST.point={
 					point:$scope.point,
 					rank:$scope.rank
 			}
 		}).error(function(data) {
 		});
-	
+
 	$scope.exchange = function(n){
 		var val=100000;var id='';
 		if(n ===1 ){val=500;id="Integralpro_00000000000000000201"}
@@ -78,7 +78,7 @@ app.controller("PointCtrl", [ "$scope", "$rootScope", "$location", "$http","API_
 	$scope.ranking = function(val){
 		$location.path('/point_ranking');
 	}
-	
+
 }]);
 
 
@@ -109,15 +109,15 @@ app.controller("PointDetailCtrl", [ "$scope", "$rootScope", "$location", "$http"
 
 		$scope.rule = function(){
 			$location.path('/point_rule');
-		}   
-	}	
+		}
+	}
 }]);
 app.controller("PointExchangeCtrl", [ "$scope", "$rootScope", "$location", "$http","API_END_POINT",
 	function($scope, $rootScope, $location, $http, API_END_POINT) {
-	
+
 
 	$scope.point = CONST.point.point;
-	
+
 	$scope.List = [];
 	$scope.page = 1;
 	$scope.busy = false;
@@ -139,12 +139,12 @@ app.controller("PointExchangeCtrl", [ "$scope", "$rootScope", "$location", "$htt
 
 			}).error(function(data) {
 			});
-		
-	}	
-	
+
+	}
+
 	$scope.rule = function(){
 		$location.path('/point_rule');
-	}                                                           	 
+	}
 }]);
 app.controller("PointRuleCtrl", [ "$scope", "$rootScope", "$location", "$http","API_END_POINT",
 	function($scope, $rootScope, $location, $http, API_END_POINT) {
@@ -162,16 +162,16 @@ app.controller("PointRuleCtrl", [ "$scope", "$rootScope", "$location", "$http","
 	}
 	$http.get(API_END_POINT + 'point_rule/info').success(
 			function(data) {
-				$scope.rule=data.attributes.data;	
+				$scope.rule=data.attributes.data;
 			}).error(function(data) {
-			});                              	 
+			});
 }]);
 app.controller("PointListCtrl", [ "$scope", "$rootScope", "$location", "$http","API_END_POINT","$routeParams",
 	function($scope, $rootScope, $location, $http, API_END_POINT, $routeParams) {
 	var vm = $scope.vm = {};
 	$scope.point=$routeParams.id;
 	vm.activeTab=$routeParams.tab;
-	
+
 	$scope.exchange = function(val){
 		if(val > $scope.point){
 			alert('您的积分不足,无法兑换')
@@ -179,7 +179,7 @@ app.controller("PointListCtrl", [ "$scope", "$rootScope", "$location", "$http","
 			alert('积分充足')
 		}
 	}
-                                                                  	
+
 }]);
 
 app.controller("PointRankingCtrl", [ "$scope", "$rootScope", "$location", "$http","API_END_POINT",
@@ -198,6 +198,7 @@ app.controller("PointRankingCtrl", [ "$scope", "$rootScope", "$location", "$http
 						for(var i=0; i<re.length; i++){
 							$scope.rankingList.push(re[i]);
 						}
+						if(page === 5){$('.view-more').hide()}
 					}else{
 						$('.view-more').hide()
 					}
@@ -205,18 +206,15 @@ app.controller("PointRankingCtrl", [ "$scope", "$rootScope", "$location", "$http
 						$scope.compare=((data.attributes.count-$scope.rank)/data.attributes.count).toFixed(2)*100
 					}
 				}).error(function(data) {
-				});                 
-		
-		
-		
-	}	
+				});
+
+
+
+	}
 	$scope.loadMore();
-	
+
 	$scope.more = function(){
 		page=page+1;
 		$scope.loadMore();
 	}
 }]);
-
-
-

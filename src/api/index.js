@@ -3,10 +3,14 @@ const _baseUrl2 = 'https://api.imjad.cn/cloudmusic/'
 let _host = 'http://m1.jihui88.com'
 if (window.location.href.indexOf('app.jihui88.com') > -1) {
   _host = 'http://app.jihui88.com'
+} else if (window.location.href.indexOf('a.jihui88.com') > -1) {
+  _host = 'http://a.jihui88.com'
 }
 const _api = _host + '/rest/api/'
 export default {
   getUser () { return _api + 'user/detail' }, // 用户
+  // 企业
+  getEnterprise () { return _api + 'enterprise/detail' },
   getOrderInfo () { return _api + 'order/home/list' }, // 账号数据
   getLogId () { return _api + 'log/id' }, // 用户 logId
   getPlayListByWhere (cat, order, offset, total, limit) {

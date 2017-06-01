@@ -62,95 +62,41 @@
           <mu-text-field label="电话" hintText="请输入电话" v-model="enterprise.phone"/>
           <mu-text-field label="备案IP" hintText="请输入备案IP" v-model="bind.ip"/>
 
+          <input type="file" accept="image/*" @change="uploadImage($event)" style="display:none" id="uploadImage">
           <mu-text-field label="营业执照副本彩色照片" hintText="营业执照副本彩色照片" v-model="enterprise.certPic" class="img-upload"/>
-          <div @click="uploadImg(1)"">
-          <vue-clip :options="options" class="upload-fl" :on-init="init" :on-sending="sending" :on-added-file="addedFile" :on-complete="complete"">
-            <template slot="clip-uploader-action">
-              <div>
-                <div class="dz-message"><mu-raised-button label="上传" class="demo-raised-button"/></div>
-              </div>
-            </template>
-            <template slot="clip-uploader-body" scope="props">
-     <div v-for="file in props.files">
-       <img v-bind:src="file.dataUrl" />
-       {{ file.name }}
-     </div>
-   </template>
-          </vue-clip>
-          </div>
+          <mu-raised-button label="上传" class="demo-raised-button upload-fl" @click="uploadImg(1)"/>
+
           <mu-text-field label="法人身份证正反面照片" hintText="法人身份证正反面照片" v-model="enterprise.legalPersonPhoto" class="img-upload"/>
-          <div @click="uploadImg(2)"">
-          <vue-clip :options="options" class="upload-fl">
-            <template slot="clip-uploader-action">
-              <div>
-                <div class="dz-message"><mu-raised-button label="上传" class="demo-raised-button"/></div>
-              </div>
-            </template>
-          </vue-clip>
-          </div>
+          <mu-raised-button label="上传" class="demo-raised-button upload-fl" @click="uploadImg(2)"/>
+
           <mu-text-field label="负责人身份证正反面照片" hintText="负责人身份证正反面照片" v-model="principal.certReversePic" class="img-upload"/>
-          <div @click="uploadImg(3)"">
-          <vue-clip :options="options" class="upload-fl">
-            <template slot="clip-uploader-action">
-              <div>
-                <div class="dz-message"><mu-raised-button label="上传" class="demo-raised-button"/></div>
-              </div>
-            </template>
-          </vue-clip>
-          </div>
+          <mu-raised-button label="上传" class="demo-raised-button upload-fl" @click="uploadImg(3)"/>
+
           <mu-text-field label="半身照" hintText="半身照" v-model="enterprise.legalPersonBust" class="img-upload"/>
-          <div @click="uploadImg(4)"">
-          <vue-clip :options="options" class="upload-fl">
-            <template slot="clip-uploader-action">
-              <div>
-                <div class="dz-message"><mu-raised-button label="上传" class="demo-raised-button dz-message"/></div>
-              </div>
-            </template>
-          </vue-clip>
-          </div>
+          <mu-raised-button label="上传" class="demo-raised-button upload-fl" @click="uploadImg(4)"/>
+
           <div style="color:#999;padding-bottom:10px;clear: both;">
             [注]: 请到指定的地点拍照, <a href="javascript:;" @click="open('bottom')">点击查看拍照地点</a><a href="http://icp.sundns.com/web/a/beianliucheng/2013/0703/134.html" target="_blank" style="color:#999;padding-left: 30px;">其它拍照地点</a><br/>
             其它说明： <a href="http://icp.sundns.com/web/a/ziliaoxiazai/2013/0701/133.html" target="_blank">背景打印</a>，<a href="http://icp.sundns.com/web/a/beianliucheng/2013/0711/137.html" target="_blank">拍照核验要求</a>
           </div>
 
           <mu-text-field label="核验单" hintText="核验单" v-model="webinfo.checkPic" class="img-upload"/>
-          <div @click="uploadImg(5)"">
-          <vue-clip :options="options" class="upload-fl">
-            <template slot="clip-uploader-action">
-              <div>
-                <div class="dz-message"><mu-raised-button label="上传" class="demo-raised-button dz-message"/></div>
-              </div>
-            </template>
-          </vue-clip>
-          </div>
+          <mu-raised-button label="上传" class="demo-raised-button upload-fl" @click="uploadImg(5)"/>
+
           <div style="color:#999;padding-bottom:10px;clear: both;">
             说明： <a href="http://icp.sundns.com/web/a/ziliaoxiazai/2010/0706/88.html" target="_blank">核验单要求</a>,<a href="http://cdn.jihui88.com/fujian/jihui/网站备案信息真实性核验单.doc" target="_blank" style="padding-left:5px;color: #999;">核验单模板下载</a>
           </div>
 
           <mu-text-field label="责任书" hintText="责任书" v-model="webinfo.dutyPic" class="img-upload"/>
-          <div @click="uploadImg(6)"">
-          <vue-clip :options="options" class="upload-fl">
-            <template slot="clip-uploader-action">
-              <div>
-                <div class="dz-message"><mu-raised-button label="上传" class="demo-raised-button dz-message"/></div>
-              </div>
-            </template>
-          </vue-clip>
-          </div>
+          <mu-raised-button label="上传" class="demo-raised-button upload-fl" @click="uploadImg(6)"/>
+
           <div style="color:#999;padding-bottom:10px;clear: both;">
             <a href="http://cdn.jihui88.com/fujian/jihui/信息安全保障协议责任书.doc" target="_blank" style="padding-left:5px;color: #999;">责任书模板下载</a>
           </div>
 
           <mu-text-field label="域名证书" hintText="域名证书" v-model="enterprise.domainCertPic" class="img-upload"/>
-          <div @click="uploadImg(7)"">
-          <vue-clip :options="options" class="upload-fl">
-            <template slot="clip-uploader-action">
-              <div>
-                <div class="dz-message"><mu-raised-button label="上传" class="demo-raised-button dz-message"/></div>
-              </div>
-            </template>
-          </vue-clip>
-          </div>
+          <mu-raised-button label="上传" class="demo-raised-button upload-fl" @click="uploadImg(7)"/>
+
           <div style="color:#999;padding-bottom:10px;clear: both;">
             [注]: 用户只域名注册代理商要，并需要注明，域名所有者需要跟主体公司名一样。以上营业执照、身份证、核验单、责任书、半身照都需要是原件照片，不能是复印件。
           </div>
@@ -227,7 +173,7 @@
     width: 65%;margin-right:3%;    float: left;
   }
   .upload-fl{
-    float: left;padding-top: 15px;
+    float: left;margin-top: 15px;
   }
 </style>
 <script>
@@ -235,12 +181,6 @@ import lrz from 'lrz'
 export default {
   data () {
     return {
-      options: {
-        width: 500,
-        url: '/rest/api/album/fileupload',
-        paramName: 'Filedata',
-        acceptedFiles: 'image/*,application/pdf'
-      },
       activeTab: '1',
       isloading: false,
       title: '工信备案',
@@ -305,30 +245,36 @@ export default {
       this.activeTab = val
     },
     uploadImage (e) {
+      let _this = this
       lrz(e.target.files[0], {width: 800, fieldName: 'Filedata'})
         .then(function (rst) {
-          // 处理成功会执行<input type="file" name="Filedata" accept="image/*" @change="uploadImage($event)">
-          console.log(rst)
-          // 这里该上传给后端啦
           /* ==================================================== */
           // 原生ajax上传代码，所以看起来特别多 ╮(╯_╰)╭，但绝对能用
           // 其他框架，例如jQuery处理formData略有不同，请自行google，baidu。
           let xhr = new XMLHttpRequest()
           xhr.open('POST', '/rest/api/album/fileupload')
           xhr.onload = function () {
+            _this.isloading = false
             if (xhr.status === 200) {
               // 上传成功
-              this.isloading = false
+              if (_this.upload === 1) { _this.enterprise.certPic = JSON.parse(xhr.response).attributes.data }
+              if (_this.upload === 2) { _this.enterprise.legalPersonPhoto = JSON.parse(xhr.response).attributes.data }
+              if (_this.upload === 3) { _this.principal.certReversePic = JSON.parse(xhr.response).attributes.data }
+              if (_this.upload === 4) { _this.enterprise.legalPersonBust = JSON.parse(xhr.response).attributes.data }
+              if (_this.upload === 5) { _this.webinfo.checkPic = JSON.parse(xhr.response).attributes.data }
+              if (_this.upload === 6) { _this.webinfo.dutyPic = JSON.parse(xhr.response).attributes.data }
+              if (_this.upload === 7) { _this.enterprise.domainCertPic = JSON.parse(xhr.response).attributes.data }
             } else {
               // 处理其他情况
             }
           }
           xhr.onerror = function () {
-              // 处理错误
+            // 处理错误
+            _this.isloading = false
           }
           xhr.upload.onprogress = function (e) {
             // 上传进度
-            this.isloading = true
+            _this.isloading = true
             // var percentComplete = ((e.loaded / e.total) || 0) * 100
           }
           // 添加参数
@@ -346,29 +292,6 @@ export default {
           // 不管是成功失败，都会执行
         })
     },
-    init (uploader) {
-      // javascript uploader instanc
-    },
-    addedFile (file) {
-      console.log('addedFile')
-    },
-    sending (file, xhr, formData) {
-      this.isloading = true
-      console.log(file)
-    },
-    complete (file, status, xhr) {
-      this.isloading = false
-      if (status === 'success') {
-        console.log('data:' + xhr.response)
-        if (this.upload === 1) { this.enterprise.certPic = JSON.parse(xhr.response).attributes.data }
-        if (this.upload === 2) { this.enterprise.legalPersonPhoto = JSON.parse(xhr.response).attributes.data }
-        if (this.upload === 3) { this.principal.certReversePic = JSON.parse(xhr.response).attributes.data }
-        if (this.upload === 4) { this.enterprise.legalPersonBust = JSON.parse(xhr.response).attributes.data }
-        if (this.upload === 5) { this.webinfo.checkPic = JSON.parse(xhr.response).attributes.data }
-        if (this.upload === 6) { this.webinfo.dutyPic = JSON.parse(xhr.response).attributes.data }
-        if (this.upload === 7) { this.enterprise.domainCertPic = JSON.parse(xhr.response).attributes.data }
-      }
-    },
     open (position) {
       this[position + 'Popup'] = true
     },
@@ -376,8 +299,8 @@ export default {
       this[position + 'Popup'] = false
     },
     uploadImg: function (val) {
-      console.log('upload:' + val)
       this.upload = val
+      document.querySelector('#uploadImage').click()
     },
     get () {
       this.$http.get('/rest/api/profile/detail').then((res) => {

@@ -9,6 +9,8 @@
 - axios
 - Muse-UI(一个基于Vue2.x的material design 风格UI框架)
 
+
+
 ## 运行截图
 ![首页](https://github.com/javaSwing/NeteaseCloudWebApp/raw/master/screenshots/1.png)
 ![详情](https://github.com/javaSwing/NeteaseCloudWebApp/raw/master/screenshots/2.png)
@@ -136,3 +138,13 @@ npm test
 此网站提供的API: [https://api.imjad.cn/cloudmusic/](https://api.imjad.cn/cloudmusic/) ,此接口的说明请到这里[查看](https://api.imjad.cn/cloudmusic/index.html)
 
 歌单列表部分为自己提供，在别一个项目中[MusicApi](https://github.com/javaSwing/MusicAPI)
+
+
+## 参考
+Vue-cnodejs
+
+vue-zhihu-daily
+
+vue-mobile-qq
+
+vue-shopping

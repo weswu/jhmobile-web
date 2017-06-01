@@ -48,16 +48,11 @@
             <mu-menu-item v-for="v,index in enterpriseTypeSelect" :value="v.value" :title="v.text" />
           </mu-select-field>
           <mu-text-field label="主办单位证件号" hintText="请输入主办单位证件号" v-model="enterprise.certNumber"/>
+
+          <input type="file" accept="image/*" @change="uploadImage($event)" style="display:none" id="uploadImage">
           <mu-text-field label="主办单位有效证件" hintText="主办单位有效证件" v-model="enterprise.certPic" class="img-upload"/>
-          <div @click="uploadImg(1)"">
-            <vue-clip :options="options" class="upload-fl" :on-sending="sending" :on-complete="complete"">
-              <template slot="clip-uploader-action">
-                <div>
-                  <div class="dz-message"><mu-raised-button label="上传" class="demo-raised-button"/></div>
-                </div>
-              </template>
-            </vue-clip>
-          </div>
+          <mu-raised-button label="上传" class="demo-raised-button upload-fl" @click="uploadImg(1)"/>
+
           <mu-text-field label="法人代表人姓名" hintText="请输入法人代表人姓名" v-model="enterprise.legalPre"/>
           单位办公地址<br>
           <span v-model="citySelect.ent"></span><span v-model="countySelect.ent"></span>
@@ -85,35 +80,14 @@
           <mu-date-picker hintText="证件有效期" v-model="principal.certIndate"/>
 
           <mu-text-field label="负责人证件(正面)" hintText="负责人证件(正面)" v-model="principal.certFrontPic" class="img-upload"/>
-          <div @click="uploadImg(2)"">
-            <vue-clip :options="options" class="upload-fl" :on-sending="sending" :on-complete="complete"">
-              <template slot="clip-uploader-action">
-                <div>
-                  <div class="dz-message"><mu-raised-button label="上传" class="demo-raised-button"/></div>
-                </div>
-              </template>
-            </vue-clip>
-          </div>
+          <mu-raised-button label="上传" class="demo-raised-button upload-fl" @click="uploadImg(2)"/>
+
           <mu-text-field label="负责人证件(反面)" hintText="负责人证件(反面)" v-model="principal.certReversePic" class="img-upload"/>
-          <div @click="uploadImg(3)"">
-            <vue-clip :options="options" class="upload-fl" :on-sending="sending" :on-complete="complete"">
-              <template slot="clip-uploader-action">
-                <div>
-                  <div class="dz-message"><mu-raised-button label="上传" class="demo-raised-button"/></div>
-                </div>
-              </template>
-            </vue-clip>
-          </div>
+          <mu-raised-button label="上传" class="demo-raised-button upload-fl" @click="uploadImg(3)"/>
+
           <mu-text-field label="负责人证件(手持)" hintText="负责人证件(手持)" v-model="principal.certHandPic" class="img-upload"/>
-          <div @click="uploadImg(4)"">
-            <vue-clip :options="options" class="upload-fl" :on-sending="sending" :on-complete="complete"">
-              <template slot="clip-uploader-action">
-                <div>
-                  <div class="dz-message"><mu-raised-button label="上传" class="demo-raised-button"/></div>
-                </div>
-              </template>
-            </vue-clip>
-          </div>
+          <mu-raised-button label="上传" class="demo-raised-button upload-fl" @click="uploadImg(4)"/>
+
           <br style="clear:both"/>
           负责人常住地址<br>
           <span v-model="citySelect.pri"></span><span v-model="countySelect.pri"></span>
@@ -149,15 +123,8 @@
           <mu-date-picker hintText="网站开通时期" v-model="bind.applyTime"/>
           <mu-text-field label="主域名" hintText="请输入主域名" v-model="bind.address"/>
           <mu-text-field label="域名证书" hintText="域名证书" v-model="enterprise.domainCertPic" class="img-upload"/>
-          <div @click="uploadImg(5)"">
-            <vue-clip :options="options" class="upload-fl" :on-sending="sending" :on-complete="complete"">
-              <template slot="clip-uploader-action">
-                <div>
-                  <div class="dz-message"><mu-raised-button label="上传" class="demo-raised-button"/></div>
-                </div>
-              </template>
-            </vue-clip>
-          </div>
+          <mu-raised-button label="上传" class="demo-raised-button upload-fl" @click="uploadImg(5)"/>
+
           <mu-text-field label="IP" hintText="请输入IP" v-model="bind.ip"/>
         </p>
         <h3>网站接入服务商</h3>
@@ -313,35 +280,14 @@
           <mu-date-picker hintText="证件有效期" v-model="principal.certIndate"/>
 
           <mu-text-field label="负责人证件(正面)" hintText="负责人证件(正面)" v-model="principal.certFrontPic" class="img-upload"/>
-          <div @click="uploadImg(2)"">
-            <vue-clip :options="options" class="upload-fl" :on-sending="sending" :on-complete="complete"">
-              <template slot="clip-uploader-action">
-                <div>
-                  <div class="dz-message"><mu-raised-button label="上传" class="demo-raised-button"/></div>
-                </div>
-              </template>
-            </vue-clip>
-          </div>
+          <mu-raised-button label="上传" class="demo-raised-button upload-fl" @click="uploadImg(2)"/>
+
           <mu-text-field label="负责人证件(反面)" hintText="负责人证件(反面)" v-model="principal.certReversePic" class="img-upload"/>
-          <div @click="uploadImg(3)"">
-            <vue-clip :options="options" class="upload-fl" :on-sending="sending" :on-complete="complete"">
-              <template slot="clip-uploader-action">
-                <div>
-                  <div class="dz-message"><mu-raised-button label="上传" class="demo-raised-button"/></div>
-                </div>
-              </template>
-            </vue-clip>
-          </div>
+          <mu-raised-button label="上传" class="demo-raised-button upload-fl" @click="uploadImg(3)"/>
+
           <mu-text-field label="负责人证件(手持)" hintText="负责人证件(手持)" v-model="principal.certHandPic" class="img-upload"/>
-          <div @click="uploadImg(4)"">
-            <vue-clip :options="options" class="upload-fl" :on-sending="sending" :on-complete="complete"">
-              <template slot="clip-uploader-action">
-                <div>
-                  <div class="dz-message"><mu-raised-button label="上传" class="demo-raised-button"/></div>
-                </div>
-              </template>
-            </vue-clip>
-          </div>
+          <mu-raised-button label="上传" class="demo-raised-button upload-fl" @click="uploadImg(4)"/>
+
 
           <mu-text-field label="手机号码" hintText="请输入手机号码" v-model="principal.cellphone"/>
           <mu-text-field label="电子邮件地址" hintText="请输入电子邮件地址" v-model="principal.email"/>
@@ -545,14 +491,10 @@ const provinceList = [
   }
 ]
 import api from '../../api'
+import lrz from 'lrz'
 export default {
   data () {
     return {
-      options: {
-        url: '/rest/api/album/fileupload',
-        paramName: 'Filedata',
-        acceptedFiles: 'image/*,application/pdf'
-      },
       activeTab: '1',
       isloading: false,
       title: '公安备案',
@@ -665,19 +607,51 @@ export default {
     handleTabChange (val) {
       this.activeTab = val
     },
-    sending (file, xhr, formData) {
-      this.isloading = true
-    },
-    complete (file, status, xhr) {
-      this.isloading = false
-      if (status === 'success') {
-        console.log('data:' + xhr.response)
-        if (this.upload === 1) { this.enterprise.certPic = JSON.parse(xhr.response).attributes.data }
-        if (this.upload === 2) { this.principal.certFrontPic = JSON.parse(xhr.response).attributes.data }
-        if (this.upload === 3) { this.principal.certReversePic = JSON.parse(xhr.response).attributes.data }
-        if (this.upload === 4) { this.principal.certHandPic = JSON.parse(xhr.response).attributes.data }
-        if (this.upload === 5) { this.enterprise.domainCertPic = JSON.parse(xhr.response).attributes.data }
-      }
+    uploadImage (e) {
+      let _this = this
+      lrz(e.target.files[0], {width: 800, fieldName: 'Filedata'})
+        .then(function (rst) {
+          /* ==================================================== */
+          // 原生ajax上传代码，所以看起来特别多 ╮(╯_╰)╭，但绝对能用
+          // 其他框架，例如jQuery处理formData略有不同，请自行google，baidu。
+          let xhr = new XMLHttpRequest()
+          xhr.open('POST', '/rest/api/album/fileupload')
+          xhr.onload = function () {
+            _this.isloading = false
+            if (xhr.status === 200) {
+              // 上传成功
+              if (_this.upload === 1) { _this.enterprise.certPic = JSON.parse(xhr.response).attributes.data }
+              if (_this.upload === 2) { _this.principal.certFrontPic = JSON.parse(xhr.response).attributes.data }
+              if (_this.upload === 3) { _this.principal.certReversePic = JSON.parse(xhr.response).attributes.data }
+              if (_this.upload === 4) { _this.principal.certHandPic = JSON.parse(xhr.response).attributes.data }
+              if (_this.upload === 5) { _this.enterprise.domainCertPic = JSON.parse(xhr.response).attributes.data }
+            } else {
+              // 处理其他情况
+            }
+          }
+          xhr.onerror = function () {
+            // 处理错误
+            _this.isloading = false
+          }
+          xhr.upload.onprogress = function (e) {
+            // 上传进度
+            _this.isloading = true
+            // var percentComplete = ((e.loaded / e.total) || 0) * 100
+          }
+          // 添加参数
+          rst.formData.append('fileLen', rst.fileLen)
+          // 触发上传
+          xhr.send(rst.formData)
+          /* ==================================================== */
+          return rst
+        })
+        .catch(function (err) {
+          console.log(err)
+          // 处理失败会执行
+        })
+        .always(function () {
+          // 不管是成功失败，都会执行
+        })
     },
     open (position) {
       this[position + 'Popup'] = true
@@ -688,6 +662,7 @@ export default {
     uploadImg (val) {
       console.log('upload:' + val)
       this.upload = val
+      document.querySelector('#uploadImage').click()
     },
     provinceChange (val) {
       if (val === 1) {
