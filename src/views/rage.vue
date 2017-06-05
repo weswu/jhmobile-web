@@ -5,15 +5,6 @@
           <div class="loading-txt">正在加载中</div>
       </div>
       <div class="container" v-show="!isloading">
-      <div id="slider">
-        <swiper :options="swiperOption">
-          <swiper-slide><img src="/static/banner1.jpg" class="banner-item"  alt=""></swiper-slide>
-          <swiper-slide><img src="/static/banner2.jpg" class="banner-item"  alt=""></swiper-slide>
-          <swiper-slide><img src="/static/banner3.jpg" class="banner-item"  alt=""></swiper-slide>
-          <swiper-slide><img src="/static/banner4.jpg" class="banner-item"  alt=""></swiper-slide>
-          <div class="swiper-pagination" slot="pagination"></div>
-        </swiper>
-      </div>
       <div class="wrapper">
       <div class="g-title song-list">推荐歌单 <router-link :to="{path: '/index/songList'}">更多></router-link></div>
       <mu-flexbox wrap="wrap" justify="space-around" class="box" :gutter="0">
@@ -176,23 +167,14 @@
   }
 </style>
 <script>
-import { swiper, swiperSlide } from 'vue-awesome-swiper'
 import api from '../api'
 export default {
   data () {
     return {
-      swiperOption: {
-        pagination: '.swiper-pagination',
-        paginationClickable: true
-      },
       isloading: true,
       playList: [],
       mvList: []
     }
-  },
-  components: {
-    swiper,
-    swiperSlide
   },
   created () {
     this.get()

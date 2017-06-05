@@ -1,9 +1,0 @@
-<template>
-    <div>
-        <div>排行榜-尚未开发4</div>
-    </div>
-</template>
-<style>
-</style>
-<script>
-</script>

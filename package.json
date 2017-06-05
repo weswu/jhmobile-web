@@ -21,7 +21,7 @@
     "localResizeIMG": "^4.9.40",
     "muse-ui": "^2.0.3",
     "vue": "^2.1.0",
-    "vue-awesome-swiper": "^2.3.0",
+    "vue-cookie": "^1.1.4",
     "vue-router": "^2.1.1",
     "vuex": "^2.1.1"
   },

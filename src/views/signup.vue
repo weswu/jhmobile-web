@@ -1,21 +1,17 @@
 <template>
   <div>
-    登录了 <a href="/login">login</a>
-    <Footer></Footer>
+    <mu-appbar title="机汇网会员注册" titleClass="center">
+      <mu-icon-button icon='arrow_back' @click="back"  slot="left"/>
+      <mu-flat-button href="#/login" label="登录" slot="right"/>
+    </mu-appbar>
+    <iframe src="http://www.jihui88.com/member/reg_m.html?d=jihui" width="100%" height="300px" style="border:none"></iframe>
   </div>
 </template>
 <script>
 export default {
-  data () {
-    return {
-      isloading: true
-    }
-  },
-  created () {
-    this.get()
-  },
   methods: {
-    get () {
+    back () {
+      this.$router.back()
     }
   }
 }

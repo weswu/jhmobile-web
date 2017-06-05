@@ -17,14 +17,6 @@ const router = new VueRouter({
       {
         path: 'songList',
         component: require('../views/songList')
-      },
-      {
-        path: 'leaderBoard',
-        component: require('../views/leaderBoard')
-      },
-      {
-        path: 'hotSinger',
-        component: require('../views/hotSinger')
       }
     ]
   },
@@ -33,11 +25,13 @@ const router = new VueRouter({
     children: [
       { path: 'home', component: require('../pages/main/home') },
       { path: 'info', component: require('../pages/main/info') },
-      { path: 'message', component: require('../pages/main/message') },
+      { path: 'message', component: require('../pages/message/message') },
       { path: 'me', component: require('../pages/main/me') }
     ]
   },
   { path: '/login', component: require('../views/login') },
+  { path: '/signup', component: require('../views/signup') },
+  { path: '/message/:id', name: 'messageDetail', component: require('../pages/message/messageDetail') },
   { path: '/member', component: require('../pages/member/member') },
   { path: '/beian', component: require('../pages/beian/beian') },
   { path: '/redShield', component: require('../pages/beian/redShield') },

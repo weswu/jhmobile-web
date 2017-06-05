@@ -8,8 +8,6 @@
       <mu-tabs :value="activeTab" @change="handleTabChange" class="view-tabs">
         <mu-tab value="rage" title="时下流行"/>
         <mu-tab value="songList" title="歌单"/>
-        <mu-tab value="leaderBoard" title="排行榜"/>
-        <mu-tab value="hotSinger" title="热门歌手"/>
       </mu-tabs>
       </div>
       <div class="default-view" :class="{view: songList.length > 0}">

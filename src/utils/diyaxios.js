@@ -6,8 +6,8 @@ axios.interceptors.response.use((res) => {
     window.alert('请求超时！')
   }
   if (res.data.success === false) {
-    if (res.data.msg === '未登陆') {
-      window.location.href = window.location.origin
+    if (res.data.msg === '未登陆' && window.location.hash.indexOf('login') === -1) {
+      window.location.href = window.location.origin + '/#/login'
     } else {
       window.alert(res.data.msg || '数据返回有误')
     }

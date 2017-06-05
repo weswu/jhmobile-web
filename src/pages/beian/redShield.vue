@@ -39,7 +39,7 @@
           【注】本代码从工商红盾网站里的“获取代码”按钮处获取
         </div>
         <p>
-          <mu-text-field hintText="请输入获取到的代码" multiLine :rows="8" :rowsMax="10"/>
+          <mu-text-field hintText="请输入获取到的代码" v-model="enterprise.gsbsZym" multiLine :rows="8" :rowsMax="10" fullWidth/>
         </p>
         <p>
           <mu-raised-button label="提交" @click="submit('3')" class="submit-raised-button" primary fullWidth/>
@@ -103,7 +103,7 @@ export default {
   },
   methods: {
     back () {
-      this.$router.go(-1)
+      this.$router.back()
     },
     handleTabChange (val) {
       this.activeTab = val
