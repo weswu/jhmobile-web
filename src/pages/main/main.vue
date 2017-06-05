@@ -25,6 +25,22 @@ export default {
   },
   created () {
     this.get()
+    // 当created函数时监测路由信息,防止页面刷新tab高亮错误
+    var tmpArr = this.$route.path.split('/')
+    console.log(tmpArr)
+    if (tmpArr[1] === 'index') {
+      this.handleTabChange(tmpArr[2])
+    }
+  },
+  // watch函数监测路由的变化,保持tab面板的高亮位置正确
+  watch: {
+    '$route' (to, from) {
+      const path = to.path
+      var tmpArr = path.split('/')
+      if (tmpArr[1] === 'index') {
+        this.handleTabChange(tmpArr[2])
+      }
+    }
   },
   methods: {
     handleChange (val) {

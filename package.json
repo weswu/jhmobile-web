@@ -8,7 +8,6 @@
     "type": "git",
     "url": "git@github.com:weswu/jhmobile-web.git"
   },
-  "private": false,
   "scripts": {
     "dev": "node build/dev-server.js",
     "build": "node build/build.js",

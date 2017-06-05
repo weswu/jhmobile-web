@@ -63,6 +63,7 @@
     created () {
       // 当created函数时监测路由信息,防止页面刷新tab高亮错误
       var tmpArr = this.$route.path.split('/')
+      console.log(tmpArr)
       if (tmpArr[1] === 'index') {
         this.handleTabChange(tmpArr[2])
       }

@@ -12,7 +12,10 @@
     </div>
 </template>
 <script>
+// npm install axios的时候默认会安装qs
+// qs相关的问题请搜索"nodejs qs"或者看这里https://www.npmjs.com/package/qs
 import api from '../../api'
+import qs from 'qs'
 import lrz from 'lrz'
 export default {
   data () {
@@ -71,13 +74,13 @@ export default {
         })
         .always(function () {
           // 不管是成功失败，都会执行
+          // ,{headers: {'Content-Type': 'application/x-www-form-urlencoded'}}
         })
     },
     submit () {
-      this.$http.post('/rest/api/enterprise/detail', {
-        enterprise: this.enterprise
-      },
-      {headers: {'Content-Type': 'application/x-www-form-urlencoded'}}).then((res) => {
+      // 将请求数据转换为form-data格式
+      // 这里不用qs，用FormData也可以，不赘述
+      this.$http.put('/rest/api/enterprise/detail', qs.stringify(this.enterprise)).then((res) => {
         window.alert('success')
       })
     }
