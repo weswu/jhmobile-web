@@ -1,6 +1,6 @@
 <template>
   <div>
-    <mu-appbar title="网站询盘" titleClass="center">
+    <mu-appbar title="网站询盘">
       <mu-icon-button icon='arrow_back' @click="back"  slot="left"/>
       <mu-flat-button href="#/login" label="绑定邮箱" slot="right"/>
     </mu-appbar>
@@ -37,9 +37,6 @@ export default {
     },
     back () {
       this.$router.back()
-    },
-    delete () {
-      debugger
     },
     loadMore () {
       this.get()

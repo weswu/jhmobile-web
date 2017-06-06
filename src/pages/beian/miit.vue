@@ -29,7 +29,7 @@
           <mu-text-field label="用户密码" hintText="请输入用户密码" v-model="webinfo.bizicbPassword"/>
         </p>
         <p>
-          <mu-raised-button label="提交" @click="submit('2')" class="demo-raised-button" primary fullWidth/>
+          <mu-raised-button label="提交" @click="submit('2')" class="demo-raised-button" secondary fullWidth/>
         </p>
       </div>
 
@@ -45,7 +45,7 @@
           <mu-text-field label="主办单位有效证件号码" hintText="请输入证件号码" v-model="enterprise.certNumber"/>
         </p>
         <p>
-          <mu-raised-button label="提交" @click="submit('3')" class="demo-raised-button" primary fullWidth/>
+          <mu-raised-button label="提交" @click="submit('3')" class="demo-raised-button" secondary fullWidth/>
         </p>
       </div>
 
@@ -134,7 +134,7 @@
           </mu-content-block>
         </mu-popup>
         <p>
-          <mu-raised-button label="提交" @click="submit('3')" class="demo-raised-button" primary fullWidth/>
+          <mu-raised-button label="提交" @click="submit('3')" class="demo-raised-button" secondary fullWidth/>
         </p>
       </div>
 

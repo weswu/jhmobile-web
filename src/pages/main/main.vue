@@ -6,7 +6,7 @@
       </keep-alive>
     </div>
     <mu-paper class="app-footer">
-      <mu-bottom-nav :value="bottomNav" @change="handleChange">
+      <mu-bottom-nav :value="bottomNav" @change="handleTabChange">
         <mu-bottom-nav-item value="main" title="首页" icon="home"/>
         <mu-bottom-nav-item value="info" title="信息" icon="event_note"/>
         <mu-bottom-nav-item value="message" title="询盘" icon="message"/>
@@ -28,7 +28,7 @@ export default {
     // 当created函数时监测路由信息,防止页面刷新tab高亮错误
     var tmpArr = this.$route.path.split('/')
     console.log(tmpArr)
-    if (tmpArr[1] === 'index') {
+    if (tmpArr[1] === 'main') {
       this.handleTabChange(tmpArr[2])
     }
   },
@@ -37,13 +37,13 @@ export default {
     '$route' (to, from) {
       const path = to.path
       var tmpArr = path.split('/')
-      if (tmpArr[1] === 'index') {
+      if (tmpArr[1] === 'main') {
         this.handleTabChange(tmpArr[2])
       }
     }
   },
   methods: {
-    handleChange (val) {
+    handleTabChange (val) {
       this.bottomNav = val
       this.$router.push({ path: '/main/' + val })
     },

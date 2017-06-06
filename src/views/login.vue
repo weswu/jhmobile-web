@@ -41,6 +41,14 @@ export default {
 }
 </script>
 <style lang="less">
+.file-button{
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  opacity: 0;
+}
 .mu-appbar-title.center {
   text-align: center;
 }

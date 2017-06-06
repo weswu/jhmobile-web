@@ -1,9 +1,7 @@
 <template>
-    <div>
-        <div>用户名：{{user.username}}</div>
-        <div>当前版本：{{user.username}}</div>
-        <div>到期时间：{{user.username}}</div>
-        <div>服务热线：400-7111-011</div>
+  <div>
+
+    {{user.username}}
 
         <a href="#/data">商城数据</a><br/>
         <a href="#/data">微网站</a><br/>
@@ -46,4 +44,5 @@ export default {
 }
 </script>
 <style>
+
 </style>

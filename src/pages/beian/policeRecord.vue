@@ -31,7 +31,7 @@
           <mu-text-field label="手机号码" hintText="请输入手机号码" v-model="principal.cellphone"/>
         </p>
         <p>
-          <mu-raised-button label="确定" @click="submit('2')" class="demo-raised-button" primary fullWidth/>
+          <mu-raised-button label="确定" @click="submit('2')" class="demo-raised-button" secondary fullWidth/>
         </p>
       </div>
 
@@ -107,7 +107,7 @@
           <mu-text-field label="负责人邮箱" hintText="请输入负责人邮箱" v-model="principal.email"/>
         </p>
         <p>
-          <mu-raised-button label="确定" @click="submit('3')" class="demo-raised-button" primary fullWidth/>
+          <mu-raised-button label="确定" @click="submit('3')" class="demo-raised-button" secondary fullWidth/>
         </p>
       </div>
 
@@ -262,7 +262,7 @@
         <mu-radio name="lan" nativeValue="15" v-model="webinfo.lan" label="其他" class="demo-radio"/>
 
         <p>
-          <mu-raised-button label="确定" @click="submit('4')" class="demo-raised-button" primary fullWidth/>
+          <mu-raised-button label="确定" @click="submit('4')" class="demo-raised-button" secondary fullWidth/>
         </p>
       </div>
 
@@ -305,7 +305,7 @@
           <mu-date-picker hintText="证件有效期" v-model="emergency.certIndate"/>
         </p>
         <p>
-          <mu-raised-button label="确定" @click="submit('5')" class="demo-raised-button" primary fullWidth/>
+          <mu-raised-button label="确定" @click="submit('5')" class="demo-raised-button" secondary fullWidth/>
         </p>
       </div>
 

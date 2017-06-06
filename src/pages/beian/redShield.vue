@@ -29,7 +29,7 @@
           <mu-text-field label="管理员/联系人Email" hintText="请输入Email" v-model="principal.email"/>
         </p>
         <p>
-          <mu-raised-button label="提交" @click="submit('2')" class="submit-raised-button" primary fullWidth/>
+          <mu-raised-button label="提交" @click="submit('2')" class="submit-raised-button" secondary fullWidth/>
         </p>
       </div>
 
@@ -42,7 +42,7 @@
           <mu-text-field hintText="请输入获取到的代码" v-model="enterprise.gsbsZym" multiLine :rows="8" :rowsMax="10" fullWidth/>
         </p>
         <p>
-          <mu-raised-button label="提交" @click="submit('3')" class="submit-raised-button" primary fullWidth/>
+          <mu-raised-button label="提交" @click="submit('3')" class="submit-raised-button" secondary fullWidth/>
         </p>
       </div>
 
