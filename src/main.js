@@ -1,12 +1,12 @@
 import Vue from 'vue'
 import App from './App'
 import Axios from './utils/diyaxios'
-import Cookie from 'vue-cookie'
 import router from './router/router'
 import store from './store'
 // 注册为全局组件
 import toast from './components/toast.vue'
 import MuseUI from 'muse-ui'
+import Cookie from 'vue-cookie'
 import 'muse-ui/dist/muse-ui.css'
 import 'assets/theme.less'
 // 开启debug模式

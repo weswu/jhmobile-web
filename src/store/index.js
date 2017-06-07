@@ -4,6 +4,7 @@ import Axios from 'axios'
 import api from '../api'
 Vue.use(Vuex)
 
+window.ua = navigator.userAgent.toLowerCase()
 const store = new Vuex.Store({
   state: {
     audio: {
@@ -24,7 +25,9 @@ const store = new Vuex.Store({
     tmpCurrentTime: 0,
     durationTime: 0,
     bufferedTime: 0,
-    change: false   // 判断是更改的时间还是播放的时间
+    change: false,   // 判断是更改的时间还是播放的时间
+    isWeixin: !!window.ua.match(/MicroMessenger/i),    // 微信浏览器
+    errImgUrl: 'http://img.easthardware.com/upload/j/j2/jihui/picture/2015/12/04/cb46a5be-9960-4c96-a463-895e7948c415.png'
   },
   getters: {
     audio: state => state.audio,

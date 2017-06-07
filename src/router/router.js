@@ -29,11 +29,13 @@ const router = new VueRouter({
       { path: 'me', component: require('../pages/main/me') }
     ]
   },
-  { path: '/login', component: require('../views/login') },
-  { path: '/signup', component: require('../views/signup') },
+  { path: '/login', component: require('../pages/user/login') },
+  { path: '/signup', component: require('../pages/user/signup') },
   { path: '/user', component: require('../pages/user/user') },
   { path: '/map', component: require('../pages/user/map') },
   { path: '/enterprise', component: require('../pages/user/enterprise') },
+  { path: '/bind', component: require('../pages/bind/bindList') },
+  { path: '/bindAdd', component: require('../pages/bind/bindDetail') },
   { path: '/message/:id', name: 'messageDetail', component: require('../pages/message/messageDetail') },
   { path: '/member', component: require('../pages/member/member') },
   { path: '/beian', component: require('../pages/beian/beian') },

@@ -27,3 +27,46 @@
     }
   }
 </script>
+<style>
+.file-button{
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  opacity: 0;
+}
+.mu-appbar-title.center {
+  text-align: center;
+}
+.mu-item-wrapper {
+    border-bottom: 1px solid #eee;
+}
+.container.p20{
+  padding: 20px
+}
+.container.p10{
+  padding: 10px
+}
+.mu-raised-button.submit-raised-button{
+  height: 40px;
+  line-height: 40px;
+}
+.submit-raised-button .mu-raised-button-label{
+  font-size: 16px
+}
+.mu-text-field.has-label{
+  width: 100%;
+}
+.mu-text-field.mu-select-field{
+  width: 50%;
+}
+.wu-infinite-container {
+  overflow: auto;
+  height: 100vh;
+  -webkit-overflow-scrolling: touch;
+  .mu-appbar {
+    position: fixed;
+  }
+}
+</style>

@@ -7,7 +7,7 @@
     </div>
     <mu-paper class="app-footer">
       <mu-bottom-nav :value="bottomNav" @change="handleTabChange">
-        <mu-bottom-nav-item value="main" title="首页" icon="home"/>
+        <mu-bottom-nav-item value="home" title="首页" icon="home"/>
         <mu-bottom-nav-item value="info" title="信息" icon="event_note"/>
         <mu-bottom-nav-item value="message" title="询盘" icon="message"/>
         <mu-bottom-nav-item value="me" title="我的" icon="person"/>
@@ -20,7 +20,7 @@ export default {
   data () {
     return {
       isloading: true,
-      bottomNav: 'main'
+      bottomNav: 'home'
     }
   },
   created () {

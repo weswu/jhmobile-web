@@ -5,7 +5,7 @@
     </mu-appbar>
     <div class="container p10">
       <p>
-        <mu-select-field v-model="user.sex" :labelFocusClass="['label-foucs']" label="性别">
+        <mu-select-field v-model="user.sex" :labelFocusClass="['label-foucs']" label="性别" hintText="请选择">
           <mu-menu-item v-for="v,index in sexSelect" :value="v.value" :title="v.text" />
         </mu-select-field>
         <mu-text-field label="姓名*" hintText="请输入姓名" v-model="user.name" :errorText="errorTextName" @input="changeInput($event,1)"/>
@@ -97,5 +97,3 @@ export default {
   }
 }
 </script>
-<style lang="less" scoped>
-</style>

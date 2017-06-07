@@ -22,9 +22,6 @@
          <mu-list-item title="一键发布" @click="to('/beian')">
            <mu-icon value="navigate_next" :size="32" slot="right" color="#aaa"/>
          </mu-list-item>
-         <mu-list-item title="开具发票" @click="to('/receipt')">
-           <mu-icon value="navigate_next" :size="32" slot="right" color="#aaa"/>
-         </mu-list-item>
          <br/>
          <mu-list-item title="设置" @click="to('/setting')">
            <mu-icon value="navigate_next" :size="32" slot="right" color="#aaa"/>

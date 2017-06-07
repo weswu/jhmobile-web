@@ -5,25 +5,31 @@
     </mu-appbar>
     <div class="container p10">
       <p>
-        <mu-select-field v-model="user.sex" :labelFocusClass="['label-foucs']" label="性别">
-          <mu-menu-item v-for="v,index in sexSelect" :value="v.value" :title="v.text" />
-        </mu-select-field>
-        <mu-text-field label="姓名*" hintText="请输入姓名" v-model="user.name" :errorText="errorTextName" @input="changeInput($event,1)"/>
-        <mu-text-field label="职务*" hintText="请输入职务" v-model="user.position" :errorText="errorTextPosition" @input="changeInput($event,2)"/>
-        <mu-text-field label="手机" hintText="请输入手机" v-model="user.cellphone"/>
-        <mu-text-field label="电话*" hintText="请输入电话" v-model="user.phone" :errorText="errorTextPhone" @input="changeInput($event,3)"/>
-        <mu-text-field label="传真" hintText="请输入传真" v-model="user.fax"/>
-        <mu-text-field label="地址" hintText="请输入地址" v-model="user.address"/>
+        <mu-flexbox>
+          <mu-flexbox-item class="flex-demo">
+            公司LOGO：
+          </mu-flexbox-item>
+          <mu-flexbox-item class="flex-demo">
+            <mu-paper class="demo-paper" :zDepth="2">
+              <img class="avatar" width="80" :src="enterprise.logo" @error="setErrorImg" alt="公司LOGO">
+            </mu-paper>
+          </mu-flexbox-item>
+          <mu-flexbox-item class="flex-demo">
+            <upload :width="300" v-on:result="fileChange"></upload>
+          </mu-flexbox-item>
+        </mu-flexbox>
 
-        <mu-flat-button label="地图定位" class="demo-flat-button" to="/map"/>
-        <mu-text-field label="Email" hintText="Email" v-model="user.email" disabled/>
-        <mu-text-field label="QQ" hintText="请输入QQ" v-model="user.qq"/>
-        <mu-text-field label="MSN" hintText="请输入MSN" v-model="user.msn"/>
-        <mu-text-field label="邮编" hintText="请输入邮编" v-model="user.zipcode"/>
-        <mu-text-field label="网址" hintText="请输入网址" v-model="user.url"/>
-        <mu-text-field label="微博地址" hintText="请输入微博地址" v-model="user.weibo"/>
-        <mu-text-field label="微信二维码" hintText="请输入微信二维码" v-model="user.weixin" style="width:62%;margin-right: 10px;"/>
-        <upload :width="300" v-on:result="fileChange"></upload>
+        <mu-text-field label="公司名称*" hintText="请输入公司名称" v-model="enterprise.name"/>
+        <mu-text-field label="主营产品*" hintText="请输入主营产品" v-model="enterprise.mainBusiness"/>
+        <mu-text-field label="法人代表*" hintText="请输入法人代表" v-model="enterprise.legalPre"/>
+        <mu-text-field label="员工数量*" hintText="请输入员工数量" v-model="enterprise.staffSum"/>
+        <mu-select-field v-model="enterprise.businessType" :labelFocusClass="['label-foucs']" label="经营模式" hintText="请选择">
+          <mu-menu-item v-for="v,index in businessTypeSelect" :value="v.value" :title="v.text" />
+        </mu-select-field>
+
+        <mu-text-field label="icp备案号" hintText="请输入传真" v-model="enterprise.icp"/>
+        <mu-text-field label="年营业额" hintText="请输入地址" v-model="enterprise.annualTurnover"/>
+        <mu-text-field label="注册资本" hintText="请输入注册资本" v-model="enterprise.registeredCapital"/>
       </p>
       <mu-raised-button label="提交" @click="submit" class="submit-raised-button" secondary fullWidth/>
     </div>
@@ -40,11 +46,16 @@ export default {
       errorTextName: '',
       errorTextPosition: '',
       errorTextPhone: '',
-      sexSelect: [
-        {text: '男', value: '00'},
-        {text: '女', value: '01'}
+      businessTypeSelect: [
+        {text: '生产加工', value: '00'},
+        {text: '经营批发', value: '01'},
+        {text: '招商代理', value: '02'},
+        {text: '商业服务', value: '03'},
+        {text: '以上都不是', value: '04'}
       ],
-      enterprise: {}
+      enterprise: {
+        logo: 'aaa.png'
+      }
     }
   },
   created () {
@@ -63,39 +74,26 @@ export default {
       this.$router.back()
     },
     submit () {
-      if (this.errorTextName !== '' || this.errorTextName !== '' || this.errorTextName !== '') {
-        window.alert('完善数据')
-        return true
-      }
       this.$http.put('/rest/api/enterprise/detail?' + qs.stringify(this.enterprise)).then((res) => {
         window.alert('操作成功')
       })
     },
+    setErrorImg (e) {
+      e.target.src = this.$store.state.errImgUrl
+    },
     fileChange (text) {
       console.log('监听到子组件变化' + text)
-      this.user.weixin = text
-    },
-    changeInput (val, type) {
-      if (val === '') {
-        if (type === 1) {
-          this.errorTextName = '姓名不能为空'
-        } else if (type === 2) {
-          this.errorTextPosition = '职务不能为空'
-        } else if (type === 3) {
-          this.errorTextPhone = '电话不能为空'
-        }
-      } else {
-        if (type === 1) {
-          this.errorTextName = ''
-        } else if (type === 2) {
-          this.errorTextPosition = ''
-        } else if (type === 3) {
-          this.errorTextPhone = ''
-        }
-      }
+      this.enterprise.logo = text
     }
   }
 }
 </script>
 <style lang="less" scoped>
+
+.demo-paper {
+  display: inline-block;
+  height: 80px;
+  width: 80px;
+  text-align: center;
+}
 </style>
