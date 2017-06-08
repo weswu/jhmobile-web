@@ -27,20 +27,20 @@ app.controller("BindCtrl", ["$scope","$rootScope","$location","$http","API_END_P
 								else if(state === '01'){result[i].state='已审核'}
 								else if(state === '02'){result[i].state='审核不通过';result[i].color='red';}
 								else{result[i].state='未审核';}
-								
+
 								var type=result[i].type;
 								if(type === 'D'){result[i].type='域名'}
 								else if(type === 'A'){result[i].type='地址'}
 								else if(type === 'I'){result[i].type='图片';}
 								else if(type === 'M'){result[i].type='手机';}
-								
+
 								$scope.bindList.push(result[i]);
 							}
 							datas.page = data.attributes.page + 1;
 							datas.busy = false;
 						}).error(function(data) {
 						});
-				
+
 				$scope.addL = function(id) {
 					$location.path('/bind/add');
 				};

@@ -46,3 +46,8 @@ export default {
   }
 }
 </script>
+<style lang="less" scoped>
+.mu-item-wrapper {
+    border-bottom: 1px solid #eee;
+}
+</style>

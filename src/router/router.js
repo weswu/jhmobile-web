@@ -43,8 +43,7 @@ const router = new VueRouter({
   { path: '/miit', component: require('../pages/beian/miit') },
   { path: '/policeRecord', component: require('../pages/beian/policeRecord') },
   { name: 'playerDetail', path: '/playerDetail/:id', component: require('../views/playerDetail') },
-  { path: '/playListDetail/:id', name: 'playListDetail', component: require('../views/playListDetail') },
-  { path: '*', redirect: '/main/home' }
+  { path: '/playListDetail/:id', name: 'playListDetail', component: require('../views/playListDetail') }
   ]
 })
 

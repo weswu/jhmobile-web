@@ -39,14 +39,17 @@
 .mu-appbar-title.center {
   text-align: center;
 }
-.mu-item-wrapper {
-    border-bottom: 1px solid #eee;
+.wu-appbar{
+  position: fixed;
 }
 .container.p20{
   padding: 20px
 }
 .container.p10{
   padding: 10px
+}
+.pt56{
+  padding-top: 56px;
 }
 .mu-raised-button.submit-raised-button{
   height: 40px;
