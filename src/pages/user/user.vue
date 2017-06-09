@@ -1,9 +1,9 @@
 <template>
   <div>
-    <mu-appbar title="账号资料">
+    <mu-appbar title="账号资料" class='wu-appbar'>
       <mu-icon-button icon='arrow_back' @click="back"  slot="left"/>
     </mu-appbar>
-    <div class="container p10">
+    <div class="container p10 pt56">
       <p>
         <mu-select-field v-model="user.sex" :labelFocusClass="['label-foucs']" label="性别" hintText="请选择">
           <mu-menu-item v-for="v,index in sexSelect" :value="v.value" :title="v.text" />
@@ -17,10 +17,10 @@
 
         <mu-flat-button label="地图定位" class="demo-flat-button" to="/map"/>
         <mu-text-field label="Email" hintText="Email" v-model="user.email" disabled/>
-        <mu-text-field label="QQ" hintText="请输入QQ" v-model="user.qq"/>
+        <mu-text-field label="QQ" hintText="请输入QQ" v-model="user.qq" type="number"/>
         <mu-text-field label="MSN" hintText="请输入MSN" v-model="user.msn"/>
-        <mu-text-field label="邮编" hintText="请输入邮编" v-model="user.zipcode"/>
-        <mu-text-field label="网址" hintText="请输入网址" v-model="user.url"/>
+        <mu-text-field label="邮编" hintText="请输入邮编" v-model="user.zipcode" type="number" maxLength="6"/>
+        <mu-text-field label="网址" hintText="请输入网址" v-model="user.url" type="url"/>
         <mu-text-field label="微博地址" hintText="请输入微博地址" v-model="user.weibo"/>
         <mu-text-field label="微信二维码" hintText="请输入微信二维码" v-model="user.weixin" style="width:62%;margin-right: 10px;"/>
         <upload :width="300" v-on:result="fileChange"></upload>
@@ -55,9 +55,13 @@ export default {
   },
   methods: {
     get () {
-      this.$http.get('/rest/api/user/detail').then((res) => {
-        this.user = res.data.attributes.data
-      })
+      if (this.$store.state.user.id) {
+        this.user = this.$store.state.user
+      } else {
+        this.$http.get('/rest/api/user/detail').then((res) => {
+          this.user = res.data.attributes.data
+        })
+      }
     },
     back () {
       this.$router.back()
@@ -68,6 +72,7 @@ export default {
         return true
       }
       this.$http.put('/rest/api/user/detail?' + qs.stringify(this.user)).then((res) => {
+        this.$store.state.user = this.user
         window.alert('操作成功')
       })
     },

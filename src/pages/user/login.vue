@@ -45,6 +45,8 @@ export default {
         username: this.username,
         password: this.password
       })).then((res) => {
+        this.$cookie.set('username', this.username)
+        this.$cookie.set('password', this.password)
         this.$router.push({path: '/main/home'})
       })
     }

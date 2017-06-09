@@ -315,6 +315,11 @@
         </p>
         <div>示例：</div>
         <img style="width: 100%;" src="http://img.jihui88.com/upload/j/j2/jihui88/picture/2016/12/02/b4ed099e-95ad-4fcd-a1ee-77ce6a0a2843.png" alt="websie_record_infot.png">
+        <mu-text-field label="备案链接地址" hintText="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=XXX" v-model="enterprise.psr"/>
+        <mu-text-field label="公安备案号" hintText="浙公安备 33072301100001号" v-model="webinfo.seccurityLink"/>
+        <p>
+          <mu-raised-button label="确定" @click="submit('5')" class="demo-raised-button" secondary fullWidth/>
+        </p>
       </div>
 
   </div>

@@ -1,9 +1,9 @@
 <template>
   <div>
-    <mu-appbar title="账号资料">
+    <mu-appbar title="账号资料" class='wu-appbar'>
       <mu-icon-button icon='arrow_back' @click="back"  slot="left"/>
     </mu-appbar>
-    <div class="container p10">
+    <div class="container p10 pt56">
       <p>
         <mu-flexbox>
           <mu-flexbox-item class="flex-demo">
@@ -11,7 +11,7 @@
           </mu-flexbox-item>
           <mu-flexbox-item class="flex-demo">
             <mu-paper class="demo-paper" :zDepth="2">
-              <img class="avatar" width="80" :src="enterprise.logo" @error="setErrorImg" alt="公司LOGO">
+              <img class="avatar" width="80" :src="imgUrl + enterprise.logo" @error="setErrorImg" alt="公司LOGO">
             </mu-paper>
           </mu-flexbox-item>
           <mu-flexbox-item class="flex-demo">
@@ -22,7 +22,7 @@
         <mu-text-field label="公司名称*" hintText="请输入公司名称" v-model="enterprise.name"/>
         <mu-text-field label="主营产品*" hintText="请输入主营产品" v-model="enterprise.mainBusiness"/>
         <mu-text-field label="法人代表*" hintText="请输入法人代表" v-model="enterprise.legalPre"/>
-        <mu-text-field label="员工数量*" hintText="请输入员工数量" v-model="enterprise.staffSum"/>
+        <mu-text-field label="员工数量*" hintText="请输入员工数量" v-model="enterprise.staffSum" type="number"/>
         <mu-select-field v-model="enterprise.businessType" :labelFocusClass="['label-foucs']" label="经营模式" hintText="请选择">
           <mu-menu-item v-for="v,index in businessTypeSelect" :value="v.value" :title="v.text" />
         </mu-select-field>
@@ -53,9 +53,8 @@ export default {
         {text: '商业服务', value: '03'},
         {text: '以上都不是', value: '04'}
       ],
-      enterprise: {
-        logo: 'aaa.png'
-      }
+      imgUrl: this.$store.state.imgUrl,
+      enterprise: {}
     }
   },
   created () {
@@ -66,15 +65,20 @@ export default {
   },
   methods: {
     get () {
-      this.$http.get('/rest/api/enterprise/detail').then((res) => {
-        this.user = res.data.attributes.data
-      })
+      if (this.$store.state.enterprise.id) {
+        this.enterprise = this.$store.state.enterprise
+      } else {
+        this.$http.get('/rest/api/enterprise/detail').then((res) => {
+          this.enterprise = res.data.attributes.data
+        })
+      }
     },
     back () {
       this.$router.back()
     },
     submit () {
       this.$http.put('/rest/api/enterprise/detail?' + qs.stringify(this.enterprise)).then((res) => {
+        this.$store.state.enterprise = this.enterprise
         window.alert('操作成功')
       })
     },

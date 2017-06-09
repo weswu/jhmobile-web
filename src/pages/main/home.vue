@@ -24,8 +24,7 @@ export default {
   data () {
     return {
       user: {},
-      shop: {},
-      logId: ''
+      shop: {}
     }
   },
   created () {
@@ -33,9 +32,16 @@ export default {
   },
   methods: {
     get () {
+      let _this = this
       this.$http.get(api.getUser()).then((res) => {
         this.user = res.data.attributes.data
+        this.$store.state.user = this.user
       })
+      setTimeout(function () {
+        _this.$http.get(api.getEnterprise()).then((res) => {
+          _this.$store.state.enterprise = res.data.attributes.data
+        })
+      }, 500)
       this.$http.get(api.getOrderInfo()).then((res) => {
         this.shop = res.data.attributes.data
       })

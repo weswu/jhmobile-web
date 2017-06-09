@@ -42,10 +42,10 @@
 .wu-appbar{
   position: fixed;
 }
-.container.p20{
+.p20{
   padding: 20px
 }
-.container.p10{
+.p10{
   padding: 10px
 }
 .pt56{

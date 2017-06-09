@@ -27,7 +27,10 @@ const store = new Vuex.Store({
     bufferedTime: 0,
     change: false,   // 判断是更改的时间还是播放的时间
     isWeixin: !!window.ua.match(/MicroMessenger/i),    // 微信浏览器
-    errImgUrl: 'http://img.easthardware.com/upload/j/j2/jihui/picture/2015/12/04/cb46a5be-9960-4c96-a463-895e7948c415.png'
+    errImgUrl: 'http://img.easthardware.com/upload/j/j2/jihui/picture/2015/12/04/cb46a5be-9960-4c96-a463-895e7948c415.png',
+    imgUrl: 'http://img.jihui88.com/',
+    user: {},
+    enterprise: {}
   },
   getters: {
     audio: state => state.audio,

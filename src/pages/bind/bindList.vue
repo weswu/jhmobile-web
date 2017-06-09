@@ -26,44 +26,12 @@
 export default {
   data () {
     return {
-      list: [
-        {
-          bindId: 'Bind_000000000000000000000000224',
-          username: 'ggggfj',
-          address: 'tttt.cn',
-          icp: null,
-          applyTime: 1333084010179,
-          approveTime: null,
-          denyReason: null,
-          fileName: 'ggggfj.conf',
-          state: '00',
-          type: 'D',
-          addTime: null,
-          updateTime: null,
-          ip: null,
-          id: 'Bind_000000000000000000000000224'
-        },
-        {
-          bindId: 'Bind_000000000000000000000000221',
-          username: 'ggggfj',
-          address: 'google.com',
-          icp: null,
-          applyTime: 1333073572474,
-          approveTime: 1333082211299,
-          denyReason: '555',
-          fileName: 'ggggfj.conf',
-          state: '02',
-          type: 'D',
-          addTime: null,
-          updateTime: null,
-          ip: null,
-          id: 'Bind_000000000000000000000000221'
-        }
-      ],
+      list: [],
       page: 1,
       num: 10,
       loading: false,
-      scroller: null
+      scroller: null,
+      refresh: true
     }
   },
   created () {
@@ -85,10 +53,11 @@ export default {
         }
         this.page = this.page + 1
         this.loading = false
+        if (list.length < 16) { this.refresh = false }
       })
     },
     loadMore () {
-      this.get()
+      this.refresh && this.get()
     },
     bindState (v) {
       if (v === '00') { return '未审核' }
@@ -97,13 +66,15 @@ export default {
     },
     del (entry) {
       if (window.confirm('确认删除吗？')) {
-        var data = this.list
-        data.forEach(function (item, i) {
-          if (item === entry) {
-            data.splice(i, 1)
-          }
+        this.$http.delete('/rest/api/bind/detail/' + entry.id).then((res) => {
+          var data = this.list
+          data.forEach(function (item, i) {
+            if (item === entry) {
+              data.splice(i, 1)
+            }
+          })
+          this.$router.back()
         })
-        this.$http.delete('/rest/api/bind/detail/' + entry.id)
       }
     }
   },
