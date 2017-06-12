@@ -58,7 +58,10 @@ export default {
         return
       }
       this.$http.post('/rest/api/bind/detail?' + qs.stringify(this.bind)).then((res) => {
-        this.$router.back()
+        this.$router.push({
+          path: '/bind',
+          query: this.bind
+        })
       })
     }
   }

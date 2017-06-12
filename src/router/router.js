@@ -29,19 +29,27 @@ const router = new VueRouter({
       { path: 'me', component: require('../pages/main/me') }
     ]
   },
+  // user
   { path: '/login', component: require('../pages/user/login') },
   { path: '/signup', component: require('../pages/user/signup') },
   { path: '/user', component: require('../pages/user/user') },
   { path: '/map', component: require('../pages/user/map') },
   { path: '/enterprise', component: require('../pages/user/enterprise') },
+  { path: '/publish', component: require('../pages/user/publish') },
+  // setting
+  { path: '/setting', component: require('../pages/setting/setting') },
+  // bind
   { path: '/bind', component: require('../pages/bind/bindList') },
   { path: '/bindAdd', component: require('../pages/bind/bindDetail') },
+  // message
   { path: '/message/:id', name: 'messageDetail', component: require('../pages/message/messageDetail') },
   { path: '/member', component: require('../pages/member/member') },
+  // beian
   { path: '/beian', component: require('../pages/beian/beian') },
   { path: '/redShield', component: require('../pages/beian/redShield') },
   { path: '/miit', component: require('../pages/beian/miit') },
   { path: '/policeRecord', component: require('../pages/beian/policeRecord') },
+  // other
   { name: 'playerDetail', path: '/playerDetail/:id', component: require('../views/playerDetail') },
   { path: '/playListDetail/:id', name: 'playListDetail', component: require('../views/playListDetail') },
   { path: '*', redirect: '/main/home' }

@@ -1,38 +1,43 @@
 <template>
-    <div>
-        <div>排行榜-尚未开发2</div>
+  <div>
+    <mu-appbar title="数据">
+      <mu-icon-button icon='arrow_back' @click="back"  slot="left"/>
+    </mu-appbar>
 
-        <mu-circular-progress :size="50" :strokeWidth="5" style="position: fixed;z-index: 999;left: 50%;margin-left: -25px;top:30%"  v-if="isloading"/>
-
-        <mu-text-field label="用户名称" hintText="请输入用户名称" v-model="enterprise.name"/>
-        <img v-bind:src="enterprise.logo" alt="">
-
-        <mu-raised-button label="提交" @click="submit" class="submit-raised-button" primary fullWidth/>
+    <div class="container">
+     <mu-paper style="display: inline-block; width: 100%;">
+       <mu-list>
+         <mu-list-item title="产品" @click="to('/product')">
+           <mu-icon value="navigate_next" :size="24" slot="right" color="#aaa"/>
+         </mu-list-item>
+         <mu-list-item title="新闻" @click="to('/news')">
+           <mu-icon value="navigate_next" :size="24" slot="right" color="#aaa"/>
+         </mu-list-item>
+         <mu-list-item title="证书" @click="to('/cert')">
+           <mu-icon value="navigate_next" :size="24" slot="right" color="#aaa"/>
+         </mu-list-item>
+         <mu-list-item title="友情链接" @click="to('/link')">
+           <mu-icon value="navigate_next" :size="24" slot="right" color="#aaa"/>
+         </mu-list-item>
+       </mu-list>
+     </mu-paper>
     </div>
+
+  </div>
 </template>
 <script>
-import api from '../../api'
-import qs from 'qs'
 export default {
   data () {
     return {
-      isloading: false,
       enterprise: {}
     }
   },
-  created () {
-    this.get()
-  },
   methods: {
-    get () {
-      this.$http.get(api.getEnterprise()).then((res) => {
-        this.enterprise = res.data.attributes.data
-      })
+    back () {
+      this.$router.back()
     },
-    submit () {
-      this.$http.put('/rest/api/enterprise/detail?' + qs.stringify(this.enterprise)).then((res) => {
-        window.alert('操作成功')
-      })
+    to (e) {
+      this.$router.push({path: e})
     }
   }
 }

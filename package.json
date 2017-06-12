@@ -18,10 +18,12 @@
   },
   "dependencies": {
     "axios": "^0.16.1",
+    "jsonp": "^0.2.1",
     "localResizeIMG": "^4.9.40",
     "muse-ui": "^2.0.3",
     "vue": "^2.1.0",
     "vue-cookie": "^1.1.4",
+    "vue-quill-editor": "^2.2.1",
     "vue-router": "^2.1.1",
     "vuex": "^2.1.1"
   },

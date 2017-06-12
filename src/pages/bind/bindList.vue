@@ -40,9 +40,16 @@ export default {
   mounted () {
     this.scroller = this.$el
   },
+  watch: {
+    $route (to, from) {
+      if (to.path === '/bind' && JSON.stringify(to.query).length > 10) {
+        this.list.unshift(to.query)
+      }
+    }
+  },
   methods: {
     back () {
-      this.$router.back()
+      this.$router.go(-1)
     },
     get () {
       this.loading = true

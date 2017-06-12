@@ -19,7 +19,7 @@
          <mu-list-item title="域名绑定" @click="to('/bind')">
            <mu-icon value="navigate_next" :size="24" slot="right" color="#aaa"/>
          </mu-list-item>
-         <mu-list-item title="一键发布" @click="to('/beian')">
+         <mu-list-item title="一键发布" @click="to('/publish')">
            <mu-icon value="navigate_next" :size="24" slot="right" color="#aaa"/>
          </mu-list-item>
          <br/>
