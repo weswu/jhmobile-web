@@ -38,6 +38,9 @@ const router = new VueRouter({
   { path: '/publish', component: require('../pages/user/publish') },
   // setting
   { path: '/setting', component: require('../pages/setting/setting') },
+  // product
+  { path: '/product', component: require('../pages/product/productList') },
+  { path: '/productAdd', component: require('../pages/product/productDetail') },
   // bind
   { path: '/bind', component: require('../pages/bind/bindList') },
   { path: '/bindAdd', component: require('../pages/bind/bindDetail') },

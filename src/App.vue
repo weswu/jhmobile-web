@@ -28,6 +28,12 @@
   }
 </script>
 <style>
+.hr {
+    background: #f5f5f5;
+    border: none;
+    height: 12px;
+    margin: 0;
+}
 .file-button{
   position: absolute;
   left: 0;
