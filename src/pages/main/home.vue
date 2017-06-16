@@ -1,66 +1,73 @@
 <template>
   <div>
-    <mu-row gutter class="home-header">
-      <mu-col width="30" tablet="20" desktop="15">
-        <a href="#/enterprise"><img src="http://img.jihui88.com/upload/j/j2/jihui88/picture/2015/04/04/a6e43943-f0fc-4124-8405-3a16d749175d_5.gif" alt="logo"
-          style="width:85px;height:85px;margin: 15px; border-radius: 100%;"></a>
-      </mu-col>
-      <mu-col width="70" tablet="40" desktop="35">
-        <div class="home-user-info">
+    <div class='home-header'>
+      <div slot='left' style='width:5rem;float:left;margin-left:0.5rem'>
+        <a href='#/enterprise'>
+          <img :src='imgUrl + userInfo.logo' @error='setErrorImg' alt='logo'>
+        </a>
+      </div>
+      <div slot='left'>
+        <div class='home-user-info'>
           {{user.username}},您好！！<br/>
-          当前版本：电商版<br/>
-          到期时间：电商版<br/>
-          服务热线：<a href="tel:4007111011">400-7111-011</a>
+          <span v-if='userInfo.versions'>当前版本：{{userInfo.versions}}<br/></span>
+          <span v-if="userInfo.endTime === '1'">已到期,请续费<br/></span>
+          <span v-if="userInfo.endTime && userInfo.endTime != '0'">到期时间：{{userInfo.endTime}}<br/></span>
+          服务热线：<a href='tel:4007111011'>400-7111-011</a>
         </div>
-        <a href="#/setting" style="position: absolute;top: 15px;right: 15px;color:#fff"><i class="mu-bottom-item-icon mu-icon material-icons">settings</i></a>
-      </mu-col>
-    </mu-row>
+        <a href='#/setting' style='position: absolute;top: 15px;right: 15px;color:#fff'><i class='mu-bottom-item-icon mu-icon material-icons'>settings</i></a>
+      </div>
+    </div>
 
-    <div class="status">
+
+    <div class='status'>
       <ul>
-        <li @click="toOrder('#/order/buyerPayment')" class="app-button">
-          <span class="status_num">{{unpaid}}</span><span class="status_txt">待付款</span>
+        <li @click="toOrder('#/order/buyerPayment')" class='app-button'>
+          <span class='status_num'>{{userInfo.unpaid}}</span><span class='status_txt'>待付款</span>
         </li>
-        <li @click="toOrder('#/order/awaitS')" class="app-button" >
-          <span class="status_num op">{{unshipped}}</span> <span class="status_txt">待发货</span>
+        <li @click="toOrder('#/order/awaitS')" class='app-button' >
+          <span class='status_num op'>{{userInfo.unshipped}}</span> <span class='status_txt'>待发货</span>
         </li>
-        <li @click="toOrder('#/order/delivery')" class="app-button" >
-          <span class="status_num"> {{shipped}}</span><span class="status_txt">待收货</span>
+        <li @click="toOrder('#/order/delivery')" class='app-button' >
+          <span class='status_num'> {{userInfo.shipped}}</span><span class='status_txt'>待收货</span>
         </li>
-        <li @click="toOrder('#/message/list?recvState=00')" class="app-button">
-          <span class="status_num">{{unread}}</span><span class="status_txt">未读询盘</span>
+        <li @click="toOrder('#/message/list?recvState=00')" class='app-button'>
+          <span class='status_num'>{{userInfo.unread}}</span><span class='status_txt'>未读询盘</span>
          </li>
       </ul>
-      <mu-list-item  title="已卖出的货品" href="#/order">
-        <div slot="after">
+      <mu-list-item href='#/order'>
+        <span slot='title'  style='color: #777'>
+          已卖出的货品
+        </span>
+        <div slot='after' style='font-size: 0.6rem'>
           全部订单
         </div>
-        <mu-icon value="navigate_next" :size="20" slot="right" color="#aaa"/>
+        <mu-icon value='navigate_next' :size='20' slot='right' color='#aaa'/>
       </mu-list-item>
+
     </div>
-    <div class="hr"></div>
-    <mu-flexbox :gutter="0">
-      <mu-flexbox-item class="flex-home" v-for="item in navList1">
-        <a :href="item.url">
-          <i class="mu-bottom-item-icon mu-icon material-icons">{{item.icon}}</i>
+    <div class='hr'></div>
+    <mu-flexbox :gutter='0'>
+      <mu-flexbox-item class='flex-home' v-for='item in navList1'>
+        <a :href='item.url'>
+          <i class='mu-bottom-item-icon mu-icon material-icons'>{{item.icon}}</i>
           {{item.name}}
         </a>
       </mu-flexbox-item>
     </mu-flexbox>
 
-    <mu-flexbox :gutter="0">
-      <mu-flexbox-item class="flex-home" v-for="item in navList2">
-        <a :href="item.url">
-          <i class="mu-bottom-item-icon mu-icon material-icons">{{item.icon}}</i>
+    <mu-flexbox :gutter='0'>
+      <mu-flexbox-item class='flex-home' v-for='item in navList2'>
+        <a :href='item.url'>
+          <i class='mu-bottom-item-icon mu-icon material-icons'>{{item.icon}}</i>
           {{item.name}}
         </a>
       </mu-flexbox-item>
     </mu-flexbox>
 
-    <mu-flexbox :gutter="0">
-      <mu-flexbox-item class="flex-home" v-for="item in navList3">
-        <a :href="item.url">
-          <i class="mu-bottom-item-icon mu-icon material-icons">{{item.icon}}</i>
+    <mu-flexbox :gutter='0'>
+      <mu-flexbox-item class='flex-home' v-for='item in navList3'>
+        <a :href='item.url'>
+          <i class='mu-bottom-item-icon mu-icon material-icons'>{{item.icon}}</i>
           {{item.name}}
         </a>
       </mu-flexbox-item>
@@ -72,10 +79,10 @@ import api from '../../api'
 export default {
   data () {
     return {
-      user: {},
+      user: this.$store.state.user,
       navList1: [
-        {url: '#/data', name: '商城数据', icon: 'cloud_circle'},
-        {url: 'jvascript:;', name: '微网站', icon: 'settings_cell'},
+        {url: '#/shopData', name: '商城数据', icon: 'cloud_circle'},
+        {url: 'http://m.' + this.$store.state.user.username + '.jihui88.com', name: '微网站', icon: 'settings_cell'},
         {url: '#/wcd', name: '微传单', icon: 'wifi_tethering'},
         {url: '#/distributor', name: '微分销', icon: 'settings_input_antenna'}
       ],
@@ -91,11 +98,16 @@ export default {
         {url: '#/point', name: '我的积分', icon: 'featured_play_list'},
         {url: '#/friend', name: '参与推广', icon: 'language'}
       ],
-      unpaid: 0,
-      unshipped: 0,
-      shipped: 0,
-      unread: 0,
-      shop: {}
+      userInfo: {
+        unshipped: 9,
+        shipped: 0,
+        unread: 6,
+        versions: '电商版',
+        name: 'jihui88',
+        logo: 'upload/j/j2/jihui88/picture/2015/04/04/a6e43943-f0fc-4124-8405-3a16d749175d.gif',
+        endTime: '2019-07-17',
+        unpaid: 1
+      }
     }
   },
   created () {
@@ -114,8 +126,11 @@ export default {
         })
       }, 500)
       this.$http.get(api.getOrderInfo()).then((res) => {
-        this.shop = res.data.attributes.data
+        this.userInfo = res.data.attributes.data
       })
+    },
+    setErrorImg (e) {
+      e.target.src = this.$store.state.errImgUrl
     },
     toOrder (e) {
       this.$router.push({path: e})
@@ -123,34 +138,20 @@ export default {
   }
 }
 </script>
-<style lang="less" scoped>
-.flex-home{
-  border-right: 1px solid #ededed;
-border-bottom: 1px solid #ededed;text-align: center;padding: 10px 0 5px 0;
-}
-.flex-home a{
-  color:#666;    line-height: 2.5;display: block
-}
-.flex-home i{
-   color: #bbb;
-}
-.home-header{
-  background: url(http://app.jihui88.com/css/img/user-bg.jpg) no-repeat;
-background-size: cover;
-overflow: hidden;
-color:#fff
-}
-.home-user-info{
-margin:20px 10px;    font-size: 12px;
-    opacity: 0.9;
-}
-.home-user-info a{
-color:#fff
-}
+<style lang='less' scoped>
 
-.status>ul{margin: 0;padding:.5rem;border-bottom:1px solid #e5e5e5;display:-moz-box;display:-webkit-box;display:-webkit-flex;display:-moz-flex;display:-ms-flexbox;display:-ms-flex}
-.status>ul>li{-webkit-box-flex:1;-moz-box-flex:1;-webkit-flex:1 1 0%;-moz-flex:1 1 0;-ms-flex:1 1 0%;flex:1 1 0%;display:block;padding:.5rem 0}
-.status_num,.status_txt{display:block;line-height:1.5;text-align:center;}
-.status_txt{opacity:.8}.status_num{font-size:.8rem}
+.home-header{background:url(http://app.jihui88.com/css/img/user-bg.jpg) no-repeat;background-size:cover;overflow:hidden;color:#fff;padding:1rem 0 .5rem 0}
+.home-user-info{margin: .5rem;font-size:.6rem;opacity:.9;line-height:1rem;float:left}
+.home-user-info a{color:#fff}
+.home-header img{width:4rem;height:4rem;margin:.5rem;border-radius:100%}
+.mu-item-title{color:#777}
+.flex-home{border-right:1px solid #ededed;border-bottom:1px solid #ededed;text-align:center;padding:10px 0 5px 0}
+.flex-home a{color:#666;line-height:2.5;display:block;font-size:.7rem}
+.flex-home i{color:#bbb;font-size:1.2rem;width:auto}
+
+.status>ul{margin: 0;padding:.3rem 0;border-bottom:1px solid #e5e5e5;display:-moz-box;display:-webkit-box;display:-webkit-flex;display:-moz-flex;display:-ms-flexbox;display:-ms-flex}
+.status>ul>li{-webkit-box-flex:1;-moz-box-flex:1;-webkit-flex:1 1 0%;-moz-flex:1 1 0;-ms-flex:1 1 0%;flex:1 1 0%;display:block;padding:.3rem 0}
+.status_num,.status_txt{display:block;line-height:1.5;text-align:center;color:#bbb}
+.status_txt{color:#999}.status_num{font-size:.8rem}
 .status .mu-badge{color:#999}
 </style>

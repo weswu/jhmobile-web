@@ -40,7 +40,19 @@ const router = new VueRouter({
   { path: '/setting', component: require('../pages/setting/setting') },
   // product
   { path: '/product', component: require('../pages/product/productList') },
+  { path: '/product/:id', component: require('../pages/product/productDetail') },
   { path: '/productAdd', component: require('../pages/product/productDetail') },
+  // news
+  { path: '/news', component: require('../pages/news/newsList') },
+  { path: '/news/:id', component: require('../pages/news/newsDetail') },
+  { path: '/newsAdd', component: require('../pages/news/newsDetail') },
+  // category
+  { path: '/category/:id', component: require('../pages/category/categoryList') },
+  { path: '/categoryAdd/:id', component: require('../pages/category/categoryDetail') },
+  // shop
+  { path: '/shopData', component: require('../pages/shop/data') },
+  { path: '/data_p_q', component: require('../pages/shop/data_purchase_quantity') },
+  { path: '/data_p_a', component: require('../pages/shop/data_purchase_amount') },
   // bind
   { path: '/bind', component: require('../pages/bind/bindList') },
   { path: '/bindAdd', component: require('../pages/bind/bindDetail') },

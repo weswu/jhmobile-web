@@ -4,8 +4,8 @@
       <mu-icon-button icon='arrow_back' @click='back' slot='left'/>
       <mu-icon-button icon='search' slot='right' @click='search = !search'/>
       <mu-icon-menu icon='add' slot='right'>
-        <mu-menu-item title='产品添加' href='#/productAdd'/>
-        <mu-menu-item title='产品分类' href='#/category/product'/>
+        <mu-menu-item title='新闻添加' href='#/newsAdd'/>
+        <mu-menu-item title='新闻分类' href='#/category/news'/>
       </mu-icon-menu>
       <div class='play-title'>
         <div class='play-name'><span>{{title}}<span style='font-size:16px;padding-left:5px' v-if='num != 0'>({{num}})</span></span></div>
@@ -13,17 +13,17 @@
     </mu-appbar>
     <transition name='fade'>
       <div class='header-search' v-show='search'>
-        <mu-select-field v-model='searchData.categoryId' :labelFocusClass='['label-foucs']' hintText='产品分类'>
+        <mu-select-field v-model='searchData.categoryId' :labelFocusClass='['label-foucs']' hintText='新闻分类'>
           <mu-menu-item v-for='v,index in categoryList' :value='v.categoryId' :title='v.name' />
         </mu-select-field>
-        <mu-text-field class='appbar-search-field' slot='left' v-model='searchData.title' hintText='请输入产品标题'/>
+        <mu-text-field class='appbar-search-field' slot='left' v-model='searchData.title' hintText='请输入新闻标题'/>
         <mu-icon-button icon='search' slot='right' @click='searchKey'/>
       </div>
     </transition>
 
     <div class='pt56 demo-refresh-container'>
       <mu-list>
-        <template v-for='item in productlist'>
+        <template v-for='item in newslist'>
           <mu-list-item data-type='pc' :title='item.title'>
             <div class='subContent'>
               发布时间:{{item.addTime}}    人气：{{item.viewsum}}
@@ -42,53 +42,53 @@ import qs from 'qs'
 export default {
   data () {
     return {
-      title: '产品管理',
+      title: '新闻管理',
       num: 0,
       search: false,
-      productlist: [
+      newslist: [
         {
-          productId: 'product_000000000000000000000105546',
+          newsId: 'News_000000000000000000000105546',
           category: 'Category_00000000000000000338054',
           title: 'testdddd',
           addTime: '2017-05-04',
           state: '01',
-          topproduct: '00',
+          topnews: '00',
           display: '01',
           viewsum: 1,
-          id: 'product_000000000000000000000105546'
+          id: 'News_000000000000000000000105546'
         },
         {
-          productId: 'product_000000000000000000000105546',
+          newsId: 'News_000000000000000000000105546',
           category: 'Category_00000000000000000338054',
           title: 'testdddd',
           addTime: '2017-05-04',
           state: '01',
-          topproduct: '00',
+          topnews: '00',
           display: '01',
           viewsum: 1,
-          id: 'product_000000000000000000000105546'
+          id: 'News_000000000000000000000105546'
         },
         {
-          productId: 'product_000000000000000000000105546',
+          newsId: 'News_000000000000000000000105546',
           category: 'Category_00000000000000000338054',
           title: 'testdddd',
           addTime: '2017-05-04',
           state: '01',
-          topproduct: '00',
+          topnews: '00',
           display: '01',
           viewsum: 1,
-          id: 'product_000000000000000000000105546'
+          id: 'News_000000000000000000000105546'
         },
         {
-          productId: 'product_000000000000000000000105546',
+          newsId: 'News_000000000000000000000105546',
           category: 'Category_00000000000000000338054',
           title: 'testdddd',
           addTime: '2017-05-04',
           state: '01',
-          topproduct: '00',
+          topnews: '00',
           display: '01',
           viewsum: 1,
-          id: 'product_000000000000000000000105546'
+          id: 'News_000000000000000000000105546'
         }
       ],
       searchData: {
@@ -115,7 +115,7 @@ export default {
   },
   watch: {
     $route (to, from) {
-      if (to.path === '/product' && JSON.stringify(to.query).length > 10) {
+      if (to.path === '/news' && JSON.stringify(to.query).length > 10) {
         this.list.unshift(to.query)
       }
     }
@@ -125,10 +125,10 @@ export default {
       this.$router.back()
     },
     get () {
-      this.$http.get('/rest/api/product/list?' + qs.stringify(this.searchData)).then((res) => {
+      this.$http.get('/rest/api/news/list?' + qs.stringify(this.searchData)).then((res) => {
         var list = res.data.attributes.data
         for (let i = 0; i < list.length; i++) {
-          this.productlist.push(list[i])
+          this.newslist.push(list[i])
         }
         this.page = this.page + 1
         if (list.length < 16) { this.refresh = false }
@@ -138,7 +138,7 @@ export default {
       this.refresh && this.get()
     },
     searchKey () {
-      this.productlist = []
+      this.newslist = []
       this.searchData.page = 0
       this.get()
       this.search = false

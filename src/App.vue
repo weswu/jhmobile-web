@@ -4,7 +4,7 @@
         <router-view></router-view>
       </keep-alive>
     <Player v-show="songList.length > 0 && !showDetail"></Player>
-     <Toast ref="alert"></Toast>
+    <Toast ref="alert"></Toast>
   </div>
 </template>
 <script>
@@ -27,13 +27,9 @@
     }
   }
 </script>
-<style>
-.hr {
-    background: #f5f5f5;
-    border: none;
-    height: 12px;
-    margin: 0;
-}
+<style lang='css'>
+
+
 .file-button{
   position: absolute;
   left: 0;
@@ -54,9 +50,7 @@
 .p10{
   padding: 10px
 }
-.pt56{
-  padding-top: 56px;
-}
+
 .mu-raised-button.submit-raised-button{
   height: 40px;
   line-height: 40px;
@@ -69,13 +63,5 @@
 }
 .mu-text-field.mu-select-field{
   width: 50%;
-}
-.wu-infinite-container {
-  overflow: auto;
-  height: 100vh;
-  -webkit-overflow-scrolling: touch;
-  .mu-appbar {
-    position: fixed;
-  }
 }
 </style>

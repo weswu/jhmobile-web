@@ -47,6 +47,7 @@ export default {
       })).then((res) => {
         this.$cookie.set('username', this.username)
         this.$cookie.set('password', this.password)
+        this.$store.state.user = res.data.attributes.data
         this.$router.push({path: '/main/home'})
       })
     }

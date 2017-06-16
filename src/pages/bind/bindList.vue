@@ -1,6 +1,6 @@
 <template>
   <div class='wu-infinite-container'>
-    <mu-appbar title='域名添加' class='wu-appbar'>
+    <mu-appbar title='域名绑定' class='wu-appbar'>
       <mu-icon-button icon='arrow_back' @click='back' slot='left'/>
       <mu-icon-button icon='add' href='#/bindAdd' slot='right'/>
     </mu-appbar>
