@@ -1,6 +1,6 @@
 <template>
 <div>
-  <mu-appbar title="备案管理">
+  <mu-appbar title="商城数据">
     <mu-icon-button icon='arrow_back' @click="back"  slot="left"/>
   </mu-appbar>
 

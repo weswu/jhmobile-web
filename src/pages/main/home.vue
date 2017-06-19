@@ -83,14 +83,14 @@ export default {
       navList1: [
         {url: '#/shopData', name: '商城数据', icon: 'cloud_circle'},
         {url: 'http://m.' + this.$store.state.user.username + '.jihui88.com', name: '微网站', icon: 'settings_cell'},
-        {url: '#/wcd', name: '微传单', icon: 'wifi_tethering'},
+        {url: '#/wcd/me', name: '微传单', icon: 'wifi_tethering'},
         {url: '#/distributor', name: '微分销', icon: 'settings_input_antenna'}
       ],
       navList2: [
         {url: '#/member', name: '会员管理', icon: 'supervisor_account'},
         {url: '#/video', name: '视频教程', icon: 'video_call'},
         {url: '#/cnzz', name: '流量分析', icon: 'assessment'},
-        {url: '#/seo', name: 'SEO帮助', icon: 'devices'}
+        {url: '#/seo_help', name: 'SEO帮助', icon: 'devices'}
       ],
       navList3: [
         {url: '#/serivepay', name: '服务缴费', icon: 'note'},

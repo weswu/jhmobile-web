@@ -60,17 +60,6 @@
 </template>
 
 <style lang="less" scoped>
-  @import "../../assets/theme.less";
-  .view-tabs {
-    background-color: #fff;
-    color: rgba(0,0,0,.87);
-    >.mu-tab-link {
-      color: rgba(102,102,102,1);
-    }
-    >.mu-tab-active{
-      color: @primaryColor;
-    }
-  }
   .demo-popup-top{
     width: 100%;
     opacity: .8;

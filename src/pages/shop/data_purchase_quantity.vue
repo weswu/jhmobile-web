@@ -3,12 +3,18 @@
   <mu-appbar class='wu-appbar'>
     <mu-icon-button icon='arrow_back' @click="back" slot="left"/>
     <div class='play-title'>
-      客户购买数量排行<span style='font-size:16px;padding-left:5px' v-if='num === 1'>({{num}})</span>
+      客户购买数量排行<span style='font-size:16px;padding-left:5px' v-show='count'>({{count}})</span>
     </div>
   </mu-appbar>
-  <div class="container pt56">
-    <mu-list>
 
+  <div class='pt56 demo-refresh-container'>
+    <mu-list>
+      <template v-for='item in list'>
+        <mu-list-item data-type="pc" :title="item.name">
+          <div slot="right">{{data.quantity}}</div>
+        </mu-list-item>
+        <mu-divider/>
+      </template>
     </mu-list>
   </div>
 
@@ -19,10 +25,8 @@
 export default {
   data () {
     return {
-      data: {
-        num: 1,
-        list: []
-      }
+      list: [],
+      count: 0
     }
   },
   created () {
@@ -33,13 +37,14 @@ export default {
       this.$router.back()
     },
     get () {
-      this.$http.get('/rest/api/order/data/member_list?pageSize=5000&sort=1&page=1').then((res) => {
+      this.$http.get('/rest/api/order/data/member_list?pageSize=5000&sort=2&page=1').then((res) => {
         this.list = res.data.attributes.data
+        this.count = res.data.attributes.count
       })
+    },
+    loadMore () {
+      this.refresh && this.get()
     }
   }
 }
 </script>
-<style lang="less" scoped>
-
-</style>

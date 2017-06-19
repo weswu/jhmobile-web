@@ -53,12 +53,26 @@ const router = new VueRouter({
   { path: '/shopData', component: require('../pages/shop/data') },
   { path: '/data_p_q', component: require('../pages/shop/data_purchase_quantity') },
   { path: '/data_p_a', component: require('../pages/shop/data_purchase_amount') },
+  // wcd
+  { path: '/wcd',
+    component: require('../pages/wcd/wcd'),
+    children: [
+      { path: 'vip', component: require('../pages/wcd/vip') },
+      { path: 'case', component: require('../pages/wcd/case') },
+      { path: 'me', component: require('../pages/wcd/me') }
+    ]
+  },
   // bind
   { path: '/bind', component: require('../pages/bind/bindList') },
   { path: '/bindAdd', component: require('../pages/bind/bindDetail') },
   // message
   { path: '/message/:id', name: 'messageDetail', component: require('../pages/message/messageDetail') },
-  { path: '/member', component: require('../pages/member/member') },
+  // 会员
+  { path: '/member', component: require('../pages/member/memberList') },
+  // 服务
+  { path: '/video', component: require('../pages/service/video') },
+  { path: '/cnzz', component: require('../pages/service/cnzz') },
+  { path: '/seo_help', component: require('../pages/service/seoHelp') },
   // beian
   { path: '/beian', component: require('../pages/beian/beian') },
   { path: '/redShield', component: require('../pages/beian/redShield') },
