@@ -36,8 +36,6 @@ const router = new VueRouter({
   { path: '/map', component: require('../pages/user/map') },
   { path: '/enterprise', component: require('../pages/user/enterprise') },
   { path: '/publish', component: require('../pages/user/publish') },
-  // setting
-  { path: '/setting', component: require('../pages/setting/setting') },
   // product
   { path: '/product', component: require('../pages/product/productList') },
   { path: '/product/:id', component: require('../pages/product/productDetail') },
@@ -62,6 +60,7 @@ const router = new VueRouter({
       { path: 'me', component: require('../pages/wcd/me') }
     ]
   },
+  { path: '/wcd_open/:id', component: require('../pages/wcd/wcdOpen') },
   // bind
   { path: '/bind', component: require('../pages/bind/bindList') },
   { path: '/bindAdd', component: require('../pages/bind/bindDetail') },
@@ -69,7 +68,16 @@ const router = new VueRouter({
   { path: '/message/:id', name: 'messageDetail', component: require('../pages/message/messageDetail') },
   // 会员
   { path: '/member', component: require('../pages/member/memberList') },
+  // setting
+  { path: '/setting', component: require('../pages/setting/setting') },
+  { path: '/account', component: require('../pages/setting/account') },
+  { path: '/service_feedback', component: require('../pages/setting/serviceFeedback') },
+  { path: '/log', component: require('../pages/setting/logList') },
+  { path: '/sale', component: require('../pages/setting/sale') },
+  { path: '/about', component: require('../pages/setting/about') },
+  { path: '/password', component: require('../pages/setting/password') },
   // 服务
+  { path: '/service', component: require('../pages/service/service') },
   { path: '/video', component: require('../pages/service/video') },
   { path: '/cnzz', component: require('../pages/service/cnzz') },
   { path: '/seo_help', component: require('../pages/service/seoHelp') },

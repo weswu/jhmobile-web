@@ -32,6 +32,7 @@ const store = new Vuex.Store({
     isWeixin: !!window.ua.match(/MicroMessenger/i),    // 微信浏览器
     errImgUrl: 'http://img.easthardware.com/upload/j/j2/jihui/picture/2015/12/04/cb46a5be-9960-4c96-a463-895e7948c415.png',
     imgUrl: 'http://img.jihui88.com/',
+    wcdImgUrl: 'http://wcd.jihui88.com/leaflet/images/nopic.png',
     user: {},
     enterprise: {}
   },

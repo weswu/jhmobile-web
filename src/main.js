@@ -7,6 +7,8 @@ import store from './store'
 import toast from './components/toast.vue'
 import MuseUI from 'muse-ui'
 import Cookie from 'vue-cookie'
+import './utils/filters'
+import './utils/fun'
 import 'muse-ui/dist/muse-ui.css'
 import 'assets/theme.less'
 // 开启debug模式

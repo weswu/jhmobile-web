@@ -149,7 +149,7 @@ export default {
 .flex-home a{color:#666;line-height:2.5;display:block;font-size:.7rem}
 .flex-home i{color:#bbb;font-size:1.2rem;width:auto}
 
-.status>ul{margin: 0;padding:.3rem 0;border-bottom:1px solid #e5e5e5;display:-moz-box;display:-webkit-box;display:-webkit-flex;display:-moz-flex;display:-ms-flexbox;display:-ms-flex}
+.status>ul{margin: 0;padding:.3rem 0;border-bottom:1px solid #e5e5e5;display: -webkit-flex;display:-moz-box;display:-webkit-box;display:-moz-flex;display:-ms-flexbox;display:-ms-flex}
 .status>ul>li{-webkit-box-flex:1;-moz-box-flex:1;-webkit-flex:1 1 0%;-moz-flex:1 1 0;-ms-flex:1 1 0%;flex:1 1 0%;display:block;padding:.3rem 0}
 .status_num,.status_txt{display:block;line-height:1.5;text-align:center;color:#bbb}
 .status_txt{color:#999}.status_num{font-size:.8rem}

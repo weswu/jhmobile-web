@@ -6,12 +6,13 @@
       客户购买金额排行<span style='font-size:16px;padding-left:5px' v-show='count'>({{count}})</span>
     </div>
   </mu-appbar>
-  <div class='pt56 demo-refresh-container'>
 
+  <div class='pt56 demo-refresh-container'>
     <mu-list>
-      <template v-for='item in list'>
-        <mu-list-item data-type="pc" :title="item.name">
-          <div slot="right">{{data.quantity}}</div>
+      <template v-for='(item, index) in list'>
+        <mu-list-item :title="item.name || item.username">
+          <div slot="left">{{index + 1}}</div>
+          <div slot="right">￥{{item.amount | price}}</div>
         </mu-list-item>
         <mu-divider/>
       </template>

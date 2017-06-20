@@ -1,0 +1,43 @@
+<template>
+  <div>
+    <mu-appbar title="修改密码">
+      <mu-icon-button icon='arrow_back' @click="back"  slot="left"/>
+    </mu-appbar>
+    <div class="container p10">
+      <p>
+        <mu-text-field label="当前密码" hintText="请输入当前密码" v-model="password.oldPs"/>
+        <mu-text-field label="新密码" hintText="请输入新密码" v-model="password.newPs"/>
+        <mu-text-field label="确认密码" hintText="请输入确认密码" v-model="password.newPs2"/>
+      </p>
+      <mu-raised-button label="提交" @click="submit" class="submit-raised-button" secondary fullWidth/>
+    </div>
+
+  </div>
+</template>
+<script>
+import qs from 'qs'
+export default {
+  data () {
+    return {
+      password: {}
+    }
+  },
+  methods: {
+    back () {
+      this.$router.back()
+    },
+    submit () {
+      if (this.password.newPs !== this.password.newPs2) {
+        window.alert('新密码不一致')
+      }
+      if (!this.password.oldPs || !this.password.newPs) {
+        window.alert('密码不能为空')
+      }
+      this.$http.put('/rest/api/user/detail/password?' + qs.stringify(this.password)).then((res) => {
+        this.$cookie.set('password', res.data.attributes.password)
+        window.alert('修改成功')
+      })
+    }
+  }
+}
+</script>

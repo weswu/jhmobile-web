@@ -1,16 +1,17 @@
 <template>
-  <div>
+  <div class='wu-infinite-container'>
     <mu-appbar>
       <mu-icon-button icon='arrow_back' @click='back'  slot='left'/>
       <div class='play-title'>
         微传单
       </div>
     </mu-appbar>
-    <mu-tabs :value="activeTab" @change="handleTabChange" class="view-tabs">
+    <mu-tabs :value="activeTab" @change="handleTabChange" class="view-tabs mt56">
       <mu-tab value="me" title="我的微传单"/>
       <mu-tab value="vip" title="VIP专属"/>
       <mu-tab value="case" title="案例展示"/>
     </mu-tabs>
+    <div style="height:0.2rem"></div>
     <div class="default-view">
       <keep-alive>
        <router-view></router-view>

@@ -8,7 +8,7 @@
     <div class="hr"></div>
     <mu-list>
       <mu-list-item title="支付金额">
-        <div slot="right" v-show="data.totalAmount">￥{{data.totalAmount}}</div>
+        <div slot="right">￥{{data.totalAmount}}</div>
       </mu-list-item>
       <mu-divider/>
       <mu-list-item title="买家数">
@@ -40,13 +40,9 @@ export default {
   data () {
     return {
       data: {
-        totalAmount: 0.16,
-        unshipped: 9,
-        shipped: 0,
-        unread: 6,
-        productTotalQuantity: 16,
-        unpaid: 1,
-        operator: 3
+        totalAmount: 0,
+        operator: 0,
+        productTotalQuantity: 0
       }
     }
   },
@@ -68,8 +64,3 @@ export default {
   }
 }
 </script>
-<style lang="less" scoped>
-.mu-item-wrapper {
-    border-bottom: 1px solid #eee;
-}
-</style>
