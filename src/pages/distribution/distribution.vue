@@ -4,13 +4,13 @@
       <mu-appbar>
         <mu-icon-button icon='arrow_back' @click='back'  slot='left'/>
         <div class='play-title'>
-          微传单
+          我的分销商
         </div>
       </mu-appbar>
       <mu-tabs :value="activeTab" @change="handleTabChange" class="view-tabs">
-        <mu-tab value="me" title="我的微传单"/>
-        <mu-tab value="vip" title="VIP专属"/>
-        <mu-tab value="case" title="案例展示"/>
+        <mu-tab value="member" title="会员"/>
+        <mu-tab value="data" title="数据"/>
+        <mu-tab value="bouns" title="提现"/>
       </mu-tabs>
       <div style="height:0.2rem"></div>
     </div>
@@ -26,7 +26,7 @@
 export default {
   data () {
     return {
-      activeTab: 'me'
+      activeTab: 'member'
     }
   },
   // watch函数监测路由的变化,保持tab面板的高亮位置正确
@@ -34,7 +34,7 @@ export default {
     '$route' (to, from) {
       const path = to.path
       var tmpArr = path.split('/')
-      if (tmpArr[1] === 'wcd') {
+      if (tmpArr[1] === 'distribution') {
         this.handleTabChange(tmpArr[2])
       }
     }
@@ -45,7 +45,7 @@ export default {
     },
     handleTabChange (val) {
       this.activeTab = val
-      this.$router.push({ path: '/wcd/' + val })
+      this.$router.push({ path: '/distribution/' + val })
     }
   }
 }

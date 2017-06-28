@@ -84,7 +84,7 @@ export default {
         {url: '#/shopData', name: '商城数据', icon: 'cloud_circle'},
         {url: 'http://m.' + this.$store.state.user.username + '.jihui88.com', name: '微网站', icon: 'settings_cell'},
         {url: '#/wcd/me', name: '微传单', icon: 'wifi_tethering'},
-        {url: '#/distributor', name: '微分销', icon: 'settings_input_antenna'}
+        {url: '#/distribution', name: '微分销', icon: 'settings_input_antenna'}
       ],
       navList2: [
         {url: '#/member', name: '会员管理', icon: 'supervisor_account'},
@@ -149,8 +149,8 @@ export default {
 .flex-home a{color:#666;line-height:2.5;display:block;font-size:.7rem}
 .flex-home i{color:#bbb;font-size:1.2rem;width:auto}
 
-.status>ul{margin: 0;padding:.3rem 0;border-bottom:1px solid #e5e5e5;display: -webkit-flex;display:-moz-box;display:-webkit-box;display:-moz-flex;display:-ms-flexbox;display:-ms-flex}
-.status>ul>li{-webkit-box-flex:1;-moz-box-flex:1;-webkit-flex:1 1 0%;-moz-flex:1 1 0;-ms-flex:1 1 0%;flex:1 1 0%;display:block;padding:.3rem 0}
+.status>ul{overflow: hidden;margin: 0;padding:.3rem 0;border-bottom:1px solid #e5e5e5;display: -webkit-flex;display:-moz-box;display:-webkit-box;display:-moz-flex;display:-ms-flexbox;display:-ms-flex}
+.status>ul>li{width: 25%;float: left;-webkit-box-flex:1;-moz-box-flex:1;-webkit-flex:1 1 0%;-moz-flex:1 1 0;-ms-flex:1 1 0%;flex:1 1 0%;display:block;padding:.3rem 0}
 .status_num,.status_txt{display:block;line-height:1.5;text-align:center;color:#bbb}
 .status_txt{color:#999}.status_num{font-size:.8rem}
 .status .mu-badge{color:#999}

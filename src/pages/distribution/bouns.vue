@@ -58,7 +58,7 @@ export default {
     get () {
       this.loading = true
       this.$http.get('/rest/api/wcd/case?' + qs.stringify(this.searchData)).then((res) => {
-        this.scrollList(this, res.data)
+        this.scrollList(this, res.data.attributes.data)
       })
     },
     loadMore () {

@@ -61,6 +61,15 @@ const router = new VueRouter({
     ]
   },
   { path: '/wcd_open/:id', component: require('../pages/wcd/wcdOpen') },
+  // 三级分销
+  { path: '/distribution',
+    component: require('../pages/distribution/distribution'),
+    children: [
+      { path: 'member', component: require('../pages/distribution/member') },
+      { path: 'data', component: require('../pages/distribution/data') },
+      { path: 'bouns', component: require('../pages/distribution/bouns') }
+    ]
+  },
   // bind
   { path: '/bind', component: require('../pages/bind/bindList') },
   { path: '/bindAdd', component: require('../pages/bind/bindDetail') },

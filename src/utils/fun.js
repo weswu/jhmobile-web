@@ -9,8 +9,12 @@ Vue.prototype.addAll = function (a, b) {
   }
 }
 Vue.prototype.scrollList = function (ctx, data) {
-  this.addAll(ctx.list, data)
-  ctx.searchData.page += 1
+  if (data.success) {
+    this.addAll(ctx.list, data.attributes.data)
+    ctx.searchData.page += 1
+    if (data < 16) { ctx.refresh = false }
+  } else {
+    ctx.refresh = false
+  }
   ctx.loading = false
-  if (data < 16) { ctx.refresh = false }
 }

@@ -1,5 +1,5 @@
 <template>
-  <div class="gridlist-demo-container">
+  <div class="gridlist-demo-container wrapper">
     <mu-grid-list class="gridlist-demo">
       <mu-grid-tile v-for="item, index in list">
         <img :src="item.sharepic" @error="setErrorImg" @click="open(item)"/>
@@ -41,7 +41,7 @@ export default {
     get () {
       this.loading = true
       this.$http.get('/rest/api/wcd/list?' + qs.stringify(this.searchData)).then((res) => {
-        this.scrollList(this, res.data.attributes.data)
+        this.scrollList(this, res.data)
       })
     },
     loadMore () {
@@ -56,7 +56,3 @@ export default {
   }
 }
 </script>
-
-<style lang='css' scoped>
-
-</style>

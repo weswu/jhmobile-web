@@ -62,7 +62,7 @@ export default {
     get () {
       this.loading = true
       this.$http.get('/rest/api/wcd/vip?' + qs.stringify(this.searchData)).then((res) => {
-        this.scrollList(this, res.data.attributes.data)
+        this.scrollList(this, res.data)
       })
     },
     loadMore () {
@@ -107,7 +107,7 @@ export default {
 <style lang='css' scoped>
 .showVip {
     left: 0;
-    z-index: 111;
+    z-index: 4;
     width: 100%;
     height: 100%;
     display: block;
