@@ -1,50 +1,47 @@
 <template>
-  <div class="gridlist-demo-container">
-    <mu-icon-menu icon="more_vert" class="category">
-      <mu-menu-item :title="item.name" v-for="item in category" @click="cate(item)" :style="item.id === searchData.category_id ? 'color: #fff;background: #ff5241;' : '' "/>
-    </mu-icon-menu>
+  <div class="gridlist-demo-container wrapper">
+    <div class="hr">
 
-    <mu-grid-list class="gridlist-demo">
-      <mu-grid-tile v-for="item, index in list">
-        <img :src="item.sharepic" @error="setErrorImg" @click="open(item)"/>
-        <span slot="title">{{item.seo_title}}</span>
-        <span slot="subTitle">
-          <i class="iconfont icon-xianshi"></i>{{item.views}}
-          <i class="iconfont icon-liuyan"></i>{{item.mviews}}
-          <i class="iconfont icon-fenxiang"></i>{{item.rviews}}
-        </span>
-      </mu-grid-tile>
-    </mu-grid-list>
+    </div>
+    <div class="item-list member-list">
+  			<dl class="item-list-first">
+  				<dd class="item-row-3">会员信息</dd>
+  				<dd class="item-row-7">提现信息</dd>
+  			</dl>
+        <dl v-for="dis,index in list">
+           <dd class="item-row-3">
+             <div class="left userinfo">
+               <p><span>编号：</span>{{dis.dealer_id}}</p>
+               <p><span>昵称：</span><br>{{dis.nickname}}</p>
+             </div>
+           </dd>
+           <dd class="item-row-7">
+             <div class=" distributorinfo">
+               <p><span>提现单号：</span><br>{{dis.mch_billno}}</p>
+               <p><span>提现状态：</span>{{dis.result_code}}</p>
+               <p><span>提现金额：</span>￥{{dis.total_amount}}</p>
+               <p><span>提现时间：</span>{{dis.send_time}}</p>
+             </div>
+           </dd>
+       </dl> 
+		</div>
     <mu-infinite-scroll :scroller='scroller' :loading='loading' @load='loadMore'/>
   </div>
 
 </template>
 
 <script>
-import qs from 'qs'
+import jsonp from 'jsonp'
 export default {
   data () {
     return {
       list: [],
-      category: [
-        { name: '全部', id: '' },
-        { name: 'VIP专属', id: 343798 },
-        { name: '外包设计', id: 343764 },
-        { name: '品牌', id: 343763 },
-        { name: '推荐', id: 343762 },
-        { name: '风格', id: 343761 },
-        { name: '节假', id: 343760 },
-        { name: '个人', id: 343759 },
-        { name: '企业', id: 343758 },
-        { name: '行业', id: 343757 }
-      ],
       loading: false,
       scroller: null,
       refresh: true,
       searchData: {
         page: 1,
-        pageSize: 10,
-        category_id: ''
+        pageSize: 10
       }
     }
   },
@@ -56,33 +53,32 @@ export default {
   },
   methods: {
     get () {
+      var ctx = this
       this.loading = true
-      this.$http.get('/rest/api/wcd/case?' + qs.stringify(this.searchData)).then((res) => {
-        this.scrollList(this, res.data.attributes.data)
+      var entId = this.$store.state.user.enterpriseId
+      jsonp('http://www.jihui88.com/wechat/cps/index.php/jihui_api/bouns/' + entId + '/' + this.searchData.page + '/4?callback=' + entId, null, function (err, data) {
+        if (err) {
+          console.error(err.message)
+        } else {
+          console.log(data)
+        }
+        ctx.scrollList(ctx, data)
       })
     },
     loadMore () {
-      this.refresh && this.get()
-    },
-    setErrorImg (e) {
-      e.target.src = this.$store.state.wcdImgUrl
-    },
-    open (item) {
-      this.$router.push({path: '/wcd_open/' + item.id})
-    },
-    cate (item) {
-      this.searchData.page = 1
-      this.searchData.category_id = item.id
       this.refresh && this.get()
     }
   }
 }
 </script>
 <style scoped>
-.category{
-  position: fixed;
-top: 4px;
-right: 0;    color: #fff;
-z-index: 999;
+.item-list span{
+  color:#777
+}
+.item-list .left {
+    float: left;
+}
+.member-list dl:nth-child(even) {
+  background: #f3f3f3;
 }
 </style>

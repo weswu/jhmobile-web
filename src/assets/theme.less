@@ -31,6 +31,11 @@
 
 // 自定义全局css
 
+ul,li,dl,dd,p{
+  margin:0;
+  padding:0;
+}
+
 .mu-item-left, .mu-item-right{max-height: 3.6rem;}
 
 .wu-infinite-container {
@@ -62,6 +67,45 @@
     color: @primaryColor;
   }
 }
+
+// 列表
+.item-list {
+    overflow: hidden;
+    background: #fff;
+}
+.item-list dl {
+    overflow: hidden;
+    border-bottom: 1px solid #EFEFEF;
+}
+.item-list dd {
+    display: inline-block;
+    float: left;
+    width: 50%;
+    box-sizing: border-box;
+    padding: 10px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.item-list .item-row-7 {
+    width: 70%;
+}
+.item-list .item-row-5 {
+    width: 50%;
+}
+.item-list .item-row-3 {
+    width: 30%;
+}
+.item-list .item-row-2 {
+    width: 20%;
+}
+.item-list .item-row-1 {
+    width: 10%;
+}
+//
+
+.scroll-view {
+  padding-top: 104px;
+}
 // search
 .header-search{position:absolute;left:0;top:56px;width:100%;background:#fff;border-bottom:1px solid #eee;padding:10px 0 0 10px}
 .header-search .mu-text-field{width:40%;float:left;margin-bottom:0;margin-right:.5rem}
@@ -72,6 +116,7 @@
 @media (min-width:480px){
   .header-search{top: 65px}
   .pt56{padding-top: 65px;}
+  .scroll-view{padding-top: 112px;}
 }
 // 动画
 .fade-enter-active, .fade-leave-active {

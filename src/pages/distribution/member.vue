@@ -78,31 +78,7 @@ export default {
 }
 </script>
 <style scoped>
-.item-list {
-    overflow: hidden;
-    background: #fff;
-}
-.item-list dd {
-    display: inline-block;
-    float: left;
-    width: 50%;
-    box-sizing: border-box;
-    padding: .5rem .2rem .5rem .5rem;
-    overflow: hidden;
-    text-overflow: ellipsis;
-        margin: 0;
-}
-.item-list .item-row-7 {
-    width: 70%;
-}
-.item-list .item-row-3 {
-    width: 30%;
-}
-.item-list p, .item-list span {
-    line-height: 1rem;
-    font-size: .5rem;
-    margin:0
-}
+
 .member-list img {
     display: block;
     width: 60px;

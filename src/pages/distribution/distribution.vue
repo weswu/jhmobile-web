@@ -15,7 +15,7 @@
       <div style="height:0.2rem"></div>
     </div>
 
-    <div class="default-view">
+    <div class="scroll-view">
       <keep-alive>
        <router-view></router-view>
       </keep-alive>
@@ -64,9 +64,6 @@ export default {
   top:0;
   left: 0;
   z-index: 15;
-}
-.default-view {
-  margin-top: 104px;
 }
 
 
