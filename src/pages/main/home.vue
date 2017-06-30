@@ -38,7 +38,7 @@
         <span slot='title'  style='color: #777'>
           已卖出的货品
         </span>
-        <div slot='after' style='font-size: 0.6rem'>
+        <div slot='after'>
           全部订单
         </div>
         <mu-icon value='navigate_next' :size='20' slot='right' color='#aaa'/>
@@ -143,7 +143,7 @@ export default {
 .home-header{background:url(http://app.jihui88.com/css/img/user-bg.jpg) no-repeat;background-size:cover;overflow:hidden;color:#fff;padding:1rem 0 .5rem 0}
 .home-user-info{margin: .5rem;font-size:.6rem;opacity:.9;line-height:1rem;float:left}
 .home-user-info a{color:#fff}
-.home-header img{width:4rem;height:4rem;margin:.5rem;border-radius:100%}
+.home-header img{width:4rem;height:4rem;margin:.5rem;border-radius:100%;}
 .mu-item-title{color:#777}
 .flex-home{border-right:1px solid #ededed;border-bottom:1px solid #ededed;text-align:center;padding:10px 0 5px 0}
 .flex-home a{color:#666;line-height:2.5;display:block;font-size:.7rem}

@@ -90,6 +90,9 @@ const router = new VueRouter({
   { path: '/video', component: require('../pages/service/video') },
   { path: '/cnzz', component: require('../pages/service/cnzz') },
   { path: '/seo_help', component: require('../pages/service/seoHelp') },
+  { path: '/faq', component: require('../pages/service/faq') },
+  { path: '/faq1', component: require('../pages/service/faq/faq1') },
+  { path: '/faq2', component: require('../pages/service/faq/faq2') },
   // beian
   { path: '/beian', component: require('../pages/beian/beian') },
   { path: '/redShield', component: require('../pages/beian/redShield') },
