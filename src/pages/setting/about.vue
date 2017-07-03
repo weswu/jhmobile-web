@@ -11,7 +11,7 @@
           </div>
         </mu-list-item>
         <mu-divider />
-        <mu-list-item title="操作记录" href="#/account">
+        <mu-list-item title="更新记录" href="#/app_log">
           <mu-icon value="navigate_next" :size="20" slot="right" color="#aaa"/>
         </mu-list-item>
         <mu-divider />

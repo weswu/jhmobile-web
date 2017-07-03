@@ -85,6 +85,7 @@ const router = new VueRouter({
   { path: '/sale', component: require('../pages/setting/sale') },
   { path: '/about', component: require('../pages/setting/about') },
   { path: '/password', component: require('../pages/setting/password') },
+  { path: '/app_log', component: require('../pages/setting/appLog') },
   // 服务
   { path: '/service', component: require('../pages/service/service') },
   { path: '/video', component: require('../pages/service/video') },

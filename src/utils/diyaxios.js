@@ -7,10 +7,10 @@ axios.interceptors.response.use((res) => {
   }
   if (res.status === 401) {
     debugger
-    if( data.err_code === '用户不存在'){
-      alert('请联系客服,账号未关联到机汇云')
-    }else{
-      alert('发送失败')
+    if (res.err_code === '用户不存在') {
+      window.alert('请联系客服,账号未关联到机汇云')
+    } else {
+      window.alert('发送失败')
     }
   }
   if (res.data.success === false) {
