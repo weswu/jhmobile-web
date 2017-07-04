@@ -1,18 +1,18 @@
 <template>
   <div class='wu-infinite-container'>
-    <mu-appbar title='域名绑定' class='wu-appbar'>
+    <mu-appbar title='友情链接' class='wu-appbar'>
       <mu-icon-button icon='arrow_back' @click='back' slot='left'/>
-      <mu-icon-button icon='add' href='#/bindAdd' slot='right'/>
+      <mu-icon-button icon='add' href='#/linkAdd' slot='right'/>
     </mu-appbar>
-    
     <div class='pt56 demo-refresh-container'>
+
       <mu-list>
         <template v-for='item in list'>
-          <mu-list-item :title="item.address">
-            <div class="subContent">
-              {{item.type | bindType}} <span v-html="bindState(item.state)"></span>
+          <mu-list-item :title='item.name' :to="{name: 'linkDetail',params: { id: item.id}}">
+            <div class='subContent'>
+              {{item.url}}
             </div>
-            <mu-icon value="delete" slot="right" color="#ccc" @click="del(item)"/>
+            <mu-icon value='delete' slot='right' color='#ccc' @click='del(item)'/>
           </mu-list-item>
           <mu-divider/>
         </template>
@@ -26,15 +26,26 @@
 export default {
   data () {
     return {
-      list: [],
+      list: [
+        {
+          linkId: 'Link_000000000000000000000052278',
+          enterpriseId: null,
+          name: '机汇网',
+          url: 'http://www.jihui88.com',
+          state: null,
+          lorder: null,
+          userId: null,
+          addTime: null,
+          updateTime: null,
+          id: 'Link_000000000000000000000052278'
+        }
+      ],
       num: 10,
       loading: false,
       scroller: null,
       refresh: true,
       searchData: {
-        page: 1,
-        pageSize: 16,
-        category_id: ''
+        page: 1
       }
     }
   },
@@ -57,7 +68,7 @@ export default {
     },
     get () {
       this.loading = true
-      this.$http.get('/rest/api/bind/list?page=' + this.searchData.page).then((res) => {
+      this.$http.get('/rest/api/link/list?page=' + this.searchData.page).then((res) => {
         this.scrollList(this, res.data)
         if (this.searchData.page === 1) {
           this.count = res.data.attributes.res.data
@@ -67,14 +78,9 @@ export default {
     loadMore () {
       this.refresh && this.get()
     },
-    bindState (v) {
-      if (v === '00') { return '未审核' }
-      if (v === '01') { return '未审核' }
-      if (v === '02') { return '<span style="color:red">审核不通过</span>' }
-    },
     del (entry) {
       if (window.confirm('确认删除吗？')) {
-        this.$http.delete('/rest/api/bind/detail/' + entry.id).then((res) => {
+        this.$http.delete('/rest/api/link/detail/' + entry.id).then((res) => {
           var data = this.list
           data.forEach(function (item, i) {
             if (item === entry) {
@@ -84,14 +90,6 @@ export default {
           this.$router.back()
         })
       }
-    }
-  },
-  filters: {
-    bindType (v) {
-      if (v === 'D') { return '域名' }
-      if (v === 'A') { return '地址' }
-      if (v === 'I') { return '图片' }
-      if (v === 'M') { return '手机' }
     }
   }
 }
@@ -105,5 +103,4 @@ export default {
 .subContent span{
   padding-left:10px
 }
-
 </style>

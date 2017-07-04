@@ -44,7 +44,7 @@ export default {
       searchData: {
         page: 1,
         pageSize: 10,
-        category_id: ''
+        recvState: ''
       }
     }
   },

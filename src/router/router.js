@@ -73,6 +73,10 @@ const router = new VueRouter({
   // bind
   { path: '/bind', component: require('../pages/bind/bindList') },
   { path: '/bindAdd', component: require('../pages/bind/bindDetail') },
+  // link
+  { path: '/link', component: require('../pages/link/linkList') },
+  { path: '/linkAdd', component: require('../pages/link/linkDetail') },
+  { path: '/link/:id', component: require('../pages/link/linkDetail') },
   // message
   { path: '/message/:id', name: 'messageDetail', component: require('../pages/message/messageDetail') },
   // 会员

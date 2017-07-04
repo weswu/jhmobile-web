@@ -4,14 +4,12 @@
       <mu-icon-button icon='arrow_back' @click='back' slot='left'/>
     </mu-appbar>
     <div class='container p10'>
-      <p>
-        <div>
-          地址类型：
-        </div>
-        <mu-radio name='type' v-model='bind.type' v-for='item in typeList' :label='item.text' :nativeValue='item.value' class='demo-radio' labelClass='w-radio'/>
-        <mu-text-field type='url' label='域名' hintText='请输入域名，不用填http://' v-model='bind.address'/>
-        <mu-text-field label='icp备案号' hintText='请输入备案号' v-model='bind.icp'/>
-      </p>
+      <div>
+        地址类型：
+      </div>
+      <mu-radio name='type' v-model='bind.type' v-for='item in typeList' :label='item.text' :nativeValue='item.value' class='demo-radio' labelClass='w-radio'/>
+      <mu-text-field type='url' label='域名' hintText='请输入域名，不用填http://' v-model='bind.address'/>
+      <mu-text-field label='icp备案号' hintText='请输入备案号' v-model='bind.icp'/>
       <mu-raised-button label='提交' @click='submit' class='submit-raised-button' secondary fullWidth/>
     </div>
 

@@ -42,6 +42,14 @@ export default {
       this.$router.back()
     },
     submit () {
+      if (this.sf.fdbk_subject64 === '') {
+        window.alert('主题不能为空')
+        return false
+      }
+      if (this.sf.fdbk_intro1k === '') {
+        window.alert('反馈内容不能为空')
+        return false
+      }
       this.sf.fdbk_subject64 = this.sf.fdbk_subject64 + '[APP]'
       this.$http.post('http://crmyun.jihui88.com:9500/api/jihuifeedback.php', qs.stringify(this.sf)).then((res) => {
         window.alert('修改成功')

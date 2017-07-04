@@ -1,29 +1,37 @@
 <template>
   <div>
-    <mu-appbar title="网站询盘">
-      <mu-icon-button icon='arrow_back' @click="back"  slot="left"/>
-      <mu-flat-button href="#/login" label="绑定邮箱" slot="right"/>
+    <mu-appbar>
+      <mu-icon-button icon='arrow_back' @click='back'  slot='left'/>
+      <div class='play-title'>
+        <div class='play-name'><span>友情链接<span style='font-size:16px;padding-left:5px' v-if='count != 0'>({{count}})</span></span></div>
+      </div>
     </mu-appbar>
 
-    <mu-list-item  v-for="item, index in list" :title="item.title">
-      <span slot="left">{{index + 1}}</span>
-      <span slot="describe">
-        {{item.addTime}}
-      </span>
-      <mu-icon-menu slot="right" icon="more_vert" tooltip="操作">
-        <mu-menu-item title="查看" :to="{name: 'messageDetail',params: { id: item.id}}"/>
-        <mu-menu-item title="删除"/>
-      </mu-icon-menu>
-    </mu-list-item>
-     <mu-infinite-scroll :scroller="scroller" :loading="loading" @load="loadMore"/>
+    <template v-for='item in list'>
+      <mu-list-item :title='item.title' :to="{name: 'messageDetail',params: { id: item.id}}">
+        <div class="subContent">
+          {{item.addTime}}
+        </div>
+      </mu-list-item>
+      <mu-divider/>
+    </template>
+     <mu-infinite-scroll :scroller='scroller' :loading='loading' @load='loadMore'/>
   </div>
 </template>
 <script>
 export default {
   data () {
     return {
-      isloading: true,
-      list: []
+      list: [],
+      count: 0,
+      loading: false,
+      scroller: null,
+      refresh: true,
+      searchData: {
+        page: 1,
+        pageSize: 10,
+        category_id: ''
+      }
     }
   },
   created () {
@@ -32,7 +40,10 @@ export default {
   methods: {
     get () {
       this.$http.get('/rest/api/message/list').then((res) => {
-        this.list = res.data.attributes.data
+        this.scrollList(this, res.data)
+        if (this.searchData.page === 1) {
+          this.count = res.data.attributes.res.data
+        }
       })
     },
     back () {
@@ -44,7 +55,7 @@ export default {
   }
 }
 </script>
-<style lang="less" scoped>
+<style lang='less' scoped>
 .mu-td-left{
   width: 65px;
 }

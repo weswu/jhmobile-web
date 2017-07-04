@@ -8,7 +8,7 @@
         <mu-menu-item title='新闻分类' href='#/category/news'/>
       </mu-icon-menu>
       <div class='play-title'>
-        <div class='play-name'><span>{{title}}<span style='font-size:16px;padding-left:5px' v-if='num != 0'>({{num}})</span></span></div>
+        <div class='play-name'><span>新闻管理<span style='font-size:16px;padding-left:5px' v-if='count != 0'>({{count}})</span></span></div>
       </div>
     </mu-appbar>
     <transition name='fade'>
@@ -42,8 +42,7 @@ import qs from 'qs'
 export default {
   data () {
     return {
-      title: '新闻管理',
-      num: 0,
+      count: 0,
       search: false,
       newslist: [
         {
