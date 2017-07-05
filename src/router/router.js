@@ -77,6 +77,10 @@ const router = new VueRouter({
   { path: '/link', component: require('../pages/link/linkList') },
   { path: '/linkAdd', component: require('../pages/link/linkDetail') },
   { path: '/link/:id', component: require('../pages/link/linkDetail') },
+  // cert
+  { path: '/cert', component: require('../pages/cert/certList') },
+  { path: '/certAdd', component: require('../pages/cert/certDetail') },
+  { path: '/cert/:id', component: require('../pages/cert/certDetail') },
   // message
   { path: '/message/:id', name: 'messageDetail', component: require('../pages/message/messageDetail') },
   // 会员

@@ -5,14 +5,13 @@
       <mu-icon-button icon='add' href='#/linkAdd' slot='right'/>
     </mu-appbar>
     <div class='pt56 demo-refresh-container'>
-
       <mu-list>
         <template v-for='item in list'>
-          <mu-list-item :title='item.name' :to="{name: 'linkDetail',params: { id: item.id}}">
+          <mu-list-item :title='item.name' @click='detail(item.id)'>
             <div class='subContent'>
               {{item.url}}
             </div>
-            <mu-icon value='delete' slot='right' color='#ccc' @click='del(item)'/>
+            <mu-icon value='delete' slot='right' :size='36' color='#ccc' @click.stop='del(item)'/>
           </mu-list-item>
           <mu-divider/>
         </template>
@@ -21,7 +20,6 @@
     </div>
   </div>
 </template>
-
 <script>
 export default {
   data () {
@@ -40,7 +38,6 @@ export default {
           id: 'Link_000000000000000000000052278'
         }
       ],
-      num: 10,
       loading: false,
       scroller: null,
       refresh: true,
@@ -55,19 +52,11 @@ export default {
   mounted () {
     this.scroller = this.$el
   },
-  watch: {
-    $route (to, from) {
-      if (to.path === '/bind' && JSON.stringify(to.query).length > 10) {
-        this.list.unshift(to.query)
-      }
-    }
-  },
   methods: {
     back () {
-      this.$router.go(-1)
+      this.$router.back()
     },
     get () {
-      this.loading = true
       this.$http.get('/rest/api/link/list?page=' + this.searchData.page).then((res) => {
         this.scrollList(this, res.data)
         if (this.searchData.page === 1) {
@@ -78,6 +67,9 @@ export default {
     loadMore () {
       this.refresh && this.get()
     },
+    detail (id) {
+      this.$router.push({path: '/link/' + id})
+    },
     del (entry) {
       if (window.confirm('确认删除吗？')) {
         this.$http.delete('/rest/api/link/detail/' + entry.id).then((res) => {
@@ -87,15 +79,13 @@ export default {
               data.splice(i, 1)
             }
           })
-          this.$router.back()
         })
       }
     }
   }
 }
 </script>
-
-<style lang='css' scoped>
+<style scoped>
 .subContent{
   font-size: 12px;
   color: #999

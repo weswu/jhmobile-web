@@ -34,8 +34,10 @@ export default {
       message: {}
     }
   },
-  created () {
-    this.get()
+  beforeRouteEnter (to, from, next) {
+    next(vm => {
+      vm.get()
+    })
   },
   methods: {
     get () {

@@ -4,7 +4,7 @@
       <mu-icon-button icon='arrow_back' @click='back' slot='left'/>
       <mu-icon-button icon='add' href='#/bindAdd' slot='right'/>
     </mu-appbar>
-    
+
     <div class='pt56 demo-refresh-container'>
       <mu-list>
         <template v-for='item in list'>
@@ -53,10 +53,9 @@ export default {
   },
   methods: {
     back () {
-      this.$router.go(-1)
+      this.$router.back()
     },
     get () {
-      this.loading = true
       this.$http.get('/rest/api/bind/list?page=' + this.searchData.page).then((res) => {
         this.scrollList(this, res.data)
         if (this.searchData.page === 1) {

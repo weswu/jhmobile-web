@@ -20,7 +20,6 @@ import qs from 'qs'
 export default {
   data () {
     return {
-      isloading: true,
       typeList: [
         {text: '域名', value: 'D'},
         {text: '地址', value: 'A'},
@@ -46,10 +45,6 @@ export default {
         window.alert('icp备案号不能为空')
         return
       }
-      if (!this.bind.icp) {
-        window.alert('icp备案号不能为空')
-        return
-      }
       const reg = new RegExp('[0-9a-zA-Z]+[0-9a-zA-Z\\.-]*\\.[a-zA-Z]{2,4}')
       if (!reg.test(this.bind.address)) {
         window.alert('域名格式不正确')
@@ -65,7 +60,7 @@ export default {
   }
 }
 </script>
-<style lang='less'>
+<style scoped>
 .demo-radio .mu-radio-icon {
     margin-right: 5px;
 }
