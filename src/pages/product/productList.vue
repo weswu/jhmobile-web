@@ -21,12 +21,13 @@
       </div>
     </transition>
 
-    <div class='pt56 demo-refresh-container'>
+    <div class='pt56 pt-list'>
       <mu-list>
         <template v-for='item in productlist'>
-          <mu-list-item data-type='pc' :title='item.title'>
+          <mu-list-item data-type='pc' :title='item.name'>
+            <img :src="imgUrl + item.picPath" @error="setErrorImg" slot="left">
             <div class='subContent'>
-              发布时间:{{item.addTime}}    人气：{{item.viewsum}}
+              人气：{{item.viewsum}}
             </div>
           </mu-list-item>
           <mu-divider/>
@@ -43,13 +44,14 @@ export default {
   data () {
     return {
       title: '产品管理',
+      imgUrl: this.$store.state.imgUrl,
       num: 0,
       search: false,
       productlist: [
         {
           productId: 'product_000000000000000000000105546',
           category: 'Category_00000000000000000338054',
-          title: 'testdddd',
+          name: 'testdddd',
           addTime: '2017-05-04',
           state: '01',
           topproduct: '00',
@@ -60,7 +62,7 @@ export default {
         {
           productId: 'product_000000000000000000000105546',
           category: 'Category_00000000000000000338054',
-          title: 'testdddd',
+          name: 'testdddd',
           addTime: '2017-05-04',
           state: '01',
           topproduct: '00',
@@ -142,6 +144,9 @@ export default {
       this.searchData.page = 0
       this.get()
       this.search = false
+    },
+    setErrorImg (e) {
+      e.target.src = this.$store.state.errImgUrl
     },
     del (entry) {
       if (window.confirm('确认删除吗？')) {

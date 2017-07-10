@@ -26,7 +26,8 @@
         <template v-for='item in list'>
           <mu-list-item :title='item.title' @click='detail(item.id)'>
             <div class='subContent'>
-              发布时间:{{item.addTime}}    人气：{{item.viewsum}}
+              发布时间:{{item.addTime}}
+              <span style="padding-left:10px">人气：{{item.viewsum}}</span>
             </div>
             <mu-icon value='delete' slot='right' :size='36' color='#ccc' @click.stop='del(item)'/>
           </mu-list-item>
@@ -103,7 +104,7 @@ export default {
       this.$router.back()
     },
     get () {
-      this.$http.get('/rest/api/news/list?' + qs.stringify(this.searchData)).then((res) => {
+      this.$http.get('/rest/api/news/updateList?' + qs.stringify(this.searchData)).then((res) => {
         var list = res.data.attributes.data
         for (let i = 0; i < list.length; i++) {
           this.newslist.push(list[i])

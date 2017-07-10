@@ -15,7 +15,7 @@
         </mu-flexbox-item>
         <mu-flexbox-item class="flex-demo">
           <mu-paper class="demo-paper" :zDepth="2">
-            <img class="avatar" width="80" :src="imgUrl + cert.attaPic" @error="setErrorImg">
+            <img class="avatar" style="width:4.8rem" :src="imgUrl + cert.attaPic" @error="setErrorImg">
           </mu-paper>
         </mu-flexbox-item>
         <mu-flexbox-item class="flex-demo">
@@ -51,7 +51,12 @@ export default {
   },
   beforeRouteEnter (to, from, next) {
     next(vm => {
-      vm.get()
+      if (vm.$route.params.id) {
+        vm.name = '证书修改'
+        vm.get()
+      } else {
+        vm.name = '证书添加'
+      }
     })
   },
   components: {
@@ -59,7 +64,6 @@ export default {
   },
   methods: {
     get () {
-      this.name = '证书修改'
       this.$http.get('/rest/api/cert/detail/' + this.$route.params.id).then((res) => {
         this.cert = res.data.attributes.data
       })
