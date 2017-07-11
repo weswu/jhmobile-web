@@ -70,6 +70,16 @@ const router = new VueRouter({
       { path: 'bouns', component: require('../pages/distribution/bouns') }
     ]
   },
+  // 服务缴费
+  { path: '/serivepay',
+    component: require('../pages/serivepay/pay'),
+    children: [
+      { path: 'payment', component: require('../pages/serivepay/payment') },
+      { path: 'history', component: require('../pages/serivepay/history') },
+      { path: 'serviceRecord', component: require('../pages/serivepay/serviceRecord') },
+      { path: 'goods', component: require('../pages/serivepay/goods') }
+    ]
+  },
   // bind
   { path: '/bind', component: require('../pages/bind/bindList') },
   { path: '/bindAdd', component: require('../pages/bind/bindDetail') },
