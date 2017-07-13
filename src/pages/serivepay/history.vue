@@ -1,112 +1,91 @@
 <template>
-  <div class='gridlist-demo-container'>
-    <mu-grid-list class='gridlist-demo'>
-      
-    </mu-grid-list>
-    <mu-infinite-scroll :scroller='scroller' :loading='loading' @load='loadMore'/>
+  <div>
+    <mu-list>
+      <template v-for='item in list'>
+        <mu-list-item>
+          <div slot='title'>
+             <img src='static/img/allpaid.gif'/>
+             {{item.name}}
+          </div>
+          <span slot='describe'>
+            {{item.so_date | time('yyyy-MM-dd')}}
+          </span>
+          <div slot='right'>
+            <span>￥{{item.price}}</span><br>
+            <span class='complete '>交易成功</span>
+          </div>
+        </mu-list-item>
+        <mu-divider/>
+      </template>
+    </mu-list>
+    <div v-show='isNull'>
+      请在正常工作时间浏览噢<br>周一到周五　8:00～17:30
+    </div>
   </div>
-
 </template>
-
 <script>
-import jsonp from 'jsonp'
-import qs from 'qs'
 export default {
   data () {
     return {
       list: [
         {
-          sharepic: 'http://img.jihui88.com/wcd/upload//w//w1//weicd//picture//2016//10//13/baeaf04c-f2a6-48c7-9fef-dc932b1d9f8b_c3.png?v=1476338576785',
-          mviews: 0,
-          rviews: 5,
-          id: 1891,
-          vip: '01',
-          seo_title: '双11',
-          views: 61
+          so_date: 1568131200000,
+          so_amount: 0,
+          so_payed_amount: 0,
+          orderItemList: [
+            {
+              prod_name: '手机网站续费'
+            }
+          ],
+          price: 200,
+          type: 'no',
+          so_id: 159091,
+          so_code: 'xf2019090030'
         },
         {
-          sharepic: 'http://img.jihui88.com/wcd/upload//w//w1//weicd//picture//2017//02//20/a3fc03d7-7754-4837-914f-e03d362f5560_c.png?v=1487560146717',
-          mviews: 0,
-          rviews: 0,
-          id: 2384,
-          vip: '01',
-          seo_title: '电脑网站开通上线啦！（模版）',
-          views: 29
+          so_date: 1559145600000,
+          so_amount: 2580,
+          so_payed_amount: 2580,
+          orderItemList: [
+            {
+              prod_name: '会员2代续费【机汇网会员】'
+            },
+            {
+              prod_name: '国际域名续费'
+            }
+          ],
+          price: 200,
+          type: 'no',
+          so_id: 159084,
+          so_code: 'xf2019050020'
         }
-      ],
-      loading: false,
-      scroller: null,
-      refresh: true,
-      searchData: {
-        page: 1,
-        pageSize: 10
-      }
+      ]
     }
   },
   created () {
     this.get()
   },
-  mounted () {
-    this.scroller = this.$el
-  },
   methods: {
     get () {
-      this.loading = true
-      this.$http.get('/rest/api/wcd/vip?' + qs.stringify(this.searchData)).then((res) => {
-        this.scrollList(this, res.data)
-      })
-    },
-    loadMore () {
-      this.refresh && this.get()
-    },
-    setErrorImg (e) {
-      e.target.src = this.$store.state.wcdImgUrl
-    },
-    open (item) {
-      this.$router.push({path: '/wcd_open/' + item.id})
-    },
-    vip (wcd) {
-      this.vipList = {
-        enterpriseId: this.$store.state.user.enterpriseId,
-        vieId: wcd.id,
-        fields: []
-      }
-      jsonp('http://wcd.jihui88.com/rest/comm/wcd/copyp?' + qs.stringify(this.vipList), null, function (err, data) {
-        if (data.attributes.shortage === true) {
-          if (this.vipList.length > 0) {
-            window.alert('请完善传单信息')
-            return false
-          }
-          // 第一次提交,完善数据
-          this.vipList = data.attributes.fields
-        } else {
-          if (confirm('传单生成成功,确定查看')) {
-            this.$router.push('/wcd_open/' + data.attributes.data.wcdId)
-          }
+      this.$http.get('/rest/api/crm/receipt/log').then((res) => {
+        if (!res.data.success) {
+          this.isNull = true
+          return false
         }
-        if (err) {
-          console.error(err.message)
-        } else {
-          console.log(data)
+        var data = res.data.attributes.data
+        for (var item of data) {
+          item.name = ''
+          for (var it of item.orderItemList) {
+            if (item.name === '') {
+              item.name += it.prod_name
+            } else {
+              item.name += '、' + it.prod_name
+            }
+          }
+          this.list.push(item)
         }
       })
     }
   }
 }
 </script>
-
-<style lang='css' scoped>
-.showVip {
-    left: 0;
-    z-index: 4;
-    width: 100%;
-    height: 100%;
-    display: block;
-    position: absolute;
-    top: 0;
-    text-align: center;
-    line-height: 5.733rem;
-    color: #fff;
-    background-color: rgba(0,0,0,.6);
-}
-</style>

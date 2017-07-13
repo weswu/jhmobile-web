@@ -80,6 +80,7 @@ const router = new VueRouter({
       { path: 'goods', component: require('../pages/serivepay/goods') }
     ]
   },
+  { path: '/mypay', component: require('../pages/serivepay/mypay') },
   // bind
   { path: '/bind', component: require('../pages/bind/bindList') },
   { path: '/bindAdd', component: require('../pages/bind/bindDetail') },

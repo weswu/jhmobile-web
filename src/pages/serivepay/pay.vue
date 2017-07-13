@@ -1,35 +1,30 @@
 <template>
   <div class="servicePay">
     <div class="fixed-bar">
-      <mu-appbar>
+      <mu-appbar title="服务缴费">
         <mu-icon-button icon='arrow_back' @click='back'  slot='left'/>
-        <div class='play-title'>
-          服务缴费
-        </div>
       </mu-appbar>
-      <mu-list>
-        <mu-list-item :title="enterName">
-          <div slot="left">公司名:</div>
-        </mu-list-item>
-        <mu-divider/>
-        <mu-list-item :title="username">
-          <div slot="left">用户名:</div>
-        </mu-list-item>
-      </mu-list>
-      <div class="hr"></div>
-      <mu-tabs :value="activeTab" @change="handleTabChange" class="view-tabs">
-        <mu-tab value="payment" title="待缴费"/>
-        <mu-tab value="history" title="历史缴费"/>
-        <mu-tab value="serviceRecord" title="服务记录"/>
-        <mu-tab value="goods" title="已购产品"/>
-      </mu-tabs>
     </div>
+    <mu-list>
+      <mu-list-item :title="enterName">
+        <div slot="left">公司名:</div>
+      </mu-list-item>
+      <mu-divider/>
+      <mu-list-item :title="username">
+        <div slot="left">用户名:</div>
+      </mu-list-item>
+    </mu-list>
+    <div class="hr"></div>
+    <mu-tabs :value="activeTab" @change="handleTabChange" class="view-tabs">
+      <mu-tab value="payment" title="待缴费"/>
+      <mu-tab value="history" title="历史缴费"/>
+      <mu-tab value="serviceRecord" title="服务记录"/>
+      <mu-tab value="goods" title="已购产品"/>
+    </mu-tabs>
 
-    <div class="scroll-view">
-      <keep-alive>
-       <router-view></router-view>
-      </keep-alive>
-    </div>
+    <keep-alive>
+     <router-view></router-view>
+    </keep-alive>
   </div>
 </template>
 <script>
@@ -65,5 +60,14 @@ export default {
 <style>
 .servicePay .mu-item-left {
     width: 65px;
+}
+.servicePay .mu-item-right{
+    width: 60px;
+}
+.servicePay .complete {
+  color: #F57527;
+}
+.servicePay .mu-item-text {
+  max-height: 52px !important;
 }
 </style>

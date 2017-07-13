@@ -93,9 +93,9 @@ export default {
         {url: '#/seo_help', name: 'SEO帮助', icon: 'devices'}
       ],
       navList3: [
-        {url: '#/serivepay/payment', name: '服务缴费', icon: 'note'},
+        {url: '#/serivepay/payment', name: '服务缴费', icon: 'featured_play_list'},
         {url: '#/progress', name: '服务进度', icon: 'snooze'},
-        {url: '#/point', name: '我的积分', icon: 'featured_play_list'},
+        {url: '#/point', name: '我的积分', icon: 'note'},
         {url: '#/friend', name: '参与推广', icon: 'language'}
       ],
       userInfo: {
