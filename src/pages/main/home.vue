@@ -96,7 +96,7 @@ export default {
         {url: '#/serivepay/payment', name: '服务缴费', icon: 'featured_play_list'},
         {url: '#/progress', name: '服务进度', icon: 'snooze'},
         {url: '#/point', name: '我的积分', icon: 'note'},
-        {url: '#/friend', name: '参与推广', icon: 'language'}
+        {url: '#/spread', name: '参与推广', icon: 'language'}
       ],
       userInfo: {
         unshipped: 9,
@@ -140,7 +140,7 @@ export default {
 </script>
 <style lang='less' scoped>
 
-.home-header{background:url(http://app.jihui88.com/css/img/user-bg.jpg) no-repeat;background-size:cover;overflow:hidden;color:#fff;padding:1rem 0 .5rem 0}
+.home-header{position: relative;background:url(http://app.jihui88.com/css/img/user-bg.jpg) no-repeat;background-size:cover;overflow:hidden;color:#fff;padding:1rem 0 .5rem 0}
 .home-user-info{margin: .5rem;font-size:.6rem;opacity:.9;line-height:1rem;float:left}
 .home-user-info a{color:#fff}
 .home-header img{width:4rem;height:4rem;margin:.5rem;border-radius:100%;}
