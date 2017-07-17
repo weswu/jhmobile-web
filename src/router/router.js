@@ -81,6 +81,8 @@ const router = new VueRouter({
     ]
   },
   { path: '/mypay', component: require('../pages/serivepay/mypay') },
+  // 服务进度
+  { path: '/serive_progress', component: require('../pages/service/progress/progress') },
   // 参与推广
   { path: '/spread', component: require('../pages/spread/spread') },
   { path: '/spreadRank', component: require('../pages/spread/rank') },

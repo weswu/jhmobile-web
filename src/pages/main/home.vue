@@ -94,7 +94,7 @@ export default {
       ],
       navList3: [
         {url: '#/serivepay/payment', name: '服务缴费', icon: 'featured_play_list'},
-        {url: '#/progress', name: '服务进度', icon: 'snooze'},
+        {url: '#/serive_progress', name: '服务进度', icon: 'snooze'},
         {url: '#/point', name: '我的积分', icon: 'note'},
         {url: '#/spread', name: '参与推广', icon: 'language'}
       ],

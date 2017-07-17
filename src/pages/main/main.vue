@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="default-view" style="padding-bottom: 2.4rem;">
+    <div class="default-view" style="padding-bottom: 3rem;">
       <keep-alive>
        <router-view></router-view>
       </keep-alive>

@@ -15,15 +15,9 @@ export default {
       username: this.$store.state.user.username
     }
   },
-  created () {
-    this.get()
-  },
   methods: {
     back () {
       this.$router.back()
-    },
-    get () {
-      debugger
     }
   }
 }

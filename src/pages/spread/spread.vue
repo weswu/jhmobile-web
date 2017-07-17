@@ -19,12 +19,24 @@
     <div class='extend' v-if='item.posterCate === activeTab'>
       <img class='extend_img' :src="'http://img.jihui88.com/'+item.pic">
       <p class='extend_desc'>{{item.posterDesc}}</p>
-      <mu-raised-button label='点击生成,截屏保存图片' @click='submit' class='submit-raised-button' secondary fullWidth/>
+      <mu-raised-button label='点击生成,截屏保存图片' @click='saveImg(item)' class='submit-raised-button' secondary fullWidth/>
     </div>
   </template>
+  <div class="p10">
+    <div style="text-align: center;font-size: 0.7rem;padding: 0.5rem 0;">
+      我有朋友要购买
+    </div>
+    <mu-text-field label="朋友姓名" hintText="请输入朋友姓名" v-model="m.name"/>
+    <mu-text-field label="朋友公司" hintText="请输入朋友公司" v-model="m.company"/>
+    <mu-text-field label="朋友电话" hintText="请输入朋友电话" v-model="m.phone"/>
+    <mu-text-field label="推荐人" hintText="请输入推荐人" v-model="m.referee"/>
+    <mu-text-field hintText="说明..." v-model="m.content" multiLine :rows="8" :rowsMax="10" fullWidth/>
+    <mu-raised-button label="推荐朋友" @click="submit" class="submit-raised-button" secondary fullWidth/>
+  </div>
 </div>
 </template>
 <script>
+import qs from 'qs'
 export default {
   data () {
     return {
@@ -60,7 +72,13 @@ export default {
           id: null
         }
       ],
-      activeTab: '1'
+      activeTab: '1',
+      m: {},
+      sf: {
+        card_no: this.$store.state.user.username,
+        fdbk_subject64: '朋友介绍[APP]',
+        fdbk_type: '5'
+      }
     }
   },
   created () {
@@ -72,12 +90,53 @@ export default {
     },
     get () {
       this.$http.get('/rest/api/poster/list?pageSize=72').then((res) => {
-        this.link = res.data.attributes.data
-        this.name = this.link.name
+        this.list = res.data.attributes.data
       })
     },
     handleTabChange (val) {
       this.activeTab = val
+    },
+    saveImg (p) {
+      var data = {
+        pic: p.pic,
+        qrcodeWidth: p.qrcodeWidth,
+        qrcodeHeight: p.qrcodeHeight,
+        username: 'ggggfj',
+        qrcodeLeft: p.qrcodeLeft,
+        qrcodeTop: p.qrcodeTop,
+        posterId: p.posterId,
+        qrcode: 'http://wcd.jihui88.com/rest/comm/qrbar/create?w=' + p.qrcodeWidth + '&text=http://www.jihui88.com/member/reg_m.html?d=' + this.sf.card_no
+      }
+      this.$http.post('https://api.jihui88.net/qrcode_poster/api/poster?' + qs.stringify(data)).then((res) => {
+        debugger
+        p.pic = 'http://www.jihui88.net/qrcode_poster/posters/' + p.posterId + '.jpg'
+        // this.posterInit(p.pic);
+        // $('.' + p.posterId + ' .save_img').html('生成成功,截屏保存图片')
+      })
+    },
+    submit () {
+      if (!this.m.name) {
+        window.alert('朋友姓名不能为空')
+        return false
+      }
+      if (!this.m.company) {
+        window.alert('朋友公司不能为空')
+        return false
+      }
+      if (!this.m.phone) {
+        window.alert('朋友电话不能为空')
+        return false
+      }
+      if (!this.m.referee) {
+        window.alert('荐人不能为空')
+        return false
+      }
+      this.sf.fdbk_intro1k = '姓名:' + this.m.name + '\n公司:' + this.m.company + '\n电话:' + this.m.phone +
+      '\n推荐人:' + this.m.referee + '\n说明:' + this.m.content
+      this.$http.post('http://crmyun.jihui88.com:9500/api/jihuifeedback.php', qs.stringify(this.sf)).then((res) => {
+        window.alert('感谢推荐')
+        this.m = {}
+      })
     }
   }
 }
