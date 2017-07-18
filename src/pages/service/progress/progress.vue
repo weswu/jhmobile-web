@@ -27,15 +27,15 @@
       </dl>
       <div v-if="activeTab === '00'">
         <dl v-for="item in list1">
-          <dd class="item-row-2">{{item.fdbk_due_date | time}}</dd>
-          <dd class="item-row-4 title">{{item.fdbk_subject64}}</dd>
+          <dd class="item-row-2">{{item.fdbk_due_date | time('yyyy-MM-dd')}}</dd>
+          <dd class="item-row-4 title" @click="detail(item)" >{{item.fdbk_subject64}}</dd>
           <dd class="ellipsis item-row-3">{{item.emp_name}}</dd>
         </dl>
 			</div>
       <div v-if="activeTab === '01'">
         <dl v-for="item in list2">
-          <dd class="item-row-2">{{item.fdbk_due_date | time}}</dd>
-          <dd class="item-row-4 title">{{item.fdbk_subject64}}</dd>
+          <dd class="item-row-2">{{item.fdbk_due_date | time('yyyy-MM-dd')}}</dd>
+          <dd class="item-row-4 title" @click="detail(item)">{{item.fdbk_subject64}}</dd>
           <dd class="ellipsis item-row-3">{{item.emp_name}}</dd>
         </dl>
       </div>
@@ -50,15 +50,7 @@ export default {
       username: this.$store.state.user.username,
       enterName: this.$store.state.enterprise.name,
       activeTab: '00',
-      list1: [
-        {
-          fdbk_id: 323613,
-          fdbk_result: '',
-          emp_name: '赵汉杰（吕琦华）',
-          fdbk_subject64: '网安备案',
-          fdbk_due_date: 1495123200000
-        }
-      ],
+      list1: [],
       list2: []
     }
   },
@@ -85,6 +77,16 @@ export default {
       } else if (this.activeTab === '01' && this.list2.length === 0) {
         this.get()
       }
+    },
+    detail: function (item) {
+      if (item.fdbk_result === '') {
+        item.fdbk_result = '暂无数据'
+      }
+      var desc = ''
+      for (var it of item.fdbk_intro1k) {
+        desc += it + '<br/>'
+      }
+      this.$router.push({path: '/serive_progress/' + item.fdbk_id + '/' + encodeURIComponent(item.fdbk_subject64) + '/' + encodeURIComponent(desc) + '/' + encodeURIComponent(item.fdbk_result)})
     }
   }
 }
@@ -95,5 +97,10 @@ export default {
 }
 .progress .item-list .title {
     color: #0034d1;
+}
+.progress section {
+    padding: 0.5rem;
+    color: #666;
+    line-height: 1rem;
 }
 </style>
