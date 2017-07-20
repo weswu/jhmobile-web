@@ -1,55 +1,50 @@
 <template>
-  <div>
+  <div class="point">
     <div class="fixed-bar">
-      <mu-appbar title="积分规则是什么？">
+      <mu-appbar title="积分排行">
         <mu-icon-button icon='arrow_back' @click='back'  slot='left'/>
       </mu-appbar>
     </div>
     <div class="app-content">
-      <p style="padding-top: 0.7rem;">1、积分专属机汇网，仅限机汇网内使用；</p>
-      <p>2、在机汇网后台、微信公众号【机汇网络】和APP进行以下操作时，均可获得积分；</p>
-      <table border="1" cellpadding="0" cellspacing="0">
-      	<tbody>
-          <tr class="firstRow">
-      			<td><span>操作行为</span></td>
-      			<td><span>获得数量</span></td>
-      		</tr>
-      		<tr>
-      			<td><span>账号资料修改</span></td>
-      			<td><span>{{rule.accountEditPoint}}</span><span>积分</span></td>
-      		</tr>
-      		<tr>
-      			<td><span>产品新增</span></td>
-      			<td><span>{{rule.productAddPoint}}</span><span>积分</span></td>
-      		</tr>
-      		<tr>
-      			<td><span>产品修改</span></td>
-      			<td><span>{{rule.productEditPoint}}</span><span>积分</span></td>
-      		</tr>
-      		<tr>
-      			<td><span>新闻新增</span></td>
-      			<td><span>{{rule.newsAddPoint}}</span><span>积分</span></td>
-      		</tr>
-      		<tr>
-      			<td><span>新闻修改</span></td>
-      			<td><span>{{rule.newsEditPoint}}</span><span>积分</span></td>
-      		</tr>
-      		<tr>
-      			<td><span>网站发布</span></td>
-      			<td><span>{{rule.publishPoint}}</span><span>积分</span></td>
-      		</tr>
-      		<tr>
-      			<td><span>每月操作记录大于15次</span></td>
-      			<td><span>{{rule.mounthRecordPoint}}</span><span>积分</span></td>
-      		</tr>
-      		<tr>
-      			<td><span>改进意见提交，<a href="#/service_feedback" style="color: #da4747;">马上发送</a></span></td>
-      			<td><span>{{rule.advisePoint}}</span><span>积分</span></td>
-      		</tr>
-      	</tbody>
-      </table>
-      <p>3、积分不能兑现，不可转让。</p>
-      <p><a href="#/point_detail" class="btn-a" style="margin-right: 0;float: left;">积分明细</a><a href="#/point_exchange" class="btn-a" style="margin-left: 0;float: right;">兑换记录</a></p>
+      <div class="item-list">
+		    <dl>
+		        <dd class="item-row-1-5">名次</dd>
+		        <dd class="item-row-6">企业</dd>
+		        <dd class="item-row-2-5">积分</dd>
+		    </dl>
+			  <dl v-for="item in list">
+		        <dd class="item-row-1-5">01</dd>
+		        <dd class="item-row-6">中策电缆永通集团有限公司</dd>
+		        <dd class="item-row-2-5">539&nbsp;分</dd>
+			  </dl>
+		  </div>
+      <div class="hr"></div>
+      <a href="javascript:;" class="view-more" @click="more" v-if="page < 5">查看更多</a>
+      <div class="hr"></div>
+      <mu-list>
+        <mu-list-item>
+          <div slot='title'>
+            <div style="font-size: 18px;">
+              大数据显示
+            </div>
+          </div>
+        </mu-list-item>
+        <mu-list-item>
+          <div slot='title'>
+             您当前的排行：第<span class="number">{{point.rank}}</span>名
+          </div>
+          <div slot='right'>
+            <span>共{{point.point}}积分</span>
+          </div>
+        </mu-list-item>
+        <mu-divider/>
+        <mu-list-item>
+          <div slot='title'>
+             已经击败了<span class="number">{{number}}%</span>的同道
+          </div>
+        </mu-list-item>
+        <mu-divider/>
+      </mu-list>
     </div>
 
   </div>
@@ -58,9 +53,10 @@
 export default {
   data () {
     return {
-      username: this.$store.state.user.username,
-      enterName: this.$store.state.enterprise.name,
-      rule: {}
+      number: 0,
+      point: this.$store.state.point,
+      list: {},
+      page: 1
     }
   },
   created () {
@@ -71,9 +67,18 @@ export default {
       this.$router.back()
     },
     get () {
-      this.$http.get('/rest/api/point_rule/info').then((res) => {
-        this.rule = res.data.attributes.data
+      this.$http.get('/api/point/rank?page=' + this.page + '&pageSize=10').then((res) => {
+        this.scrollList(this, res.data)
+        if (this.point.rank !== 0 && this.page === 1) {
+          this.number = ((res.data.attributes.count - this.point.rank) / res.data.attributes.count).toFixed(2) * 100
+        }
       })
+    },
+    more () {
+      if (this.page < 6) {
+        this.page += 1
+        this.get()
+      }
     }
   }
 }
@@ -83,27 +88,16 @@ export default {
     background-color: #fafafa;
     color: #4d4d4d;
 }
-.app-content{padding-left:5px;padding-right:5px}
-.app-content p{padding:5px 0}
-table {
-    width: 100%;
-    margin: 10px 0;
-    border-spacing: 0;
-    border-collapse: collapse;
-    background-color: #fff;
-    border: 1px solid #ddd;
-}
-table td{
-    line-height: 22px;    padding: 5px 0;text-align:center
-}
-.firstRow{
-color: #000;
-    font-size: 0.7rem;}
 
-.btn-a{background: #ff6000;
-    color: #fff;
-    display: inline-block;
-    margin: 0.5rem;
-    padding: 0.41rem 2rem;
-    border-radius: 0.2rem;font-size: 0.7rem;}
+
+.view-more {
+    color: #666;
+    text-align: center;
+    padding: 0.5rem;
+    display: block;
+}
+.number {
+    color: #ff7300;
+    padding: 0 0.3rem;
+}
 </style>

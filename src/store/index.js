@@ -59,7 +59,8 @@ const store = new Vuex.Store({
       weixin: null,
       id: 'User_000000000000000000000000082'
     },
-    enterprise: {}
+    enterprise: {},
+    point: {}
   },
   getters: {
     audio: state => state.audio,

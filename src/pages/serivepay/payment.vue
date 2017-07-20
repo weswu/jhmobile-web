@@ -33,22 +33,7 @@
 export default {
   data () {
     return {
-      list: [
-        {
-          so_date: 1414512000000,
-          so_amount: 200,
-          so_payed_amount: 0,
-          orderItemList: [
-            {
-              prod_name: '腾讯企业邮箱'
-            }
-          ],
-          price: 200,
-          type: 'no',
-          so_id: 101617,
-          so_code: 'xf2014100140'
-        }
-      ],
+      list: [],
       isNull: false,
       checkNum: 0,
       totel: 0

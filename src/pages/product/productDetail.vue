@@ -1,8 +1,11 @@
 <template>
   <div>
-    <mu-appbar :title='name'>
-      <mu-icon-button icon='arrow_back' @click='back' slot='left'/>
-    </mu-appbar>
+    <div class="fixed-bar">
+      <mu-appbar :title='name'>
+        <mu-icon-button icon='arrow_back' @click='back' slot='left'/>
+      </mu-appbar>
+    </div>
+
     <mu-tabs :value="activeTab" @change="handleTabChange" class="view-tabs">
       <mu-tab value="1" title="基本信息"/>
       <mu-tab value="2" title="产品内容"/>
@@ -27,8 +30,14 @@
         </mu-flexbox-item>
       </mu-flexbox>
     </div>
-
     <div class='p10' v-if="activeTab === '2'">
+      <mu-text-field label='商品重量' hintText='请输入商品重量' v-model='product.weight' style="width:80%"/> 千克
+      <mu-text-field label='商品价格' hintText='请输入商品价格' v-model='product.price' style="width:80%"/> 元
+      <mu-text-field label='商品原价' hintText='请输入商品原价' v-model='product.marketprice' style="width:80%"/> 元
+      <mu-text-field label='商品库存' hintText='请输入商品库存' v-model='product.store' style="width:80%"/> 件
+    </div>
+
+    <div class='p10' v-if="activeTab === '3'">
       <quill-editor ref="myTextEditor"
         v-model="product.content" :config="editorOption">
       </quill-editor>

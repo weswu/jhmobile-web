@@ -1,8 +1,11 @@
 <template>
   <div>
-    <mu-appbar :title='name'>
-      <mu-icon-button icon='arrow_back' @click='back' slot='left'/>
-    </mu-appbar>
+    <div class="fixed-bar">
+      <mu-appbar :title='name'>
+        <mu-icon-button icon='arrow_back' @click='back' slot='left'/>
+      </mu-appbar>
+    </div>
+    
     <mu-tabs :value="activeTab" @change="handleTabChange" class="view-tabs">
       <mu-tab value="1" title="基本信息"/>
       <mu-tab value="2" title="新闻内容"/>

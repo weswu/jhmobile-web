@@ -60,10 +60,14 @@ export default {
       this.$http.get('/rest/api/point/info').then((res) => {
         this.point = res.data.attributes.point || 0
         this.rank = res.data.attributes.rank || 0
+        this.$store.state.point = {
+          point: this.point,
+          rank: this.rank
+        }
       })
     },
     ranking () {
-      this.$router.push({path: '#/point_ranking'})
+      this.$router.push({path: '/point_ranking'})
     },
     exchange (n) {
       var val = 100000

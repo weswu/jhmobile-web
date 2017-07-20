@@ -23,11 +23,11 @@
 
     <div class='pt56 pt-list'>
       <mu-list>
-        <template v-for='item in productlist'>
-          <mu-list-item data-type='pc' :title='item.name'>
+        <template v-for='item in list'>
+          <mu-list-item data-type='pc' :title='item.name' @click='detail(item.id)'>
             <img :src="imgUrl + item.picPath" @error="setErrorImg" slot="left">
             <div class='subContent'>
-              人气：{{item.viewsum}}
+              {{item.addTime}}
             </div>
           </mu-list-item>
           <mu-divider/>
@@ -47,7 +47,7 @@ export default {
       imgUrl: this.$store.state.imgUrl,
       num: 0,
       search: false,
-      productlist: [
+      list: [
         {
           productId: 'product_000000000000000000000105546',
           category: 'Category_00000000000000000338054',
@@ -147,6 +147,9 @@ export default {
     },
     setErrorImg (e) {
       e.target.src = this.$store.state.errImgUrl
+    },
+    detail (id) {
+      this.$router.push({path: '/product/' + id})
     },
     del (entry) {
       if (window.confirm('确认删除吗？')) {

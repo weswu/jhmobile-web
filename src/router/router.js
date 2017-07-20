@@ -51,6 +51,11 @@ const router = new VueRouter({
   { path: '/shopData', component: require('../pages/shop/data') },
   { path: '/data_p_q', component: require('../pages/shop/data_purchase_quantity') },
   { path: '/data_p_a', component: require('../pages/shop/data_purchase_amount') },
+  // order
+  { path: '/order', component: require('../pages/order/order') },
+  { path: '/order/:id', component: require('../pages/order/detail') },
+  { path: '/order/price/:id', component: require('../pages/order/price') },
+  { path: '/order/shipments/:id', component: require('../pages/order/shipments') },
   // wcd
   { path: '/wcd',
     component: require('../pages/wcd/wcd'),
