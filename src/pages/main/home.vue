@@ -8,7 +8,7 @@
       </div>
       <div slot='left'>
         <div class='home-user-info'>
-          {{user.username}},您好！！<br/>
+          {{user.username}},您好！<br/>
           <span v-if='userInfo.versions'>当前版本：{{userInfo.versions}}<br/></span>
           <span v-if="userInfo.endTime === '1'">已到期,请续费<br/></span>
           <span v-if="userInfo.endTime && userInfo.endTime != '0'">到期时间：{{userInfo.endTime}}<br/></span>
@@ -80,6 +80,7 @@ export default {
   data () {
     return {
       user: this.$store.state.user,
+      imgUrl: this.$store.state.imgUrl,
       navList1: [
         {url: '#/shopData', name: '商城数据', icon: 'cloud_circle'},
         {url: 'http://m.' + this.$store.state.user.username + '.jihui88.com', name: '微网站', icon: 'settings_cell'},
@@ -98,21 +99,15 @@ export default {
         {url: '#/point', name: '我的积分', icon: 'note'},
         {url: '#/spread', name: '参与推广', icon: 'language'}
       ],
-      userInfo: {
-        unshipped: 9,
-        shipped: 0,
-        unread: 6,
-        versions: '电商版',
-        name: 'jihui88',
-        logo: 'upload/j/j2/jihui88/picture/2015/04/04/a6e43943-f0fc-4124-8405-3a16d749175d.gif',
-        endTime: '2019-07-17',
-        unpaid: 1
-      }
+      userInfo: {}
     }
   },
-  created () {
-    this.get()
+  beforeRouteEnter (to, from, next) {
+    next(vm => {
+      vm.get()
+    })
   },
+  metho
   methods: {
     get () {
       let _this = this
@@ -138,7 +133,7 @@ export default {
   }
 }
 </script>
-<style lang='less' scoped>
+<style scoped>
 
 .home-header{position: relative;background:url(http://app.jihui88.com/css/img/user-bg.jpg) no-repeat;background-size:cover;overflow:hidden;color:#fff;padding:1rem 0 .5rem 0}
 .home-user-info{margin: .5rem;font-size:.6rem;opacity:.9;line-height:1rem;float:left}
