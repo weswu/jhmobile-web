@@ -63,7 +63,8 @@ const router = new VueRouter({
       { path: 'vip', component: require('../pages/wcd/vip') },
       { path: 'case', component: require('../pages/wcd/case') },
       { path: 'me', component: require('../pages/wcd/me') }
-    ]
+    ],
+    meta: {keepAlive: false}
   },
   { path: '/wcd_open/:id', component: require('../pages/wcd/wcdOpen') },
   // 三级分销

@@ -1,7 +1,8 @@
 <template>
-  <div class="gridlist-demo-container">
+  <div class="gridlist-demo-container wrapper">
     <mu-icon-menu icon="more_vert" class="category">
-      <mu-menu-item :title="item.name" v-for="item in category" @click="cate(item)" :style="item.id === searchData.category_id ? 'color: #fff;background: #ff5241;' : '' "/>
+      <mu-menu-item :title="item.name" v-for="item in category" @click="cate(item)"
+      :class="item.id === searchData.category_id ? 'active' : '' "/>
     </mu-icon-menu>
 
     <mu-grid-list class="gridlist-demo">
@@ -44,6 +45,7 @@ export default {
       searchData: {
         page: 1,
         pageSize: 10,
+        category_id: '',
         recvState: ''
       }
     }
@@ -81,8 +83,12 @@ export default {
 <style scoped>
 .category{
   position: fixed;
-top: 4px;
-right: 0;    color: #fff;
-z-index: 999;
+  top: 4px;
+  right: 0;
+  color: #fff;
+  z-index: 999;
+}
+.active{
+  background: #ff5241;
 }
 </style>

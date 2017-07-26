@@ -55,7 +55,7 @@ export default {
     },
     get () {
       this.$http.get('/rest/api/order/data').then((res) => {
-        this.data = res.data.attributes.data
+        this.data = res.data.attributes
       })
     },
     page (e) {

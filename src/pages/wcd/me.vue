@@ -13,7 +13,6 @@
     </mu-grid-list>
     <mu-infinite-scroll :scroller='scroller' :loading='loading' @load='loadMore'/>
   </div>
-
 </template>
 
 <script>

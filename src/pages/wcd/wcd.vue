@@ -1,19 +1,14 @@
 <template>
   <div>
     <div class="fixed-bar">
-      <mu-appbar>
-        <mu-icon-button icon='arrow_back' @click='back'  slot='left'/>
-        <div class='play-title'>
-          微传单
-        </div>
+      <mu-appbar :title="title">
+        <mu-icon-button icon='arrow_back' @click='back' slot='left'/>
       </mu-appbar>
-      <mu-tabs :value="activeTab" @change="handleTabChange" class="view-tabs">
-        <mu-tab value="me" title="我的微传单"/>
-        <mu-tab value="vip" title="VIP专属"/>
-        <mu-tab value="case" title="案例展示"/>
-      </mu-tabs>
-      <div style="height:0.2rem"></div>
     </div>
+    <mu-tabs :value="activeTab" @change="handleTabChange" class="view-tabs">
+      <mu-tab v-for="item in tabs" :value="item.value" :title="item.title"/>
+    </mu-tabs>
+    <div style="height:0.2rem"></div>
 
     <div class="scroll-view">
       <keep-alive>
@@ -26,18 +21,20 @@
 export default {
   data () {
     return {
-      activeTab: 'me'
+      title: '我的微传单',
+      activeTab: 'me',
+      tabs: [
+        {value: 'me', title: '我的微传单'},
+        {value: 'vip', title: 'VIP专属'},
+        {value: 'case', title: '案例展示'}
+      ]
     }
   },
-  // watch函数监测路由的变化,保持tab面板的高亮位置正确
-  watch: {
-    '$route' (to, from) {
-      const path = to.path
-      var tmpArr = path.split('/')
-      if (tmpArr[1] === 'wcd') {
-        this.handleTabChange(tmpArr[2])
-      }
-    }
+  beforeRouteEnter (to, from, next) {
+    next(vm => {
+      vm.activeTab = vm.$route.path.split('/')[2]
+      vm.tabTitle()
+    })
   },
   methods: {
     back () {
@@ -46,25 +43,15 @@ export default {
     handleTabChange (val) {
       this.activeTab = val
       this.$router.push({ path: '/wcd/' + val })
+      this.tabTitle()
+    },
+    tabTitle () {
+      for (var tab of this.tabs) {
+        if (this.activeTab === tab.value) {
+          this.title = tab.title
+        }
+      }
     }
   }
 }
 </script>
-
-<style scoped>
-.wrapper {
-    width: 100%;
-    height: 28rem;
-    overflow: auto;
-    -webkit-overflow-scrolling: touch;
-}
-.fixed-bar {
-  position: fixed;
-  width: 100%;
-  top:0;
-  left: 0;
-  z-index: 15;
-}
-
-
-</style>

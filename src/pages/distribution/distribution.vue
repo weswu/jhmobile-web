@@ -1,19 +1,14 @@
 <template>
   <div>
     <div class="fixed-bar">
-      <mu-appbar>
-        <mu-icon-button icon='arrow_back' @click='back'  slot='left'/>
-        <div class='play-title'>
-          我的分销商
-        </div>
+      <mu-appbar :title="title">
+        <mu-icon-button icon='arrow_back' @click='back' slot='left'/>
       </mu-appbar>
-      <mu-tabs :value="activeTab" @change="handleTabChange" class="view-tabs">
-        <mu-tab value="member" title="会员"/>
-        <mu-tab value="data" title="数据"/>
-        <mu-tab value="bouns" title="提现"/>
-      </mu-tabs>
-      <div style="height:0.2rem"></div>
     </div>
+    <mu-tabs :value="activeTab" @change="handleTabChange" class="view-tabs">
+      <mu-tab v-for="item in tabs" :value="item.value" :title="item.title"/>
+    </mu-tabs>
+    <div style="height:0.2rem"></div>
 
     <div class="scroll-view">
       <keep-alive>
@@ -26,18 +21,19 @@
 export default {
   data () {
     return {
-      activeTab: 'member'
+      title: '我的分销商',
+      activeTab: 'member',
+      tabs: [
+        {value: 'member', title: '会员'},
+        {value: 'data', title: '数据'},
+        {value: 'bouns', title: '提现'}
+      ]
     }
   },
-  // watch函数监测路由的变化,保持tab面板的高亮位置正确
-  watch: {
-    '$route' (to, from) {
-      const path = to.path
-      var tmpArr = path.split('/')
-      if (tmpArr[1] === 'distribution') {
-        this.handleTabChange(tmpArr[2])
-      }
-    }
+  beforeRouteEnter (to, from, next) {
+    next(vm => {
+      vm.activeTab = vm.$route.path.split('/')[2]
+    })
   },
   methods: {
     back () {
@@ -50,21 +46,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-.wrapper {
-    width: 100%;
-    height: 28rem;
-    overflow: auto;
-    -webkit-overflow-scrolling: touch;
-}
-.fixed-bar {
-  position: fixed;
-  width: 100%;
-  top:0;
-  left: 0;
-  z-index: 15;
-}
-
-
-</style>

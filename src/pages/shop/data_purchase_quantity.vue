@@ -1,13 +1,20 @@
 <template>
-<div>
-  <mu-appbar class='wu-appbar'>
-    <mu-icon-button icon='arrow_back' @click="back" slot="left"/>
-    <div class='play-title'>
-      客户购买数量排行<span style='font-size:16px;padding-left:5px' v-show='count'>({{count}})</span>
+  <div>
+    <div class='fixed-bar'>
+      <mu-appbar class='wu-appbar'>
+        <mu-icon-button icon='arrow_back' @click="back" slot="left"/>
+        <div class='play-title'>
+          客户购买数量排行<span style='font-size:16px;padding-left:5px' v-show='count'>({{count}})</span>
+        </div>
+      </mu-appbar>
     </div>
-  </mu-appbar>
-
-  <div class='pt56 demo-refresh-container'>
+    <div class="item-list">
+        <dl>
+            <dd class="item-row-2">排行</dd>
+            <dd class="item-row-4">客户</dd>
+            <dd class="item-row-4">数量</dd>
+        </dl>
+    </div>
     <mu-list>
       <template v-for='(item, index) in list'>
         <mu-list-item :title="item.name || item.username">
@@ -18,8 +25,6 @@
       </template>
     </mu-list>
   </div>
-
-</div>
 </template>
 
 <script>

@@ -3,7 +3,7 @@
     <div class='home-header'>
       <div slot='left' style='width:5rem;float:left;margin-left:0.5rem'>
         <a href='#/enterprise'>
-          <img :src='imgUrl + userInfo.logo' @error='setErrorImg' alt='logo'>
+          <img :src='imgUrl + userInfo.logo' @error='setErrorImg'>
         </a>
       </div>
       <div slot='left'>
@@ -49,7 +49,7 @@
     <mu-flexbox :gutter='0'>
       <mu-flexbox-item class='flex-home' v-for='item in navList1'>
         <a :href='item.url'>
-          <i class='mu-bottom-item-icon mu-icon material-icons'>{{item.icon}}</i>
+          <i class='mu-bottom-item-icon mu-icon material-icons' :style="'color:'+item.color">{{item.icon}}</i>
           {{item.name}}
         </a>
       </mu-flexbox-item>
@@ -58,7 +58,7 @@
     <mu-flexbox :gutter='0'>
       <mu-flexbox-item class='flex-home' v-for='item in navList2'>
         <a :href='item.url'>
-          <i class='mu-bottom-item-icon mu-icon material-icons'>{{item.icon}}</i>
+          <i class='mu-bottom-item-icon mu-icon material-icons' :style="'color:'+item.color">{{item.icon}}</i>
           {{item.name}}
         </a>
       </mu-flexbox-item>
@@ -67,7 +67,7 @@
     <mu-flexbox :gutter='0'>
       <mu-flexbox-item class='flex-home' v-for='item in navList3'>
         <a :href='item.url'>
-          <i class='mu-bottom-item-icon mu-icon material-icons'>{{item.icon}}</i>
+          <i class='mu-bottom-item-icon mu-icon material-icons' :style="'color:'+item.color">{{item.icon}}</i>
           {{item.name}}
         </a>
       </mu-flexbox-item>
@@ -82,22 +82,22 @@ export default {
       user: this.$store.state.user,
       imgUrl: this.$store.state.imgUrl,
       navList1: [
-        {url: '#/shopData', name: '商城数据', icon: 'cloud_circle'},
-        {url: 'http://m.' + this.$store.state.user.username + '.jihui88.com', name: '微网站', icon: 'settings_cell'},
-        {url: '#/wcd/me', name: '微传单', icon: 'wifi_tethering'},
-        {url: '#/distribution', name: '微分销', icon: 'settings_input_antenna'}
+        {url: '#/shopData', name: '商城数据', icon: 'cloud_circle', color: '#5bba19'},
+        {url: 'http://m.' + this.$store.state.user.username + '.jihui88.com', name: '微网站', icon: 'settings_cell', color: '#8da5cb'},
+        {url: '#/wcd/me', name: '微传单', icon: 'wifi_tethering', color: '#FF6000'},
+        {url: '#/distribution/member', name: '微分销', icon: 'settings_input_antenna', color: '#8da5cb'}
       ],
       navList2: [
-        {url: '#/member', name: '会员管理', icon: 'supervisor_account'},
-        {url: '#/video', name: '视频教程', icon: 'video_call'},
-        {url: '#/cnzz', name: '流量分析', icon: 'assessment'},
-        {url: '#/seo_help', name: 'SEO帮助', icon: 'devices'}
+        {url: '#/member', name: '会员管理', icon: 'supervisor_account', color: '#52abec'},
+        {url: '#/video', name: '视频教程', icon: 'video_call', color: '#FF6000'},
+        {url: '#/cnzz', name: '流量分析', icon: 'assessment', color: '#8da5cb'},
+        {url: '#/seo_help', name: 'SEO帮助', icon: 'devices', color: '#5bba19'}
       ],
       navList3: [
-        {url: '#/serivepay/payment', name: '服务缴费', icon: 'featured_play_list'},
-        {url: '#/serive_progress', name: '服务进度', icon: 'snooze'},
-        {url: '#/point', name: '我的积分', icon: 'note'},
-        {url: '#/spread', name: '参与推广', icon: 'language'}
+        {url: '#/serivepay/payment', name: '服务缴费', icon: 'featured_play_list', color: '#FF6000'},
+        {url: '#/serive_progress', name: '服务进度', icon: 'snooze', color: '#8da5cb'},
+        {url: '#/point', name: '我的积分', icon: 'note', color: '#5bba19'},
+        {url: '#/spread', name: '参与推广', icon: 'language', color: '#f69215'}
       ],
       userInfo: {}
     }
@@ -107,7 +107,6 @@ export default {
       vm.get()
     })
   },
-  metho
   methods: {
     get () {
       let _this = this
@@ -115,14 +114,14 @@ export default {
         this.user = res.data.attributes.data
         this.$store.state.user = this.user
       })
+      this.$http.get(api.getOrderInfo()).then((res) => {
+        this.userInfo = res.data.attributes
+      })
       setTimeout(function () {
         _this.$http.get(api.getEnterprise()).then((res) => {
           _this.$store.state.enterprise = res.data.attributes.data
         })
       }, 500)
-      this.$http.get(api.getOrderInfo()).then((res) => {
-        this.userInfo = res.data.attributes.data
-      })
     },
     setErrorImg (e) {
       e.target.src = this.$store.state.errImgUrl

@@ -1,5 +1,5 @@
 <template>
-  <div class='gridlist-demo-container'>
+  <div class='gridlist-demo-container wrapper'>
     <mu-grid-list class='gridlist-demo'>
       <mu-grid-tile v-for='item, index in list'>
         <img :src='item.sharepic' @error='setErrorImg' @click='open(item)'/>
@@ -14,35 +14,14 @@
     </mu-grid-list>
     <mu-infinite-scroll :scroller='scroller' :loading='loading' @load='loadMore'/>
   </div>
-
 </template>
-
 <script>
 import jsonp from 'jsonp'
 import qs from 'qs'
 export default {
   data () {
     return {
-      list: [
-        {
-          sharepic: 'http://img.jihui88.com/wcd/upload//w//w1//weicd//picture//2016//10//13/baeaf04c-f2a6-48c7-9fef-dc932b1d9f8b_c3.png?v=1476338576785',
-          mviews: 0,
-          rviews: 5,
-          id: 1891,
-          vip: '01',
-          seo_title: '双11',
-          views: 61
-        },
-        {
-          sharepic: 'http://img.jihui88.com/wcd/upload//w//w1//weicd//picture//2017//02//20/a3fc03d7-7754-4837-914f-e03d362f5560_c.png?v=1487560146717',
-          mviews: 0,
-          rviews: 0,
-          id: 2384,
-          vip: '01',
-          seo_title: '电脑网站开通上线啦！（模版）',
-          views: 29
-        }
-      ],
+      list: [],
       loading: false,
       scroller: null,
       refresh: true,
@@ -75,22 +54,26 @@ export default {
       this.$router.push({path: '/wcd_open/' + item.id})
     },
     vip (wcd) {
+      var ctx = this
       this.vipList = {
         enterpriseId: this.$store.state.user.enterpriseId,
         vieId: wcd.id,
         fields: []
       }
       jsonp('http://wcd.jihui88.com/rest/comm/wcd/copyp?' + qs.stringify(this.vipList), null, function (err, data) {
+        if (data.msgType === 'notLogin') {
+          ctx.$router.push('/login')
+        }
         if (data.attributes.shortage === true) {
-          if (this.vipList.length > 0) {
+          if (ctx.vipList.length > 0) {
             window.alert('请完善传单信息')
             return false
           }
           // 第一次提交,完善数据
-          this.vipList = data.attributes.fields
+          ctx.vipList = data.attributes.fields
         } else {
           if (confirm('传单生成成功,确定查看')) {
-            this.$router.push('/wcd_open/' + data.attributes.data.wcdId)
+            ctx.$router.push('/wcd_open/' + data.attributes.data.wcdId)
           }
         }
         if (err) {
@@ -104,7 +87,7 @@ export default {
 }
 </script>
 
-<style lang='css' scoped>
+<style scoped>
 .showVip {
     left: 0;
     z-index: 4;

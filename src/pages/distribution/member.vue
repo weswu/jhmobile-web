@@ -31,7 +31,10 @@
          </dd>
 			  </dl>
 		</div>
-
+    付费用户手机后台使用情况：
+    已登录过：398
+    新增：1
+    未登录过：3116
     <mu-infinite-scroll :scroller='scroller' :loading='loading' @load='loadMore'/>
   </div>
 
@@ -46,6 +49,7 @@ export default {
       loading: false,
       scroller: null,
       refresh: true,
+      search: false,
       searchData: {
         page: 1,
         pageSize: 10
@@ -62,13 +66,16 @@ export default {
     get () {
       var ctx = this
       this.loading = true
-      jsonp('http://www.jihui88.com/wechat/cps/index.php/jihui_api/members/' + this.$store.state.user.enterpriseId + '/' + this.searchData.page + '/4', null, function (err, data) {
+      jsonp('http://www.jihui88.com/wechat/cps/index.php/jihui_api/members/' + this.$store.state.enterprise.enterpriseId + '/' + this.searchData.page + '/4', null, function (err, data) {
+        if (!data.success) {
+          console.log(data.msg)
+        }
+        ctx.scrollList(ctx, data)
         if (err) {
           console.error(err.message)
         } else {
           console.log(data)
         }
-        ctx.scrollList(ctx, data)
       })
     },
     loadMore () {
@@ -78,7 +85,6 @@ export default {
 }
 </script>
 <style scoped>
-
 .member-list img {
     display: block;
     width: 60px;
@@ -88,11 +94,18 @@ export default {
 .item-list .left {
     float: left;
 }
+.item-list p, .item-list span {
+    line-height: 1rem;
+    font-size: .5rem;
+}
 .item-list dl {
     overflow: hidden;
     margin:0
 }
 .member-list dl:nth-child(even) {
   background: #f3f3f3;
+}
+.member-list span {
+    color: #999;
 }
 </style>

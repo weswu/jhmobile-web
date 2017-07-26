@@ -27,7 +27,6 @@ export default {
     this.get()
     // 当created函数时监测路由信息,防止页面刷新tab高亮错误
     var tmpArr = this.$route.path.split('/')
-    console.log(tmpArr)
     if (tmpArr[1] === 'main') {
       this.handleTabChange(tmpArr[2])
     }
