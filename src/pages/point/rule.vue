@@ -60,7 +60,18 @@ export default {
     return {
       username: this.$store.state.user.username,
       enterName: this.$store.state.enterprise.name,
-      rule: {}
+      rule: {
+        accountEditPoint: 0,
+        productAddPoint: 0,
+        productEditPoint: 0,
+        newsAddPoint: 0,
+        newsEditPoint: 0,
+        publishPoint: 0,
+        mounthRecordPoint: 0,
+        advisePoint: 0,
+        orderPoint: 0,
+        posterPoint: 0
+      }
     }
   },
   created () {

@@ -13,7 +13,7 @@
     </mu-appbar>
     <transition name='fade'>
       <div class='header-search' v-show='search'>
-        <mu-select-field v-model='searchData.categoryId' :labelFocusClass="['label-foucs']" hintText='新闻分类'>
+        <mu-select-field v-model='searchData.category' :labelFocusClass="['label-foucs']" hintText='新闻分类'>
           <mu-menu-item v-for='v,index in categoryList' :value='v.categoryId' :title='v.name' />
         </mu-select-field>
         <mu-text-field class='appbar-search-field' slot='left' v-model='searchData.title' hintText='请输入新闻标题'/>
@@ -46,44 +46,16 @@ export default {
     return {
       count: 0,
       search: false,
-      list: [
-        {
-          newsId: 'News_000000000000000000000105546',
-          category: 'Category_00000000000000000338054',
-          title: 'testdddd',
-          addTime: '2017-05-04',
-          state: '01',
-          topnews: '00',
-          display: '01',
-          viewsum: 1,
-          id: 'News_000000000000000000000105546'
-        },
-        {
-          newsId: 'News_000000000000000000000105546',
-          category: 'Category_00000000000000000338054',
-          title: 'testdddd',
-          addTime: '2017-05-04',
-          state: '01',
-          topnews: '00',
-          display: '01',
-          viewsum: 1,
-          id: 'News_000000000000000000000105546'
-        }
-      ],
+      list: [],
+      categoryList: [],
       searchData: {
         page: 0,
         title: '',
-        categoryId: ''
+        category: ''
       },
       loading: false,
       scroller: null,
-      refresh: true,
-      categoryList: [
-        {text: '统一社会信用代码证', value: '00'},
-        {text: '营业执照证书', value: '01'},
-        {text: '组织机构代码证', value: '02'},
-        {text: '其他', value: '03'}
-      ]
+      refresh: true
     }
   },
   created () {
@@ -104,13 +76,13 @@ export default {
       this.$router.back()
     },
     get () {
-      this.$http.get('/rest/api/news/updateList?' + qs.stringify(this.searchData)).then((res) => {
-        var list = res.data.attributes.data
-        for (let i = 0; i < list.length; i++) {
-          this.newslist.push(list[i])
+      this.loading = true
+      this.$http.get('/rest/api/news/list?' + qs.stringify(this.searchData)).then((res) => {
+        if (this.searchData.page === 0) {
+          // /rest/api/news/updateList?categ=1
+          this.categoryList = res.data.attributes.categoryList
         }
-        this.page = this.page + 1
-        if (list.length < 16) { this.refresh = false }
+        this.scrollList(this, res.data)
       })
     },
     loadMore () {

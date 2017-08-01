@@ -28,6 +28,7 @@
           <mu-divider/>
         </template>
       </mu-list>
+      <div v-if="busy" style="text-align: center;padding: .5rem 0;">暂无数据</div>
       <mu-infinite-scroll :scroller='scroller' :loading='loading' @load='loadMore'/>
     </div>
   </div>
@@ -39,10 +40,11 @@ export default {
   data () {
     return {
       list: [],
-      count: 10,
+      count: 0,
       loading: false,
       scroller: null,
       refresh: true,
+      busy: false,
       search: false,
       searchData: {
         page: 1,
@@ -69,11 +71,9 @@ export default {
       this.$router.go(-1)
     },
     get () {
+      this.loading = true
       this.$http.get('/rest/api/member/list?' + qs.stringify(this.searchData)).then((res) => {
-        this.list = this.list.addAll(res.data.attributes.data)
-        this.count = res.data.attributes.count
-        this.searchData.page += 1
-        if (res.data.attributes.data.length < 16) { this.refresh = false }
+        this.scrollList(this, res.data)
       })
     },
     loadMore () {

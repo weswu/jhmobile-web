@@ -12,10 +12,10 @@
 		        <dd class="item-row-6">企业</dd>
 		        <dd class="item-row-2-5">积分</dd>
 		    </dl>
-			  <dl v-for="item in list">
-		        <dd class="item-row-1-5">01</dd>
-		        <dd class="item-row-6">中策电缆永通集团有限公司</dd>
-		        <dd class="item-row-2-5">539&nbsp;分</dd>
+			  <dl v-for="item,index in list">
+		        <dd class="item-row-1-5">{{index + 1}}</dd>
+		        <dd class="item-row-6">{{item.integralRecordDesc}}</dd>
+		        <dd class="item-row-2-5">{{item.useable}}&nbsp;分</dd>
 			  </dl>
 		  </div>
       <div class="hr"></div>
@@ -55,7 +55,7 @@ export default {
     return {
       number: 0,
       point: this.$store.state.point,
-      list: {},
+      list: [],
       page: 1
     }
   },
@@ -67,8 +67,16 @@ export default {
       this.$router.back()
     },
     get () {
-      this.$http.get('/api/point/rank?page=' + this.page + '&pageSize=10').then((res) => {
-        this.scrollList(this, res.data)
+      this.$http.get('/rest/api/point/rank?page=' + this.page + '&pageSize=10').then((res) => {
+        var data = res.data.attributes.data
+        if (data.length > 0) {
+          for (var item of data) {
+            this.list.push(item)
+          }
+        }
+        if (data.length < 10) {
+          this.page = 6
+        }
         if (this.point.rank !== 0 && this.page === 1) {
           this.number = ((res.data.attributes.count - this.point.rank) / res.data.attributes.count).toFixed(2) * 100
         }

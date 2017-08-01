@@ -1,8 +1,6 @@
 <template>
   <div class="gridlist-demo-container wrapper">
-    <div class="hr">
-
-    </div>
+    <div class="hr"></div>
     <div class="item-list member-list">
   			<dl class="item-list-first">
   				<dd class="item-row-3">会员信息</dd>
@@ -23,8 +21,9 @@
                <p><span>提现时间：</span>{{dis.send_time}}</p>
              </div>
            </dd>
-       </dl> 
+       </dl>
 		</div>
+    <div v-if="busy" style="text-align: center;padding: .5rem 0;">暂无数据</div>
     <mu-infinite-scroll :scroller='scroller' :loading='loading' @load='loadMore'/>
   </div>
 
@@ -39,6 +38,7 @@ export default {
       loading: false,
       scroller: null,
       refresh: true,
+      busy: false,
       searchData: {
         page: 1,
         pageSize: 10

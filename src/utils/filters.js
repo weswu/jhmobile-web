@@ -39,3 +39,9 @@ Vue.filter('time', function (date, format) {
   }
   return format
 })
+/*
+ 字符长度
+*/
+Vue.filter('limitString', function (input, begin, end) {
+  return input.substring(begin, input.length - end)
+})

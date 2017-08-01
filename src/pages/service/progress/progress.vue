@@ -40,6 +40,7 @@
         </dl>
       </div>
     </div>
+    <div v-if="busy" style="text-align: center;padding: .5rem 0;">暂无数据</div>
     <mu-raised-button label="我要服务反馈" href="#/service_feedback" class="fixed-raised-button" secondary fullWidth/>
   </div>
 </template>
@@ -50,6 +51,7 @@ export default {
       username: this.$store.state.user.username,
       enterName: this.$store.state.enterprise.name,
       activeTab: '00',
+      busy: false,
       list1: [],
       list2: []
     }
@@ -63,10 +65,15 @@ export default {
     },
     get () {
       this.$http.get('/rest/api/crm/feedback/list?sort=' + this.activeTab).then((res) => {
-        if (this.activeTab === '00') {
-          this.list1 = res.data.attributes.data
+        var result = res.data.attributes.data
+        if (result.length === 0) {
+          this.busy = true
         } else {
-          this.list2 = res.data.attributes.data
+          if (this.activeTab === '00') {
+            this.list1 = result
+          } else {
+            this.list2 = result
+          }
         }
       })
     },

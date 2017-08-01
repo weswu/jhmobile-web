@@ -11,8 +11,15 @@ Vue.prototype.addAll = function (a, b) {
 Vue.prototype.scrollList = function (ctx, data) {
   if (data.success) {
     this.addAll(ctx.list, data.attributes.data)
+    if (ctx.searchData.page === 1) {
+      ctx.count = data.attributes.count
+      if (data.attributes.data.length === 0) {
+        ctx.busy = true
+      }
+    }
     ctx.searchData.page += 1
-    if (data < 16) { ctx.refresh = false }
+    ctx.searchData.pageSize = ctx.searchData.pageSize || 16
+    if (data < ctx.searchData.pageSize) { ctx.refresh = false }
   } else {
     ctx.refresh = false
   }

@@ -1,79 +1,76 @@
 <template>
-  <div>
+  <div class="wu-infinite-container">
     <div class="fixed-bar">
       <mu-appbar title="积分明细">
         <mu-icon-button icon='arrow_back' @click='back'  slot='left'/>
+        <mu-flat-button href="#/point_exchange" label="切换兑换记录" slot="right"/>
       </mu-appbar>
     </div>
-    <div class="app-content">
-      <p style="padding-top: 0.7rem;">1、积分专属机汇网，仅限机汇网内使用；</p>
-      <p>2、在机汇网后台、微信公众号【机汇网络】和APP进行以下操作时，均可获得积分；</p>
-      <table border="1" cellpadding="0" cellspacing="0">
-      	<tbody>
-          <tr class="firstRow">
-      			<td><span>操作行为</span></td>
-      			<td><span>获得数量</span></td>
-      		</tr>
-      		<tr>
-      			<td><span>账号资料修改</span></td>
-      			<td><span>{{rule.accountEditPoint}}</span><span>积分</span></td>
-      		</tr>
-      		<tr>
-      			<td><span>产品新增</span></td>
-      			<td><span>{{rule.productAddPoint}}</span><span>积分</span></td>
-      		</tr>
-      		<tr>
-      			<td><span>产品修改</span></td>
-      			<td><span>{{rule.productEditPoint}}</span><span>积分</span></td>
-      		</tr>
-      		<tr>
-      			<td><span>新闻新增</span></td>
-      			<td><span>{{rule.newsAddPoint}}</span><span>积分</span></td>
-      		</tr>
-      		<tr>
-      			<td><span>新闻修改</span></td>
-      			<td><span>{{rule.newsEditPoint}}</span><span>积分</span></td>
-      		</tr>
-      		<tr>
-      			<td><span>网站发布</span></td>
-      			<td><span>{{rule.publishPoint}}</span><span>积分</span></td>
-      		</tr>
-      		<tr>
-      			<td><span>每月操作记录大于15次</span></td>
-      			<td><span>{{rule.mounthRecordPoint}}</span><span>积分</span></td>
-      		</tr>
-      		<tr>
-      			<td><span>改进意见提交，<a href="#/service_feedback" style="color: #da4747;">马上发送</a></span></td>
-      			<td><span>{{rule.advisePoint}}</span><span>积分</span></td>
-      		</tr>
-      	</tbody>
-      </table>
-      <p>3、积分不能兑现，不可转让。</p>
-      <p><a href="#/point_detail" class="btn-a" style="margin-right: 0;float: left;">积分明细</a><a href="#/point_exchange" class="btn-a" style="margin-left: 0;float: right;">兑换记录</a></p>
-    </div>
-
+    <section class="section poing-section">
+      <div class="label-act">
+         <a href="javascript:;">
+            <div class="title"><h2><span>可用积分：</span>{{point}}</h2></div>
+            <div class="sub" @click="rule">积分规则<i class="iconfont icon-tishi" style="padding-left:0.2rem"></i></div>
+          </a>
+       </div>
+    </section>
+    <div class="item-list">
+      <dl>
+          <dd class="item-row-4">来源</dd>
+          <dd class="item-row-2">积分变化</dd>
+          <dd class="item-row-4">日期</dd>
+      </dl>
+      <dl v-for="item in list">
+          <dd class="item-row-4">{{item.integralRecordDesc}}</dd>
+          <dd class="item-row-2 number">
+            <span class="plus" v-if="item.income!='0'&&item.income!=null"><span>+</span>{{item.income}}</span>
+            <span class="minus" v-if="item.out!='0'&&item.out!=null"><span>-</span>{{item.out}}</span>
+          </dd>
+          <dd class="item-row-4">{{item.addTime | time('MM-dd hh:mm')}}</dd>
+      </dl>
+		</div>
+    <div v-if="busy" style="text-align: center;padding: .5rem 0;">暂无数据</div>
+    <mu-infinite-scroll :scroller='scroller' :loading='loading' @load='loadMore'/>
   </div>
 </template>
 <script>
+import qs from 'qs'
 export default {
   data () {
     return {
-      username: this.$store.state.user.username,
-      enterName: this.$store.state.enterprise.name,
-      rule: {}
+      point: this.$store.state.point.point,
+      loading: false,
+      scroller: null,
+      refresh: true,
+      busy: false,
+      list: [],
+      searchData: {
+        page: 1,
+        pageSize: 8
+      }
     }
   },
   created () {
     this.get()
+  },
+  mounted () {
+    this.scroller = this.$el
   },
   methods: {
     back () {
       this.$router.back()
     },
     get () {
-      this.$http.get('/rest/api/point_rule/info').then((res) => {
-        this.rule = res.data.attributes.data
+      this.loading = true
+      this.$http.get('/rest/api/point/list?' + qs.stringify(this.searchData)).then((res) => {
+        this.scrollList(this, res.data)
       })
+    },
+    loadMore () {
+      this.refresh && this.get()
+    },
+    rule () {
+      this.$router.push({path: '/point_rule'})
     }
   }
 }
@@ -83,27 +80,19 @@ export default {
     background-color: #fafafa;
     color: #4d4d4d;
 }
-.app-content{padding-left:5px;padding-right:5px}
-.app-content p{padding:5px 0}
-table {
-    width: 100%;
-    margin: 10px 0;
-    border-spacing: 0;
-    border-collapse: collapse;
-    background-color: #fff;
-    border: 1px solid #ddd;
-}
-table td{
-    line-height: 22px;    padding: 5px 0;text-align:center
-}
-.firstRow{
-color: #000;
-    font-size: 0.7rem;}
 
-.btn-a{background: #ff6000;
-    color: #fff;
-    display: inline-block;
-    margin: 0.5rem;
-    padding: 0.41rem 2rem;
-    border-radius: 0.2rem;font-size: 0.7rem;}
+.plus{color:#b1000f;}
+.minus{color:#30992e;font-size: 0.75rem;}
+.item-list .number span{font-size: 0.75rem;}
+.item-list .number span span{font-size: 0.65rem;}
+.data-tip{text-align: center;line-height: 3rem;color: #999;display:none}
+
+.poing-section{    color: #fff;background: #ff7300;
+   background: -moz-linear-gradient(left,#ea3062,#f8386b 30%,#ea3062);
+   background: -webkit-gradient(linear,left top,right top,from(rgba(253,114,0,.93)),color-stop(.3,#ff7300),to(#ff6a00));
+   background: -webkit-linear-gradient(left,rgba(253,114,0,.93),#ff7300 30%,#ff6a00);
+   background: -o-linear-gradient(left,rgba(253,114,0,.93),#ff7300 30%,#ff6a00);}
+.poing-section .label-act .title h2,.label-act .sub {color: #fff;}
+.label-act .title h2 span{font-size: 0.5rem;}
+.icon-tishi {font-size: 0.7rem;}
 </style>

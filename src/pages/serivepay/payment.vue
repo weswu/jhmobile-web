@@ -16,6 +16,7 @@
         <mu-divider/>
       </template>
     </mu-list>
+    <div v-if="busy" style="text-align: center;padding: .5rem 0;">暂无数据</div>
     <div v-show="isNull">
       请在正常工作时间浏览噢<br>周一到周五　8:00～17:30
     </div>
@@ -35,6 +36,7 @@ export default {
     return {
       list: [],
       isNull: false,
+      busy: false,
       checkNum: 0,
       totel: 0
     }
@@ -51,20 +53,24 @@ export default {
           return false
         }
         var result = res.data.attributes.data
-        for (var i = 0; i < result.length; i++) {
-          result[i].name = ''
-          result[i].price = result[i].so_amount - result[i].so_payed_amount
-          result[i].type = 'no'
-          if (result[i].so_payed_amount > 0 && result[i].price > 0) {
-            result[i].tip = '部分支付'
-            result[i].type = 'under'
+        if (result.length === 0) {
+          this.busy = true
+        } else {
+          for (var i = 0; i < result.length; i++) {
+            result[i].name = ''
+            result[i].price = result[i].so_amount - result[i].so_payed_amount
+            result[i].type = 'no'
+            if (result[i].so_payed_amount > 0 && result[i].price > 0) {
+              result[i].tip = '部分支付'
+              result[i].type = 'under'
+            }
+            if (result[i].price === 0) {
+              result[i].tip = '已支付'
+              result[i].type = 'all'
+            }
+            result[i].check = false
+            this.list.push(result[i])
           }
-          if (result[i].price === 0) {
-            result[i].tip = '已支付'
-            result[i].type = 'all'
-          }
-          result[i].check = false
-          this.list.push(result[i])
         }
       })
     },

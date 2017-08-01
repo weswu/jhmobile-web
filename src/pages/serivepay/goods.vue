@@ -1,8 +1,7 @@
 <template>
   <div>
-    更新中...
+    <div style="text-align: center;padding: .5rem 0;">更新中...</div>
   </div>
-
 </template>
 <script>
 export default {
