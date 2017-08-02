@@ -1,10 +1,15 @@
 <template>
   <div class='wu-infinite-container'>
-    <mu-appbar title='证书管理'>
-      <mu-icon-button icon='arrow_back' @click='back'  slot='left'/>
-      <mu-icon-button icon='search' slot='right' @click='search = !search'/>
-      <mu-icon-button icon='add' href='#/certAdd' slot='right'/>
-    </mu-appbar>
+    <div class="fixed-bar">
+      <mu-appbar>
+        <mu-icon-button icon='arrow_back' @click='back'  slot='left'/>
+        <mu-icon-button icon='search' slot='right' @click='search = !search'/>
+        <mu-icon-button icon='add' href='#/certAdd' slot='right'/>
+        <div class='play-title'>
+          <div class='play-name'>证书管理<span style='font-size:16px;padding-left:5px' v-if='count != 0'>({{count}})</span></div>
+        </div>
+      </mu-appbar>
+    </div>
 
     <transition name='fade'>
       <div class='header-search' v-show='search'>
@@ -16,21 +21,19 @@
       </div>
     </transition>
 
-    <div class='pt56 pt-list'>
-      <mu-list>
-        <template v-for='item in list'>
-          <mu-list-item :title='item.name' @click='detail(item.id)'>
-            <img :src="imgUrl + item.attaPic" @error="setErrorImg" slot="left">
-            <div class='subContent'>
-              {{item.organize}}
-            </div>
-            <mu-icon value='delete' slot='right' :size='36' color='#ccc' @click.stop='del(item)'/>
-          </mu-list-item>
-          <mu-divider/>
-        </template>
-      </mu-list>
-      <mu-infinite-scroll :scroller='scroller' :loading='loading' @load='loadMore'/>
-    </div>
+    <mu-list class='pt-list'>
+      <template v-for='item in list'>
+        <mu-list-item :title='item.name'>
+          <img :src="imgUrl + item.attaPic" @error="setErrorImg" slot="left" @click='detail(item.id)'>
+          <div class='subContent' @click='detail(item.id)'>
+            {{item.organize}}
+          </div>
+          <div slot="right" @click.stop='del(item.id)'>删除</div>
+        </mu-list-item>
+        <mu-divider/>
+      </template>
+    </mu-list>
+    <mu-infinite-scroll :scroller='scroller' :loading='loading' @load='loadMore'/>
 
   </div>
 </template>
@@ -94,8 +97,10 @@ export default {
       ]
     }
   },
-  created () {
-    this.get()
+  beforeRouteEnter (to, from, next) {
+    next(vm => {
+      vm.get()
+    })
   },
   methods: {
     get () {
@@ -120,15 +125,13 @@ export default {
     detail (id) {
       this.$router.push({path: '/cert/' + id})
     },
-    del (entry) {
+    del (id) {
       if (window.confirm('确认删除吗？')) {
-        this.$http.delete('/rest/api/link/detail/' + entry.id).then((res) => {
-          var data = this.list
-          data.forEach(function (item, i) {
-            if (item === entry) {
-              data.splice(i, 1)
-            }
-          })
+        this.$http.delete('/rest/api/cert/detail/' + id).then((res) => {})
+        this.list.forEach((item, index, arr) => {
+          if (item.id === id) {
+            arr.splice(index, 1)
+          }
         })
       }
     }

@@ -1,16 +1,19 @@
 <template>
   <div class='wu-infinite-container'>
-    <mu-appbar class='wu-appbar'>
-      <mu-icon-button icon='arrow_back' @click='back' slot='left'/>
-      <mu-icon-button icon='search' slot='right' @click='search = !search'/>
-      <mu-icon-menu icon='add' slot='right'>
-        <mu-menu-item title='新闻添加' href='#/newsAdd'/>
-        <mu-menu-item title='新闻分类' href='#/category/news'/>
-      </mu-icon-menu>
-      <div class='play-title'>
-        <div class='play-name'><span>新闻管理<span style='font-size:16px;padding-left:5px' v-if='count != 0'>({{count}})</span></span></div>
-      </div>
-    </mu-appbar>
+    <div class="fixed-bar">
+      <mu-appbar>
+        <mu-icon-button icon='arrow_back' @click='back' slot='left'/>
+        <mu-icon-button icon='search' slot='right' @click='search = !search'/>
+        <mu-icon-menu icon='add' slot='right'>
+          <mu-menu-item title='新闻添加' href='#/newsAdd'/>
+          <mu-menu-item title='新闻分类' href='#/category/news'/>
+        </mu-icon-menu>
+        <div class='play-title'>
+          <div class='play-name'>新闻管理<span style='font-size:16px;padding-left:5px' v-if='count != 0'>({{count}})</span></div>
+        </div>
+      </mu-appbar>
+    </div>
+
     <transition name='fade'>
       <div class='header-search' v-show='search'>
         <mu-select-field v-model='searchData.category' :labelFocusClass="['label-foucs']" hintText='新闻分类'>
@@ -20,25 +23,26 @@
         <mu-icon-button icon='search' slot='right' @click='searchKey'/>
       </div>
     </transition>
-
-    <div class='pt56 demo-refresh-container'>
-      <mu-list>
-        <template v-for='item in list'>
-          <mu-list-item :title='item.title' @click='detail(item.id)'>
-            <div class='subContent'>
-              发布时间:{{item.addTime}}
-              <span style="padding-left:10px">人气：{{item.viewsum}}</span>
-            </div>
-            <mu-icon value='delete' slot='right' :size='36' color='#ccc' @click.stop='del(item)'/>
-          </mu-list-item>
-          <mu-divider/>
-        </template>
-      </mu-list>
-      <mu-infinite-scroll :scroller='scroller' :loading='loading' @load='loadMore'/>
-    </div>
+    <mu-list>
+      <template v-for='item in list'>
+        <mu-list-item :title='item.title'>
+          <div class='subContent' @click='detail(item.id)'>
+            发布时间:{{item.addTime}}
+            <span style="padding-left:10px">人气：{{item.viewsum}}</span>
+          </div>
+          <mu-icon-menu slot="right" icon="more_vert" tooltip="操作">
+            <mu-menu-item :title="item.display === '01' ? '已显示' : '已隐藏'" :class="item.display === '01' ? 'itemActive' : ''" @click='display(item)'/>
+            <mu-menu-item :title="item.topnews === '01' ? '已置顶' : '未置顶'" :class="item.topnews === '01' ? 'itemActive' : ''" @click='topnews(item)'/>
+            <mu-menu-item title="修改" @click='detail(item.id)'/>
+            <mu-menu-item title="删除" @click='del(item.id)'/>
+          </mu-icon-menu>
+        </mu-list-item>
+        <mu-divider/>
+      </template>
+    </mu-list>
+    <mu-infinite-scroll :scroller='scroller' :loading='loading' @load='loadMore'/>
   </div>
 </template>
-
 <script>
 import qs from 'qs'
 export default {
@@ -58,18 +62,14 @@ export default {
       refresh: true
     }
   },
-  created () {
-    this.get()
+  beforeRouteEnter (to, from, next) {
+    next(vm => {
+      vm.get()
+      vm.getCate()
+    })
   },
   mounted () {
     this.scroller = this.$el
-  },
-  watch: {
-    $route (to, from) {
-      if (to.path === '/news' && JSON.stringify(to.query).length > 10) {
-        this.list.unshift(to.query)
-      }
-    }
   },
   methods: {
     back () {
@@ -78,11 +78,12 @@ export default {
     get () {
       this.loading = true
       this.$http.get('/rest/api/news/list?' + qs.stringify(this.searchData)).then((res) => {
-        if (this.searchData.page === 0) {
-          // /rest/api/news/updateList?categ=1
-          this.categoryList = res.data.attributes.categoryList
-        }
         this.scrollList(this, res.data)
+      })
+    },
+    getCate () {
+      this.$http.get('/rest/api/news/updateList?categ=1').then((res) => {
+        this.categoryList = res.data.attributes.categoryList
       })
     },
     loadMore () {
@@ -97,15 +98,23 @@ export default {
     detail (id) {
       this.$router.push({path: '/news/' + id})
     },
-    del (entry) {
+    // 显示隐藏
+    display (item) {
+      item.display = item.display === '01' ? '02' : '01'
+      this.$http.put('/rest/api/news/detail/' + item.newsId + '?display=' + item.display).then((res) => {})
+    },
+    // 置顶
+    topnews (item) {
+      item.topnews = item.topnews === '01' ? '02' : '01'
+      this.$http.put('/rest/api/news/detail/' + item.newsId + '?topnews=' + item.topnews).then((res) => {})
+    },
+    del (id) {
       if (window.confirm('确认删除吗？')) {
-        this.$http.delete('/rest/api/news/detail/' + entry.id).then((res) => {
-          var data = this.list
-          data.forEach(function (item, i) {
-            if (item === entry) {
-              data.splice(i, 1)
-            }
-          })
+        this.$http.delete('/rest/api/news/detail/' + id).then((res) => {})
+        this.list.forEach((item, index, arr) => {
+          if (item.id === id) {
+            arr.splice(index, 1)
+          }
         })
       }
     }
@@ -114,6 +123,10 @@ export default {
 </script>
 
 <style lang='css'>
+
+.itemActive .mu-menu-item{
+  color: #ff7300;
+}
 .mu-item-right{
   text-align: center;
 }

@@ -76,10 +76,6 @@ export default {
 }
 </script>
 <style scoped>
-.mu-appbar {
-    background-color: #fafafa;
-    color: #4d4d4d;
-}
 
 .plus{color:#b1000f;}
 .minus{color:#30992e;font-size: 0.75rem;}

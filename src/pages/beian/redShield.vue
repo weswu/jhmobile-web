@@ -1,11 +1,11 @@
 <template>
 <div>
-  <mu-appbar>
-    <mu-icon-button icon='arrow_back' @click="back" slot="left"/>
-    <div class="play-title">
-      <div class="play-name"><span>{{title}}</span></div>
-    </div>
-  </mu-appbar>
+  <div class="fixed-bar">
+    <mu-appbar title="工商红盾">
+      <mu-icon-button icon='arrow_back' @click='back' slot='left'/>
+    </mu-appbar>
+  </div>
+
   <mu-tabs :value="activeTab" @change="handleTabChange" class="view-tabs">
     <mu-tab value="1" title="工商红盾申请"/>
     <mu-tab value="2" title="输入代码"/>
@@ -77,7 +77,6 @@ export default {
   data () {
     return {
       activeTab: '1',
-      title: '工商红盾',
       topPopup: false,
       user: {},
       enterprise: {},

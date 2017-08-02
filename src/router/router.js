@@ -52,8 +52,8 @@ const router = new VueRouter({
   { path: '/data_p_q', component: require('../pages/shop/data_purchase_quantity') },
   { path: '/data_p_a', component: require('../pages/shop/data_purchase_amount') },
   // order
-  { path: '/order', component: require('../pages/order/order') },
-  { path: '/order/:id', component: require('../pages/order/detail') },
+  { path: '/order/:flag', component: require('../pages/order/order') },
+  { path: '/order/detail/:id', component: require('../pages/order/detail') },
   { path: '/order/price/:id', component: require('../pages/order/price') },
   { path: '/order/shipments/:id', component: require('../pages/order/shipments') },
   // wcd
@@ -111,6 +111,8 @@ const router = new VueRouter({
   { path: '/certAdd', component: require('../pages/cert/certDetail') },
   { path: '/cert/:id', component: require('../pages/cert/certDetail') },
   // message
+  { path: '/messageBind', component: require('../pages/message/messageBind') },
+  { path: '/messageList/:recvState', component: require('../pages/message/message') },
   { path: '/message/:id', name: 'messageDetail', component: require('../pages/message/messageDetail') },
   // 会员
   { path: '/member', component: require('../pages/member/memberList') },

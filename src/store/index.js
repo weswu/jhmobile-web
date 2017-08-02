@@ -33,6 +33,7 @@ const store = new Vuex.Store({
     errImgUrl: 'http://img.easthardware.com/upload/j/j2/jihui/picture/2015/12/04/cb46a5be-9960-4c96-a463-895e7948c415.png',
     imgUrl: 'http://img.jihui88.com/',
     wcdImgUrl: 'http://wcd.jihui88.com/leaflet/images/nopic.png',
+    search: false, // 搜索
     user: {},
     enterprise: {},
     point: {}
@@ -54,7 +55,8 @@ const store = new Vuex.Store({
     },
     prBufferedTime: state => {
       return state.bufferedTime / state.durationTime * 100
-    }
+    },
+    search: state => state.search
   },
   mutations: {
     play (state) {

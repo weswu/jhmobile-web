@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class='fixed-bar'>
-      <mu-appbar class='wu-appbar'>
+      <mu-appbar>
         <mu-icon-button icon='arrow_back' @click="back" slot="left"/>
         <div class='play-title'>
           客户购买金额排行<span style='font-size:16px;padding-left:5px' v-show='count'>({{count}})</span>

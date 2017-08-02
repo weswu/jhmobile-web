@@ -1,14 +1,12 @@
 <template>
 <div class="content">
-<mu-appbar>
-  <mu-icon-button icon='arrow_back' @click="back"  slot="left"/>
-  <div class="play-title">
-    <div class="play-name"><span>{{title}}</span></div>
+  <div class="fixed-bar">
+    <mu-appbar title="备案管理">
+      <mu-icon-button icon='arrow_back' @click='back' slot='left'/>
+    </mu-appbar>
   </div>
-</mu-appbar>
 
-<div class="container">
-
+<div class="container pt10">
  <mu-paper style="display: inline-block; width: 100%;">
    <mu-list>
      <mu-list-item title="工商红盾" @click="beian('/redShield')">
@@ -33,11 +31,6 @@
 
 <script>
 export default {
-  data () {
-    return {
-      title: '备案管理'
-    }
-  },
   methods: {
     back () {
       this.$router.go(-1)

@@ -4,7 +4,7 @@
       <mu-icon-button icon='arrow_back' @click="back"  slot="left"/>
     </mu-appbar>
 
-    <div class="container">
+    <div class="container pt10">
      <mu-paper style="display: inline-block; width: 100%;">
        <mu-list>
          <mu-list-item title="产品" @click="to('/product')">

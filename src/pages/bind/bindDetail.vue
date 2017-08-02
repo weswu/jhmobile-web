@@ -7,7 +7,7 @@
       <div>
         地址类型：
       </div>
-      <mu-radio name='type' v-model='bind.type' v-for='item in typeList' :label='item.text' :nativeValue='item.value' class='demo-radio' labelClass='w-radio'/>
+      <mu-radio name='type' v-model='bind.type' v-for='item in typeList' :label='item.text' :nativeValue='item.value' class='wu-radio' labelClass='w-radio'/>
       <mu-text-field type='url' label='域名' hintText='请输入域名，不用填http://' v-model='bind.address'/>
       <mu-text-field label='icp备案号' hintText='请输入备案号' v-model='bind.icp'/>
       <mu-raised-button label='提交' @click='submit' class='submit-raised-button' secondary fullWidth/>
@@ -60,11 +60,3 @@ export default {
   }
 }
 </script>
-<style scoped>
-.demo-radio .mu-radio-icon {
-    margin-right: 5px;
-}
-.demo-radio .w-radio{
-  font-size: 14px;padding-right: 10px;
-}
-</style>

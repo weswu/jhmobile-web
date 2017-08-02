@@ -1,9 +1,11 @@
 <template>
   <div>
-    <mu-appbar title="账号资料" class='wu-appbar'>
-      <mu-icon-button icon='arrow_back' @click="back"  slot="left"/>
-    </mu-appbar>
-    <div class="container p10 pt56">
+    <div class="fixed-bar">
+      <mu-appbar title="账号资料">
+        <mu-icon-button icon='arrow_back' @click='back' slot='left'/>
+      </mu-appbar>
+    </div>
+    <div class="container p10">
       <p>
         <mu-select-field v-model="user.sex" :labelFocusClass="['label-foucs']" label="性别" hintText="请选择">
           <mu-menu-item v-for="v,index in sexSelect" :value="v.value" :title="v.text" />

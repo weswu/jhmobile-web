@@ -1,11 +1,11 @@
 <template>
 <div id="beian">
-  <mu-appbar>
-    <mu-icon-button icon='arrow_back' @click="back"  slot="left"/>
-    <div class="play-title">
-      <div class="play-name"><span>{{title}}</span></div>
-    </div>
-  </mu-appbar>
+  <div class="fixed-bar">
+    <mu-appbar title="公安备案">
+      <mu-icon-button icon='arrow_back' @click='back' slot='left'/>
+    </mu-appbar>
+  </div>
+
   <mu-tabs :value="activeTab" @change="handleTabChange" class="view-tabs">
     <mu-tab value="1" title="账号信息"/>
     <mu-tab value="2" title="填写开办主体"/>
@@ -491,7 +491,6 @@ export default {
     return {
       activeTab: '1',
       isloading: false,
-      title: '公安备案',
       topPopup: false,
       bottomPopup: false,
       same: false,

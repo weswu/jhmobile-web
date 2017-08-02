@@ -1,8 +1,10 @@
 <template>
   <div>
-    <mu-appbar title='询盘查看'>
-      <mu-icon-button icon='arrow_back' @click='back'  slot='left'/>
-    </mu-appbar>
+    <div class="fixed-bar">
+      <mu-appbar title="询盘查看">
+        <mu-icon-button icon='arrow_back' @click='back' slot='left'/>
+      </mu-appbar>
+    </div>
     <div class='message_view'>
 			<dl>
 				<dt>标题:</dt>

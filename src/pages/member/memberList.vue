@@ -1,12 +1,15 @@
 <template>
   <div class='wu-infinite-container'>
-    <mu-appbar class='wu-appbar'>
-      <mu-icon-button icon='arrow_back' @click='back' slot='left'/>
-      <mu-icon-button icon='search' slot='right' @click='search = !search'/>
-      <div class='play-title'>
-        会员管理<span style='font-size:16px;padding-left:5px' v-show='count'>({{count}})</span>
-      </div>
-    </mu-appbar>
+    <div class="fixed-bar">
+      <mu-appbar>
+        <mu-icon-button icon='arrow_back' @click='back' slot='left'/>
+        <mu-icon-button icon='search' slot='right' @click='search = !search'/>
+        <div class='play-title'>
+          会员管理<span style='font-size:16px;padding-left:5px' v-show='count'>({{count}})</span>
+        </div>
+      </mu-appbar>
+    </div>
+
     <transition name='fade'>
       <div class='header-search' v-show='search'>
         <mu-text-field class='appbar-search-field' slot='left' v-model='searchData.name' hintText='请输入用户名'/>
@@ -14,23 +17,21 @@
       </div>
     </transition>
 
-    <div class='pt56 demo-refresh-container'>
-      <mu-list>
-        <template v-for='item in list'>
-          <mu-list-item data-type="pc" :title="item.name || item.username">
-            <div class="subContent">
-              {{item.addTime}}
-            </div>
-            <div slot="right">
-              {{$index}}
-            </div>
-          </mu-list-item>
-          <mu-divider/>
-        </template>
-      </mu-list>
-      <div v-if="busy" style="text-align: center;padding: .5rem 0;">暂无数据</div>
-      <mu-infinite-scroll :scroller='scroller' :loading='loading' @load='loadMore'/>
-    </div>
+    <mu-list>
+      <template v-for='item in list'>
+        <mu-list-item data-type="pc" :title="item.name || item.username">
+          <div class="subContent">
+            {{item.addTime}}
+          </div>
+          <div slot="right">
+            {{$index}}
+          </div>
+        </mu-list-item>
+        <mu-divider/>
+      </template>
+    </mu-list>
+    <div v-if="busy" style="text-align: center;padding: .5rem 0;">暂无数据</div>
+    <mu-infinite-scroll :scroller='scroller' :loading='loading' @load='loadMore'/>
   </div>
 </template>
 

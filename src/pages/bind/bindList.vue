@@ -1,27 +1,25 @@
 <template>
   <div class='wu-infinite-container'>
-    <mu-appbar title='域名绑定' class='wu-appbar'>
-      <mu-icon-button icon='arrow_back' @click='back' slot='left'/>
-      <mu-icon-button icon='add' href='#/bindAdd' slot='right'/>
-    </mu-appbar>
-
-    <div class='pt56 demo-refresh-container'>
-      <mu-list>
-        <template v-for='item in list'>
-          <mu-list-item :title="item.address">
-            <div class="subContent">
-              {{item.type | bindType}} <span v-html="bindState(item.state)"></span>
-            </div>
-            <mu-icon value="delete" slot="right" color="#ccc" @click="del(item)"/>
-          </mu-list-item>
-          <mu-divider/>
-        </template>
-      </mu-list>
-      <mu-infinite-scroll :scroller='scroller' :loading='loading' @load='loadMore'/>
+    <div class="fixed-bar">
+      <mu-appbar title='域名绑定'>
+        <mu-icon-button icon='arrow_back' @click='back' slot='left'/>
+        <mu-icon-button icon='add' href='#/bindAdd' slot='right'/>
+      </mu-appbar>
     </div>
+    <mu-list>
+      <template v-for='item in list'>
+        <mu-list-item :title="item.address">
+          <div class="subContent">
+            {{item.type | bindType}} <span v-html="bindState(item.state)"></span>
+          </div>
+          <mu-icon value="delete" slot="right" color="#ccc" @click="del(item)"/>
+        </mu-list-item>
+        <mu-divider/>
+      </template>
+    </mu-list>
+    <mu-infinite-scroll :scroller='scroller' :loading='loading' @load='loadMore'/>
   </div>
 </template>
-
 <script>
 export default {
   data () {

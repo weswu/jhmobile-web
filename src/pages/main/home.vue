@@ -21,16 +21,16 @@
 
     <div class='status'>
       <ul>
-        <li @click="toOrder('#/order/buyerPayment')" class='app-button'>
+        <li @click="page('/order/buyerPayment')" class='app-button'>
           <span class='status_num'>{{userInfo.unpaid}}</span><span class='status_txt'>待付款</span>
         </li>
-        <li @click="toOrder('#/order/awaitS')" class='app-button' >
+        <li @click="page('/order/awaitS')" class='app-button' >
           <span class='status_num op'>{{userInfo.unshipped}}</span> <span class='status_txt'>待发货</span>
         </li>
-        <li @click="toOrder('#/order/delivery')" class='app-button' >
+        <li @click="page('/order/delivery')" class='app-button' >
           <span class='status_num'> {{userInfo.shipped}}</span><span class='status_txt'>待收货</span>
         </li>
-        <li @click="toOrder('#/message/list?recvState=00')" class='app-button'>
+        <li @click="page('/messageList/00')" class='app-button'>
           <span class='status_num'>{{userInfo.unread}}</span><span class='status_txt'>未读询盘</span>
          </li>
       </ul>
@@ -126,7 +126,7 @@ export default {
     setErrorImg (e) {
       e.target.src = this.$store.state.errImgUrl
     },
-    toOrder (e) {
+    page (e) {
       this.$router.push({path: e})
     }
   }

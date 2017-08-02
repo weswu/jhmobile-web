@@ -19,7 +19,7 @@ Vue.prototype.scrollList = function (ctx, data) {
     }
     ctx.searchData.page += 1
     ctx.searchData.pageSize = ctx.searchData.pageSize || 16
-    if (data < ctx.searchData.pageSize) { ctx.refresh = false }
+    if (data.attributes.data.length < ctx.searchData.pageSize) { ctx.refresh = false } else { ctx.refresh = true }
   } else {
     ctx.refresh = false
   }

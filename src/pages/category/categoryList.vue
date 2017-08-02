@@ -1,12 +1,14 @@
 <template>
   <div>
-    <mu-appbar title='分类管理' class="wu-appbar">
-      <mu-icon-button icon='arrow_back' @click='back'  slot='left'/>
-      <mu-flat-button label="保存修改" @click="change" slot="right"/>
-      <mu-icon-button href='#/categoryAdd/11' icon='add' slot='right'/>
-    </mu-appbar>
+    <div class="fixed-bar">
+      <mu-appbar title='分类管理'>
+        <mu-icon-button icon='arrow_back' @click='back'  slot='left'/>
+        <mu-flat-button label="保存修改" @click="change" slot="right"/>
+        <mu-icon-button href='#/categoryAdd/11' icon='add' slot='right'/>
+      </mu-appbar>
+    </div>
 
-    <mu-list class="pt56">
+    <mu-list>
       <mu-list-item v-for='item, index in categoryList' v-if="item.isroot === '01'">
         <mu-icon slot="left" value="chevron_right"/>
         <span slot="title"  style="color: #777">

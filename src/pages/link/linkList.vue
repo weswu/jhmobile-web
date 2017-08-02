@@ -1,23 +1,23 @@
 <template>
   <div class='wu-infinite-container'>
-    <mu-appbar title='友情链接' class='wu-appbar'>
-      <mu-icon-button icon='arrow_back' @click='back' slot='left'/>
-      <mu-icon-button icon='add' href='#/linkAdd' slot='right'/>
-    </mu-appbar>
-    <div class='pt56 demo-refresh-container'>
-      <mu-list>
-        <template v-for='item in list'>
-          <mu-list-item :title='item.name' @click='detail(item.id)'>
-            <div class='subContent'>
-              {{item.url}}
-            </div>
-            <mu-icon value='delete' slot='right' :size='36' color='#ccc' @click.stop='del(item)'/>
-          </mu-list-item>
-          <mu-divider/>
-        </template>
-      </mu-list>
-      <mu-infinite-scroll :scroller='scroller' :loading='loading' @load='loadMore'/>
+    <div class="fixed-bar">
+      <mu-appbar title='友情链接'>
+        <mu-icon-button icon='arrow_back' @click='back' slot='left'/>
+        <mu-icon-button icon='add' href='#/linkAdd' slot='right'/>
+      </mu-appbar>
     </div>
+    <mu-list>
+      <template v-for='item in list'>
+        <mu-list-item :title='item.name' @click='detail(item.id)'>
+          <div class='subContent'>
+            {{item.url}}
+          </div>
+          <mu-icon value='delete' slot='right' :size='36' color='#ccc' @click.stop='del(item)'/>
+        </mu-list-item>
+        <mu-divider/>
+      </template>
+    </mu-list>
+    <mu-infinite-scroll :scroller='scroller' :loading='loading' @load='loadMore'/>
   </div>
 </template>
 <script>
