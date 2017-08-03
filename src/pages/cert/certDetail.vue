@@ -75,7 +75,7 @@ export default {
       e.target.src = this.$store.state.errImgUrl
     },
     fileChange (text) {
-      this.cert.attaPic = text
+      this.cert.attaPic = text.data
     },
     submit () {
       if (!this.link.name) {

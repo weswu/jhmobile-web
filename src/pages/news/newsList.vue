@@ -9,24 +9,26 @@
           <mu-menu-item title='新闻分类' href='#/category/news'/>
         </mu-icon-menu>
         <div class='play-title'>
-          <div class='play-name'>新闻管理<span style='font-size:16px;padding-left:5px' v-if='count != 0'>({{count}})</span></div>
+          新闻管理<span class="appbar-count" v-if='count != 0'>({{count}})</span>
         </div>
       </mu-appbar>
     </div>
-
     <transition name='fade'>
       <div class='header-search' v-show='search'>
-        <mu-select-field v-model='searchData.category' :labelFocusClass="['label-foucs']" hintText='新闻分类'>
-          <mu-menu-item v-for='v,index in categoryList' :value='v.categoryId' :title='v.name' />
+        <mu-select-field v-model='searchData.category' :labelFocusClass="['label-foucs']" hintText='新闻分类' :maxHeight="300" fullWidth>
+          <mu-menu-item v-for='v in categoryList' :value='v.categoryId' :title='v.name'/>
         </mu-select-field>
-        <mu-text-field class='appbar-search-field' slot='left' v-model='searchData.title' hintText='请输入新闻标题'/>
-        <mu-icon-button icon='search' slot='right' @click='searchKey'/>
+        <mu-text-field v-model='searchData.title' hintText='请输入新闻标题' fullWidth/>
+        <mu-raised-button label='搜索' @click='searchKey' secondary fullWidth/>
       </div>
     </transition>
     <mu-list>
       <template v-for='item in list'>
-        <mu-list-item :title='item.title'>
-          <div class='subContent' @click='detail(item.id)'>
+        <mu-list-item>
+          <div slot="title" @click='detail(item.id)'>
+            {{item.title}}
+          </div>
+          <div class='subContent'>
             发布时间:{{item.addTime}}
             <span style="padding-left:10px">人气：{{item.viewsum}}</span>
           </div>
@@ -64,6 +66,8 @@ export default {
   },
   beforeRouteEnter (to, from, next) {
     next(vm => {
+      vm.list = []
+      vm.searchData.page = 0
       vm.get()
       vm.getCate()
     })
@@ -76,6 +80,7 @@ export default {
       this.$router.back()
     },
     get () {
+      this.refresh = false
       this.loading = true
       this.$http.get('/rest/api/news/list?' + qs.stringify(this.searchData)).then((res) => {
         this.scrollList(this, res.data)
@@ -84,16 +89,17 @@ export default {
     getCate () {
       this.$http.get('/rest/api/news/updateList?categ=1').then((res) => {
         this.categoryList = res.data.attributes.categoryList
+        this.categoryList[0].categoryId = ''
       })
     },
     loadMore () {
       this.refresh && this.get()
     },
     searchKey () {
-      this.newslist = []
+      this.list = []
       this.searchData.page = 0
-      this.get()
       this.search = false
+      this.get()
     },
     detail (id) {
       this.$router.push({path: '/news/' + id})
@@ -121,18 +127,9 @@ export default {
   }
 }
 </script>
-
-<style lang='css'>
-
-.itemActive .mu-menu-item{
-  color: #ff7300;
-}
-.mu-item-right{
-  text-align: center;
-}
+<style scoped>
 .mu-item-right i{
   font-size: 16px;
-  color: #999
 }
 .subContent{
   font-size: 12px;
@@ -141,5 +138,4 @@ export default {
 .subContent span{
   padding-left:10px
 }
-
 </style>

@@ -41,14 +41,15 @@ export default {
       this.submit()
     },
     submit () {
+      var ctx = this
       this.$http.post('/rest/api/user/login', qs.stringify({
         username: this.username,
         password: this.password
       })).then((res) => {
-        this.$cookie.set('username', this.username)
-        this.$cookie.set('password', this.password)
-        this.$store.state.user = res.data.attributes.data
-        this.$router.push({path: '/main/home'})
+        ctx.$cookie.set('username', ctx.username)
+        ctx.$cookie.set('password', ctx.password)
+        ctx.$store.state.user = res.data.attributes.data
+        ctx.$router.push({path: '/main/home'})
       })
     }
   }

@@ -89,7 +89,7 @@ export default {
     },
     fileChange (text) {
       console.log('监听到子组件变化' + text)
-      this.enterprise.logo = text
+      this.enterprise.logo = text.data
     }
   }
 }

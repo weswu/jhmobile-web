@@ -55,6 +55,7 @@ const router = new VueRouter({
   { path: '/order/:flag', component: require('../pages/order/order') },
   { path: '/order/detail/:id', component: require('../pages/order/detail') },
   { path: '/order/price/:id', component: require('../pages/order/price') },
+  { path: '/order/send/:id', component: require('../pages/order/send') },
   { path: '/order/shipments/:id', component: require('../pages/order/shipments') },
   // wcd
   { path: '/wcd',

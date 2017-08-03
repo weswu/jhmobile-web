@@ -16,7 +16,6 @@
         </span>
         <mu-icon slot="right" value="delete" @click="del(item)"/>
 
-
         <mu-list-item slot="nested" v-for='item1, index1 in item.sonCate' >
           <mu-icon slot="left" value="chevron_right"/>
           <span slot="title"  style="color: #777">
@@ -53,8 +52,10 @@ export default {
       this.$router.back()
     },
     get () {
+      this.loading = true
       this.$http.get('/rest/api/' + this.$route.params.id + '/categoryManage').then((res) => {
-        this.categoryList = res.data.attributes.data
+        this.categoryList = res.data.attributes.categoryList
+        this.loading = false
       })
     },
     change (item) {
@@ -72,12 +73,13 @@ export default {
       })
       this.$http.put('/rest/api/category/update?list=' + list).then((res) => {
         this.isloading = false
-        console.log('news category update success')
+        window.alert('保存成功')
       })
     },
     del (entry) {
       if (window.confirm('确认删除吗？')) {
         this.$http.delete('/rest/api/category/detail/' + entry.id + '?type=11').then((res) => {
+          window.alert('删除成功')
           var data = this.categoryList
           data.forEach(function (item, i) {
             item.sonCate.forEach(function (item1, j) {

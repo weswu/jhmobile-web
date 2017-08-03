@@ -8,6 +8,18 @@ window.ua = navigator.userAgent.toLowerCase()
 const store = new Vuex.Store({
   // 存储数据
   state: {
+    // 加载中...
+    isloading: false,
+    // 微信浏览器
+    isWeixin: !!window.ua.match(/MicroMessenger/i),
+    // 破图
+    errImgUrl: 'http://img.easthardware.com/upload/j/j2/jihui/picture/2015/12/04/cb46a5be-9960-4c96-a463-895e7948c415.png',
+    imgUrl: 'http://img.jihui88.com/',
+    wcdImgUrl: 'http://wcd.jihui88.com/leaflet/images/nopic.png',
+    search: false, // 搜索
+    user: {},
+    enterprise: {},
+    point: {},
     audio: {
       'id': 0,
       'name': '歌曲名称',
@@ -26,19 +38,10 @@ const store = new Vuex.Store({
     tmpCurrentTime: 0,
     durationTime: 0,
     bufferedTime: 0,
-    change: false,   // 判断是更改的时间还是播放的时间
-    newsList: [],    // 播放列表
-    newsCount: 0,
-    isWeixin: !!window.ua.match(/MicroMessenger/i),    // 微信浏览器
-    errImgUrl: 'http://img.easthardware.com/upload/j/j2/jihui/picture/2015/12/04/cb46a5be-9960-4c96-a463-895e7948c415.png',
-    imgUrl: 'http://img.jihui88.com/',
-    wcdImgUrl: 'http://wcd.jihui88.com/leaflet/images/nopic.png',
-    search: false, // 搜索
-    user: {},
-    enterprise: {},
-    point: {}
+    change: false   // 判断是更改的时间还是播放的时间
   },
   getters: {
+    isloading: state => state.isloading,
     audio: state => state.audio,
     playing: state => state.playing,
     loading: state => state.loading,
@@ -59,6 +62,15 @@ const store = new Vuex.Store({
     search: state => state.search
   },
   mutations: {
+    // 加载中...
+    isload: (state) => {
+      state.isloading = !state.isloading
+      if (state.isloading) {
+        setTimeout(function () {
+          state.isloading = false
+        },15000)
+      }
+    },
     play (state) {
       state.playing = true
     },

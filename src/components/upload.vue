@@ -33,7 +33,7 @@ export default {
             _this.isloading = false
             if (xhr.status === 200) {
               // 上传成功
-              let result = JSON.parse(xhr.response).attributes.data
+              let result = JSON.parse(xhr.response).attributes
               console.log(result)
               _this.result = result
               _this.$emit('result', result)

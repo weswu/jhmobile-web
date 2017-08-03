@@ -5,25 +5,25 @@
         <mu-icon-button icon='arrow_back' @click='back' slot='left'/>
       </mu-appbar>
     </div>
-    <div class='demo-refresh-container' style='background: #f5f5f5;padding-bottom: 2.5rem;'>
+    <div class='demo-refresh-container' style='background: #f5f5f5padding-bottom: 2.5rem'>
       <div class='order_detail'>
         <div class='order_detail_header'>
           <div class='order_detail_title'>
-            订单状态：<span class='orange'>{{orderStatus}}</span>
+            订单状态：<span class='orange'>{{data.orderStatus}}</span>
           </div>
           <div class='order_detail_state'>
-            <em class='icon fl icon-qianbaob'></em>
-            <span class='order_detail_state_txt'> {{orderPrompt}} </span>
+            <em class='iconfont fl icon-qianbaob'></em>
+            <span class='order_detail_state_txt'> {{data.orderPrompt}} </span>
           </div>
         </div>
         <div class='order_detail_receiving'>
           <div class='order_detail_shadow'></div>
           <h3 class='order_detail_h3'>收货信息</h3>
           <div class='order_detail_receiving_txt'>
-            <p><span class='receiving_fl'>收货人：</span><span class='receiving_fr'>{{shipName}}</span></p>
-            <p v-if='sPhone'><span class='receiving_fl'  >电话：</span><span class='receiving_fr'>{{shipPhone}}</span></p>
-            <p v-if='sMobile'><span class='receiving_fl' >手机：</span><span class='receiving_fr'>{{shipMobile}}</span></p>
-            <p><span class='receiving_fl'>收货地址：</span><span class='receiving_fr'>{{shipAddress}}</span></p>
+            <p><span class='receiving_fl'>收货人：</span><span class='receiving_fr'>{{data.shipName}}</span></p>
+            <p v-if='data.sPhone'><span class='receiving_fl'  >电话：</span><span class='receiving_fr'>{{data.shipPhone}}</span></p>
+            <p v-if='data.sMobile'><span class='receiving_fl' >手机：</span><span class='receiving_fr'>{{data.shipMobile}}</span></p>
+            <p><span class='receiving_fl'>收货地址：</span><span class='receiving_fr'>{{data.shipAddress}}</span></p>
           </div>
         </div>
         <div class='order_detail_product'>
@@ -51,15 +51,15 @@
           <div class='order_detail_order_list'>
             <ul>
               <li><span class='order_list_fl'>订单号：</span><span
-                class='order_list_fr'>{{orderSn}}</span></li>
+                class='order_list_fr'>{{data.orderSn}}</span></li>
               <li><span class='order_list_fl'>下单时间：</span><span
-                class='order_list_fr'>{{addTime}}</span></li>
+                class='order_list_fr'>{{data.addTime}}</span></li>
               <li><span class='order_list_fl'>买家留言：</span><span
-                class='order_list_fr'>{{memo}}</span></li>
-              <li v-if='shippingS'><span class='order_list_fl'>付款时间：</span><span
-                class='order_list_fr'>{{paymentTime}}</span></li>
-              <li v-if='receive'><span class='order_list_fl'>发货时间：</span><span
-                class='order_list_fr'>{{shippingTime}}</span></li>
+                class='order_list_fr'>{{data.memo}}</span></li>
+              <li v-if='data.paymentTime !== null'><span class='order_list_fl'>付款时间：</span><span
+                class='order_list_fr'>{{data.paymentTime}}</span></li>
+              <li v-if='data.shippingTime !== null'><span class='order_list_fl'>发货时间：</span><span
+                class='order_list_fr'>{{data.shippingTime}}</span></li>
             </ul>
           </div>
         </div>
@@ -69,12 +69,12 @@
     	<div class='app_footer order_footer'>
     		<div class='app_footer_txt font_14'>
     			<span class='font_16'>应付款: </span>
-          <span class='font_16 orange'><em class='font_14'>￥</em>{{payable | number}} 元</span>
+          <span class='font_16 orange'><em class='font_14'>￥</em>{{totalAmount | number}} 元</span>
     		</div>
-    		<div v-if='pri' class='app-button app_btn app_btn_right'
-    			@click='updatePri(orderId)'>修改价格</div>
-    		<div v-if='goReceive' class='app-button app_btn'
-    			@click='goShipments(oId)'>去发货</div>
+    		<div v-if="data.paymentStatus === 'unpaid' && (date !== -1 || date !== 0)"
+        class='app-button app_btn app_btn_right' @click='updatePri(data.orderId)'>修改价格</div>
+    		<div v-if="data.paymentStatus === 'paid' && data.shippingStatus === 'unshipped'"
+        class='app-button app_btn' @click='goShipments(oId)'>去发货</div>
     	</div>
 
     </div>
@@ -84,8 +84,6 @@
 export default {
   data () {
     return {
-      payable: 0,
-      pri: false,
       date: -1,
       dayHour: -1,
       totalAmount: 0.01,
@@ -172,21 +170,63 @@ export default {
     get () {
       this.loading = true
       this.$http.get('/rest/api/order/listDetail/' + this.$route.params.id).then((res) => {
-        this.date = res.data.attributes.date
-        this.dayHour = res.data.attributes.dayHour
-        this.totalAmount = res.data.attributes.totalAmount
-        this.product = res.data.attributes.product
-        this.data = res.data.attributes.data
-        this.oId = res.data.attributes.oId
-        this.paymentTime = res.data.attributes.paymentTime
+        var result = res.data.attributes.data
+        var attr = res.data.attributes
+        this.date = attr.date
+        this.dayHour = attr.dayHour
+        this.totalAmount = attr.totalAmount
+        this.product = attr.product
+        this.data = attr.data
+        this.oId = attr.oId
+        this.paymentTime = attr.paymentTime
+        this.shippingTime = attr.shippingTime
+        if (result.orderStatus === 'completed') {
+          this.orderStatus = '已完成'
+          if (result.paymentStatus === 'paid' && result.shippingStatus === 'shipped') {
+            this.orderPrompt = '交易已成功'
+          } else {
+            this.orderPrompt = '交易已结束'
+          }
+        } else if (result.orderStatus === 'invalid') {
+          this.orderStatus = '已作废'
+        } else if (result.paymentStatus === 'unpaid') {
+          if (this.date === -1 || this.date === 0) {
+            this.orderPrompt = '“付款”操作已自动关闭'
+            this.orderStatus = '买家未付款'
+          } else {
+            this.orderStatus = '等待买家付款'
+            this.orderPrompt = '买家还有' + this.date + '分钟来完成“付款”操作，逾期未完成，本交易将自动关闭'
+          }
+        } else if (result.paymentStatus === 'paid' && result.shippingStatus === 'unshipped') {
+          this.orderStatus = '等待您发货'
+          this.orderPrompt = '买家已付款，请您尽快发货。如果您无法发货，请及时与买家联系并说明情况'
+          this.paymentTime = res.data.attributes.paymentTime
+        } else if (result.shippingStatus === 'shipped') {
+          if (this.orderStatus === 'unprocessed') {
+            this.orderStatus = '未处理'
+          } else if (this.orderStatus === 'processed') {
+            this.orderStatus = '已处理'
+          } else if (this.orderStatus === 'completed') {
+            this.orderStatus = '已完成'
+          } else {
+            this.orderStatus = '已作废'
+          }
+          if (this.dayHour !== -1 && this.dayHour !== 0) {
+            this.orderPrompt = '买家还有' + this.dayHour + '来完成本次交易的“确认收货“'
+            this.orderStatus = '等待买家确认收货'
+          } else if (this.dayHour === -1) {
+            this.orderStatus = '买家已确认收货'
+            this.orderPrompt = '交易已成功'
+          }
+        }
         this.loading = false
       })
     },
-    updatePri () {
-      this.loading = true
+    updatePri (id) {
+      this.$router.push({path: '/order/price/' + id})
     },
-    goShipments () {
-      this.loading = true
+    goShipments (id) {
+      this.$router.push({path: '/order/send/' + id})
     }
   },
   filters: {

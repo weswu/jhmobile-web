@@ -80,7 +80,7 @@ export default {
     },
     fileChange (text) {
       console.log('监听到子组件变化' + text)
-      this.user.weixin = text
+      this.user.weixin = text.data
     },
     changeInput (val, type) {
       if (val === '') {

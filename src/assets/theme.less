@@ -30,7 +30,7 @@
 @import "../../node_modules/muse-ui/less/theme.less"; // 主题相关的样式
 
 // 自定义全局css
-ul,li,dl,dd,p{
+ul,li,dl,dd,p,h1,h2,h3,h4,h5{
   margin:0;
   padding:0;
 }
@@ -40,14 +40,20 @@ li{
 img{
   vertical-align: middle;
 }
+em {
+    font-style: normal;
+}
 .fl {
   float:left;
 }
-
+.fr{
+  float:right;
+}
 .red{
   color: red
 }
 .pt10{padding-top: 10px;}
+.mbfixed{margin-bottom: 36px}
 .hr {
     background: #f5f5f5;
     border: none;
@@ -81,6 +87,12 @@ img{
   height: 100vh;
   -webkit-overflow-scrolling: touch;
 }
+.appbar-count{
+  font-size:16px;padding-left:5px
+}
+
+// 按钮
+button.fixed{position:fixed;bottom:0;left:0;width:100%;border-radius:0}
 // 背景黑色
 .search-mask {
   z-index: 8;
@@ -315,7 +327,8 @@ img{
 }
 
 .order_detail {
-    background: #f5f5f5
+    background: #f5f5f5;
+    padding-bottom: 2.5rem;
 }
 
 .order_detail_header {
@@ -329,7 +342,7 @@ img{
     font-size: .7rem
 }
 
-.order_detail_state .icon {
+.order_detail_state .iconfont {
     color: #ff7300;
     border: .05rem solid #ff7300;
     border-radius: 100%;
@@ -546,7 +559,9 @@ img{
     text-align: right;
     height: 1.5rem;
     box-sizing: border-box;
-    line-height: 1.5rem
+    line-height: 1.5rem;
+    border: 1px solid #d6d6d6;
+        border-radius: .25rem;
 }
 
 .order_price_v2 .fl {
@@ -606,7 +621,9 @@ img{
     height: 1.5rem;
     box-sizing: border-box;
     line-height: 1.5rem;
-    float: right
+    float: right;
+    border: 1px solid #d6d6d6;
+    border-radius: .25rem;
 }
 
 .order_price_product_totel .fr {
@@ -665,14 +682,17 @@ img{
 .order_sending_title {
     margin-top: .8rem
 }
+.app_footer_txt {
+    color: #4d4d4d;
+    width: 60%;
+    float: left;
+    margin: .25rem;
+    margin-left: .5rem;
+}
 
 // search
-.header-search{position:absolute;left:0;top:56px;z-index: 99;width:100%;background:#fff;border-bottom:1px solid #eee;padding:10px 0 0 10px}
-.header-search .mu-text-field{width:40%;float:left;margin-bottom:0;margin-right:.5rem}
-.header-search .mu-icon-button{    padding: 10px 0px;
-    color: #999;
-    width: 42px;
-    height: 42px; }
+.header-search{position:absolute;left:0;top:56px;z-index: 99;width:100%;background:#fff;border-bottom:1px solid #eee;padding:10px}
+.header-search .mu-text-field{margin-bottom:10px;}
 @media (min-width:480px){
   .header-search{top: 65px}
 }
