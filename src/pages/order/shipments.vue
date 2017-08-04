@@ -73,15 +73,3 @@ export default {
   }
 }
 </script>
-<style scoped>
-.chaxun {
-    text-align: center;
-    margin-top: 1rem;
-    color: #999;
-    font-size: .7rem;
-}
-.chaxun a {
-    color: #999;
-    text-decoration: underline;
-}
-</style>

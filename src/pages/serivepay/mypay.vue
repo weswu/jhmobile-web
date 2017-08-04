@@ -2,7 +2,7 @@
   <div class="servicePay">
     <div class="fixed-bar">
       <mu-appbar title="我的缴费">
-        <mu-icon-button icon='arrow_back' @click='back'  slot='left'/>
+        <mu-icon-button icon='arrow_back' @click='back' slot='left'/>
       </mu-appbar>
     </div>
     <mu-list>
@@ -35,7 +35,7 @@
       </template>
     </mu-list>
 
-    <mu-raised-button v-if="index != 3" label='付款' @click='pay' class='submit-raised-button' secondary fullWidth/>
+    <mu-raised-button v-if="index != 3" label='付款' @click='pay' secondary fullWidth/>
     <div @click="tipHide">
       <div class="pay-bg" v-if="tip"></div>
       <div class="buyImg" v-if="index === 0 && tip">

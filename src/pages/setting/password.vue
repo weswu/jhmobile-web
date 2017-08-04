@@ -5,11 +5,11 @@
     </mu-appbar>
     <div class="container p10">
       <p>
-        <mu-text-field label="当前密码" hintText="请输入当前密码" v-model="password.oldPs"/>
-        <mu-text-field label="新密码" hintText="请输入新密码" v-model="password.newPs"/>
-        <mu-text-field label="确认密码" hintText="请输入确认密码" v-model="password.newPs2"/>
+        <mu-text-field label="当前密码" hintText="请输入当前密码" v-model="password.oldPs" fullWidth/>
+        <mu-text-field label="新密码" hintText="请输入新密码" v-model="password.newPs" fullWidth/>
+        <mu-text-field label="确认密码" hintText="请输入确认密码" v-model="password.newPs2" fullWidth/>
       </p>
-      <mu-raised-button label="提交" @click="submit" class="submit-raised-button" secondary fullWidth/>
+      <mu-raised-button label="提交" @click="submit" secondary fullWidth/>
     </div>
 
   </div>

@@ -6,8 +6,8 @@
     <div class='container p10'>
       <div>邮箱提醒：</div>
       <mu-radio name='state' v-model='message.state' v-for='item in typeList' :label='item.text' :nativeValue='item.value' class='wu-radio' labelClass='w-radio'/>
-      <mu-text-field label='电子邮箱：' hintText='请输入邮箱' v-model='message.key'/>
-      <mu-raised-button label='提交' @click='submit' class='submit-raised-button' secondary fullWidth/>
+      <mu-text-field label='电子邮箱：' hintText='请输入邮箱' v-model='message.key' fullWidth/>
+      <mu-raised-button label='提交' @click='submit' secondary fullWidth/>
     </div>
   </div>
 </template>

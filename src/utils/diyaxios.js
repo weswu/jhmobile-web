@@ -17,7 +17,7 @@ axios.interceptors.response.use((res) => {
 }, (error) => {
   console.log('promise error:' + error)
   if (!error.response) {
-    window.alert('超时')
+    // window.alert('超时')
   }
   if (error.response.status === 401) {
     if (error.response.data.err_code === '用户不存在') {

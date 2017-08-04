@@ -14,7 +14,7 @@
     </baidu-map>
     <div class="container p10">
       <label>关键词：<input v-model="keyword"></label>
-      <mu-raised-button label="提交" @click="submit" class="submit-raised-button" secondary fullWidth style="margin: 10px 0"/>
+      <mu-raised-button label="提交" @click="submit" secondary fullWidth style="margin: 10px 0"/>
     </div>
 
   </div>

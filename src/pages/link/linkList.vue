@@ -12,7 +12,7 @@
           <div class='subContent'>
             {{item.url}}
           </div>
-          <mu-icon value='delete' slot='right' :size='36' color='#ccc' @click.stop='del(item)'/>
+          <div slot="right" @click.stop='del(item.id)'>删除</div>
         </mu-list-item>
         <mu-divider/>
       </template>
@@ -24,20 +24,7 @@
 export default {
   data () {
     return {
-      list: [
-        {
-          linkId: 'Link_000000000000000000000052278',
-          enterpriseId: null,
-          name: '机汇网',
-          url: 'http://www.jihui88.com',
-          state: null,
-          lorder: null,
-          userId: null,
-          addTime: null,
-          updateTime: null,
-          id: 'Link_000000000000000000000052278'
-        }
-      ],
+      list: [],
       loading: false,
       scroller: null,
       refresh: true,
@@ -46,8 +33,12 @@ export default {
       }
     }
   },
-  created () {
-    this.get()
+  beforeRouteEnter (to, from, next) {
+    next(vm => {
+      vm.list = []
+      vm.searchData.page = 1
+      vm.get()
+    })
   },
   mounted () {
     this.scroller = this.$el
@@ -70,27 +61,17 @@ export default {
     detail (id) {
       this.$router.push({path: '/link/' + id})
     },
-    del (entry) {
+    del (id) {
       if (window.confirm('确认删除吗？')) {
-        this.$http.delete('/rest/api/link/detail/' + entry.id).then((res) => {
-          var data = this.list
-          data.forEach(function (item, i) {
-            if (item === entry) {
-              data.splice(i, 1)
-            }
-          })
+        this.$http.delete('/rest/api/link/detail/' + id).then((res) => {})
+        this.list.forEach((item, index, arr) => {
+          if (item.id === id) {
+            arr.splice(index, 1)
+          }
         })
+        this.count = this.count - 1
       }
     }
   }
 }
 </script>
-<style scoped>
-.subContent{
-  font-size: 12px;
-  color: #999
-}
-.subContent span{
-  padding-left:10px
-}
-</style>

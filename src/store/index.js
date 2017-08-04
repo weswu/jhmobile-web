@@ -63,13 +63,14 @@ const store = new Vuex.Store({
   },
   mutations: {
     // 加载中...
-    isload: (state) => {
-      state.isloading = !state.isloading
-      if (state.isloading) {
-        setTimeout(function () {
-          state.isloading = false
-        },15000)
-      }
+    showLoading (state) {
+      state.isloading = true
+      setTimeout(() => {
+        state.isloading = false
+      }, 10000)
+    },
+    hideLoading (state) {
+      state.isloading = false
     },
     play (state) {
       state.playing = true

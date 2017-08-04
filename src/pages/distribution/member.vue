@@ -49,9 +49,7 @@
         </ul>
     </div>
   </div>
-
 </template>
-
 <script>
 import jsonp from 'jsonp'
 export default {

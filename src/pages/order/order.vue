@@ -8,7 +8,6 @@
     <mu-tabs :value="activeTab" @change="handleTabChange" class="view-tabs">
       <mu-tab v-for="item in tabs" :value="item.value" :title="item.title"/>
     </mu-tabs>
-
     <mu-list>
       <div v-for='item,index in list' class="order_list">
         <dl @click="detail(item.orderId)">
@@ -79,6 +78,7 @@ export default {
       this.$router.push({path: '/main/home'})
     },
     get () {
+      this.loading = true
       this.$http.get('/rest/api/order/list?' + qs.stringify(this.searchData)).then((res) => {
         if (this.searchData.page === 1 && res.data.attributes.data.length === 0) {
           this.nodata = true
@@ -120,15 +120,3 @@ export default {
   }
 }
 </script>
-<style scoped>
-.chaxun {
-    text-align: center;
-    margin-top: 1rem;
-    color: #999;
-    font-size: .7rem;
-}
-.chaxun a {
-    color: #999;
-    text-decoration: underline;
-}
-</style>

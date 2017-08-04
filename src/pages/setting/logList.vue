@@ -1,60 +1,64 @@
 <template>
-  <div>
-    <mu-appbar title='设置'>
-      <mu-icon-button icon='arrow_back' @click='back'  slot='left'/>
-    </mu-appbar>
-    <mobile-tear-sheet>
-      <mu-list>
-        <mu-list-item title="账号与安全" href="#/account">
-          <mu-icon value="navigate_next" :size="20" slot="right" color="#aaa"/>
+  <div class='wu-infinite-container'>
+    <div class="fixed-bar">
+      <mu-appbar title='操作记录'>
+        <mu-icon-button icon='arrow_back' @click='back'  slot='left'/>
+      </mu-appbar>
+    </div>
+    <mu-list>
+      <template v-for='item in list'>
+        <mu-list-item :title="item.logStr">
+          <div class='subContent'>
+            {{item.location}}
+          </div>
+          <div slot="right">
+            {{item.addTime | time('MM-dd hh:mm')}}
+          </div>
         </mu-list-item>
-        <mu-divider />
-        <mu-list-item title="服务反馈" href="#/service_feedback">
-          <mu-icon value="navigate_next" :size="20" slot="right" color="#aaa"/>
-        </mu-list-item>
-        <mu-divider />
-        <mu-list-item title="操作记录" href="#/account">
-          <mu-icon value="navigate_next" :size="20" slot="right" color="#aaa"/>
-        </mu-list-item>
-        <mu-divider />
-      </mu-list>
-
-      <mu-list>
-        <mu-list-item title="机汇微商城" href="http://m.jihui88.com/">
-          <mu-icon value="navigate_next" :size="20" slot="right" color="#aaa"/>
-        </mu-list-item>
-        <mu-divider />
-        <mu-list-item title="促销活动" href="#/sale">
-          <mu-icon value="navigate_next" :size="20" slot="right" color="#aaa"/>
-        </mu-list-item>
-        <mu-divider />
-        <mu-list-item title="服务中心" href="#/service">
-          <mu-icon value="navigate_next" :size="20" slot="right" color="#aaa"/>
-        </mu-list-item>
-        <mu-divider />
-        <mu-list-item title="关于机汇网" href="#/about">
-          <mu-icon value="navigate_next" :size="20" slot="right" color="#aaa"/>
-        </mu-list-item>
-        <mu-divider />
-      </mu-list>
-      <mu-raised-button label="退出帐号" @click="signout" class="submit-raised-button" secondary fullWidth/>
-    </mobile-tear-sheet>
-
+        <mu-divider/>
+      </template>
+    </mu-list>
+    <mu-infinite-scroll :scroller='scroller' :loading='loading' @load='loadMore'/>
   </div>
 </template>
 <script>
 export default {
+  data () {
+    return {
+      list: [],
+      searchData: {
+        page: 1
+      },
+      search: false,
+      loading: false,
+      scroller: null,
+      refresh: true
+    }
+  },
+  beforeRouteEnter (to, from, next) {
+    next(vm => {
+      vm.list = []
+      vm.searchData.page = 1
+      vm.get()
+    })
+  },
+  mounted () {
+    this.scroller = this.$el
+  },
   methods: {
     back () {
       this.$router.back()
     },
-    signout () {
-      this.$http.get('/rest/api/user/logout').then((res) => {
-        this.$store.state.user = null
-        this.$router.push({path: '/login'})
+    get () {
+      this.refresh = false
+      this.loading = true
+      this.$http.get('/rest/api/log/list?page=' + this.searchData.page).then((res) => {
+        this.scrollList(this, res.data)
       })
+    },
+    loadMore () {
+      this.refresh && this.get()
     }
-
   }
 }
 </script>

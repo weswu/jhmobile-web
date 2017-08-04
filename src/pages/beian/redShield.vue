@@ -22,14 +22,14 @@
           操作成功后请保存以下信息
         </div>
         <p>
-          <mu-text-field label="企业名称(个体工商户名称)" hintText="请输入企业名称" v-model="enterprise.name"/>
-          <mu-text-field label="注册号" hintText="请输入注册号" v-model="enterprise.certNumber"/>
-          <mu-text-field label="网址" hintText="请输入网址" v-model="user.url"/>
-          <mu-text-field label="管理员/联系人" hintText="请输入管理员/联系人" v-model="principal.name"/>
-          <mu-text-field label="管理员/联系人Email" hintText="请输入Email" v-model="principal.email"/>
+          <mu-text-field label="企业名称(个体工商户名称)" hintText="请输入企业名称" v-model="enterprise.name" fullWidth/>
+          <mu-text-field label="注册号" hintText="请输入注册号" v-model="enterprise.certNumber" fullWidth/>
+          <mu-text-field label="网址" hintText="请输入网址" v-model="user.url" fullWidth/>
+          <mu-text-field label="管理员/联系人" hintText="请输入管理员/联系人" v-model="principal.name" fullWidth/>
+          <mu-text-field label="管理员/联系人Email" hintText="请输入Email" v-model="principal.email" fullWidth/>
         </p>
         <p>
-          <mu-raised-button label="提交" @click="submit('2')" class="submit-raised-button" secondary fullWidth/>
+          <mu-raised-button label="提交" @click="submit('2')" secondary fullWidth/>
         </p>
       </div>
 
@@ -39,10 +39,10 @@
           【注】本代码从工商红盾网站里的“获取代码”按钮处获取
         </div>
         <p>
-          <mu-text-field hintText="请输入获取到的代码" v-model="enterprise.gsbsZym" multiLine :rows="8" :rowsMax="10" fullWidth/>
+          <mu-text-field hintText="请输入获取到的代码" v-model="enterprise.gsbsZym" fullWidth multiLine :rows="8" :rowsMax="10" fullWidth/>
         </p>
         <p>
-          <mu-raised-button label="提交" @click="submit('3')" class="submit-raised-button" secondary fullWidth/>
+          <mu-raised-button label="提交" @click="submit('3')" secondary fullWidth/>
         </p>
       </div>
 

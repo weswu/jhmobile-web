@@ -120,6 +120,7 @@ export default {
             arr.splice(index, 1)
           }
         })
+        this.count = this.count - 1
       }
     }
   }
@@ -128,12 +129,5 @@ export default {
 <style>
 .mu-item-right i{
   font-size: 16px;
-}
-.subContent{
-  font-size: 12px;
-  color: #999
-}
-.subContent span{
-  padding-left:10px
 }
 </style>

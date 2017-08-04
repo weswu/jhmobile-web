@@ -14,7 +14,7 @@
         <mu-icon value="navigate_next" :size="20" slot="right" color="#aaa"/>
       </mu-list-item>
       <mu-divider />
-      <mu-list-item title="操作记录" href="#/account">
+      <mu-list-item title="操作记录" href="#/log">
         <mu-icon value="navigate_next" :size="20" slot="right" color="#aaa"/>
       </mu-list-item>
       <mu-divider />
@@ -37,20 +37,25 @@
       </mu-list-item>
       <mu-divider />
     </mu-list>
-    <mu-raised-button label="退出帐号" @click="signout" class="submit-raised-button" secondary fullWidth/>
+    <mu-raised-button label="退出帐号" @click="signout" secondary fullWidth/>
 
   </div>
 </template>
 <script>
+import { mapMutations } from 'vuex'
 export default {
   methods: {
+    ...mapMutations(['showLoading', 'hideLoading']),
     back () {
       this.$router.back()
     },
     signout () {
+      var ctx = this
+      this.showLoading()
       this.$http.get('/rest/api/user/logout').then((res) => {
-        this.$store.state.user = null
-        this.$router.push({path: '/login'})
+        ctx.hideLoading()
+        ctx.$store.state.user = null
+        ctx.$router.push({path: '/login'})
       })
     }
 

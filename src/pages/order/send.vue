@@ -23,9 +23,9 @@
       <mu-select-field v-model="order.exp" :labelFocusClass="['label-foucs']" label="物流信息">
         <mu-menu-item v-for="v,index in middle" :value="v.com" :title="v.name" />
       </mu-select-field>
-      <mu-text-field label="运费" hintText="请输入运费" v-model="order.cost"  fullWidth/>
+      <mu-text-field label="运费" hintText="请输入运费" v-model="order.cost" fullWidth/>
       <mu-text-field label="运单号" hintText="请输入运单号" v-model="order.deliverySn" fullWidth/>
-      <mu-raised-button label="确认发货" @click="submit" class="submit-raised-button" fullWidth primary/>
+      <mu-raised-button label="确认发货" @click="submit" fullWidth primary/>
 		</div>
   </div>
 </template>

@@ -10,12 +10,12 @@
       <mu-tab value="2" title="新闻内容"/>
     </mu-tabs>
     <div class='p10 mbfixed' v-if="activeTab === '1'">
-      <mu-text-field label='新闻标题' hintText='请输入新闻标题' v-model='news.title'/>
+      <mu-text-field label='新闻标题' hintText='请输入新闻标题' v-model='news.title' fullWidth/>
       <mu-select-field v-model='news.category' :labelFocusClass="['label-foucs']" hintText='所属分类' :maxHeight="300">
         <mu-menu-item v-for='v in categoryList' :value='v.categoryId' :title='v.name'/>
       </mu-select-field>
-      <mu-text-field label='来源' hintText='请输入来源' v-model='news.origin'/>
-      <mu-text-field label='作者' hintText='请输入作者' v-model='news.author'/>
+      <mu-text-field label='来源' hintText='请输入来源' v-model='news.origin' fullWidth/>
+      <mu-text-field label='作者' hintText='请输入作者' v-model='news.author' fullWidth/>
       <p v-if="false">新闻图片：</p>
       <mu-radio v-if="false" name="imagenews" nativeValue="01" v-model="news.imagenews" label="显示" class="wu-radio"/>
       <mu-radio v-if="false" name="imagenews" nativeValue="00" v-model="news.imagenews" label="隐藏" class="wu-radio"/>
@@ -49,38 +49,43 @@ export default {
       name: '新闻',
       activeTab: '1',
       categoryList: [],
-      news: {
-        imagenews: '00'
-      },
+      news: {},
       imgUrl: this.$store.state.imgUrl,
       editorOption: {}
     }
   },
-  beforeRouteEnter (to, from, next) {
-    next(vm => {
-      if (vm.$route.params.id) {
-        vm.name = '新闻修改'
-        vm.get()
-      } else {
-        vm.name = '新闻添加'
-        vm.getCate()
-      }
-    })
+  created () {
+    this.get()
+  },
+  watch: {
+    // 如果路由有变化，会再次执行该方法
+    '$route': 'get'
   },
   components: {
     Upload,
     quillEditor
   },
   methods: {
-    ...mapMutations(['isload']),
+    ...mapMutations(['showLoading', 'hideLoading']),
     back () {
       this.$router.back()
     },
     get () {
-      this.$http.get('/rest/api/news/updateList?id=' + this.$route.params.id).then((res) => {
-        this.categoryList = res.data.attributes.categoryList
-        this.news = res.data.attributes.data
-      })
+      if (this.$route.params.id) {
+        this.name = '新闻修改'
+        this.$http.get('/rest/api/news/updateList?id=' + this.$route.params.id).then((res) => {
+          this.categoryList = res.data.attributes.categoryList
+          this.news = res.data.attributes.data
+        })
+      } else {
+        if (this.$route.path === '/newsAdd') {
+          this.name = '新闻添加'
+          this.getCate()
+          this.news = {
+            imagenews: '00'
+          }
+        }
+      }
     },
     getCate () {
       this.$http.get('/rest/api/news/updateList?id=0').then((res) => {
@@ -112,16 +117,16 @@ export default {
       if (this.news.imagenews === '01') {
         this.model.picPath = this.news.picPath
       }
-      this.isload()
+      this.showLoading()
       if (this.news.id) {
         this.$http.post('/rest/api/news/update', qs.stringify(this.model)).then((res) => {
-          this.isload()
+          this.hideLoading()
           window.alert('修改成功')
           this.$router.back()
         })
       } else {
         this.$http.post('/rest/api/news/add', qs.stringify(this.model)).then((res) => {
-          this.isload()
+          this.hideLoading()
           window.alert('发布成功')
           this.$router.back()
         })

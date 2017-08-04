@@ -24,9 +24,9 @@
         </div>
 
         <p>
-          <mu-text-field label="用户名称" hintText="请输入用户名称" v-model="webinfo.bizicbUsername"/>
-          <mu-text-field label="用户邮箱" hintText="请输入用户邮箱" v-model="enterprise.email"/>
-          <mu-text-field label="用户密码" hintText="请输入用户密码" v-model="webinfo.bizicbPassword"/>
+          <mu-text-field label="用户名称" hintText="请输入用户名称" v-model="webinfo.bizicbUsername" fullWidth/>
+          <mu-text-field label="用户邮箱" hintText="请输入用户邮箱" v-model="enterprise.email" fullWidth/>
+          <mu-text-field label="用户密码" hintText="请输入用户密码" v-model="webinfo.bizicbPassword" fullWidth/>
         </p>
         <p>
           <mu-raised-button label="提交" @click="submit('2')" class="demo-raised-button" secondary fullWidth/>
@@ -35,14 +35,14 @@
 
       <div v-if="activeTab === '2'">
         <p>
-          <mu-text-field label="网站域名" hintText="请输入网站域名" v-model="bind.address"/>
+          <mu-text-field label="网站域名" hintText="请输入网站域名" v-model="bind.address" fullWidth/>
           <mu-select-field v-model="enterprise.type" :labelFocusClass="['label-foucs']" label="主办单位性质">
             <mu-menu-item v-for="v,index in enterpriseTypeSelect" :value="v.value" :title="v.text" />
           </mu-select-field>
           <mu-select-field v-model="enterprise.certType" :labelFocusClass="['label-foucs']" label="主办单位有效证件类型">
             <mu-menu-item v-for="v,index in enterpriseCertTypeSelect" :value="v.value" :title="v.text" />
           </mu-select-field>
-          <mu-text-field label="主办单位有效证件号码" hintText="请输入证件号码" v-model="enterprise.certNumber"/>
+          <mu-text-field label="主办单位有效证件号码" hintText="请输入证件号码" v-model="enterprise.certNumber" fullWidth/>
         </p>
         <p>
           <mu-raised-button label="提交" @click="submit('3')" class="demo-raised-button" secondary fullWidth/>
@@ -51,28 +51,28 @@
 
       <div v-if="activeTab === '3'">
         <p>
-          <mu-text-field label="公司名称" hintText="请输入公司名称" v-model="enterprise.name"/>
-          <mu-text-field label="公司地址" hintText="请输入公司地址" v-model="enterprise.dist"/>
-          <mu-text-field label="营业执照号" hintText="请输入营业执照号" v-model="enterprise.certNumber"/>
-          <mu-text-field label="法人姓名" hintText="请输入法人姓名" v-model="enterprise.legalPre"/>
-          <mu-text-field label="法人身份证号码" hintText="请输入法人身份证号码" v-model="enterprise.legalPersonIdNumber"/>
-          <mu-text-field label="法人手机号码" hintText="请输入法人手机号码" v-model="enterprise.legalPersonCellphone"/>
-          <mu-text-field label="网站域名" hintText="请输入网站域名" v-model="bind.address"/>
-          <mu-text-field label="邮箱地址" hintText="请输入邮箱地址" v-model="enterprise.email"/>
-          <mu-text-field label="电话" hintText="请输入电话" v-model="enterprise.phone"/>
-          <mu-text-field label="备案IP" hintText="请输入备案IP" v-model="bind.ip"/>
+          <mu-text-field label="公司名称" hintText="请输入公司名称" v-model="enterprise.name" fullWidth/>
+          <mu-text-field label="公司地址" hintText="请输入公司地址" v-model="enterprise.dist" fullWidth/>
+          <mu-text-field label="营业执照号" hintText="请输入营业执照号" v-model="enterprise.certNumber" fullWidth/>
+          <mu-text-field label="法人姓名" hintText="请输入法人姓名" v-model="enterprise.legalPre" fullWidth/>
+          <mu-text-field label="法人身份证号码" hintText="请输入法人身份证号码" v-model="enterprise.legalPersonIdNumber" fullWidth/>
+          <mu-text-field label="法人手机号码" hintText="请输入法人手机号码" v-model="enterprise.legalPersonCellphone" fullWidth/>
+          <mu-text-field label="网站域名" hintText="请输入网站域名" v-model="bind.address" fullWidth/>
+          <mu-text-field label="邮箱地址" hintText="请输入邮箱地址" v-model="enterprise.email" fullWidth/>
+          <mu-text-field label="电话" hintText="请输入电话" v-model="enterprise.phone" fullWidth/>
+          <mu-text-field label="备案IP" hintText="请输入备案IP" v-model="bind.ip" fullWidth/>
 
           <input type="file" accept="image/*" @change="uploadImage($event)" style="display:none" id="uploadImage">
-          <mu-text-field label="营业执照副本彩色照片" hintText="营业执照副本彩色照片" v-model="enterprise.certPic" class="img-upload"/>
+          <mu-text-field label="营业执照副本彩色照片" hintText="营业执照副本彩色照片" v-model="enterprise.certPic" fullWidth class="img-upload"/>
           <mu-raised-button label="上传" class="demo-raised-button upload-fl" @click="uploadImg(1)"/>
 
-          <mu-text-field label="法人身份证正反面照片" hintText="法人身份证正反面照片" v-model="enterprise.legalPersonPhoto" class="img-upload"/>
+          <mu-text-field label="法人身份证正反面照片" hintText="法人身份证正反面照片" v-model="enterprise.legalPersonPhoto" fullWidth class="img-upload"/>
           <mu-raised-button label="上传" class="demo-raised-button upload-fl" @click="uploadImg(2)"/>
 
-          <mu-text-field label="负责人身份证正反面照片" hintText="负责人身份证正反面照片" v-model="principal.certReversePic" class="img-upload"/>
+          <mu-text-field label="负责人身份证正反面照片" hintText="负责人身份证正反面照片" v-model="principal.certReversePic" fullWidth class="img-upload"/>
           <mu-raised-button label="上传" class="demo-raised-button upload-fl" @click="uploadImg(3)"/>
 
-          <mu-text-field label="半身照" hintText="半身照" v-model="enterprise.legalPersonBust" class="img-upload"/>
+          <mu-text-field label="半身照" hintText="半身照" v-model="enterprise.legalPersonBust" fullWidth class="img-upload"/>
           <mu-raised-button label="上传" class="demo-raised-button upload-fl" @click="uploadImg(4)"/>
 
           <div style="color:#999;padding-bottom:10px;clear: both;">
@@ -80,21 +80,21 @@
             其它说明： <a href="http://icp.sundns.com/web/a/ziliaoxiazai/2013/0701/133.html" target="_blank">背景打印</a>，<a href="http://icp.sundns.com/web/a/beianliucheng/2013/0711/137.html" target="_blank">拍照核验要求</a>
           </div>
 
-          <mu-text-field label="核验单" hintText="核验单" v-model="webinfo.checkPic" class="img-upload"/>
+          <mu-text-field label="核验单" hintText="核验单" v-model="webinfo.checkPic" fullWidth class="img-upload"/>
           <mu-raised-button label="上传" class="demo-raised-button upload-fl" @click="uploadImg(5)"/>
 
           <div style="color:#999;padding-bottom:10px;clear: both;">
             说明： <a href="http://icp.sundns.com/web/a/ziliaoxiazai/2010/0706/88.html" target="_blank">核验单要求</a>,<a href="http://cdn.jihui88.com/fujian/jihui/网站备案信息真实性核验单.doc" target="_blank" style="padding-left:5px;color: #999;">核验单模板下载</a>
           </div>
 
-          <mu-text-field label="责任书" hintText="责任书" v-model="webinfo.dutyPic" class="img-upload"/>
+          <mu-text-field label="责任书" hintText="责任书" v-model="webinfo.dutyPic" fullWidth class="img-upload"/>
           <mu-raised-button label="上传" class="demo-raised-button upload-fl" @click="uploadImg(6)"/>
 
           <div style="color:#999;padding-bottom:10px;clear: both;">
             <a href="http://cdn.jihui88.com/fujian/jihui/信息安全保障协议责任书.doc" target="_blank" style="padding-left:5px;color: #999;">责任书模板下载</a>
           </div>
 
-          <mu-text-field label="域名证书" hintText="域名证书" v-model="enterprise.domainCertPic" class="img-upload"/>
+          <mu-text-field label="域名证书" hintText="域名证书" v-model="enterprise.domainCertPic" fullWidth class="img-upload"/>
           <mu-raised-button label="上传" class="demo-raised-button upload-fl" @click="uploadImg(7)"/>
 
           <div style="color:#999;padding-bottom:10px;clear: both;">
@@ -104,11 +104,11 @@
 
 
           <hr style="clear:both;"/>
-          <mu-text-field label="相关负责人" hintText="请输入相关负责人" v-model="principal.name" class="principal-inp-left"/>
+          <mu-text-field label="相关负责人" hintText="请输入相关负责人" v-model="principal.name" fullWidth class="principal-inp-left"/>
           <mu-checkbox label="同法人" class="demo-checkbox" v-model="same1"/>
-          <mu-text-field label="负责人身份证号码" hintText="请输入负责人身份证号码" v-model="principal.certNumber" class="principal-inp-left"/>
+          <mu-text-field label="负责人身份证号码" hintText="请输入负责人身份证号码" v-model="principal.certNumber" fullWidth class="principal-inp-left"/>
           <mu-checkbox label="同法人" class="demo-checkbox" v-model="same2"/>
-          <mu-text-field label="负责人手机号码" hintText="请输入负责人手机号码" v-model="principal.cellphone" class="principal-inp-left"/>
+          <mu-text-field label="负责人手机号码" hintText="请输入负责人手机号码" v-model="principal.cellphone" fullWidth class="principal-inp-left"/>
           <mu-checkbox label="同法人" class="demo-checkbox" v-model="same3"/>
         </p>
         <p style="color:#999;font-size:12px">

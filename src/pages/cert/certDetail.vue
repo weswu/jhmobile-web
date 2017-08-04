@@ -4,11 +4,11 @@
       <mu-icon-button icon='arrow_back' @click="back"  slot="left"/>
     </mu-appbar>
     <div class="p10">
-      <mu-text-field label="证书名称" hintText="请输入证书名称" v-model="cert.name"/>
+      <mu-text-field label="证书名称" hintText="请输入证书名称" v-model="cert.name" fullWidth/>
       <mu-select-field v-model='cert.type' :labelFocusClass="['label-foucs']" hintText='证书分类'>
         <mu-menu-item v-for='v,index in typeList' :value='v.value' :title='v.text' />
       </mu-select-field>
-      <mu-text-field label="发证机构" hintText="请输入发证机构" v-model="cert.organize"/>
+      <mu-text-field label="发证机构" hintText="请输入发证机构" v-model="cert.organize" fullWidth/>
       <mu-flexbox style="margin-bottom:50px">
         <mu-flexbox-item class="flex-demo">
           证书图片：
@@ -22,18 +22,19 @@
           <upload :width="300" v-on:result="fileChange"></upload>
         </mu-flexbox-item>
       </mu-flexbox>
-      <mu-raised-button label="提交" @click="submit" class="submit-raised-button" secondary fullWidth/>
+      <mu-raised-button label="提交" @click="submit" secondary fullWidth/>
     </div>
-
   </div>
 </template>
 <script>
 import Upload from '../../components/upload'
 import qs from 'qs'
+import { mapMutations } from 'vuex'
 export default {
   data () {
     return {
       name: '证书',
+      imgUrl: this.$store.state.imgUrl,
       typeList: [
         {text: '基本证书', value: '01'},
         {text: '税务登记证', value: '07'},
@@ -43,30 +44,33 @@ export default {
         {text: '实地认证', value: '09'},
         {text: '其它证书', value: '05'}
       ],
-      imgUrl: this.$store.state.imgUrl,
-      cert: {
-        type: '01'
-      }
+      cert: {}
     }
   },
-  beforeRouteEnter (to, from, next) {
-    next(vm => {
-      if (vm.$route.params.id) {
-        vm.name = '证书修改'
-        vm.get()
-      } else {
-        vm.name = '证书添加'
-      }
-    })
+  created () {
+    this.get()
+  },
+  watch: {
+    // 如果路由有变化，会再次执行该方法
+    '$route': 'get'
   },
   components: {
     Upload
   },
   methods: {
+    ...mapMutations(['showLoading', 'hideLoading']),
     get () {
-      this.$http.get('/rest/api/cert/detail/' + this.$route.params.id).then((res) => {
-        this.cert = res.data.attributes.data
-      })
+      if (this.$route.params.id) {
+        this.name = '证书修改'
+        this.$http.get('/rest/api/cert/detail/' + this.$route.params.id).then((res) => {
+          this.cert = res.data.attributes.data
+        })
+      } else {
+        this.name = '证书添加'
+        this.cert = {
+          type: '01'
+        }
+      }
     },
     back () {
       this.$router.back()
@@ -75,24 +79,34 @@ export default {
       e.target.src = this.$store.state.errImgUrl
     },
     fileChange (text) {
+      this.cert.attachmentId = text.attId
       this.cert.attaPic = text.data
     },
     submit () {
-      if (!this.link.name) {
-        window.alert('链接名称不能为空')
-        return
+      if (!this.cert.name) { return window.alert('证书名称不能为空') }
+      if (!this.cert.organize) { return window.alert('发证机构不能为空') }
+      // if (!this.cert.attaPic) { return window.alert('证书图片不能为空') }
+      this.model = {
+        name: this.cert.name,
+        type: this.cert.type,
+        organize: this.cert.organize,
+        attId: this.cert.attachmentId
       }
-      if (!this.link.url) {
-        window.alert('链接地址不能为空')
-        return
+      this.showLoading()
+      if (this.$route.params.id) {
+        this.$http.put('/rest/api/cert/detail/' + this.$route.params.id + '?' + qs.stringify(this.model)).then((res) => {
+          this.hideLoading()
+          window.alert('修改成功')
+          this.$router.back()
+        })
+      } else {
+        this.$http.post('/rest/api/cert/detail', qs.stringify(this.model)).then((res) => {
+          this.hideLoading()
+          window.alert('发布成功')
+          this.$router.back()
+        })
       }
-      this.$http.post('/rest/api/link/detail?' + qs.stringify(this.link)).then((res) => {
-        window.alert('修改成功')
-      })
     }
   }
 }
 </script>
-<style lang="less" scoped>
-
-</style>

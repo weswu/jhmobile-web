@@ -86,6 +86,8 @@ export default {
   },
   beforeRouteEnter (to, from, next) {
     next(vm => {
+      vm.list = []
+      vm.searchData.page = 1
       vm.get()
     })
   },

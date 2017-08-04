@@ -25,10 +25,10 @@
           操作成功后请保存以下信息
         </div>
         <p>
-          <mu-text-field label="用户名" hintText="请输入用户名" v-model="webinfo.securityUsername"/>
-          <mu-text-field label="密码" hintText="请输入密码" v-model="webinfo.securityPassword"/>
-          <mu-text-field label="邮箱" hintText="请输入邮箱" type="email" v-model="enterprise.email"/>
-          <mu-text-field label="手机号码" hintText="请输入手机号码" v-model="principal.cellphone"/>
+          <mu-text-field label="用户名" hintText="请输入用户名" v-model="webinfo.securityUsername" fullWidth/>
+          <mu-text-field label="密码" hintText="请输入密码" v-model="webinfo.securityPassword" fullWidth/>
+          <mu-text-field label="邮箱" hintText="请输入邮箱" type="email" v-model="enterprise.email" fullWidth/>
+          <mu-text-field label="手机号码" hintText="请输入手机号码" v-model="principal.cellphone" fullWidth/>
         </p>
         <p>
           <mu-raised-button label="确定" @click="submit('2')" class="demo-raised-button" secondary fullWidth/>
@@ -43,17 +43,17 @@
         </p>
         <h3>主办单位信息</h3>
         <p>
-          <mu-text-field label="主办单位名称" hintText="请输入主办单位名称" v-model="enterprise.name"/>
+          <mu-text-field label="主办单位名称" hintText="请输入主办单位名称" v-model="enterprise.name" fullWidth/>
           <mu-select-field v-model="enterprise.type" :labelFocusClass="['label-foucs']" label="主办单位证件类型">
             <mu-menu-item v-for="v,index in enterpriseTypeSelect" :value="v.value" :title="v.text" />
           </mu-select-field>
-          <mu-text-field label="主办单位证件号" hintText="请输入主办单位证件号" v-model="enterprise.certNumber"/>
+          <mu-text-field label="主办单位证件号" hintText="请输入主办单位证件号" v-model="enterprise.certNumber" fullWidth/>
 
           <input type="file" accept="image/*" @change="uploadImage($event)" style="display:none" id="uploadImage">
-          <mu-text-field label="主办单位有效证件" hintText="主办单位有效证件" v-model="enterprise.certPic" class="img-upload"/>
+          <mu-text-field label="主办单位有效证件" hintText="主办单位有效证件" v-model="enterprise.certPic" fullWidth class="img-upload"/>
           <mu-raised-button label="上传" class="demo-raised-button upload-fl" @click="uploadImg(1)"/>
 
-          <mu-text-field label="法人代表人姓名" hintText="请输入法人代表人姓名" v-model="enterprise.legalPre"/>
+          <mu-text-field label="法人代表人姓名" hintText="请输入法人代表人姓名" v-model="enterprise.legalPre" fullWidth/>
           单位办公地址<br>
           <span v-model="citySelect.ent"></span><span v-model="countySelect.ent"></span>
           <mu-select-field v-model="address.ent1" :labelFocusClass="['label-foucs']" label="省" @input="provinceChange(1)" :maxHeight="300" style="width:30%">
@@ -65,27 +65,27 @@
           <mu-select-field v-model="address.ent3" :labelFocusClass="['label-foucs']" label="县" @input="countChange(1)" :maxHeight="300" style="width:30%;margin-left:3.5%">
             <mu-menu-item v-for="v,index in countySelect.ent" :value="v.id" :title="v.name" />
           </mu-select-field>
-          <mu-text-field label="详细地址" hintText="请输入详细地址" v-model="enterprise.dist"/>
+          <mu-text-field label="详细地址" hintText="请输入详细地址" v-model="enterprise.dist" fullWidth/>
 
         </p>
         <h3>负责人信息</h3>
         <p>
-          <mu-text-field label="负责人姓名" hintText="请输入负责人姓名" fullWidth v-model="principal.name"/>
+          <mu-text-field label="负责人姓名" hintText="请输入负责人姓名" v-model="principal.name" fullWidth/>
           <mu-select-field v-model="principal.certType" :labelFocusClass="['label-foucs']" label="负责人证件类型">
             <mu-menu-item v-for="v,index in enterpriseTypeSelect" :value="v.value" :title="v.text" />
           </mu-select-field>
-          <mu-text-field label="负责人证件号码" hintText="请输入负责人证件号码" v-model="principal.certNumber"/>
+          <mu-text-field label="负责人证件号码" hintText="请输入负责人证件号码" v-model="principal.certNumber" fullWidth/>
 
           证件有效期：<br/>
           <mu-date-picker hintText="证件有效期" v-model="principal.certIndate"/>
 
-          <mu-text-field label="负责人证件(正面)" hintText="负责人证件(正面)" v-model="principal.certFrontPic" class="img-upload"/>
+          <mu-text-field label="负责人证件(正面)" hintText="负责人证件(正面)" v-model="principal.certFrontPic" fullWidth class="img-upload"/>
           <mu-raised-button label="上传" class="demo-raised-button upload-fl" @click="uploadImg(2)"/>
 
-          <mu-text-field label="负责人证件(反面)" hintText="负责人证件(反面)" v-model="principal.certReversePic" class="img-upload"/>
+          <mu-text-field label="负责人证件(反面)" hintText="负责人证件(反面)" v-model="principal.certReversePic" fullWidth class="img-upload"/>
           <mu-raised-button label="上传" class="demo-raised-button upload-fl" @click="uploadImg(3)"/>
 
-          <mu-text-field label="负责人证件(手持)" hintText="负责人证件(手持)" v-model="principal.certHandPic" class="img-upload"/>
+          <mu-text-field label="负责人证件(手持)" hintText="负责人证件(手持)" v-model="principal.certHandPic" fullWidth class="img-upload"/>
           <mu-raised-button label="上传" class="demo-raised-button upload-fl" @click="uploadImg(4)"/>
 
           <br style="clear:both"/>
@@ -100,11 +100,11 @@
           <mu-select-field v-model="address.pri3" :labelFocusClass="['label-foucs']" label="县" @input="countChange(2)" :maxHeight="300" style="width:30%;margin-left:3.5%">
             <mu-menu-item v-for="v,index in countySelect.pri" :value="v.id" :title="v.name" />
           </mu-select-field>
-          <mu-text-field label="详细地址" hintText="请输入详细地址" v-model="principal.address"/>
+          <mu-text-field label="详细地址" hintText="请输入详细地址" v-model="principal.address" fullWidth/>
 
-          <mu-text-field label="办公室电话" hintText="请输入办公室电话" v-model="principal.phone"/>
-          <mu-text-field label="手机号码" hintText="请输入手机号码" v-model="principal.cellphone"/>
-          <mu-text-field label="负责人邮箱" hintText="请输入负责人邮箱" v-model="principal.email"/>
+          <mu-text-field label="办公室电话" hintText="请输入办公室电话" v-model="principal.phone" fullWidth/>
+          <mu-text-field label="手机号码" hintText="请输入手机号码" v-model="principal.cellphone" fullWidth/>
+          <mu-text-field label="负责人邮箱" hintText="请输入负责人邮箱" v-model="principal.email" fullWidth/>
         </p>
         <p>
           <mu-raised-button label="确定" @click="submit('3')" class="demo-raised-button" secondary fullWidth/>
@@ -114,18 +114,18 @@
       <div v-if="activeTab === '3'">
         <h3>网站信息</h3>
         <p>
-          <mu-text-field label="网站名称" hintText="请输入网站名称" v-model="enterprise.name"/>
+          <mu-text-field label="网站名称" hintText="请输入网站名称" v-model="enterprise.name" fullWidth/>
           <mu-select-field v-model="principal.isIcp" :labelFocusClass="['label-foucs']" label="是否有工信部备案号">
             <mu-menu-item v-for="v,index in isIcpSelect" :value="v.value" :title="v.text" />
           </mu-select-field>
-          <mu-text-field label="工信部备案号" hintText="请输入工信部备案号" v-model="bind.icp"/>
+          <mu-text-field label="工信部备案号" hintText="请输入工信部备案号" v-model="bind.icp" fullWidth/>
           网站开通时期<br/>
           <mu-date-picker hintText="网站开通时期" v-model="bind.applyTime"/>
-          <mu-text-field label="主域名" hintText="请输入主域名" v-model="bind.address"/>
-          <mu-text-field label="域名证书" hintText="域名证书" v-model="enterprise.domainCertPic" class="img-upload"/>
+          <mu-text-field label="主域名" hintText="请输入主域名" v-model="bind.address" fullWidth/>
+          <mu-text-field label="域名证书" hintText="域名证书" v-model="enterprise.domainCertPic" fullWidth class="img-upload"/>
           <mu-raised-button label="上传" class="demo-raised-button upload-fl" @click="uploadImg(5)"/>
 
-          <mu-text-field label="IP" hintText="请输入IP" v-model="bind.ip"/>
+          <mu-text-field label="IP" hintText="请输入IP" v-model="bind.ip" fullWidth/>
         </p>
         <h3>网站接入服务商</h3>
         <p>
@@ -271,36 +271,36 @@
           <span style="font-size: 12px;padding-left: 10px;font-weight: normal;">同主体负责人信息</span>
         </h3>
         <p>
-          <mu-text-field label="负责人姓名" hintText="请输入负责人姓名" v-model="principal.name"/>
+          <mu-text-field label="负责人姓名" hintText="请输入负责人姓名" v-model="principal.name" fullWidth/>
           <mu-select-field v-model="principal.certType" :labelFocusClass="['label-foucs']" label="负责人证件类型">
             <mu-menu-item v-for="v,index in certTypeSelect" :value="v.value" :title="v.text" />
           </mu-select-field>
-          <mu-text-field label="负责人证件号码" hintText="请输入负责人证件号码" v-model="principal.certNumber"/>
+          <mu-text-field label="负责人证件号码" hintText="请输入负责人证件号码" v-model="principal.certNumber" fullWidth/>
           证件有效期<br/>
           <mu-date-picker hintText="证件有效期" v-model="principal.certIndate"/>
 
-          <mu-text-field label="负责人证件(正面)" hintText="负责人证件(正面)" v-model="principal.certFrontPic" class="img-upload"/>
+          <mu-text-field label="负责人证件(正面)" hintText="负责人证件(正面)" v-model="principal.certFrontPic" fullWidth class="img-upload"/>
           <mu-raised-button label="上传" class="demo-raised-button upload-fl" @click="uploadImg(2)"/>
 
-          <mu-text-field label="负责人证件(反面)" hintText="负责人证件(反面)" v-model="principal.certReversePic" class="img-upload"/>
+          <mu-text-field label="负责人证件(反面)" hintText="负责人证件(反面)" v-model="principal.certReversePic" fullWidth class="img-upload"/>
           <mu-raised-button label="上传" class="demo-raised-button upload-fl" @click="uploadImg(3)"/>
 
-          <mu-text-field label="负责人证件(手持)" hintText="负责人证件(手持)" v-model="principal.certHandPic" class="img-upload"/>
+          <mu-text-field label="负责人证件(手持)" hintText="负责人证件(手持)" v-model="principal.certHandPic" fullWidth class="img-upload"/>
           <mu-raised-button label="上传" class="demo-raised-button upload-fl" @click="uploadImg(4)"/>
 
 
-          <mu-text-field label="手机号码" hintText="请输入手机号码" v-model="principal.cellphone"/>
-          <mu-text-field label="电子邮件地址" hintText="请输入电子邮件地址" v-model="principal.email"/>
+          <mu-text-field label="手机号码" hintText="请输入手机号码" v-model="principal.cellphone" fullWidth/>
+          <mu-text-field label="电子邮件地址" hintText="请输入电子邮件地址" v-model="principal.email" fullWidth/>
         </p>
         <h3>网站应急联络人
           <mu-checkbox label="同主体负责人信息" class="demo-checkbox" v-model="same" style="font-size: 12px;padding-left: 10px;font-weight: normal;"/>
         </h3>
         <p>
-          <mu-text-field label="联络人姓名" hintText="请输入联络人姓名" v-model="emergency.name"/>
+          <mu-text-field label="联络人姓名" hintText="请输入联络人姓名" v-model="emergency.name" fullWidth/>
           <mu-select-field v-model="emergency.certType" :labelFocusClass="['label-foucs']" label="联络人证件类型">
             <mu-menu-item v-for="v,index in certTypeSelect" :value="v.value" :title="v.text" />
           </mu-select-field>
-          <mu-text-field label="联络人证件号码" hintText="请输入联络人证件号码" v-model="emergency.certNumber"/>
+          <mu-text-field label="联络人证件号码" hintText="请输入联络人证件号码" v-model="emergency.certNumber" fullWidth/>
           证件有效期<br/>
           <mu-date-picker hintText="证件有效期" v-model="emergency.certIndate"/>
         </p>
@@ -315,8 +315,8 @@
         </p>
         <div>示例：</div>
         <img style="width: 100%;" src="http://img.jihui88.com/upload/j/j2/jihui88/picture/2016/12/02/b4ed099e-95ad-4fcd-a1ee-77ce6a0a2843.png" alt="websie_record_infot.png">
-        <mu-text-field label="备案链接地址" hintText="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=XXX" v-model="enterprise.psr"/>
-        <mu-text-field label="公安备案号" hintText="浙公安备 33072301100001号" v-model="webinfo.seccurityLink"/>
+        <mu-text-field label="备案链接地址" hintText="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=XXX" v-model="enterprise.psr" fullWidth/>
+        <mu-text-field label="公安备案号" hintText="浙公安备 33072301100001号" v-model="webinfo.seccurityLink" fullWidth/>
         <p>
           <mu-raised-button label="确定" @click="submit('5')" class="demo-raised-button" secondary fullWidth/>
         </p>

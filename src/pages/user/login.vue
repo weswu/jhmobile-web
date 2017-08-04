@@ -6,8 +6,7 @@
     <div class="container p20">
       <mu-text-field label="帐号" hintText="请输入登录帐号" v-model="username" labelClass="indent" hintTextClass="indent" inputClass="indent" fullWidth labelFloat/><br/>
       <mu-text-field label="登录密码" hintText="请输入密码" v-model="password" labelClass="indent" hintTextClass="indent" inputClass="indent" type="password" fullWidth labelFloat/><br/>
-      <mu-raised-button label="登录" @click="submit" class="submit-raised-button" fullWidth primary/>
-
+      <mu-raised-button label="登录" @click="submit" fullWidth primary/>
       <mu-flat-button href="tel:4007111011" label="登录遇到问题?" style="float:right" color="#333"/>
       <p style="text-align: center;clear: both;margin-top: 60px;color: #aaa;">
         浙江机汇网络科技有限公司版权所有<br/>
@@ -15,8 +14,7 @@
       </p>
     </div>
 
-
-    <a class="f39dsk ng-scope" href="http://app.jihui88.com/download.html" v-if="isWeixin">
+    <a class="f39dsk" href="#/download" v-if="isWeixin">
       <b class="m48"><img src="http://img.easthardware.com/upload/j/j2/jihui/picture/2015/12/08/9df67a15-7379-4374-b575-3fb6f55efa02.png" alt=""></b>
       <span>机汇网后台管理APP</span>
       <b class="n48-dl">立即安装</b>
@@ -25,6 +23,7 @@
 </template>
 <script>
 import qs from 'qs'
+import { mapMutations } from 'vuex'
 export default {
   data () {
     return {
@@ -37,20 +36,23 @@ export default {
     this.get()
   },
   methods: {
+    ...mapMutations(['showLoading', 'hideLoading']),
     get () {
-      this.submit()
-    },
-    submit () {
       var ctx = this
       this.$http.post('/rest/api/user/login', qs.stringify({
         username: this.username,
         password: this.password
       })).then((res) => {
+        ctx.hideLoading()
         ctx.$cookie.set('username', ctx.username)
         ctx.$cookie.set('password', ctx.password)
         ctx.$store.state.user = res.data.attributes.data
         ctx.$router.push({path: '/main/home'})
       })
+    },
+    submit () {
+      this.showLoading()
+      this.get()
     }
   }
 }

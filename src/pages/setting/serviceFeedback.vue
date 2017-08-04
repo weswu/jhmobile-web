@@ -6,12 +6,12 @@
       </mu-appbar>
     </div>
     <div class="container p10">
-      <mu-text-field label="主题" hintText="请输入主题" v-model="sf.fdbk_subject64"/>
+      <mu-text-field label="主题" hintText="请输入主题" v-model="sf.fdbk_subject64" fullWidth/>
       <mu-select-field v-model="sf.fdbk_type" :labelFocusClass="['label-foucs']" label="反馈类型">
         <mu-menu-item v-for="v,index in list" :value="v.value" :title="v.text" />
       </mu-select-field>
-      <mu-text-field hintText="请描述您的反馈内容，并附带上您的手机号码，我们好及时对接您提的反馈内容。" v-model="sf.fdbk_intro1k" multiLine :rows="8" :rowsMax="10" fullWidth/>
-      <mu-raised-button label="提交" @click="submit" class="submit-raised-button" secondary fullWidth/>
+      <mu-text-field hintText="请描述您的反馈内容，并附带上您的手机号码，我们好及时对接您提的反馈内容。" v-model="sf.fdbk_intro1k" fullWidth multiLine :rows="8" :rowsMax="10" fullWidth/>
+      <mu-raised-button label="提交" @click="submit" secondary fullWidth/>
     </div>
   </div>
 </template>
