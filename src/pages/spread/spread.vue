@@ -14,7 +14,7 @@
   </mu-tabs>
   <template v-for='item in list'>
     <div class='extend' v-if='item.posterCate === activeTab'>
-      <img class='extend_img' :src="'http://img.jihui88.com/'+item.pic">
+      <img class='extend_img' :src="item.pic">
       <p class='extend_desc'>{{item.posterDesc}}</p>
       <mu-raised-button label='点击生成,截屏保存图片' @click='saveImg(item)' secondary fullWidth/>
     </div>
@@ -30,6 +30,7 @@
     <mu-text-field hintText="说明..." v-model="m.content" fullWidth multiLine :rows="8" :rowsMax="10" fullWidth/>
     <mu-raised-button label="推荐朋友" @click="submit" secondary fullWidth/>
   </div>
+  <img v-if="pic !== ''" :src="pic" class="downPic" @click="downPic" alt="">
 </div>
 </template>
 <script>
@@ -45,6 +46,7 @@ export default {
         {value: '2', title: '人物类'},
         {value: '3', title: '知识类'}
       ],
+      pic: '',
       m: {},
       sf: {
         card_no: this.$store.state.user.username,
@@ -62,13 +64,20 @@ export default {
     },
     get () {
       this.$http.get('/rest/api/poster/list?pageSize=72').then((res) => {
-        this.list = res.data.attributes.data
+        for (var item of res.data.attributes.data) {
+          item.pic = 'http://img.jihui88.com/' + item.pic
+          this.list.push(item)
+        }
       })
     },
     handleTabChange (val) {
       this.activeTab = val
     },
+    downPic () {
+      this.pic = ''
+    },
     saveImg (p) {
+      var ctx = this
       var data = {
         pic: p.pic,
         qrcodeWidth: p.qrcodeWidth,
@@ -79,8 +88,11 @@ export default {
         posterId: p.posterId,
         qrcode: 'http://wcd.jihui88.com/rest/comm/qrbar/create?w=' + p.qrcodeWidth + '&text=http://www.jihui88.com/member/reg_m.html?d=' + this.sf.card_no
       }
-      this.$http.post('https://api.jihui88.net/qrcode_poster/api/poster', qs.stringify(data)).then((res) => {
-        p.pic = 'https://api.jihui88.net/qrcode_poster/posters/' + p.posterId + '.jpg'
+      setTimeout(function () {
+        ctx.pic = 'https://api.jihui88.net/qrcode_poster/posters/' + p.posterId + '.jpg'
+      }, 3000)
+      this.$http.post('http://api.jihui88.net/qrcode_poster/api/poster', qs.stringify(data)).then((res) => {
+        ctx.pic = 'https://api.jihui88.net/qrcode_poster/posters/' + p.posterId + '.jpg'
       })
     },
     submit () {
@@ -124,5 +136,12 @@ export default {
 .extend_desc {
     color: #666;
     padding: 15px 5px;
+}
+.downPic{
+  width: 100vw;
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 9;
 }
 </style>

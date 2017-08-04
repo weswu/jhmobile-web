@@ -29,7 +29,7 @@
       </template>
     </mu-list>
     <div v-if="chaxun" class="chaxun">
-      <em class="icon icon-tishi"></em> 您还未开通商城，无法查看商城客户<br> 咨询请联系：<a href="tel:4007111011">4007111011</a>
+      <em class="iconfont icon-tishi"></em> 您还未开通商城，无法查看商城客户<br> 咨询请联系：<a href="tel:4007111011">4007111011</a>
 	  </div>
     <div v-if="busy" style="text-align: center;padding: .5rem 0;">暂无数据</div>
     <mu-infinite-scroll :scroller='scroller' :loading='loading' @load='loadMore'/>
@@ -78,6 +78,7 @@ export default {
         } else {
           this.scrollList(this, res.data)
         }
+        this.loading = false
       })
     },
     loadMore () {

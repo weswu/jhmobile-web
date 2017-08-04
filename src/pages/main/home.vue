@@ -129,7 +129,7 @@ export default {
 }
 </script>
 <style scoped>
-.home-header{position: relative;background:url(../../../static/img/user-bg.jpg) no-repeat;background-size:cover;overflow:hidden;color:#fff;padding:1rem 0 .5rem 0}
+.home-header{position: relative;background:url(/../../../static/img/user-bg.jpg) no-repeat;background-size:cover;overflow:hidden;color:#fff;padding:1rem 0 .5rem 0}
 .home-user-info{margin: .5rem;font-size:.6rem;opacity:.9;line-height:1rem;float:left}
 .home-user-info a{color:#fff}
 .home-header img{width:4rem;height:4rem;margin:.5rem;border-radius:100%;}
