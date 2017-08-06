@@ -5,7 +5,6 @@
         <mu-icon-button icon='arrow_back' @click='back' slot='left'/>
       </mu-appbar>
     </div>
-
     <mu-tabs :value="activeTab" @change="handleTabChange" class="view-tabs">
       <mu-tab value="1" title="基本信息"/>
       <mu-tab value="2" title="商城属性"/>
@@ -39,7 +38,6 @@
       <mu-text-field label='商品原价' hintText='请输入商品原价' v-model='product.marketprice' style="width:70%"/><span class="wu-text-right">元</span>
       <mu-text-field label='商品库存' hintText='请输入商品库存' v-model='product.store' style="width:70%"/><span class="wu-text-right">件</span>
     </div>
-
     <div class='p10' v-if="activeTab === '3'">
       <quill-editor ref="myTextEditor"
         v-model="product.content" :config="editorOption">
@@ -86,6 +84,7 @@ export default {
       this.$router.back()
     },
     get () {
+      this.activeTab = '1'
       if (this.$route.params.id) {
         this.name = '产品修改'
         this.$http.get('/rest/api/product/updateList?id=' + this.$route.params.id).then((res) => {

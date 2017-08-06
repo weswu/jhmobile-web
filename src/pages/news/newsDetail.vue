@@ -71,6 +71,7 @@ export default {
       this.$router.back()
     },
     get () {
+      this.activeTab = '1'
       if (this.$route.params.id) {
         this.name = '新闻修改'
         this.$http.get('/rest/api/news/updateList?id=' + this.$route.params.id).then((res) => {

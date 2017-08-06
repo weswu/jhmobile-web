@@ -3,24 +3,21 @@
     <mu-appbar title='网站静态发布'>
       <mu-icon-button icon='arrow_back' @click='back'  slot='left'/>
     </mu-appbar>
-    <mobile-tear-sheet>
-      <mu-list>
-        <mu-list-item title="发布网站导航页面"  @click='navigationPage'>
-          <mu-icon slot="left" value="inbox"/>
-        </mu-list-item>
-        <mu-list-item title="发布网站分类页面"  @click='categoryPage'>
-          <mu-icon slot="left" value="grade"/>
-        </mu-list-item>
-        <mu-list-item title="发布网站详细页面" @click='pcPage'>
-          <mu-icon slot="left" value="send"/>
-        </mu-list-item>
-        <mu-list-item title="发布手机网站页面" @click='mobilePage'>
-          <mu-avatar color="#757575" :style="{'margin-left': '-8px'}" backgroundColor="transparent" slot="leftAvatar">M</mu-avatar>
-        </mu-list-item>
-      </mu-list>
-      <mu-divider />
-    </mobile-tear-sheet>
-
+    <mu-list>
+      <mu-list-item title="发布网站导航页面"  @click='navigationPage'>
+        <mu-icon slot="left" value="inbox"/>
+      </mu-list-item>
+      <mu-list-item title="发布网站分类页面"  @click='categoryPage'>
+        <mu-icon slot="left" value="grade"/>
+      </mu-list-item>
+      <mu-list-item title="发布网站详细页面" @click='pcPage'>
+        <mu-icon slot="left" value="send"/>
+      </mu-list-item>
+      <mu-list-item title="发布手机网站页面" @click='mobilePage'>
+        <mu-avatar color="#757575" :style="{'margin-left': '-8px'}" backgroundColor="transparent" slot="leftAvatar">M</mu-avatar>
+      </mu-list-item>
+    </mu-list>
+    <mu-divider />
   </div>
 </template>
 <script>
@@ -90,7 +87,6 @@ export default {
         this.$cookie.set('mobile', 'true', { expires: '5m' })
       }
     }
-
   }
 }
 </script>

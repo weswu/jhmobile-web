@@ -5,35 +5,33 @@
         <mu-icon-button icon='arrow_back' @click='back' slot='left'/>
       </mu-appbar>
     </div>
-    <div class="container p10">
-      <p>
-        <mu-flexbox>
-          <mu-flexbox-item class="flex-demo">
-            公司LOGO：
-          </mu-flexbox-item>
-          <mu-flexbox-item class="flex-demo">
-            <mu-paper class="demo-paper" :zDepth="2">
-              <img class="avatar" width="80" :src="imgUrl + enterprise.logo" @error="setErrorImg" alt="公司LOGO">
-            </mu-paper>
-          </mu-flexbox-item>
-          <mu-flexbox-item class="flex-demo">
-            <upload :width="300" v-on:result="fileChange"></upload>
-          </mu-flexbox-item>
-        </mu-flexbox>
+    <div class="p10 mbfixed">
+      <mu-flexbox>
+        <mu-flexbox-item class="flex-demo">
+          公司LOGO：
+        </mu-flexbox-item>
+        <mu-flexbox-item class="flex-demo">
+          <mu-paper class="demo-paper" :zDepth="2">
+            <img class="avatar" width="80" :src="imgUrl + enterprise.logo" @error="setErrorImg" alt="公司LOGO">
+          </mu-paper>
+        </mu-flexbox-item>
+        <mu-flexbox-item class="flex-demo">
+          <upload :width="300" v-on:result="fileChange"></upload>
+        </mu-flexbox-item>
+      </mu-flexbox>
 
-        <mu-text-field label="公司名称*" hintText="请输入公司名称" v-model="enterprise.name" fullWidth/>
-        <mu-text-field label="主营产品*" hintText="请输入主营产品" v-model="enterprise.mainBusiness" fullWidth/>
-        <mu-text-field label="法人代表*" hintText="请输入法人代表" v-model="enterprise.legalPre" fullWidth/>
-        <mu-text-field label="员工数量*" hintText="请输入员工数量" v-model="enterprise.staffSum" fullWidth type="number"/>
-        <mu-select-field v-model="enterprise.businessType" :labelFocusClass="['label-foucs']" label="经营模式" hintText="请选择">
-          <mu-menu-item v-for="v,index in businessTypeSelect" :value="v.value" :title="v.text" />
-        </mu-select-field>
+      <mu-text-field label="公司名称*" hintText="请输入公司名称" v-model="enterprise.name" fullWidth/>
+      <mu-text-field label="主营产品*" hintText="请输入主营产品" v-model="enterprise.mainBusiness" fullWidth/>
+      <mu-text-field label="法人代表*" hintText="请输入法人代表" v-model="enterprise.legalPre" fullWidth/>
+      <mu-text-field label="员工数量*" hintText="请输入员工数量" v-model="enterprise.staffSum" fullWidth type="number"/>
+      <mu-select-field v-model="enterprise.businessType" :labelFocusClass="['label-foucs']" label="经营模式" hintText="请选择">
+        <mu-menu-item v-for="v,index in businessTypeSelect" :value="v.value" :title="v.text" />
+      </mu-select-field>
 
-        <mu-text-field label="icp备案号" hintText="请输入传真" v-model="enterprise.icp" fullWidth/>
-        <mu-text-field label="年营业额" hintText="请输入地址" v-model="enterprise.annualTurnover" fullWidth/>
-        <mu-text-field label="注册资本" hintText="请输入注册资本" v-model="enterprise.registeredCapital" fullWidth/>
-      </p>
-      <mu-raised-button label="提交" @click="submit" secondary fullWidth/>
+      <mu-text-field label="icp备案号" hintText="请输入传真" v-model="enterprise.icp" fullWidth/>
+      <mu-text-field label="年营业额" hintText="请输入地址" v-model="enterprise.annualTurnover" fullWidth/>
+      <mu-text-field label="注册资本" hintText="请输入注册资本" v-model="enterprise.registeredCapital" fullWidth/>
+      <mu-raised-button label="提交" @click="submit" class="fixed" secondary fullWidth/>
     </div>
 
   </div>

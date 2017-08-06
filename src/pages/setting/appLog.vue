@@ -6,7 +6,8 @@
     <section class="section">
       <div class="title">机汇网App 1.2.0 功能介绍</div>
       <div class="content">
-        全部页面样式替换，解决图片太大上传不了问题
+        1.版本全面升级<br>
+        2.解决图片太大上传不了问题
 			</div>
     </section>
     <div class="hr"></div>

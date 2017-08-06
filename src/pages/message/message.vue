@@ -5,11 +5,11 @@
         <mu-icon-button icon='arrow_back' @click='back' slot='left'/>
         <mu-flat-button href="#/messageBind" label="邮箱绑定" slot="right"/>
         <div class='play-title'>
-          <div class='play-name'>网站询盘<span style='font-size:16px;padding-left:5px' v-if='count != 0'>({{count}})</span></div>
+          网站询盘<span class="appbar-count" v-if='count != 0'>({{count}})</span>
         </div>
       </mu-appbar>
     </div>
-    <mu-list>
+    <mu-list style="padding-bottom: 56px;">
       <div v-for='item,index in list' :class="[{swipeleft: isSwipe[index]},'wrap']" ref="child">
         <mu-list-item :title='item.title' :to="{name: 'messageDetail',params: { id: item.id}}" class="list-item">
           <div class="subContent">
@@ -45,54 +45,20 @@ export default {
       isSwipe: [false, false, false]
     }
   },
-  created () {
-    setTimeout(() => {
-      // 判断是否存在信息列表
-      if (this.$refs.child) {
-        this.$refs.child.forEach((element, index) => {
-          let x, y, X, Y, swipeX, swipeY
-          // 监听touchstart
-          element.addEventListener('touchstart', e => {
-            x = e.changedTouches[0].pageX
-            y = e.changedTouches[0].pageY
-            swipeX = true
-            swipeY = true
-            this.isSwipe = [false, false, false]
-          })
-          element.addEventListener('touchmove', e => {
-            X = event.changedTouches[0].pageX
-            Y = event.changedTouches[0].pageY
-            if (swipeX && Math.abs(X - x) - Math.abs(Y - y) > 0) {
-              // 阻止默认事件
-              e.stopPropagation()
-              // 右滑
-              if (X - x > 10) {
-                e.preventDefault()
-                this.isSwipe.splice(index, 1, false)
-              }
-              if (x - X > 10) {
-                e.preventDefault()
-                this.isSwipe.splice(index, 1, true)
-              }
-              swipeY = false
-            }
-            if (swipeY && Math.abs(X - x) - Math.abs(Y - y) < 0) {
-              swipeX = false
-            }
-          })
-        })
-      }
-    }, 1000)
-  },
   beforeRouteEnter (to, from, next) {
     next(vm => {
       vm.list = []
       vm.searchData.page = 1
       vm.get()
+      vm.delStyle()
     })
+  },
+  mounted () {
+    this.scroller = this.$el
   },
   methods: {
     get () {
+      this.refresh = false
       this.loading = true
       this.$http.get('/rest/api/message/list?' + qs.stringify(this.searchData)).then((res) => {
         this.scrollList(this, res.data)
@@ -102,7 +68,7 @@ export default {
       this.$router.back()
     },
     loadMore () {
-      this.get()
+      this.refresh && this.get()
     },
     // 删除信息
     del (id) {
@@ -113,11 +79,50 @@ export default {
           arr.splice(index, 1)
         }
       })
+    },
+    delStyle () {
+      setTimeout(() => {
+        // 判断是否存在信息列表
+        if (this.$refs.child) {
+          this.$refs.child.forEach((element, index) => {
+            let x, y, X, Y, swipeX, swipeY
+            // 监听touchstart
+            element.addEventListener('touchstart', e => {
+              x = e.changedTouches[0].pageX
+              y = e.changedTouches[0].pageY
+              swipeX = true
+              swipeY = true
+              this.isSwipe = [false, false, false]
+            })
+            element.addEventListener('touchmove', e => {
+              X = event.changedTouches[0].pageX
+              Y = event.changedTouches[0].pageY
+              if (swipeX && Math.abs(X - x) - Math.abs(Y - y) > 0) {
+                // 阻止默认事件
+                e.stopPropagation()
+                // 右滑
+                if (X - x > 10) {
+                  e.preventDefault()
+                  this.isSwipe.splice(index, 1, false)
+                }
+                if (x - X > 10) {
+                  e.preventDefault()
+                  this.isSwipe.splice(index, 1, true)
+                }
+                swipeY = false
+              }
+              if (swipeY && Math.abs(X - x) - Math.abs(Y - y) < 0) {
+                swipeX = false
+              }
+            })
+          })
+        }
+      }, 1000)
     }
   }
 }
 </script>
-<style lang='less' scoped>
+<style scoped>
 .mu-td-left{
   width: 65px;
 }

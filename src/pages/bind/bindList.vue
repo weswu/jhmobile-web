@@ -12,7 +12,7 @@
           <div class="subContent">
             {{item.type | bindType}} <span v-html="bindState(item.state)"></span>
           </div>
-          <mu-icon value="delete" slot="right" color="#ccc" @click="del(item)"/>
+          <div slot="right" @click.stop='del(item.id)'>删除</div>
         </mu-list-item>
         <mu-divider/>
       </template>
@@ -30,9 +30,7 @@ export default {
       scroller: null,
       refresh: true,
       searchData: {
-        page: 1,
-        pageSize: 16,
-        category_id: ''
+        page: 1
       }
     }
   },
@@ -54,6 +52,8 @@ export default {
       this.$router.back()
     },
     get () {
+      this.refresh = false
+      this.loading = true
       this.$http.get('/rest/api/bind/list?page=' + this.searchData.page).then((res) => {
         this.scrollList(this, res.data)
         if (this.searchData.page === 1) {
@@ -66,19 +66,15 @@ export default {
     },
     bindState (v) {
       if (v === '00') { return '未审核' }
-      if (v === '01') { return '未审核' }
       if (v === '02') { return '<span style="color:red">审核不通过</span>' }
     },
-    del (entry) {
+    del (id) {
       if (window.confirm('确认删除吗？')) {
-        this.$http.delete('/rest/api/bind/detail/' + entry.id).then((res) => {
-          var data = this.list
-          data.forEach(function (item, i) {
-            if (item === entry) {
-              data.splice(i, 1)
-            }
-          })
-          this.$router.back()
+        this.$http.delete('/rest/api/bind/detail/' + id).then((res) => {})
+        this.list.forEach((item, index, arr) => {
+          if (item.id === id) {
+            arr.splice(index, 1)
+          }
         })
       }
     }
@@ -93,14 +89,3 @@ export default {
   }
 }
 </script>
-
-<style lang='css' scoped>
-.subContent{
-  font-size: 12px;
-  color: #999
-}
-.subContent span{
-  padding-left:10px
-}
-
-</style>

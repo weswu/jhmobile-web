@@ -37,7 +37,7 @@ export default {
       this.$router.back()
     },
     submit () {
-      var RegUrl = '^[a-zA-Z0-9_\\.]+@[a-zA-Z0-9-]+[\\.a-zA-Z]+$'
+      var RegUrl = /^[a-zA-Z0-9_\\.]+@[a-zA-Z0-9-]+[\\.a-zA-Z]+$/
       if (!RegUrl.test(this.message.key)) {
         window.alert('Email格式不正确')
         return false

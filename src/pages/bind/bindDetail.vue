@@ -3,7 +3,7 @@
     <mu-appbar title='域名添加'>
       <mu-icon-button icon='arrow_back' @click='back' slot='left'/>
     </mu-appbar>
-    <div class='container p10'>
+    <div class='p10'>
       <div>
         地址类型：
       </div>
@@ -12,7 +12,6 @@
       <mu-text-field label='icp备案号' hintText='请输入备案号' v-model='bind.icp' fullWidth/>
       <mu-raised-button label='提交' @click='submit' secondary fullWidth/>
     </div>
-
   </div>
 </template>
 <script>
@@ -37,24 +36,12 @@ export default {
       this.$router.back()
     },
     submit () {
-      if (!this.bind.address) {
-        window.alert('域名名称不能为空')
-        return
-      }
-      if (!this.bind.icp) {
-        window.alert('icp备案号不能为空')
-        return
-      }
+      if (!this.bind.address) { return window.alert('域名名称不能为空') }
       const reg = new RegExp('[0-9a-zA-Z]+[0-9a-zA-Z\\.-]*\\.[a-zA-Z]{2,4}')
-      if (!reg.test(this.bind.address)) {
-        window.alert('域名格式不正确')
-        return
-      }
+      if (!reg.test(this.bind.address)) { return window.alert('域名格式不正确') }
+      if (!this.bind.icp) { return window.alert('icp备案号不能为空') }
       this.$http.post('/rest/api/bind/detail?' + qs.stringify(this.bind)).then((res) => {
-        this.$router.push({
-          path: '/bind',
-          query: this.bind
-        })
+        this.$router.back()
       })
     }
   }
