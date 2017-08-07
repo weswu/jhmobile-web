@@ -31,7 +31,7 @@
         <mu-flexbox-item class='flex-demo'></mu-flexbox-item>
       </mu-flexbox>
     </div>
-    <div class='p10' v-if="activeTab === '2'">
+    <div class='p10 mbfixed' v-if="activeTab === '2'">
       <quill-editor ref="myTextEditor" v-model="news.content" :config="editorOption">
       </quill-editor>
     </div>

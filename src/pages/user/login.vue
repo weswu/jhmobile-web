@@ -3,7 +3,7 @@
     <mu-appbar title="机汇网会员登录" titleClass="center">
       <mu-flat-button href="#/signup" label="注册" slot="right"/>
     </mu-appbar>
-    <div class="container p20">
+    <div class="p20">
       <mu-text-field label="帐号" hintText="请输入登录帐号" v-model="username" labelClass="indent" hintTextClass="indent" inputClass="indent" fullWidth labelFloat/><br/>
       <mu-text-field label="登录密码" hintText="请输入密码" v-model="password" labelClass="indent" hintTextClass="indent" inputClass="indent" type="password" fullWidth labelFloat/><br/>
       <mu-raised-button label="登录" @click="submit" fullWidth primary/>
@@ -13,7 +13,6 @@
         服务热线：<a href="tel:4007111011">400-7111-011</a>
       </p>
     </div>
-
     <a class="f39dsk" href="#/download" v-if="isWeixin">
       <b class="m48"><img src="http://img.easthardware.com/upload/j/j2/jihui/picture/2015/12/08/9df67a15-7379-4374-b575-3fb6f55efa02.png" alt=""></b>
       <span>机汇网后台管理APP</span>
@@ -57,7 +56,7 @@ export default {
   }
 }
 </script>
-<style lang="less" scoped>
+<style scoped>
 .mu-text-field-input.indent{
   text-indent: 10px;
 }

@@ -5,7 +5,7 @@
         <mu-icon-button icon='arrow_back' @click='back' slot='left'/>
       </mu-appbar>
     </div>
-    <div class="container p10">
+    <div class="p10">
       <mu-text-field label="主题" hintText="请输入主题" v-model="sf.fdbk_subject64" fullWidth/>
       <mu-select-field v-model="sf.fdbk_type" :labelFocusClass="['label-foucs']" label="反馈类型">
         <mu-menu-item v-for="v,index in list" :value="v.value" :title="v.text" />

@@ -1,7 +1,11 @@
 import Vue from 'vue'
 // 全局过滤器
 
-// 金额,过滤2位
+/*
+ * @author: wes
+ * @date: 2017-7-28
+ * @desc: 金额,过滤2位
+*/
 Vue.filter('price', function (v) {
   var f = parseFloat(v)
   if (isNaN(f)) {
@@ -10,12 +14,13 @@ Vue.filter('price', function (v) {
   f = Math.round(v * 100) / 100
   return f
 })
-
 /*
- 时间字符格式化
- 1.判断格式化样式
- 2.各时间段
- 3.合并
+ * @author: wes
+ * @date: 2017-7-28
+ * @desc: 时间字符格式化
+ * 1.判断格式化样式
+ * 2.各时间段
+ * 3.合并
 */
 Vue.filter('time', function (date, format) {
   date = new Date(date)
@@ -40,8 +45,25 @@ Vue.filter('time', function (date, format) {
   return format
 })
 /*
- 字符长度
+ * @author: wes
+ * @date: 2017-8-3
+ * @desc: 字符长度
 */
 Vue.filter('limitString', function (input, begin, end) {
   return input.substring(begin, input.length - end)
+})
+/*
+ * @author: wes
+ * @date: 2017-8-7
+ * @desc: 图片缩略图
+*/
+Vue.filter('picUrl', function (src, number) {
+  if (src === null || src.length === 0) return 'http://img.jihui88.com/upload/j/j2/jihui88/picture/2015/04/01/72041ac7-51fa-4163-906d-8b576955d29e.jpg'
+  if (number > 10) {
+    src = src + '!' + number
+  } else {
+    var src2 = src.substring(src.lastIndexOf('.') + 1, src.length)
+    src = src.substring(0, src.lastIndexOf('.')) + '_' + number + '.' + src2
+  }
+  return src
 })

@@ -1,9 +1,9 @@
 <template>
   <div>
     <mu-appbar title='绑定邮箱'>
-      <mu-icon-button icon='arrow_back' @click='back'  slot='left'/>
+      <mu-icon-button icon='arrow_back' @click='back' slot='left'/>
     </mu-appbar>
-    <div class='container p10'>
+    <div class='p10'>
       <div>邮箱提醒：</div>
       <mu-radio name='state' v-model='message.state' v-for='item in typeList' :label='item.text' :nativeValue='item.value' class='wu-radio' labelClass='w-radio'/>
       <mu-text-field label='电子邮箱：' hintText='请输入邮箱' v-model='message.key' fullWidth/>
@@ -30,7 +30,7 @@ export default {
   methods: {
     get () {
       this.$http.get('/rest/api/message/bind/detail').then((res) => {
-        this.message = res.data.attributes.data[0]
+        this.message = res.data.attributes.data[0] || {}
       })
     },
     back () {

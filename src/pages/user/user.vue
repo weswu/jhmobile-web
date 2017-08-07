@@ -15,21 +15,17 @@
       <mu-text-field label="电话*" hintText="请输入电话" v-model="user.phone" fullWidth :errorText="errorTextPhone" @input="changeInput($event,3)"/>
       <mu-text-field label="传真" hintText="请输入传真" v-model="user.fax" fullWidth/>
       <mu-text-field label="地址" hintText="请输入地址" v-model="user.address" fullWidth/>
-
       <mu-flat-button label="地图定位" class="demo-flat-button" to="/map"/>
       <mu-text-field label="Email" hintText="Email" v-model="user.email" fullWidth disabled/>
       <mu-text-field label="QQ" hintText="请输入QQ" v-model="user.qq" fullWidth type="number"/>
       <mu-text-field label="MSN" hintText="请输入MSN" v-model="user.msn" fullWidth/>
-      <mu-text-field label="邮编" hintText="请输入邮编" v-model="user.zipcode" fullWidth type="number" maxLength="6"/>
+      <mu-text-field label="邮编" hintText="请输入邮编" v-model="user.zipcode" fullWidth type="Number" :maxLength="6"/>
       <mu-text-field label="网址" hintText="请输入网址" v-model="user.url" fullWidth type="url"/>
-      <upload :width="300" v-on:result="fileChange"></upload>
       <mu-raised-button label="提交" @click="submit" class="fixed" secondary fullWidth/>
     </div>
-
   </div>
 </template>
 <script>
-import Upload from '../../components/upload'
 import qs from 'qs'
 export default {
   data () {
@@ -47,9 +43,6 @@ export default {
   },
   created () {
     this.get()
-  },
-  components: {
-    Upload
   },
   methods: {
     get () {
@@ -73,10 +66,6 @@ export default {
         this.$store.state.user = this.user
         window.alert('操作成功')
       })
-    },
-    fileChange (text) {
-      console.log('监听到子组件变化' + text)
-      this.user.weixin = text.data
     },
     changeInput (val, type) {
       if (val === '') {

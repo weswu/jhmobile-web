@@ -1,6 +1,6 @@
 <template>
   <div class="serivepay-payment">
-    <mu-list>
+    <mu-list class="wu-list-content-pl10">
       <template v-for='item in list'>
         <mu-list-item disableRipple @click="check(item)" :describeText="item.so_date | time('yyyy-MM-dd')">
           <mu-checkbox :value="item.check" slot="left" @change="check(item)"/>
@@ -10,7 +10,7 @@
           </div>
           <div slot="right">
             <span class="red">￥{{item.price}}</span>元<br>
-            {{item.tip}}部分支付
+            {{item.tip}}
           </div>
         </mu-list-item>
         <mu-divider/>
@@ -141,10 +141,6 @@ export default {
 }
 </script>
 <style>
-.serivepay-payment .mu-item-title span{
-  padding-right: 5px
-}
-
 .app_footer{
   position: fixed;
   color:#666;

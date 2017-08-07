@@ -12,11 +12,10 @@
       <bm-navigation anchor="BMAP_ANCHOR_TOP_RIGHT"></bm-navigation>
       <bm-local-search :keyword="keyword" :auto-viewport="true" :panel="false"></bm-local-search>
     </baidu-map>
-    <div class="container p10">
+    <div class="p10">
       <label>关键词：<input v-model="keyword"></label>
       <mu-raised-button label="提交" @click="submit" secondary fullWidth style="margin: 10px 0"/>
     </div>
-
   </div>
 </template>
 <script>
@@ -42,6 +41,9 @@ export default {
     BmLocalSearch
   },
   methods: {
+    back () {
+      this.$router.back()
+    },
     get () {
       this.$http.get('/rest/api/enterprise/detail').then((res) => {
         this.enterprise = res.data.attributes.data
@@ -51,9 +53,6 @@ export default {
           this.lat = this.enterprise.mapaddress.split(',')[1]
         }
       })
-    },
-    back () {
-      this.$router.back()
     },
     submit () {
       this.enterprise.mapaddress = this.lng + ',' + this.lat
@@ -75,20 +74,7 @@ export default {
   }
 }
 </script>
-<style lang="less" scoped>
-.map {
-  width: 100%;
-  height: 300px;
-}
-.demo-popup-top{
-  width: 100%;
-  opacity: .8;
-  height: 48px;
-  line-height: 48px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  max-width: 375px;
-  padding: 0 30px;
-}
+<style scoped>
+.map{width:100%;height:300px}
+.demo-popup-top{width:100%;opacity:.8;height:48px;line-height:48px;display:flex;align-items:center;justify-content:center;max-width:375px;padding:0 30px}
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <div class='demo-container'>
+  <div>
     <mu-list>
       <template v-for='item,index in cate'>
         <mu-list-item data-type="pc" :title="item.text" @click="rank(index)">
@@ -13,7 +13,7 @@
              <dd class="item-row-5">昵称</dd>
              <dd class="item-row-2">数量</dd>
            </dl>
-           <dl  v-for='d,i in item.list'>
+           <dl v-for='d,i in item.list'>
              <dd class="item-row-1"><span>{{i+1}}</span></dd>
              <dd class="item-row-2">{{d.dealer_id}}</dd>
              <dd class="item-row-5 ellipsis">{{d.nickname}}</dd>
@@ -23,11 +23,8 @@
           </ul>
       </template>
     </mu-list>
-
   </div>
-
 </template>
-
 <script>
 import jsonp from 'jsonp'
 export default {
@@ -65,19 +62,8 @@ export default {
   }
 }
 </script>
-
-<style lang='css' scoped>
-.dis-data{
-  padding: 10px;
-}
-.dis-data .item-list-first {
-    color: #000;
-    background: #f5f5f5;
-}
-.dis-data dl{
-  position: relative;
-overflow: hidden;
-padding: 5px .5rem;
-border-bottom: 1px solid #f0f0f0;
-}
+<style scoped>
+.dis-data{padding:10px}
+.dis-data .item-list-first{color:#000;background:#f5f5f5}
+.dis-data dl{position:relative;overflow:hidden;padding:5px .5rem;border-bottom:1px solid #f0f0f0}
 </style>

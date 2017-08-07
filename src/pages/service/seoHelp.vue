@@ -3,8 +3,7 @@
     <mu-appbar title='SEO帮助'>
       <mu-icon-button icon='arrow_back' @click='back'  slot='left'/>
     </mu-appbar>
-
-    <div class="container seo">
+    <div class="seo">
       <div class="hr"></div>
       <div class="sp_title">百度排名是怎样生成的？</div>
       <section class="section">
@@ -26,7 +25,6 @@
           <p>流量对网站的重要性不言而喻，没有访客的网站本身也不存在价值，至于怎么将网站的流量做上去，做好网页设计、网站内容、用户体验，然后将网站的排名做上去，相信流量不是问题。</p>
         </section>
       </div>
-
   </div>
 </template>
 <script>
@@ -51,5 +49,4 @@ export default {
 .seo section{padding:.5rem;color:#666;line-height:1.2rem}
 .seo section p{text-indent:1.2rem}
 .seo section div{color:#000}
-
 </style>

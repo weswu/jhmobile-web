@@ -40,7 +40,8 @@ export default {
       refresh: true,
       searchData: {
         page: 1,
-        recvState: this.$route.params.recvState || ''
+        pageSize: 10,
+        recvState: ''
       },
       isSwipe: [false, false, false]
     }
@@ -48,7 +49,11 @@ export default {
   beforeRouteEnter (to, from, next) {
     next(vm => {
       vm.list = []
-      vm.searchData.page = 1
+      vm.searchData = {
+        page: 1,
+        pageSize: 10,
+        recvState: vm.$route.params.recvState || ''
+      }
       vm.get()
       vm.delStyle()
     })
@@ -123,13 +128,7 @@ export default {
 }
 </script>
 <style scoped>
-.mu-td-left{
-  width: 65px;
-}
-.mu-td-right{
-  width: 120px;
-}
-.recvState{
-  color: #ff7300;padding-left: 10px
-}
+.mu-td-left{width:65px}
+.mu-td-right{width:120px}
+.recvState{color:#ff7300;padding-left:10px}
 </style>

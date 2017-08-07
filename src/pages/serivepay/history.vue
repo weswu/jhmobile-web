@@ -11,8 +11,8 @@
             {{item.so_date | time('yyyy-MM-dd')}}
           </span>
           <div slot='right'>
-            <span>￥{{item.price}}</span><br>
-            <span class='complete '>交易成功</span>
+            <span>￥{{item.so_amount}}</span><br>
+            <span class='complete'>交易成功</span>
           </div>
         </mu-list-item>
         <mu-divider/>

@@ -1,47 +1,57 @@
 <template>
-  <div class="progress">
-    <div class="fixed-bar">
-      <mu-appbar title="服务进度">
-        <mu-icon-button icon='arrow_back' @click='back'  slot='left'/>
+  <div>
+    <div class='fixed-bar'>
+      <mu-appbar title='服务进度'>
+        <mu-icon-button icon='arrow_back' @click='back' slot='left'/>
       </mu-appbar>
     </div>
-    <mu-list>
-      <mu-list-item :title="enterName">
-        <div slot="left">公司名:</div>
+    <mu-list class='mu-item-left65'>
+      <mu-list-item :title='enterName'>
+        <div slot='left'>公司名:</div>
       </mu-list-item>
       <mu-divider/>
-      <mu-list-item :title="username">
-        <div slot="left">用户名:</div>
+      <mu-list-item :title='username'>
+        <div slot='left'>用户名:</div>
       </mu-list-item>
     </mu-list>
-    <div class="hr"></div>
-    <mu-tabs :value="activeTab" @change="handleTabChange" class="view-tabs">
-      <mu-tab value="00" title="正在服务"/>
-      <mu-tab value="01" title="服务结束"/>
+    <div class='hr'></div>
+    <mu-tabs :value='activeTab' @change='handleTabChange' class='view-tabs'>
+      <mu-tab value='00' title='正在服务'/>
+      <mu-tab value='01' title='服务结束'/>
     </mu-tabs>
-    <div class="item-list">
-      <dl class="member_list_first">
-         <dd class="item-row-2">解决期限</dd>
-         <dd class="item-row-4">主题</dd>
-         <dd class="item-row-3">负责人</dd>
-      </dl>
-      <div v-if="activeTab === '00'">
-        <dl v-for="item in list1">
-          <dd class="item-row-2">{{item.fdbk_due_date | time('yyyy-MM-dd')}}</dd>
-          <dd class="item-row-4 title" @click="detail(item)" >{{item.fdbk_subject64}}</dd>
-          <dd class="ellipsis item-row-3">{{item.emp_name}}</dd>
-        </dl>
-			</div>
-      <div v-if="activeTab === '01'">
-        <dl v-for="item in list2">
-          <dd class="item-row-2">{{item.fdbk_due_date | time('yyyy-MM-dd')}}</dd>
-          <dd class="item-row-4 title" @click="detail(item)">{{item.fdbk_subject64}}</dd>
-          <dd class="ellipsis item-row-3">{{item.emp_name}}</dd>
-        </dl>
-      </div>
+    <div class='mbfixed' v-if="activeTab === '00'">
+      <mu-list>
+        <template v-for='item in list1'>
+          <mu-list-item @click='detail(item)'>
+            <div slot='title' class='font14 c0034d1'>
+              {{item.fdbk_subject64}}
+            </div>
+            <div class='subContent'>
+              负责人:{{item.emp_name}}<span>{{item.fdbk_due_date | time('yyyy-MM-dd')}}</span>
+            </div>
+          </mu-list-item>
+          <mu-divider/>
+        </template>
+      </mu-list>
+      <div v-if='busy1' style='text-align: center;padding: .5rem 0;'>暂无数据</div>
     </div>
-    <div v-if="busy" style="text-align: center;padding: .5rem 0;">暂无数据</div>
-    <mu-raised-button label="我要服务反馈" href="#/service_feedback" class="fixed-raised-button" secondary fullWidth/>
+    <div class='mbfixed' v-if="activeTab === '01'">
+      <mu-list>
+        <template v-for='item in list2'>
+          <mu-list-item @click='detail(item)'>
+            <div slot='title' class='font14 c0034d1'>
+              {{item.fdbk_subject64}}
+            </div>
+            <div class='subContent'>
+              负责人:{{item.emp_name}}<span>{{item.fdbk_due_date | time('yyyy-MM-dd')}}</span>
+            </div>
+          </mu-list-item>
+          <mu-divider/>
+        </template>
+      </mu-list>
+      <div v-if='busy2' style='text-align: center;padding: .5rem 0;'>暂无数据</div>
+    </div>
+    <mu-raised-button label='我要服务反馈' href='#/service_feedback' class='fixed-raised-button' secondary fullWidth/>
   </div>
 </template>
 <script>
@@ -51,7 +61,8 @@ export default {
       username: this.$store.state.user.username,
       enterName: this.$store.state.enterprise.name,
       activeTab: '00',
-      busy: false,
+      busy1: false,
+      busy2: false,
       list1: [],
       list2: []
     }
@@ -67,7 +78,11 @@ export default {
       this.$http.get('/rest/api/crm/feedback/list?sort=' + this.activeTab).then((res) => {
         var result = res.data.attributes.data
         if (result.length === 0) {
-          this.busy = true
+          if (this.activeTab === '00') {
+            this.busy1 = true
+          } else {
+            this.busy2 = true
+          }
         } else {
           if (this.activeTab === '00') {
             this.list1 = result
@@ -98,16 +113,3 @@ export default {
   }
 }
 </script>
-<style>
-.progress .mu-item-left {
-    width: 65px;
-}
-.progress .item-list .title {
-    color: #0034d1;
-}
-.progress section {
-    padding: 0.5rem;
-    color: #666;
-    line-height: 1rem;
-}
-</style>

@@ -7,7 +7,6 @@
         <mu-icon-button href='#/categoryAdd/11' icon='add' slot='right'/>
       </mu-appbar>
     </div>
-
     <mu-list>
       <mu-list-item v-for='item, index in categoryList' v-if="item.isroot === '01'">
         <mu-icon slot="left" value="chevron_right"/>
@@ -105,10 +104,6 @@ export default {
   }
 }
 </script>
-<style lang='less' scoped>
-input{
-  width: 100%;
-  border: 1px solid #ddd;
-  padding: 0.3rem;
-}
+<style scoped>
+input{width:100%;border:1px solid #ddd;padding:.3rem;border-radius:4px}
 </style>

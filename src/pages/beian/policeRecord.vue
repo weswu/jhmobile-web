@@ -5,7 +5,6 @@
       <mu-icon-button icon='arrow_back' @click='back' slot='left'/>
     </mu-appbar>
   </div>
-
   <mu-tabs :value="activeTab" @change="handleTabChange" class="view-tabs">
     <mu-tab value="1" title="账号信息"/>
     <mu-tab value="2" title="填写开办主体"/>
@@ -18,21 +17,17 @@
   </mu-popup>
   <mu-circular-progress :size="50" :strokeWidth="5" style="position: fixed;z-index: 999;left: 50%;margin-left: -25px;top:30%"  v-if="isloading"/>
 
-  <div class="container p10">
+    <div class="p10">
       <div v-if="activeTab === '1'">
         <div>
         <div style="color: #f60;">【注】在PC上注册账号http://beian.gov.cn/user/registerurl</div>
           操作成功后请保存以下信息
         </div>
-        <p>
-          <mu-text-field label="用户名" hintText="请输入用户名" v-model="webinfo.securityUsername" fullWidth/>
-          <mu-text-field label="密码" hintText="请输入密码" v-model="webinfo.securityPassword" fullWidth/>
-          <mu-text-field label="邮箱" hintText="请输入邮箱" type="email" v-model="enterprise.email" fullWidth/>
-          <mu-text-field label="手机号码" hintText="请输入手机号码" v-model="principal.cellphone" fullWidth/>
-        </p>
-        <p>
-          <mu-raised-button label="确定" @click="submit('2')" class="demo-raised-button" secondary fullWidth/>
-        </p>
+        <mu-text-field label="用户名" hintText="请输入用户名" v-model="webinfo.securityUsername" fullWidth/>
+        <mu-text-field label="密码" hintText="请输入密码" v-model="webinfo.securityPassword" fullWidth/>
+        <mu-text-field label="邮箱" hintText="请输入邮箱" type="email" v-model="enterprise.email" fullWidth/>
+        <mu-text-field label="手机号码" hintText="请输入手机号码" v-model="principal.cellphone" fullWidth/>
+        <mu-raised-button label="确定" @click="submit('2')" class="demo-raised-button" secondary fullWidth/>
       </div>
 
       <div v-if="activeTab === '2'">
@@ -50,7 +45,7 @@
           <mu-text-field label="主办单位证件号" hintText="请输入主办单位证件号" v-model="enterprise.certNumber" fullWidth/>
 
           <input type="file" accept="image/*" @change="uploadImage($event)" style="display:none" id="uploadImage">
-          <mu-text-field label="主办单位有效证件" hintText="主办单位有效证件" v-model="enterprise.certPic" fullWidth class="img-upload"/>
+          <mu-text-field label="主办单位有效证件" hintText="主办单位有效证件" v-model="enterprise.certPic" class="img-upload"/>
           <mu-raised-button label="上传" class="demo-raised-button upload-fl" @click="uploadImg(1)"/>
 
           <mu-text-field label="法人代表人姓名" hintText="请输入法人代表人姓名" v-model="enterprise.legalPre" fullWidth/>
@@ -79,13 +74,13 @@
           证件有效期：<br/>
           <mu-date-picker hintText="证件有效期" v-model="principal.certIndate"/>
 
-          <mu-text-field label="负责人证件(正面)" hintText="负责人证件(正面)" v-model="principal.certFrontPic" fullWidth class="img-upload"/>
+          <mu-text-field label="负责人证件(正面)" hintText="负责人证件(正面)" v-model="principal.certFrontPic" class="img-upload"/>
           <mu-raised-button label="上传" class="demo-raised-button upload-fl" @click="uploadImg(2)"/>
 
-          <mu-text-field label="负责人证件(反面)" hintText="负责人证件(反面)" v-model="principal.certReversePic" fullWidth class="img-upload"/>
+          <mu-text-field label="负责人证件(反面)" hintText="负责人证件(反面)" v-model="principal.certReversePic" class="img-upload"/>
           <mu-raised-button label="上传" class="demo-raised-button upload-fl" @click="uploadImg(3)"/>
 
-          <mu-text-field label="负责人证件(手持)" hintText="负责人证件(手持)" v-model="principal.certHandPic" fullWidth class="img-upload"/>
+          <mu-text-field label="负责人证件(手持)" hintText="负责人证件(手持)" v-model="principal.certHandPic" class="img-upload"/>
           <mu-raised-button label="上传" class="demo-raised-button upload-fl" @click="uploadImg(4)"/>
 
           <br style="clear:both"/>
@@ -122,7 +117,7 @@
           网站开通时期<br/>
           <mu-date-picker hintText="网站开通时期" v-model="bind.applyTime"/>
           <mu-text-field label="主域名" hintText="请输入主域名" v-model="bind.address" fullWidth/>
-          <mu-text-field label="域名证书" hintText="域名证书" v-model="enterprise.domainCertPic" fullWidth class="img-upload"/>
+          <mu-text-field label="域名证书" hintText="域名证书" v-model="enterprise.domainCertPic" class="img-upload"/>
           <mu-raised-button label="上传" class="demo-raised-button upload-fl" @click="uploadImg(5)"/>
 
           <mu-text-field label="IP" hintText="请输入IP" v-model="bind.ip" fullWidth/>
@@ -279,13 +274,13 @@
           证件有效期<br/>
           <mu-date-picker hintText="证件有效期" v-model="principal.certIndate"/>
 
-          <mu-text-field label="负责人证件(正面)" hintText="负责人证件(正面)" v-model="principal.certFrontPic" fullWidth class="img-upload"/>
+          <mu-text-field label="负责人证件(正面)" hintText="负责人证件(正面)" v-model="principal.certFrontPic" class="img-upload"/>
           <mu-raised-button label="上传" class="demo-raised-button upload-fl" @click="uploadImg(2)"/>
 
-          <mu-text-field label="负责人证件(反面)" hintText="负责人证件(反面)" v-model="principal.certReversePic" fullWidth class="img-upload"/>
+          <mu-text-field label="负责人证件(反面)" hintText="负责人证件(反面)" v-model="principal.certReversePic" class="img-upload"/>
           <mu-raised-button label="上传" class="demo-raised-button upload-fl" @click="uploadImg(3)"/>
 
-          <mu-text-field label="负责人证件(手持)" hintText="负责人证件(手持)" v-model="principal.certHandPic" fullWidth class="img-upload"/>
+          <mu-text-field label="负责人证件(手持)" hintText="负责人证件(手持)" v-model="principal.certHandPic" class="img-upload"/>
           <mu-raised-button label="上传" class="demo-raised-button upload-fl" @click="uploadImg(4)"/>
 
 
@@ -342,7 +337,7 @@
     width: 65%;margin-right:3%;    float: left;
   }
   .upload-fl{
-    float: left;padding-top: 15px;
+    float: left;margin-top: 15px;
   }
 </style>
 <script>

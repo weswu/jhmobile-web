@@ -26,7 +26,6 @@
 				<dd v-html="message.content"></dd>
 			</dl>
 		</div>
-
   </div>
 </template>
 <script>
@@ -44,7 +43,27 @@ export default {
   methods: {
     get () {
       this.$http.get('/rest/api/message/detail/' + this.$route.params.id).then((res) => {
-        this.message = res.data.attributes.data
+        var data = res.data.attributes.data
+        if (data.content.indexOf('[{"value":"') > -1) {
+          var cList = JSON.parse(data.content)
+          data.content = ''
+          for (var item of cList) {
+            if (cList.length === 1 && item.type === 'textarea') { // 单一选项
+              data.content = item.value
+            } else {
+              if (item.label === '姓名') {
+                data.fromName = item.wxNick || item.value
+              } else {
+                if (data.content === '') {
+                  data.content = item.label + ':' + item.value
+                } else {
+                  data.content = data.content + '<br/>' + item.label + ':' + item.value
+                }
+              }
+            }
+          }
+        }
+        this.message = data
       })
     },
     back () {
@@ -54,21 +73,7 @@ export default {
 }
 </script>
 <style scoped>
-.message_view {
-    padding: 0.5rem;
-    line-height: 2;
-    font-size: .8rem;
-    overflow: hidden;
-}
-.message_view dt {
-    width: 26%;
-    float: left;
-    text-align: right;
-    color: #9b9b9b;
-}
-.message_view dd {
-    width: 68%;
-    float: left;
-    margin-left: .3rem;
-}
+.message_view{padding:.5rem;line-height:2;font-size:.8rem;overflow:hidden}
+.message_view dt{width:26%;float:left;text-align:right;color:#9b9b9b}
+.message_view dd{width:68%;float:left;margin-left:.3rem}
 </style>

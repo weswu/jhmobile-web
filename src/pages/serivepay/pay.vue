@@ -5,7 +5,7 @@
         <mu-icon-button icon='arrow_back' @click='back'  slot='left'/>
       </mu-appbar>
     </div>
-    <mu-list>
+    <mu-list class="mu-item-left65">
       <mu-list-item :title="enterName">
         <div slot="left">公司名:</div>
       </mu-list-item>
@@ -21,7 +21,6 @@
       <mu-tab value="serviceRecord" title="服务记录"/>
       <mu-tab value="goods" title="已购产品"/>
     </mu-tabs>
-
     <keep-alive>
      <router-view></router-view>
     </keep-alive>
@@ -57,17 +56,3 @@ export default {
   }
 }
 </script>
-<style>
-.servicePay .mu-item-left {
-    width: 65px;
-}
-.servicePay .mu-item-right{
-    width: 60px;
-}
-.servicePay .complete {
-  color: #F57527;
-}
-.servicePay .mu-item-text {
-  max-height: 52px !important;
-}
-</style>

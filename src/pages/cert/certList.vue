@@ -24,7 +24,7 @@
     <mu-list class='pt-list'>
       <template v-for='item in list'>
         <mu-list-item :title='item.name' @click='detail(item.id)'>
-          <img :src="imgUrl + item.attaPic" @error="setErrorImg" slot="left">
+          <img :src="imgUrl + item.attaPic | picUrl(8)" @error="setErrorImg" slot="left">
           <div class='subContent'>
             {{item.organize}}
           </div>
