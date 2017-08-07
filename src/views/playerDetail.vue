@@ -331,11 +331,11 @@ export default {
     }
   }
 
-.bottom-wrapper {
-  padding: 0 1rem 0;
-  color: #fff;
-  align-items: flex-end;
-}
+  .bottom-wrapper {
+    padding: 0 1rem 0;
+    color: #fff;
+    align-items: flex-end;
+  }
 
   // 歌词
   .lyric-holder {

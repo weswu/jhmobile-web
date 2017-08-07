@@ -22,14 +22,16 @@
     <div class='mbfixed' v-if="activeTab === '00'">
       <mu-list>
         <template v-for='item in list1'>
-          <mu-list-item @click='detail(item)'>
-            <div slot='title' class='font14 c0034d1'>
-              {{item.fdbk_subject64}}
-            </div>
-            <div class='subContent'>
-              负责人:{{item.emp_name}}<span>{{item.fdbk_due_date | time('yyyy-MM-dd')}}</span>
-            </div>
-          </mu-list-item>
+          <router-link :to="{name: 'progressDetail',params: { id: item.fdbk_id, title: item.fdbk_subject64, desc: item.fdbk_intro1k, result: item.fdbk_result }}">
+            <mu-list-item>
+              <div slot='title' class='font14 c0034d1'>
+                {{item.fdbk_subject64}}
+              </div>
+              <div class='subContent'>
+                负责人:{{item.emp_name}}<span>{{item.fdbk_due_date | time('yyyy-MM-dd')}}</span>
+              </div>
+            </mu-list-item>
+          </router-link>
           <mu-divider/>
         </template>
       </mu-list>
@@ -38,14 +40,16 @@
     <div class='mbfixed' v-if="activeTab === '01'">
       <mu-list>
         <template v-for='item in list2'>
-          <mu-list-item @click='detail(item)'>
-            <div slot='title' class='font14 c0034d1'>
-              {{item.fdbk_subject64}}
-            </div>
-            <div class='subContent'>
-              负责人:{{item.emp_name}}<span>{{item.fdbk_due_date | time('yyyy-MM-dd')}}</span>
-            </div>
-          </mu-list-item>
+          <router-link :to="{name: 'progressDetail',params: { id: item.fdbk_id, title: item.fdbk_subject64, desc: item.fdbk_intro1k, result: item.fdbk_result }}">
+            <mu-list-item @click='detail(item)'>
+              <div slot='title' class='font14 c0034d1'>
+                {{item.fdbk_subject64}}
+              </div>
+              <div class='subContent'>
+                负责人:{{item.emp_name}}<span>{{item.fdbk_due_date | time('yyyy-MM-dd')}}</span>
+              </div>
+            </mu-list-item>
+          </router-link>
           <mu-divider/>
         </template>
       </mu-list>
@@ -99,16 +103,6 @@ export default {
       } else if (this.activeTab === '01' && this.list2.length === 0) {
         this.get()
       }
-    },
-    detail: function (item) {
-      if (item.fdbk_result === '') {
-        item.fdbk_result = '暂无数据'
-      }
-      var desc = ''
-      for (var it of item.fdbk_intro1k) {
-        desc += it + '<br/>'
-      }
-      this.$router.push({path: '/serive_progress/' + item.fdbk_id + '/' + encodeURIComponent(item.fdbk_subject64) + '/' + encodeURIComponent(desc) + '/' + encodeURIComponent(item.fdbk_result)})
     }
   }
 }

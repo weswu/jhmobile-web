@@ -90,7 +90,7 @@ const router = new VueRouter({
   { path: '/mypay', component: require('../pages/serivepay/mypay') },
   // 服务进度
   { path: '/serive_progress', component: require('../pages/service/progress/progress') },
-  { path: '/serive_progress/:id/:title/:desc/:result', component: require('../pages/service/progress/progressDetail') },
+  { path: '/serive_progress/:id', name: 'progressDetail', component: require('../pages/service/progress/progressDetail') },
   // 积分
   { path: '/point', component: require('../pages/point/point') },
   { path: '/point_rule', component: require('../pages/point/rule') },

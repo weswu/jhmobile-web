@@ -34,6 +34,8 @@
       </template>
     </mu-list>
     <mu-infinite-scroll :scroller='scroller' :loading='loading' @load='loadMore'/>
+    <!--提示...-->
+    <toast ref="toast"></toast>
   </div>
 </template>
 <script>
@@ -106,6 +108,7 @@ export default {
             arr.splice(index, 1)
           }
         })
+        this.$refs.toast.show('删除成功')
         this.count = this.count - 1
       }
     }

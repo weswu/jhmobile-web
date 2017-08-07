@@ -38,7 +38,6 @@
       <mu-divider />
     </mu-list>
     <mu-raised-button label="退出帐号" @click="signout" secondary fullWidth/>
-
   </div>
 </template>
 <script>
@@ -58,7 +57,6 @@ export default {
         ctx.$router.push({path: '/login'})
       })
     }
-
   }
 }
 </script>

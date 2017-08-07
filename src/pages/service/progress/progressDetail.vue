@@ -7,7 +7,7 @@
     </div>
 		<div class="titlef5">描述</div>
     <section class="p10 c666" v-html="desc"></section>
-		<div class="sp_title">处理结果</div>
+		<div class="titlef5">处理结果</div>
     <section class="p10 c666">{{result}}</section>
 		<div class="titlef5">处理过程</div>
     <mu-list>
@@ -40,6 +40,16 @@ export default {
     next(vm => {
       if (vm.$route.params.id) {
         vm.list = []
+        var desc = ''
+        vm.$route.params.desc.forEach((item, index, arr) => {
+          desc += arr + '<br/>'
+        })
+        if (to.params.title) {
+          vm.title = vm.$route.params.title
+          vm.desc = desc
+          vm.result = vm.$route.params.result || '暂无数据'
+          vm.id = vm.$route.params.id
+        }
         vm.get()
       }
     })

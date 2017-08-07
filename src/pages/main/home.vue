@@ -71,7 +71,6 @@
   </div>
 </template>
 <script>
-import api from '../../api'
 export default {
   data () {
     return {
@@ -106,15 +105,15 @@ export default {
   methods: {
     get () {
       let _this = this
-      this.$http.get(api.getUser()).then((res) => {
+      this.$http.get('/rest/api/user/detail').then((res) => {
         this.user = res.data.attributes.data
         this.$store.state.user = this.user
       })
-      this.$http.get(api.getOrderInfo()).then((res) => {
+      this.$http.get('/rest/api/order/home/list').then((res) => {
         this.userInfo = res.data.attributes
       })
       setTimeout(function () {
-        _this.$http.get(api.getEnterprise()).then((res) => {
+        _this.$http.get('/rest/api/enterprise/detail').then((res) => {
           _this.$store.state.enterprise = res.data.attributes.data
         })
       }, 500)

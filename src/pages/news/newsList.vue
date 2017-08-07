@@ -43,6 +43,8 @@
       </template>
     </mu-list>
     <mu-infinite-scroll :scroller='scroller' :loading='loading' @load='loadMore'/>
+    <!--提示...-->
+    <toast ref="toast"></toast>
   </div>
 </template>
 <script>
@@ -84,6 +86,8 @@ export default {
       this.loading = true
       this.$http.get('/rest/api/news/list?' + qs.stringify(this.searchData)).then((res) => {
         this.scrollList(this, res.data)
+      }).catch((error) => {
+        console.log('加载新闻出错:' + error)
       })
     },
     getCate () {
@@ -122,6 +126,7 @@ export default {
             arr.splice(index, 1)
           }
         })
+        this.$refs.toast.show('删除成功')
         this.count = this.count - 1
       }
     }

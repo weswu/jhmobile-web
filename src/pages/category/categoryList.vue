@@ -33,6 +33,8 @@
 
       </mu-list-item>
     </mu-list>
+    <!--提示...-->
+    <toast ref="toast"></toast>
   </div>
 </template>
 <script>
@@ -78,7 +80,7 @@ export default {
     del (entry) {
       if (window.confirm('确认删除吗？')) {
         this.$http.delete('/rest/api/category/detail/' + entry.id + '?type=11').then((res) => {
-          window.alert('删除成功')
+          this.$refs.toast.show('删除成功')
           var data = this.categoryList
           data.forEach(function (item, i) {
             item.sonCate.forEach(function (item1, j) {

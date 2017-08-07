@@ -1,15 +1,9 @@
 <template>
     <div>
-      <div class="fixed-bar">
-      <mu-appbar>
-        <div class="logo" slot="left"></div>
-        <mu-icon-button icon='search'  slot="right"/>
-      </mu-appbar>
       <mu-tabs :value="activeTab" @change="handleTabChange" class="view-tabs">
         <mu-tab value="rage" title="时下流行"/>
         <mu-tab value="songList" title="歌单"/>
       </mu-tabs>
-      </div>
       <div class="default-view" :class="{view: songList.length > 0}">
         <keep-alive>
          <router-view></router-view>

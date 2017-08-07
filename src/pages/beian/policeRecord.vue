@@ -479,7 +479,6 @@ const provinceList = [
     path: '402881882ba8753a012ba94e039601bf'
   }
 ]
-import api from '../../api'
 import lrz from 'lrz'
 export default {
   data () {
@@ -704,7 +703,7 @@ export default {
       }
     },
     getPath (val, num, path) {
-      this.$http.get(api.getAreaPath(path)).then((res) => {
+      this.$http.get('/rest/api/area/list?path=' + path).then((res) => {
         if (num === 1) {
           if (val === 1) { this.citySelect.ent = res.data.attributes.data }
           if (val === 2) { this.citySelect.pri = res.data.attributes.data }
@@ -720,7 +719,7 @@ export default {
       })
     },
     get () {
-      this.$http.get(api.getBeian()).then((res) => {
+      this.$http.get('/rest/api/profile/detail').then((res) => {
         this.user = res.data.attributes.data.user
         this.enterprise = res.data.attributes.data.enterprise
         this.principal = res.data.attributes.data.principal
