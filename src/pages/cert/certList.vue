@@ -21,7 +21,7 @@
       </div>
     </transition>
 
-    <mu-list class='pt-list'>
+    <mu-list class='wu-list'>
       <template v-for='item in list'>
         <mu-list-item :title='item.name' @click='detail(item.id)'>
           <img :src="imgUrl + item.attaPic | picUrl(8)" @error="setErrorImg" slot="left">
@@ -34,6 +34,7 @@
       </template>
     </mu-list>
     <mu-infinite-scroll :scroller='scroller' :loading='loading' @load='loadMore'/>
+    <div v-if="busy" style="text-align: center;padding: .5rem 0;">暂无数据</div>
     <!--提示...-->
     <toast ref="toast"></toast>
   </div>
@@ -50,6 +51,7 @@ export default {
       scroller: null,
       refresh: true,
       search: false,
+      busy: false,
       searchData: {
         page: 1,
         name: '',

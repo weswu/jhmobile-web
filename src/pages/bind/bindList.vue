@@ -18,6 +18,7 @@
       </template>
     </mu-list>
     <mu-infinite-scroll :scroller='scroller' :loading='loading' @load='loadMore'/>
+    <div v-if="busy" style="text-align: center;padding: .5rem 0;">暂无数据</div>
     <!--提示...-->
     <toast ref="toast"></toast>
   </div>
@@ -30,6 +31,7 @@ export default {
       loading: false,
       scroller: null,
       refresh: true,
+      busy: false,
       searchData: {
         page: 1
       }
@@ -57,9 +59,6 @@ export default {
       this.loading = true
       this.$http.get('/rest/api/bind/list?page=' + this.searchData.page).then((res) => {
         this.scrollList(this, res.data)
-        if (this.searchData.page === 1) {
-          this.count = res.data.attributes.res.data
-        }
       })
     },
     loadMore () {

@@ -20,7 +20,7 @@ Vue.prototype.addAll = function (a, b) {
 Vue.prototype.scrollList = function (ctx, data) {
   if (data.success) {
     this.addAll(ctx.list, data.attributes.data)
-    if (ctx.searchData.page === 1 || ctx.searchData.page === 0) {
+    if (ctx.searchData.page === 1) {
       ctx.count = data.attributes.count
       if (data.attributes.data.length === 0) {
         ctx.busy = true

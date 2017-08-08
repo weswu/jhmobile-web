@@ -22,7 +22,7 @@
       <mu-tab value="goods" title="已购产品"/>
     </mu-tabs>
     <keep-alive>
-     <router-view></router-view>
+      <router-view></router-view>
     </keep-alive>
   </div>
 </template>

@@ -3,7 +3,7 @@
     <div class='home-header'>
       <div slot='left' style='width:5rem;float:left;margin-left:0.5rem'>
         <a href='#/enterprise'>
-          <img :src='imgUrl + userInfo.logo' @error='setErrorImg'>
+          <img :src='imgUrl + enterprise.logo' @error='setErrorImg'>
         </a>
       </div>
       <div slot='left'>
@@ -11,13 +11,12 @@
           {{user.username}},您好！<br/>
           <span v-if='userInfo.versions'>当前版本：{{userInfo.versions}}<br/></span>
           <span v-if="userInfo.endTime === '1'">已到期,请续费<br/></span>
-          <span v-if="userInfo.endTime && userInfo.endTime != '0'">到期时间：{{userInfo.endTime}}<br/></span>
+          <span v-else="userInfo.endTime && userInfo.endTime != '0'">到期时间：{{userInfo.endTime}}<br/></span>
           服务热线：<a href='tel:4007111011'>400-7111-011</a>
         </div>
         <a href='#/setting' style='position: absolute;top: 15px;right: 15px;color:#fff'><i class='mu-bottom-item-icon mu-icon material-icons'>settings</i></a>
       </div>
     </div>
-
 
     <div class='status'>
       <ul>
@@ -75,10 +74,12 @@ export default {
   data () {
     return {
       user: this.$store.state.user,
+      userInfo: {},
+      enterprise: {},
       imgUrl: this.$store.state.imgUrl,
       navList1: [
         {url: '#/shopData', name: '商城数据', icon: 'tongji', color: '#5bba19'},
-        {url: 'http://m.' + this.$store.state.user.username + '.jihui88.com', name: '微网站', icon: 'weiwangzhan', color: '#8da5cb'},
+        {url: '#/mobile/me', name: '微网站', icon: 'weiwangzhan', color: '#8da5cb'},
         {url: '#/wcd/me', name: '微传单', icon: 'weizhan', color: '#FF6000'},
         {url: '#/distribution/member', name: '微分销', icon: 'fenxiao', color: '#8da5cb'}
       ],
@@ -93,8 +94,7 @@ export default {
         {url: '#/serive_progress', name: '服务进度', icon: 'f12', color: '#8da5cb'},
         {url: '#/point', name: '我的积分', icon: 'xinwen', color: '#5bba19'},
         {url: '#/spread', name: '参与推广', icon: 'pengyou', color: '#f69215'}
-      ],
-      userInfo: {}
+      ]
     }
   },
   beforeRouteEnter (to, from, next) {
@@ -105,18 +105,26 @@ export default {
   methods: {
     get () {
       let _this = this
-      this.$http.get('/rest/api/user/detail').then((res) => {
-        this.user = res.data.attributes.data
-        this.$store.state.user = this.user
-      })
-      this.$http.get('/rest/api/order/home/list').then((res) => {
-        this.userInfo = res.data.attributes
-      })
-      setTimeout(function () {
-        _this.$http.get('/rest/api/enterprise/detail').then((res) => {
-          _this.$store.state.enterprise = res.data.attributes.data
+      if (!this.$store.state.user.username) {
+        this.$http.get('/rest/api/user/detail').then((res) => {
+          this.user = res.data.attributes.data
+          this.$store.state.user = this.user
         })
-      }, 500)
+      }
+      if (!this.$store.state.userInfo.name) {
+        this.$http.get('/rest/api/order/home/list').then((res) => {
+          this.userInfo = res.data.attributes
+          this.$store.state.userInfo = this.userInfo
+        })
+      }
+      if (!this.$store.state.enterprise.name) {
+        setTimeout(function () {
+          _this.$http.get('/rest/api/enterprise/detail').then((res) => {
+            _this.enterprise = res.data.attributes.data
+            _this.$store.state.enterprise = _this.enterprise
+          })
+        }, 100)
+      }
     },
     setErrorImg (e) {
       e.target.src = this.$store.state.errImgUrl

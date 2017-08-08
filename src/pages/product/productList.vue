@@ -22,7 +22,7 @@
         <mu-raised-button label='搜索' @click='searchKey' secondary fullWidth/>
       </div>
     </transition>
-    <mu-list class="pt-list">
+    <mu-list class="wu-list">
       <template v-for='item in list'>
         <mu-list-item>
           <img :src="imgUrl + item.picPath | picUrl(8)" @error="setErrorImg" slot="left" @click='detail(item.id)'>
@@ -42,6 +42,7 @@
       </template>
     </mu-list>
     <mu-infinite-scroll :scroller='scroller' :loading='loading' @load='loadMore'/>
+    <div v-if="busy" style="text-align: center;padding: .5rem 0;">暂无数据</div>
     <!--提示...-->
     <toast ref="toast"></toast>
   </div>
@@ -57,19 +58,20 @@ export default {
       list: [],
       categoryList: [],
       searchData: {
-        page: 0,
+        page: 1,
         name: '',
         category: ''
       },
       loading: false,
       scroller: null,
-      refresh: true
+      refresh: true,
+      busy: false
     }
   },
   beforeRouteEnter (to, from, next) {
     next(vm => {
       vm.list = []
-      vm.searchData.page = 0
+      vm.searchData.page = 1
       vm.get()
       vm.getCate()
     })
@@ -99,7 +101,7 @@ export default {
     },
     searchKey () {
       this.list = []
-      this.searchData.page = 0
+      this.searchData.page = 1
       this.search = false
       this.get()
     },

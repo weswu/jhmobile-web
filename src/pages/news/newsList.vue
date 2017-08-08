@@ -43,6 +43,7 @@
       </template>
     </mu-list>
     <mu-infinite-scroll :scroller='scroller' :loading='loading' @load='loadMore'/>
+    <div v-if="busy" style="text-align: center;padding: .5rem 0;">暂无数据</div>
     <!--提示...-->
     <toast ref="toast"></toast>
   </div>
@@ -57,19 +58,20 @@ export default {
       list: [],
       categoryList: [],
       searchData: {
-        page: 0,
+        page: 1,
         title: '',
         category: ''
       },
       loading: false,
       scroller: null,
-      refresh: true
+      refresh: true,
+      busy: false
     }
   },
   beforeRouteEnter (to, from, next) {
     next(vm => {
       vm.list = []
-      vm.searchData.page = 0
+      vm.searchData.page = 1
       vm.get()
       vm.getCate()
     })
@@ -101,7 +103,7 @@ export default {
     },
     searchKey () {
       this.list = []
-      this.searchData.page = 0
+      this.searchData.page = 1
       this.search = false
       this.get()
     },

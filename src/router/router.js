@@ -57,6 +57,16 @@ const router = new VueRouter({
   { path: '/order/price/:id', component: require('../pages/order/price') },
   { path: '/order/send/:id', component: require('../pages/order/send') },
   { path: '/order/shipments/:id', component: require('../pages/order/shipments') },
+  // 手机网站
+  { path: '/mobile',
+    component: require('../pages/mobile/mobile'),
+    children: [
+      { path: 'me', component: require('../pages/mobile/me') },
+      { path: 'case', component: require('../pages/mobile/case') }
+    ],
+    meta: {keepAlive: false}
+  },
+  { path: '/mobile/:id', component: require('../pages/mobile/mobileOpen') },
   // wcd
   { path: '/wcd',
     component: require('../pages/wcd/wcd'),

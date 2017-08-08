@@ -52,6 +52,7 @@
 </template>
 <script>
 import jsonp from 'jsonp'
+import { mapMutations } from 'vuex'
 export default {
   data () {
     return {
@@ -69,17 +70,20 @@ export default {
     this.get()
   },
   methods: {
+    ...mapMutations(['showLoading', 'hideLoading']),
     get () {
       var ctx = this
+      this.showLoading()
       this.loading = true
       jsonp('http://www.jihui88.com/wechat/cps/index.php/jihui_api/members/' + this.$store.state.enterprise.enterpriseId + '/' + this.page + '/5', null, function (err, data) {
+        ctx.hideLoading()
         if (!data.success) {
           console.log(data.msg)
         }
         ctx.list = data.attributes.data
         ctx.loading = false
         if (ctx.page === 1) {
-          ctx.p.total = Math.ceil(data.attributes.count / 2)
+          ctx.p.total = Math.ceil(data.attributes.count / 5)
           ctx.p.totalList = []
           for (var i = 0; i < ctx.p.total; i++) {
             ctx.p.totalList.push(i + 1)
@@ -180,7 +184,7 @@ export default {
 .fenye ul li a{ color:#999;}
 .fenye ul li.xifenye{ width:1.8rem; text-align:center; float:left; position:relative;cursor: pointer;}
 .fenye ul li .xab{box-sizing: border-box;
- position:absolute;  border:1px solid #ccc; height:5.5rem; overflow-y: auto;overflow-x: hidden;top:-5.5rem; background-color: #fff; display:inline;left:0px; width:100%;}
+ position:absolute;  border:1px solid #ccc; height:40vh; overflow-y: auto;overflow-x: hidden;top:-40vh; background-color: #fff; display:inline;left:0px; width:100%;}
 .fenye ul li .xab ul{ margin-left:0; padding-bottom:0;}
 .fenye ul li .xab ul li{ border:0; padding:0.2rem 0px; color:#999; width:2rem; margin-left:0px; text-align:center;}
 .fenye ul li#top,.fenye ul li#down{

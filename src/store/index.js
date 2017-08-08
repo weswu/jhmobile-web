@@ -14,10 +14,10 @@ const store = new Vuex.Store({
     isWeixin: !!window.ua.match(/MicroMessenger/i),
     // 破图
     errImgUrl: 'http://img.easthardware.com/upload/j/j2/jihui/picture/2015/12/04/cb46a5be-9960-4c96-a463-895e7948c415.png',
-    imgUrl: 'http://img.jihui88.com/',
-    wcdImgUrl: 'http://wcd.jihui88.com/leaflet/images/nopic.png',
-    search: false, // 搜索
+    imgUrl: 'http://img.jihui88.com/', // 图片域名地址
+    wcdImgUrl: 'http://wcd.jihui88.com/leaflet/images/nopic.png', // 微传单空图片
     user: {},
+    userInfo: {},
     enterprise: {},
     point: {},
     audio: {

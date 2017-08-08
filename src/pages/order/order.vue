@@ -31,10 +31,10 @@
     </mu-list>
     <mu-infinite-scroll :scroller='scroller' :loading='loading' @load='loadMore'/>
     <div class="chaxun" v-if="nodata" >
-  		<em class="icon icon-tishi"></em> 暂无订单
+  		<em class="iconfont icon-tishi"></em> 暂无订单
   	</div>
     <div class="chaxun" v-if="grade !== '07'">
-       <em class="icon icon-tishi"></em> 您还未开通商城，无法查看订单<br> 咨询请联系：<a href="tel:4007111011">4007111011</a>
+       <em class="iconfont icon-tishi"></em> 您还未开通商城，无法查看订单<br> 咨询请联系：<a href="tel:4007111011">4007111011</a>
     </div>
   </div>
 </template>
@@ -69,7 +69,9 @@ export default {
       if (vm.$route.params.flag === 'buyerPayment') { vm.searchData.flag = '0' }
       if (vm.$route.params.flag === 'awaitS') { vm.searchData.flag = '1' }
       if (vm.$route.params.flag === 'delivery') { vm.searchData.flag = '2' }
+      vm.searchData.page = 1
       vm.activeTab = vm.$route.params.flag
+      vm.list = []
       vm.get()
     })
   },
@@ -82,6 +84,8 @@ export default {
       this.$http.get('/rest/api/order/list?' + qs.stringify(this.searchData)).then((res) => {
         if (this.searchData.page === 1 && res.data.attributes.data.length === 0) {
           this.nodata = true
+        } else {
+          this.nodata = false
         }
         this.scrollList(this, res.data)
         var list = res.data.attributes.pic

@@ -1,14 +1,13 @@
 <template>
   <div>
     <div class="fixed-bar">
-      <mu-appbar :title="title">
+      <mu-appbar title="微网站">
         <mu-icon-button icon='arrow_back' @click='back' slot='left'/>
       </mu-appbar>
     </div>
     <mu-tabs :value="activeTab" @change="handleTabChange" class="view-tabs">
       <mu-tab v-for="item in tabs" :value="item.value" :title="item.title"/>
     </mu-tabs>
-    <div style="height:0.2rem"></div>
     <keep-alive>
       <router-view></router-view>
     </keep-alive>
@@ -18,11 +17,9 @@
 export default {
   data () {
     return {
-      title: '我的微传单',
       activeTab: 'me',
       tabs: [
-        {value: 'me', title: '我的微传单'},
-        {value: 'vip', title: 'VIP专属'},
+        {value: 'me', title: '我的手机网站'},
         {value: 'case', title: '案例展示'}
       ]
     }
@@ -30,7 +27,6 @@ export default {
   beforeRouteEnter (to, from, next) {
     next(vm => {
       vm.activeTab = vm.$route.path.split('/')[2]
-      vm.tabTitle()
     })
   },
   methods: {
@@ -39,15 +35,7 @@ export default {
     },
     handleTabChange (val) {
       this.activeTab = val
-      this.$router.push({ path: '/wcd/' + val })
-      this.tabTitle()
-    },
-    tabTitle () {
-      for (var tab of this.tabs) {
-        if (this.activeTab === tab.value) {
-          this.title = tab.title
-        }
-      }
+      this.$router.push({ path: '/mobile/' + val })
     }
   }
 }

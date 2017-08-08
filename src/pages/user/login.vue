@@ -38,6 +38,7 @@ export default {
     ...mapMutations(['showLoading', 'hideLoading']),
     get () {
       var ctx = this
+      if (this.username === '') { return false }
       this.$http.post('/rest/api/user/login', qs.stringify({
         username: this.username,
         password: this.password
@@ -50,6 +51,7 @@ export default {
       })
     },
     submit () {
+      if (this.username === '') { return false }
       this.showLoading()
       this.get()
     }

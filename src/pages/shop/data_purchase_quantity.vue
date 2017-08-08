@@ -43,7 +43,7 @@ export default {
       this.$router.back()
     },
     get () {
-      this.$http.get('/rest/api/order/data/member_list?pageSize=5000&sort=2&page=1').then((res) => {
+      this.$http.get('/rest/api/order/data/member_list?pageSize=5000&sort=1&page=1').then((res) => {
         this.list = res.data.attributes.data
         this.count = res.data.attributes.count
       })
