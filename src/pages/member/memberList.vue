@@ -17,13 +17,14 @@
     </transition>
     <mu-list v-if="!chaxun">
       <template v-for='item,index in list'>
-        <mu-list-item :title="item.name || item.username">
+        <mu-list-item :title="item.name || item.username" @click='detail(item.id)'>
           <div class="subContent">
             {{item.addTime}}
           </div>
           <div slot="left">
             {{index+1}}
           </div>
+          <mu-icon value="navigate_next" :size="20" slot="right" color="#aaa"/>
         </mu-list-item>
         <mu-divider/>
       </template>
@@ -91,6 +92,9 @@ export default {
       this.searchData.page = 1
       this.search = false
       this.get()
+    },
+    detail (id) {
+      this.$router.push({path: '/member/' + id})
     }
   }
 }

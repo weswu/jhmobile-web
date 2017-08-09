@@ -5,17 +5,40 @@
         <mu-icon-button icon='arrow_back' @click='back' slot='left'/>
       </mu-appbar>
     </div>
-    <div class='p10 mbfixed'>
-      <mu-text-field label='新闻标题' hintText='请输入新闻标题' v-model='member.title' fullWidth/>
-      <mu-select-field v-model='member.category' :labelFocusClass="['label-foucs']" hintText='所属分类' :maxHeight="300">
+    <div class='p10'>
+      <mu-text-field label='昵称' hintText='请输入昵称' v-model='member.name' fullWidth/>
+      <mu-text-field label='密码' v-model='member.password' fullWidth/>
+      <mu-text-field label='E-mail' hintText='请输入E-mail' v-model='member.email' fullWidth/>
+      <mu-text-field label='积分' hintText='请输入积分' v-model='member.point' fullWidth/>
+      <mu-text-field label='预存款' hintText='请输入预存款' v-model='member.deposit' fullWidth/>
+      <mu-select-field v-model='member.category' :labelFocusClass="['label-foucs']" hintText='会员等级' :maxHeight="300">
         <mu-menu-item v-for='v in categoryList' :value='v.categoryId' :title='v.name'/>
       </mu-select-field>
-      <mu-text-field label='来源' hintText='请输入来源' v-model='member.origin' fullWidth/>
-      <mu-text-field label='作者' hintText='请输入作者' v-model='member.author' fullWidth/>
-
-      <mu-radio v-if="false" name="imagemember" nativeValue="01" v-model="member.imagemember" label="显示" class="wu-radio"/>
-      <mu-radio v-if="false" name="imagemember" nativeValue="00" v-model="member.imagemember" label="隐藏" class="wu-radio"/>
+      <p>是否启用</p>
+      <mu-radio name="isaccountEnabled" nativeValue="01" v-model="member.isaccountEnabledisaccountEnabled" label="启用" class="wu-radio"/>
+      <mu-radio name="isaccountEnabled" nativeValue="00" v-model="member.isaccountEnabled" label="关闭" class="wu-radio"/>
     </div>
+    <div class="hr"></div>
+    <mu-list class="mbfixed">
+      <mu-list-item title="账号">
+        <div class="wu-item-right">
+          {{member.username}}
+        </div>
+      </mu-list-item>
+      <mu-divider/>
+      <mu-list-item title="注册时间">
+        <div class="wu-item-right">
+          {{member.addTime}}
+        </div>
+      </mu-list-item>
+      <mu-divider/>
+      <mu-list-item title="注册IP">
+        <div class="wu-item-right">
+          {{member.registerIp}}
+        </div>
+      </mu-list-item>
+      <mu-divider/>
+    </mu-list>
     <mu-raised-button label='提交' @click='submit' class='fixed' secondary fullWidth/>
   </div>
 </template>
@@ -39,27 +62,28 @@ export default {
       this.$router.back()
     },
     get () {
-      this.$http.get('/rest/api/member/detail?id=' + this.$route.params.id).then((res) => {
-        this.member = res.data.attributes.data
-      })
+      if (this.$route.params.id) {
+        this.$http.get('/rest/api/member/detail/' + this.$route.params.id).then((res) => {
+          this.member = res.data.attributes.data
+          this.member.password = ''
+        })
+      }
     },
     submit () {
-      if (!this.member.name) { return window.alert('新闻标题不能为空') }
+      if (!this.member.name) { return window.alert('昵称不能为空') }
       this.model = {
-        id: this.member.id,
-        name: this.member.name
+        name: this.member.name,
+        password: this.member.password,
+        email: this.member.email,
+        point: this.member.point,
+        deposit: this.member.deposit,
+        memberrankId: this.member.memberrankId,
+        isaccountEnabled: this.member.isaccountEnabled
       }
-      if (this.member.id) {
-        this.$http.post('/rest/api/member/update', qs.stringify(this.model)).then((res) => {
-          window.alert('修改成功')
-          this.$router.back()
-        })
-      } else {
-        this.$http.post('/rest/api/member/add', qs.stringify(this.model)).then((res) => {
-          window.alert('发布成功')
-          this.$router.back()
-        })
-      }
+      this.$http.put('/rest/api/member/detail/' + this.member.id + '?' + qs.stringify(this.model)).then((res) => {
+        window.alert('修改成功')
+        this.$router.back()
+      })
     }
   }
 }
