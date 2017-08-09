@@ -127,6 +127,7 @@ const router = new VueRouter({
   { path: '/message/:id', name: 'messageDetail', component: require('../pages/message/messageDetail') },
   // 会员
   { path: '/member', component: require('../pages/member/memberList') },
+  { path: '/member/:id', component: require('../pages/member/memberDetail') },
   // setting
   { path: '/setting', component: require('../pages/setting/setting') },
   { path: '/account', component: require('../pages/setting/account') },

@@ -37,6 +37,7 @@
 <script>
 import jsonp from 'jsonp'
 import qs from 'qs'
+import { mapMutations } from 'vuex'
 export default {
   data () {
     return {
@@ -59,6 +60,7 @@ export default {
     this.scroller = this.$el
   },
   methods: {
+    ...mapMutations(['showLoading', 'hideLoading']),
     get () {
       this.refresh = false
       this.loading = true
@@ -82,18 +84,16 @@ export default {
         wcdId: wcd.id,
         fields: []
       }
+      this.showLoading()
       jsonp('http://wcd.jihui88.com/rest/comm/wcd/copyp?' + qs.stringify(this.vipList), null, function (err, data) {
+        ctx.hideLoading()
         if (data.msgType === 'notLogin') {
           ctx.$router.push('/login')
         }
         if (data.attributes.shortage === true) {
-          if (ctx.vipList.length > 0) {
-            window.alert('请完善传单信息')
-            return false
-          }
           // 第一次提交,完善数据
           ctx.vipList = data.attributes.fields
-          // ctx.wcdUpdate = true
+          ctx.wcdUpdate = true
         } else {
           if (confirm('传单生成成功,确定查看')) {
             ctx.$router.push('/wcd_open/' + data.attributes.data.wcdId)

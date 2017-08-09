@@ -8,14 +8,15 @@ window.ua = navigator.userAgent.toLowerCase()
 const store = new Vuex.Store({
   // 存储数据
   state: {
-    // 加载中...
-    isloading: false,
     // 微信浏览器
     isWeixin: !!window.ua.match(/MicroMessenger/i),
     // 破图
     errImgUrl: 'http://img.easthardware.com/upload/j/j2/jihui/picture/2015/12/04/cb46a5be-9960-4c96-a463-895e7948c415.png',
     imgUrl: 'http://img.jihui88.com/', // 图片域名地址
     wcdImgUrl: 'http://wcd.jihui88.com/leaflet/images/nopic.png', // 微传单空图片
+    topPopup: false, // 顶部提示
+    // 加载中...
+    isloading: false,
     user: {},
     userInfo: {},
     enterprise: {},
@@ -41,7 +42,12 @@ const store = new Vuex.Store({
     change: false   // 判断是更改的时间还是播放的时间
   },
   getters: {
+    topPopup: state => state.topPopup,
     isloading: state => state.isloading,
+    user: state => state.user,
+    userInfo: state => state.userInfo,
+    enterprise: state => state.enterprise,
+    point: state => state.point,
     audio: state => state.audio,
     playing: state => state.playing,
     loading: state => state.loading,
@@ -62,12 +68,19 @@ const store = new Vuex.Store({
     search: state => state.search
   },
   mutations: {
+    // 更新成功
+    topPopup (state) {
+      state.topPopup = true
+      setTimeout(() => {
+        state.topPopup = false
+      }, 2000)
+    },
     // 加载中...
     showLoading (state) {
       state.isloading = true
       setTimeout(() => {
         state.isloading = false
-      }, 10000)
+      }, 15000)
     },
     hideLoading (state) {
       state.isloading = false

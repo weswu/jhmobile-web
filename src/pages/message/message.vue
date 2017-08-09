@@ -9,7 +9,7 @@
         </div>
       </mu-appbar>
     </div>
-    <mu-list style="padding-bottom: 56px;">
+    <mu-list>
       <div v-for='item,index in list' :class="[{swipeleft: isSwipe[index]},'wrap']" ref="child">
         <mu-list-item :title='item.title' :to="{name: 'messageDetail',params: { id: item.id}}" class="list-item">
           <div class="subContent">
@@ -25,6 +25,7 @@
     </mu-list>
     <div v-if="busy" style="text-align: center;padding: .5rem 0;">暂无数据</div>
     <mu-infinite-scroll :scroller='scroller' :loading='loading' @load='loadMore'/>
+    <div style="padding-bottom: 56px;"></div>
     <!--提示...-->
     <toast ref="toast"></toast>
   </div>

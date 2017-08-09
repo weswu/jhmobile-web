@@ -121,7 +121,6 @@ export default {
 }
 </script>
 <style lang="less" scopoed>
-  @import "../assets/theme.less";
   .foot {
     width: 100%;
     position: fixed;
@@ -235,7 +234,7 @@ export default {
     background-color: rgba(220, 217, 217, 0.4);
   }
   .player-mini .mini-content .pro-play {
-    background-color:  @primaryColor;
+    background-color:  #ff6214;
   }
   .songlist {
     height: 260px;

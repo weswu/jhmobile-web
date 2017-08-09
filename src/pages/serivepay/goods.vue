@@ -2,14 +2,15 @@
   <div>
     <mu-list>
       <mu-list-item title="PC网站" v-if="grade !== '04' && grade !== '14'">
-        <mu-badge content="展示版" primary slot="right" v-if="grade === '02'"/>
-        <mu-badge content="电商版" primary slot="right" v-if="grade === '07'"/>
+        <mu-badge content="展示版" primary slot="right" v-if="userType === '展示版'"/>
+        <mu-badge content="营销版" primary slot="right" v-if="userType === '营销版'"/>
+        <mu-badge content="电商版" primary slot="right" v-if="userType === '电商版'"/>
       </mu-list-item>
       <mu-divider v-if="grade !== '04' && grade !== '14'"/>
 
-      <mu-list-item title="手机网站" v-if="mobileSite === '01' || mobileSite === '07'">
-        <mu-badge content="展示版" primary slot="right" v-if="mobileSite === '01'"/>
-        <mu-badge content="电商版" primary slot="right" v-if="mobileSite === '07'"/>
+      <mu-list-item title="手机网站" v-if="mobileSite === '01' || mobileSite === '07' || mobileSite === '04' || mobileSite === '14'">
+        <mu-badge content="展示版" primary slot="right" v-if="mobileSite === '01' || mobileSite === '04'"/>
+        <mu-badge content="电商版" primary slot="right" v-if="mobileSite === '07' || mobileSite === '14'"/>
       </mu-list-item>
       <mu-divider v-if="mobileSite === '01' || mobileSite === '07'"/>
 

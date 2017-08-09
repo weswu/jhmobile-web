@@ -62,7 +62,9 @@ export default {
         window.alert('完善数据')
         return true
       }
+      this.$store.commit('showLoading')
       this.$http.put('/rest/api/user/detail?' + qs.stringify(this.user)).then((res) => {
+        this.$store.commit('hideLoading')
         this.$store.state.user = this.user
         window.alert('操作成功')
       })

@@ -12,7 +12,6 @@
     </div>
 </template>
 <style lang="less" scoped>
-  @import "../assets/theme.less";
   .logo {
     width: 150px;
     height: 48px;
@@ -26,7 +25,7 @@
       color: rgba(102,102,102,1);
     }
     >.mu-tab-active{
-      color: @primaryColor;
+      color: #ff6214;
     }
   }
 

@@ -18,6 +18,8 @@
       </mu-list-item>
     </mu-list>
     <mu-divider />
+    <!--提示...-->
+    <toast ref="toast"></toast>
   </div>
 </template>
 <script>
@@ -29,7 +31,7 @@ export default {
     },
     navigationPage () {
       if (this.$cookie.get('navigation')) {
-        window.alert('5分钟内只可发布一次，请稍后再试')
+        this.$refs.toast.show('5分钟内只可发布一次，请稍后再试')
       } else {
         jsonp('http://www.jihui88.com/rest/static1/' + this.$store.state.user.username + '/publish?type=page', null, function (err, data) {
           if (err) {
@@ -38,13 +40,13 @@ export default {
             console.log(data)
           }
         })
-        window.alert('发布成功')
+        this.$refs.toast.show('发布成功')
         this.$cookie.set('navigation', 'true', { expires: '5m' })
       }
     },
     categoryPage () {
       if (this.$cookie.get('category')) {
-        window.alert('5分钟内只可发布一次，请稍后再试')
+        this.$refs.toast.show('5分钟内只可发布一次，请稍后再试')
       } else {
         jsonp('http://www.jihui88.com/rest/static1/' + this.$store.state.user.username + '/publish?type=category', null, function (err, data) {
           if (err) {
@@ -53,13 +55,13 @@ export default {
             console.log(data)
           }
         })
-        window.alert('发布成功')
+        this.$refs.toast.show('发布成功')
         this.$cookie.set('category', 'true', { expires: '5m' })
       }
     },
     pcPage () {
       if (this.$cookie.get('pc')) {
-        window.alert('5分钟内只可发布一次，请稍后再试')
+        this.$refs.toast.show('5分钟内只可发布一次，请稍后再试')
       } else {
         jsonp('http://www.jihui88.com/rest/static1/' + this.$store.state.user.username + '/publish?type=detail', null, function (err, data) {
           if (err) {
@@ -68,13 +70,13 @@ export default {
             console.log(data)
           }
         })
-        window.alert('发布成功')
+        this.$refs.toast.show('发布成功')
         this.$cookie.set('pc', 'true', { expires: '5m' })
       }
     },
     mobilePage () {
       if (this.$cookie.get('mobile')) {
-        window.alert('5分钟内只可发布一次，请稍后再试')
+        this.$refs.toast.show('5分钟内只可发布一次，请稍后再试')
       } else {
         jsonp('http://www.jihui88.com/rest/mobileStatic/' + this.$store.state.user.username + '/publish?type=page', null, function (err, data) {
           if (err) {
@@ -83,7 +85,7 @@ export default {
             console.log(data)
           }
         })
-        window.alert('发布成功')
+        this.$refs.toast.show('发布成功')
         this.$cookie.set('mobile', 'true', { expires: '5m' })
       }
     }

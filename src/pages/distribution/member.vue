@@ -1,37 +1,38 @@
 <template>
-  <div class="gridlist-demo-container wrapper">
+  <div>
     <div class="item-list member-list">
 			<dl class="item-list-first">
 				<dd class="item-row-7">会员信息</dd>
 				<dd class="item-row-3">分销信息</dd>
 			</dl>
-		   <dl v-for="item, index in list">
-				<dd class="item-row-7">
-				    <div class="left userImg">
-				       <img :src="item.headimgurl">
-				    </div>
-					<div class="left userinfo">
-            <p>No.&nbsp;131</p>
-            <p><span>昵称：</span>汤圆麻麻™جۇشۇەن</p>
-            <p><span>地区：</span>新疆喀什</p>
-            <p><span>推荐：</span>汤圆爸比™جاڭ يى</p> <p>.&nbsp;</p>
-          </div>
-          <br>
-          <p class="clr"><span>关注：</span>2016-04-02 17:04:53</p>
-				</dd>
-				<dd class="item-row-3">
-          <div class="distributorinfo">
-            <p><span>大掌柜：</span>0人</p>
-            <p><span>二掌柜：</span>0人</p>
-            <p><span>小掌柜：</span>0人</p>
-            <p><span>订单数：</span>0</p>
-            <p><span>销售额：</span>￥0</p>
-            <p><span>总佣金：</span>￥0</p>
-           </div>
-         </dd>
-			  </dl>
+		   <dl v-for="dis, index in list">
+         <dd class="item-row-7">
+ 				    <div class="left userImg">
+ 				       <img :src="dis.headimgurl">
+ 				    </div>
+ 					<div class="left userinfo">
+ 					        <p>No.&nbsp;{{dis.dealer_id}}</p>
+                             <p><span>昵称：</span>{{dis.nickname}}</p>
+                             <p><span>地区：</span>{{dis.location}}</p>
+                             <p><span>推荐：</span>{{dis.p_nickname}}</p> <p>.&nbsp;</p>
+                       </div>
+                       <br>
+                       <p class="clr"><span>关注：</span>{{dis.join_time}}</p>
+ 				</dd>
+ 				<dd class="item-row-3">
+                      <div class=" distributorinfo">
+                             <p><span>{{dis.dealer_arr[0].dealer_name}}：</span>{{dis.dealer_arr[0].all}}人</p>
+                             <p><span>	{{dis.dealer_arr[1].dealer_name}}：</span>{{dis.dealer_arr[1].all}}人</p>
+                             <p><span>{{dis.dealer_arr[2].dealer_name}}：</span>{{dis.dealer_arr[2].all}}人</p>
+                             <p><span>订单数：</span>{{dis.sales_count}}</p>
+                             <p><span>销售额：</span>￥{{dis.sales_sum}}</p>
+                             <p><span>总佣金：</span>￥{{dis.bouns_sum}}</p>
+                       </div>
+                 </dd>
+ 			  </dl>
 		</div>
     <div v-if="busy" style="text-align: center;padding: .5rem 0;">暂无数据</div>
+    <div style="padding-bottom: 56px;"></div>
     <div class="fenye">
     	<ul class="fenye-ul">
         	<li id="first" @click="first" class="fenye-li">首页</li>

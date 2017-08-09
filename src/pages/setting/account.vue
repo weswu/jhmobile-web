@@ -8,13 +8,13 @@
     <div class="titlef5">账号</div>
     <mu-list>
       <mu-list-item title="手机号">
-        <div style="position: absolute;right: 0.5rem;top: 0.4rem;">
+        <div class="wu-item-right">
           {{$store.state.user.cellphone}}
         </div>
       </mu-list-item>
       <mu-divider />
       <mu-list-item title="邮件地址">
-        <div style="position: absolute;right: 0.5rem;top: 0.4rem;">
+        <div class="wu-item-right">
           {{$store.state.user.email}}
         </div>
       </mu-list-item>
@@ -41,10 +41,6 @@ export default {
         this.$router.push({path: '/login'})
       })
     }
-
   }
 }
 </script>
-<style scoped>
-.mu-item-right{width: 180px;}
-</style>

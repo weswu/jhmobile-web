@@ -27,11 +27,13 @@ export default {
   data () {
     return {
       isWeixin: this.$store.state.isWeixin,
-      username: this.$cookie.get('username'),
-      password: this.$cookie.get('password')
+      username: '',
+      password: ''
     }
   },
   created () {
+    this.username = this.$cookie.get('username') || ''
+    this.password = this.$cookie.get('password') || ''
     this.get()
   },
   methods: {

@@ -33,8 +33,8 @@
           <div slot='title'>
              您当前的排行：第<span class="number">{{point.rank}}</span>名
           </div>
-          <div slot='right'>
-            <span>共{{point.point}}积分</span>
+          <div class="wu-item-right">
+            共{{point.point}}积分
           </div>
         </mu-list-item>
         <mu-divider/>

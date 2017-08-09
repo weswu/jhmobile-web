@@ -17,6 +17,9 @@
         <mu-divider/>
       </template>
     </mu-list>
+    <div class="chaxun" v-if="busy" >
+  		<em class="iconfont icon-tishi"></em> 输入网址sj.jihui88.com 新建一个自己的手机网站
+  	</div>
     <mu-infinite-scroll :scroller='scroller' :loading='loading' @load='loadMore'/>
   </div>
 </template>
@@ -30,6 +33,7 @@ export default {
       loading: false,
       scroller: null,
       refresh: true,
+      busy: false,
       mobileSite: '',
       searchData: {
         page: 1,
@@ -37,14 +41,15 @@ export default {
       }
     }
   },
-  created () {
-    this.mobileSite = this.$store.state.enterprise.mobileSite
-    if (this.mobileSite === '01' || this.mobileSite === '07') {
-      this.get()
-    }
-  },
-  watch: {
-    '$route': 'get'
+  beforeRouteEnter (to, from, next) {
+    next(vm => {
+      vm.list = []
+      vm.searchData.page = 1
+      vm.mobileSite = vm.$store.state.enterprise.mobileSite
+      if (vm.mobileSite === '01' || vm.mobileSite === '04' || vm.mobileSite === '07' || vm.mobileSite === '14') {
+        vm.get()
+      }
+    })
   },
   mounted () {
     this.scroller = this.$el

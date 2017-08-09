@@ -56,7 +56,6 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-@import "../assets/theme.less";
 html,body { height:100%; overflow:hidden }
 .title-wrapper {
   font-size: 16px;
@@ -108,11 +107,10 @@ html,body { height:100%; overflow:hidden }
   color: #737171;
 }
 .on {
-  color: @primaryColor;
+  color: #ff6214;
   .list-singer {
-    color: @primaryColor;
+    color: #ff6214;
   }
 }
 
 </style>
-

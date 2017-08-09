@@ -10,10 +10,6 @@
     <mu-tab value="2" title="填写备案信息"/>
     <mu-tab value="3" title="完善信息"/>
   </mu-tabs>
-  <mu-popup position="top" :overlay="false" :open="topPopup" >
-    <div class="demo-popup-top">更新成功</div>
-  </mu-popup>
-  <mu-circular-progress :size="50" :strokeWidth="5" style="position: fixed;z-index: 999;left: 50%;margin-left: -25px;top:30%"  v-if="isloading"/>
     <div class="p10">
       <div v-if="activeTab === '1'">
         <div style="color: #f60;">
@@ -125,17 +121,6 @@
 </div>
 </template>
 <style scoped>
-  .demo-popup-top{
-    width: 100%;
-    opacity: .8;
-    height: 48px;
-    line-height: 48px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    max-width: 375px;
-    padding: 0 30px;
-  }
   .principal-inp-left{
     width: 68%;margin-right:3%
   }
@@ -152,8 +137,6 @@ export default {
   data () {
     return {
       activeTab: '1',
-      isloading: false,
-      topPopup: false,
       bottomPopup: false,
       dialog: false,
       same1: false,
@@ -223,7 +206,7 @@ export default {
           let xhr = new XMLHttpRequest()
           xhr.open('POST', '/rest/api/album/fileupload')
           xhr.onload = function () {
-            _this.isloading = false
+            _this.$store.commit('hideLoading')
             if (xhr.status === 200) {
               // 上传成功
               if (_this.upload === 1) { _this.enterprise.certPic = JSON.parse(xhr.response).attributes.data }
@@ -239,11 +222,11 @@ export default {
           }
           xhr.onerror = function () {
             // 处理错误
-            _this.isloading = false
+            _this.$store.commit('hideLoading')
           }
           xhr.upload.onprogress = function (e) {
             // 上传进度
-            _this.isloading = true
+            _this.$store.commit('showLoading')
             // var percentComplete = ((e.loaded / e.total) || 0) * 100
           }
           // 添加参数
@@ -303,10 +286,7 @@ export default {
         this.activeTab = val
         document.body.scrollTop = 0
         if (val) {
-          this.topPopup = true
-          setTimeout(() => {
-            this.topPopup = false
-          }, 2000)
+          this.$store.commit('topPopup')
         }
         this.principal.principalId = res.data.attributes.data.principal.principalId
         this.bind.bindId = res.data.attributes.data.bind.bindId

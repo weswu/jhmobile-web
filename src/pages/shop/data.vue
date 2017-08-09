@@ -6,7 +6,9 @@
   <div class="hr"></div>
   <mu-list>
     <mu-list-item title="支付金额">
-      <div slot="right">￥{{data.totalAmount}}</div>
+      <div class="wu-item-right">
+        ￥{{data.totalAmount}}
+      </div>
     </mu-list-item>
     <mu-divider/>
     <mu-list-item title="买家数">

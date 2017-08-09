@@ -5,10 +5,9 @@
         <mu-icon-button icon='arrow_back' @click='back'  slot='left'/>
       </mu-appbar>
     </div>
-
         <div class="point-info">
-        	<div class="point-username"><span class="iconfont icon-person2"></span>{{enterName}}</div>
-        	<div class="point-use">{{username}} 可用积分</div>
+        	<div class="point-username"><span class="iconfont icon-person2"></span>{{enterprise.name}}</div>
+        	<div class="point-use">{{user.username}} 可用积分</div>
         	<a href="#/point_detail" class="point-detail"><span class="point-value">{{point}}</span></a>
         	<a href="#/point_rule" class="point-rule">积分规则<i class="iconfont icon-tishi" style="padding-left:0.2rem;font-size: 0.7rem;"></i></a>
         	<div class="ranking" @click="ranking()">当前积分排行：{{rank}}</div>
@@ -35,15 +34,13 @@
         	</div>
         	<div style="text-align: center;color: #999;padding-top: 0.5rem;" v-if="mobile != null && mobile != ''">手机号:{{mobile}}</div>
         </div>
-
   </div>
 </template>
 <script>
+import { mapGetters } from 'vuex'
 export default {
   data () {
     return {
-      username: this.$store.state.user.username,
-      enterName: this.$store.state.enterprise.name,
       mobile: this.$store.state.user.phone,
       point: 0,
       rank: 0
@@ -99,6 +96,12 @@ export default {
         }
       }
     }
+  },
+  computed: {
+    ...mapGetters([
+      'user',
+      'enterprise'
+    ])
   }
 }
 </script>

@@ -62,7 +62,6 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-@import "../assets/theme.less";
 .img-response {
     max-width: 100%;
     height: auto;
@@ -77,7 +76,7 @@ export default {
 .title {
     margin: .2rem 0 .3rem 0;
     padding-left: .2rem;
-    border-left: .15rem solid @primaryColor;
+    border-left: .15rem solid #ff6214;
 }
 .list {
     &-bar {

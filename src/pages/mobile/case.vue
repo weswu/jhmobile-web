@@ -44,12 +44,13 @@ export default {
       }
     }
   },
-  created () {
-    this.get()
-  },
-  watch: {
-    // 如果路由有变化，会再次执行该方法
-    '$route': 'get'
+  beforeRouteEnter (to, from, next) {
+    next(vm => {
+      vm.list = []
+      vm.searchData.page = 1
+      vm.category_id = ''
+      vm.get()
+    })
   },
   mounted () {
     this.scroller = this.$el

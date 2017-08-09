@@ -1,6 +1,7 @@
 <template>
-  <div class="gridlist-demo-container wrapper">
-    <div class="hr"></div>
+  <div class="wu-infinite-container">
+
+
     <div class="item-list member-list">
   			<dl class="item-list-first">
   				<dd class="item-row-3">会员信息</dd>
@@ -14,7 +15,7 @@
              </div>
            </dd>
            <dd class="item-row-7">
-             <div class=" distributorinfo">
+             <div class="distributorinfo">
                <p><span>提现单号：</span><br>{{dis.mch_billno}}</p>
                <p><span>提现状态：</span>{{dis.result_code}}</p>
                <p><span>提现金额：</span>￥{{dis.total_amount}}</p>
@@ -26,9 +27,7 @@
     <div v-if="busy" style="text-align: center;padding: .5rem 0;">暂无数据</div>
     <mu-infinite-scroll :scroller='scroller' :loading='loading' @load='loadMore'/>
   </div>
-
 </template>
-
 <script>
 import jsonp from 'jsonp'
 export default {

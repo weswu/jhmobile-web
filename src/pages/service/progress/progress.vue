@@ -6,11 +6,11 @@
       </mu-appbar>
     </div>
     <mu-list class='mu-item-left65'>
-      <mu-list-item :title='enterName'>
+      <mu-list-item :title='enterprise.name'>
         <div slot='left'>公司名:</div>
       </mu-list-item>
       <mu-divider/>
-      <mu-list-item :title='username'>
+      <mu-list-item :title='user.username'>
         <div slot='left'>用户名:</div>
       </mu-list-item>
     </mu-list>
@@ -59,11 +59,10 @@
   </div>
 </template>
 <script>
+import { mapGetters } from 'vuex'
 export default {
   data () {
     return {
-      username: this.$store.state.user.username,
-      enterName: this.$store.state.enterprise.name,
       activeTab: '00',
       busy1: false,
       busy2: false,
@@ -104,6 +103,12 @@ export default {
         this.get()
       }
     }
+  },
+  computed: {
+    ...mapGetters([
+      'user',
+      'enterprise'
+    ])
   }
 }
 </script>

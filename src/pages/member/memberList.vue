@@ -15,7 +15,7 @@
         <mu-raised-button label='搜索' @click='searchKey' secondary fullWidth/>
       </div>
     </transition>
-    <mu-list>
+    <mu-list v-if="!chaxun">
       <template v-for='item,index in list'>
         <mu-list-item :title="item.name || item.username">
           <div class="subContent">
@@ -73,10 +73,12 @@ export default {
       this.refresh = false
       this.loading = true
       this.$http.get('/rest/api/member/list?' + qs.stringify(this.searchData)).then((res) => {
-        if (res.data.attributes.grade !== null && res.data.attributes.grade !== '07') {
-          this.chaxun = true
-        } else {
+        if (res.data.attributes.grade === '02' || res.data.attributes.grade === '07') {
           this.scrollList(this, res.data)
+        } else {
+          if (this.searchData.page === 1) {
+            this.chaxun = true
+          }
         }
         this.loading = false
       })
