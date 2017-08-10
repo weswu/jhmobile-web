@@ -15,7 +15,7 @@
         <mu-raised-button label='搜索' @click='searchKey' secondary fullWidth/>
       </div>
     </transition>
-    <mu-list v-if="!chaxun">
+    <mu-list v-if="$store.state.user.grade === '07'">
       <template v-for='item,index in list'>
         <mu-list-item :title="item.name || item.username" @click='detail(item.id)'>
           <div class="subContent">
@@ -29,7 +29,7 @@
         <mu-divider/>
       </template>
     </mu-list>
-    <div v-if="chaxun" class="chaxun">
+    <div v-else class="chaxun">
       <em class="iconfont icon-tishi"></em> 您还未开通商城，无法查看商城客户<br> 咨询请联系：<a href="tel:4007111011">4007111011</a>
 	  </div>
     <div v-if="busy" style="text-align: center;padding: .5rem 0;">暂无数据</div>
@@ -47,7 +47,6 @@ export default {
       scroller: null,
       refresh: true,
       busy: false,
-      chaxun: false,
       search: false,
       searchData: {
         page: 1,
@@ -74,14 +73,7 @@ export default {
       this.refresh = false
       this.loading = true
       this.$http.get('/rest/api/member/list?' + qs.stringify(this.searchData)).then((res) => {
-        if (res.data.attributes.grade === '02' || res.data.attributes.grade === '07') {
-          this.scrollList(this, res.data)
-        } else {
-          if (this.searchData.page === 1) {
-            this.chaxun = true
-          }
-        }
-        this.loading = false
+        this.scrollList(this, res.data)
       })
     },
     loadMore () {

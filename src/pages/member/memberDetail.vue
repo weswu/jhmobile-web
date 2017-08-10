@@ -6,26 +6,25 @@
       </mu-appbar>
     </div>
     <div class='p10'>
+      <mu-list>
+        <mu-list-item title="账号">
+          <div class="wu-item-right">
+            {{member.username}}
+          </div>
+        </mu-list-item>
+        <mu-divider/>
+      </mu-list>
       <mu-text-field label='昵称' hintText='请输入昵称' v-model='member.name' fullWidth/>
       <mu-text-field label='密码' v-model='member.password' fullWidth/>
       <mu-text-field label='E-mail' hintText='请输入E-mail' v-model='member.email' fullWidth/>
       <mu-text-field label='积分' hintText='请输入积分' v-model='member.point' fullWidth/>
       <mu-text-field label='预存款' hintText='请输入预存款' v-model='member.deposit' fullWidth/>
-      <mu-select-field v-model='member.category' :labelFocusClass="['label-foucs']" hintText='会员等级' :maxHeight="300">
-        <mu-menu-item v-for='v in categoryList' :value='v.categoryId' :title='v.name'/>
-      </mu-select-field>
       <p>是否启用</p>
-      <mu-radio name="isaccountEnabled" nativeValue="01" v-model="member.isaccountEnabledisaccountEnabled" label="启用" class="wu-radio"/>
-      <mu-radio name="isaccountEnabled" nativeValue="00" v-model="member.isaccountEnabled" label="关闭" class="wu-radio"/>
+      <mu-radio name="isaccountEnabled" nativeValue="00" v-model="member.isaccountEnabledisaccountEnabled" label="启用" class="wu-radio"/>
+      <mu-radio name="isaccountEnabled" nativeValue="01" v-model="member.isaccountEnabled" label="关闭" class="wu-radio"/>
     </div>
     <div class="hr"></div>
     <mu-list class="mbfixed">
-      <mu-list-item title="账号">
-        <div class="wu-item-right">
-          {{member.username}}
-        </div>
-      </mu-list-item>
-      <mu-divider/>
       <mu-list-item title="注册时间">
         <div class="wu-item-right">
           {{member.addTime}}

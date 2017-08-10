@@ -1,5 +1,5 @@
 <template>
-  <div class="gridlist-demo-container wrapper">
+  <div class="wu-infinite-container">
     <mu-grid-list class="gridlist-demo">
       <mu-grid-tile v-for="item, index in list">
         <img :src="item.sharepic" @error="setErrorImg" @click="open(item)"/>

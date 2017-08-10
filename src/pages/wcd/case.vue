@@ -1,5 +1,5 @@
 <template>
-  <div class="gridlist-demo-container wrapper">
+  <div class="wu-infinite-container">
     <mu-icon-menu icon="more_vert" class="cate_right">
       <mu-menu-item :title="item.name" v-for="item in category" @click="cate(item)"
       :class="item.id === searchData.category_id ? 'cate_active' : '' "/>

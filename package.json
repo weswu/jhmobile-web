@@ -3,7 +3,6 @@
   "description": "app vue app.jihui88.com",
   "author": "wes wu <wes_wu@qq.com>",
   "version": "1.0.0",
-  "main": "base.js",
   "repository": {
     "type": "git",
     "url": "git@github.com:weswu/jhmobile-web.git"
@@ -13,8 +12,7 @@
     "build": "node build/build.js",
     "unit": "cross-env BABEL_ENV=test karma start test/unit/karma.conf.js --single-run",
     "e2e": "node test/e2e/runner.js",
-    "test": "npm run unit && npm run e2e",
-    "lint": "eslint --ext .js,.vue src test/unit/specs test/e2e/specs"
+    "test": "npm run unit && npm run e2e"
   },
   "dependencies": {
     "axios": "^0.16.1",
@@ -24,13 +22,12 @@
     "vue": "^2.1.0",
     "vue-cookie": "^1.1.4",
     "vue-quill-editor": "^2.2.1",
-    "vue-router": "^2.1.1",
-    "vuex": "^2.1.1"
+    "vue-router": "^2.2.0",
+    "vuex": "^2.1.2"
   },
   "devDependencies": {
     "autoprefixer": "^6.4.0",
     "babel-core": "^6.0.0",
-    "babel-eslint": "^7.0.0",
     "babel-loader": "^6.0.0",
     "babel-plugin-istanbul": "^3.0.0",
     "babel-plugin-transform-runtime": "^6.0.0",
@@ -44,13 +41,6 @@
     "cross-env": "^3.1.3",
     "cross-spawn": "^4.0.2",
     "css-loader": "^0.25.0",
-    "eslint": "^3.7.1",
-    "eslint-config-standard": "^6.1.0",
-    "eslint-friendly-formatter": "^2.0.5",
-    "eslint-loader": "^1.5.0",
-    "eslint-plugin-html": "^1.3.0",
-    "eslint-plugin-promise": "^3.4.0",
-    "eslint-plugin-standard": "^2.0.1",
     "eventsource-polyfill": "^0.9.6",
     "express": "^4.13.3",
     "extract-text-webpack-plugin": "^1.0.1",
