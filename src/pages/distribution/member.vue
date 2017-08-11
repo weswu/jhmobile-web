@@ -72,10 +72,10 @@ export default {
   methods: {
     get () {
       var ctx = this
-      this.$parent.$refs.loading.showLoading()
+      this.$parent.$parent.$refs.loading.showLoading()
       this.loading = true
       jsonp('http://www.jihui88.com/wechat/cps/index.php/jihui_api/members/' + this.$store.state.enterprise.enterpriseId + '/' + this.page + '/5', null, function (err, data) {
-        ctx.$parent.$refs.loading.hideLoading()
+        ctx.$parent.$parent.$refs.loading.hideLoading()
         if (!data.success) {
           console.log(data.msg)
         }

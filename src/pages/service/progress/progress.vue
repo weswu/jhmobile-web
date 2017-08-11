@@ -55,15 +55,18 @@
       </mu-list>
       <div v-if='busy2' style='text-align: center;padding: .5rem 0;'>暂无数据</div>
     </div>
+    <mu-circular-progress :size="60" :strokeWidth="4" v-if="loading" style="margin: 0 auto;display: flex;"/>
     <mu-raised-button label='我要服务反馈' href='#/service_feedback' class='fixed-raised-button' secondary fullWidth/>
   </div>
 </template>
 <script>
-import { mapGetters } from 'vuex'
 export default {
   data () {
     return {
+      user: this.$store.state.user,
+      enterprise: this.$store.state.enterprise,
       activeTab: '00',
+      loading: false,
       busy1: false,
       busy2: false,
       list1: [],
@@ -78,7 +81,9 @@ export default {
       this.$router.back()
     },
     get () {
+      this.loading = true
       this.$http.get('/rest/api/crm/feedback/list?sort=' + this.activeTab).then((res) => {
+        this.loading = false
         var result = res.data.attributes.data
         if (result.length === 0) {
           if (this.activeTab === '00') {
@@ -98,17 +103,13 @@ export default {
     handleTabChange (val) {
       this.activeTab = val
       if (this.activeTab === '00' && this.list1.length === 0) {
+        this.busy1 = false
         this.get()
       } else if (this.activeTab === '01' && this.list2.length === 0) {
+        this.busy2 = false
         this.get()
       }
     }
-  },
-  computed: {
-    ...mapGetters([
-      'user',
-      'enterprise'
-    ])
   }
 }
 </script>

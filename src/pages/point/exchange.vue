@@ -77,11 +77,6 @@ export default {
 }
 </script>
 <style scoped>
-.mu-appbar {
-    background-color: #fafafa;
-    color: #4d4d4d;
-}
-
 .poing-section{    color: #fff;background: #ff7300;
    background: -moz-linear-gradient(left,#ea3062,#f8386b 30%,#ea3062);
    background: -webkit-gradient(linear,left top,right top,from(rgba(253,114,0,.93)),color-stop(.3,#ff7300),to(#ff6a00));

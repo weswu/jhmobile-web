@@ -38,8 +38,8 @@
         <div slot='after'>全部订单</div>
         <mu-icon value='navigate_next' :size='20' slot='right' color='#aaa'/>
       </mu-list-item>
-
     </div>
+
     <div class='hr'></div>
     <mu-flexbox :gutter='0'>
       <mu-flexbox-item class='flex-home' v-for='item in navList1'>

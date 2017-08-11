@@ -18,10 +18,8 @@
         <mu-divider/>
       </template>
     </mu-list>
-    <div v-if="busy" style="text-align: center;padding: .5rem 0;">暂无数据</div>
-    <div v-show='isNull'>
-      请在正常工作时间浏览噢<br>周一到周五　8:00～17:30
-    </div>
+    <mu-circular-progress :size="60" :strokeWidth="4" v-if="loading" style="margin: 0 auto;display: flex;"/>
+    <div v-if="busy" style="text-align: center;padding: .5rem 0;" v-html="text"></div>
   </div>
 </template>
 <script>
@@ -29,8 +27,9 @@ export default {
   data () {
     return {
       list: [],
-      isNull: false,
-      busy: false
+      text: '暂无数据',
+      busy: false,
+      loading: false
     }
   },
   created () {
@@ -38,9 +37,12 @@ export default {
   },
   methods: {
     get () {
+      this.loading = true
       this.$http.get('/rest/api/crm/receipt/log').then((res) => {
+        this.loading = false
         if (!res.data.success) {
-          this.isNull = true
+          this.text = '请在正常工作时间浏览噢<br>周一到周五　8:00～17:30'
+          this.busy = true
           return false
         }
         var result = res.data.attributes.data

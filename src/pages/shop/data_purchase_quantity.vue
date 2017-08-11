@@ -24,14 +24,15 @@
         <mu-divider/>
       </template>
     </mu-list>
+    <div v-if="busy" style="text-align: center;padding: .5rem 0;">暂无数据</div>
   </div>
 </template>
-
 <script>
 export default {
   data () {
     return {
       list: [],
+      busy: false,
       count: 0
     }
   },
@@ -45,6 +46,7 @@ export default {
     get () {
       this.$http.get('/rest/api/order/data/member_list?pageSize=5000&sort=1&page=1').then((res) => {
         this.list = res.data.attributes.data
+        if (this.list.length === 0) {this.busy = true}
         this.count = res.data.attributes.count
       })
     },

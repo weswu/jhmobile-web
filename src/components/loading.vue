@@ -1,5 +1,5 @@
 <template>
-  <div class="loading-wrapper" v-show="isloading" >
+  <div class="loading-wrapper" v-if="isloading">
     <mu-circular-progress :size="50" :strokeWidth="5"/>
     <div class="loading-txt">{{text}}</div>
   </div>
@@ -21,10 +21,10 @@ export default {
         clearInterval(this.timer)
       }
       this.timer = setTimeout(() => {
-        this.showing = false
+        this.isloading = false
       }, 15000)
     },
-    hideLoading (state) {
+    hideLoading () {
       this.isloading = false
     }
   }

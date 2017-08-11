@@ -37,10 +37,11 @@
   </div>
 </template>
 <script>
-import { mapGetters } from 'vuex'
 export default {
   data () {
     return {
+      user: this.$store.state.user,
+      enterprise: this.$store.state.enterprise,
       mobile: this.$store.state.user.phone,
       point: 0,
       rank: 0
@@ -96,20 +97,10 @@ export default {
         }
       }
     }
-  },
-  computed: {
-    ...mapGetters([
-      'user',
-      'enterprise'
-    ])
   }
 }
 </script>
 <style scoped>
-.mu-appbar {
-    background-color: #fafafa;
-    color: #4d4d4d;
-}
 .point-exchange{background:#f5f5f5}
 .point-info{position:relative;text-align:center;color:#fff;padding:1rem 0 0.5rem 0;line-height:1.2rem;background:#ff7300;background:-moz-linear-gradient(left,#ea3062,#f8386b 30%,#ea3062);background:-webkit-gradient(linear,left top,right top,from(rgba(253,114,0,.93)),color-stop(.3,#ff7300),to(#ff6a00));background:-webkit-linear-gradient(left,rgba(253,114,0,.93),#ff7300 30%,#ff6a00);background:-o-linear-gradient(left,rgba(253,114,0,.93),#ff7300 30%,#ff6a00)}
 .point-username{font-size:.8rem}

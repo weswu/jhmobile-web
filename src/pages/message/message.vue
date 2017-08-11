@@ -80,7 +80,7 @@ export default {
     del (id) {
       this.$http.delete('/rest/api/message/detail/' + id).then((res) => {})
       // 判断信息列表中id与正在删除的信息id是否相同，如果相同，就删除信息
-      this.$parent.$refs.toast.show('删除成功')
+      this.$parent.$parent.$refs.toast.show('删除成功')
       this.list.forEach((item, index, arr) => {
         if (item.id === id) {
           arr.splice(index, 1)

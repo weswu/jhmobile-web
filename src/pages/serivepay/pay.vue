@@ -2,7 +2,7 @@
   <div class="servicePay">
     <div class="fixed-bar">
       <mu-appbar title="服务缴费">
-        <mu-icon-button icon='arrow_back' @click='back'  slot='left'/>
+        <mu-icon-button icon='arrow_back' @click='back' slot='left'/>
       </mu-appbar>
     </div>
     <mu-list class="mu-item-left65">
@@ -27,10 +27,11 @@
   </div>
 </template>
 <script>
-import { mapGetters } from 'vuex'
 export default {
   data () {
     return {
+      user: this.$store.state.user,
+      enterprise: this.$store.state.enterprise,
       activeTab: 'payment'
     }
   },
@@ -52,12 +53,6 @@ export default {
       this.activeTab = val
       this.$router.push({ path: '/serivepay/' + val })
     }
-  },
-  computed: {
-    ...mapGetters([
-      'user',
-      'enterprise'
-    ])
   }
 }
 </script>

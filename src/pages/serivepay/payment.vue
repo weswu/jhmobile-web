@@ -16,10 +16,8 @@
         <mu-divider/>
       </template>
     </mu-list>
+    <mu-circular-progress :size="60" :strokeWidth="4" v-if="loading" style="margin: 0 auto;display: flex;"/>
     <div v-if="busy" style="text-align: center;padding: .5rem 0;">暂无数据</div>
-    <div v-show="isNull">
-      请在正常工作时间浏览噢<br>周一到周五　8:00～17:30
-    </div>
     <div class="app_footer">
       <div class="foot-lf">
         <span @click="toggleAll" style="padding-right: 0.2rem;">全选</span>
@@ -35,8 +33,9 @@ export default {
   data () {
     return {
       list: [],
-      isNull: false,
+      text: '暂无数据',
       busy: false,
+      loading: false,
       checkNum: 0,
       totel: 0
     }
@@ -48,8 +47,10 @@ export default {
     get () {
       this.loading = true
       this.$http.get('/rest/api/crm/receipt/list').then((res) => {
+        this.loading = false
         if (!res.data.success) {
-          this.isNull = true
+          this.text = '请在正常工作时间浏览噢<br>周一到周五　8:00～17:30'
+          this.busy = true
           return false
         }
         var result = res.data.attributes.data

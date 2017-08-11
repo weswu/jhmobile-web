@@ -90,10 +90,6 @@ export default {
 }
 </script>
 <style scoped>
-.mu-appbar {
-    background-color: #fafafa;
-    color: #4d4d4d;
-}
 .app-content{padding-left:5px;padding-right:5px}
 .app-content p{padding:5px 0}
 table {

@@ -52,13 +52,8 @@ em{font-style:normal}
 .c0034d1{color: #0034d1;}
 .c666{color: #666}
 .c000{color: #000}
-.titlef5{
-  background: #f5f5f5;
-  padding: .4rem .5rem;
-  color: #000;
-  font-weight: 600;
-  font-size: 12px;
-}
+.titlef5{background:#f5f5f5;padding:.4rem .5rem;color:#000;font-weight:600;font-size:12px}
+
 /* appbar */
 .fixed-bar{
   height: 56px;
@@ -89,7 +84,17 @@ em{font-style:normal}
 }
 // 图片上传
 .file-button{position:absolute;left:0;right:0;top:0;bottom:0;opacity:0}
-
+// ios7 兼容
+.mu-buttom-item{
+  min-width: 75px;
+}
+.mu-item-title-row{
+  display: inline;
+  display: -webkit-flex;
+  display: flex;
+}
+.status .mu-item-title{float: left;}
+.status .mu-item-after{float: right;line-height: 1.2;}
 // mu 列表
 .subContent{font-size:12px;color:#999;overflow:hidden}
 .subContent span{padding-left:10px}

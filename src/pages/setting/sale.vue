@@ -81,7 +81,7 @@
 <a href="http://www.aimdadoors.com/">http://www.aimdadoors.com/</a> 佳迪
 </p>
 <span>更多设计，我们为您定制。。。。。</span>
-<hr style="height:1.5rem;">
+<hr>
 
 <table border="0" cellpadding="2" cellspacing="0">
 	<tbody><tr>
@@ -173,4 +173,7 @@ section div {
  color: #000;
  font-weight: 700;
 }
+table{border-right:1px solid #ddd;border-bottom:1px solid #ddd;width:100%}
+table td{border-left:1px solid #ddd;border-top:1px solid #ddd;padding:0 .1rem}
+table .ta{text-align:center}
 </style>

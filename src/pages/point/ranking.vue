@@ -92,12 +92,6 @@ export default {
 }
 </script>
 <style scoped>
-.mu-appbar {
-    background-color: #fafafa;
-    color: #4d4d4d;
-}
-
-
 .view-more {
     color: #666;
     text-align: center;

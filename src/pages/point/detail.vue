@@ -76,7 +76,6 @@ export default {
 }
 </script>
 <style scoped>
-
 .plus{color:#b1000f;}
 .minus{color:#30992e;font-size: 0.75rem;}
 .item-list .number span{font-size: 0.75rem;}
