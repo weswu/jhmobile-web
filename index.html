@@ -24,7 +24,17 @@
   <link rel="stylesheet" href="//at.alicdn.com/t/font_xe40ayjg0dmibe29.css">
 </head>
 <body>
-<div id="app"></div>
+<div id="app">
+  <keep-alive>
+    <router-view></router-view>
+  </keep-alive>
+  <!--加载中...-->
+  <Loading ref="loading"></Loading>
+  <!--提示...-->
+  <Toast ref="toast"></Toast>
+  <!--顶部提示...-->
+  <Toppopup ref="topPopup"></Toppopup>
+</div>
 <!-- built files will be auto injected -->
 <script type="text/javascript">;(function (doc, win, undefined) {
      var docEl = doc.documentElement,

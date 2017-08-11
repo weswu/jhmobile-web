@@ -41,18 +41,16 @@
   </div>
 </template>
 <script>
-import { mapMutations } from 'vuex'
 export default {
   methods: {
-    ...mapMutations(['showLoading', 'hideLoading']),
     back () {
       this.$router.back()
     },
     signout () {
       var ctx = this
-      this.showLoading()
+      this.$parent.$refs.loading.showLoading()
       this.$http.get('/rest/api/user/logout').then((res) => {
-        ctx.hideLoading()
+        ctx.$parent.$refs.loading.hideLoading()
         ctx.$store.state.user = null
         ctx.$router.push({path: '/login'})
       })

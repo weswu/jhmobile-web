@@ -6,7 +6,7 @@
     <div class="p20">
       <mu-text-field label="帐号" hintText="请输入登录帐号" v-model="username" labelClass="indent" hintTextClass="indent" inputClass="indent" fullWidth labelFloat/><br/>
       <mu-text-field label="登录密码" hintText="请输入密码" v-model="password" labelClass="indent" hintTextClass="indent" inputClass="indent" type="password" fullWidth labelFloat/><br/>
-      <mu-raised-button label="登录" @click="submit" fullWidth primary/>
+      <mu-raised-button label="登录" @click="get" fullWidth primary/>
       <mu-flat-button href="tel:4007111011" label="登录遇到问题?" style="float:right" color="#333"/>
       <p style="text-align: center;clear: both;margin-top: 60px;color: #aaa;">
         浙江机汇网络科技有限公司版权所有<br/>
@@ -22,7 +22,6 @@
 </template>
 <script>
 import qs from 'qs'
-import { mapMutations } from 'vuex'
 export default {
   data () {
     return {
@@ -37,39 +36,25 @@ export default {
     this.get()
   },
   methods: {
-    ...mapMutations(['showLoading', 'hideLoading']),
     get () {
       var ctx = this
       if (this.username === '') { return false }
+      this.$parent.$refs.loading.showLoading()
       this.$http.post('/rest/api/user/login', qs.stringify({
         username: this.username,
         password: this.password
       })).then((res) => {
-        ctx.hideLoading()
+        ctx.$parent.$refs.loading.hideLoading()
         ctx.$cookie.set('username', ctx.username)
         ctx.$cookie.set('password', ctx.password)
         ctx.$store.state.user = res.data.attributes.data
         ctx.$router.push({path: '/main/home'})
       })
-    },
-    submit () {
-      if (this.username === '') { return false }
-      this.showLoading()
-      this.get()
     }
   }
 }
 </script>
 <style scoped>
-.mu-text-field-input.indent{
-  text-indent: 10px;
-}
-.mu-text-field-hint.indent{
-  text-indent: 10px;
-}
-.mu-text-field-label.indent{
-  text-indent: 10px;
-}
 /*下载广告*/
 .f39dsk{background-color:#5f646e;position:fixed;bottom:0;left:0;padding:6px 0 6px 30px;height:42px;line-height:42px;width:100%;box-sizing:border-box;color:#fff;display:flex;display:-webkit-box-flex}
 .f39dsk img{width:30px;display:inline-block;vertical-align:top;margin-right:8px;border-radius:3px;height:30px}

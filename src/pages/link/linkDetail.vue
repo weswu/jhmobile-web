@@ -12,7 +12,6 @@
 </template>
 <script>
 import qs from 'qs'
-import { mapMutations } from 'vuex'
 export default {
   data () {
     return {
@@ -28,7 +27,6 @@ export default {
     '$route': 'get'
   },
   methods: {
-    ...mapMutations(['showLoading', 'hideLoading']),
     back () {
       this.$router.back()
     },
@@ -46,16 +44,16 @@ export default {
     submit () {
       if (!this.link.name) { return window.alert('链接名称不能为空') }
       if (!this.link.url) { return window.alert('链接地址不能为空') }
-      this.showLoading()
+      this.$parent.$refs.loading.showLoading()
       if (this.$route.params.id) {
         this.$http.put('/rest/api/link/detail/' + this.$route.params.id + '?' + qs.stringify(this.link)).then((res) => {
-          this.hideLoading()
+          this.$parent.$refs.loading.hideLoading()
           window.alert('修改成功')
           this.$router.back()
         })
       } else {
         this.$http.post('/rest/api/link/detail', qs.stringify(this.link)).then((res) => {
-          this.hideLoading()
+          this.$parent.$refs.loading.hideLoading()
           window.alert('发布成功')
           this.$router.back()
         })

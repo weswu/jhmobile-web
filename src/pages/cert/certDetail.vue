@@ -29,7 +29,6 @@
 <script>
 import Upload from '../../components/upload'
 import qs from 'qs'
-import { mapMutations } from 'vuex'
 export default {
   data () {
     return {
@@ -58,7 +57,6 @@ export default {
     Upload
   },
   methods: {
-    ...mapMutations(['showLoading', 'hideLoading']),
     get () {
       if (this.$route.params.id) {
         this.name = '证书修改'
@@ -92,16 +90,16 @@ export default {
         organize: this.cert.organize,
         attId: this.cert.attachmentId
       }
-      this.showLoading()
+      this.$parent.$refs.loading.showLoading()
       if (this.$route.params.id) {
         this.$http.put('/rest/api/cert/detail/' + this.$route.params.id + '?' + qs.stringify(this.model)).then((res) => {
-          this.hideLoading()
+          this.h$parent.$refs.loading.hideLoading()
           window.alert('修改成功')
           this.$router.back()
         })
       } else {
         this.$http.post('/rest/api/cert/detail', qs.stringify(this.model)).then((res) => {
-          this.hideLoading()
+          this.$parent.$refs.loading.hideLoading()
           window.alert('发布成功')
           this.$router.back()
         })

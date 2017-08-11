@@ -53,7 +53,6 @@
 </template>
 <script>
 import jsonp from 'jsonp'
-import { mapMutations } from 'vuex'
 export default {
   data () {
     return {
@@ -71,13 +70,12 @@ export default {
     this.get()
   },
   methods: {
-    ...mapMutations(['showLoading', 'hideLoading']),
     get () {
       var ctx = this
-      this.showLoading()
+      this.$parent.$refs.loading.showLoading()
       this.loading = true
       jsonp('http://www.jihui88.com/wechat/cps/index.php/jihui_api/members/' + this.$store.state.enterprise.enterpriseId + '/' + this.page + '/5', null, function (err, data) {
-        ctx.hideLoading()
+        ctx.$parent.$refs.loading.hideLoading()
         if (!data.success) {
           console.log(data.msg)
         }

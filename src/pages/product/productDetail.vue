@@ -50,7 +50,6 @@
 import Upload from '../../components/upload'
 import qs from 'qs'
 import { quillEditor } from 'vue-quill-editor'
-import { mapMutations } from 'vuex'
 export default {
   data () {
     return {
@@ -79,7 +78,6 @@ export default {
     quillEditor
   },
   methods: {
-    ...mapMutations(['showLoading', 'hideLoading']),
     back () {
       this.$router.back()
     },
@@ -141,16 +139,16 @@ export default {
         store: this.product.store,
         all: 1
       }
-      this.showLoading()
+      this.$parent.$refs.loading.showLoading()
       if (this.product.id) {
         this.$http.put('/rest/api/product/detail/' + this.product.id + '?' + qs.stringify(this.model)).then((res) => {
-          this.hideLoading()
+          this.$parent.$refs.loading.hideLoading()
           window.alert('修改成功')
           this.$router.back()
         })
       } else {
         this.$http.post('/rest/api/product/detail', qs.stringify(this.model)).then((res) => {
-          this.hideLoading()
+          this.$parent.$refs.loading.hideLoading()
           window.alert('发布成功')
           this.$router.back()
         })

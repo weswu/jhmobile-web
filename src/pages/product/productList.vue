@@ -43,8 +43,6 @@
     </mu-list>
     <mu-infinite-scroll :scroller='scroller' :loading='loading' @load='loadMore'/>
     <div v-if="busy" style="text-align: center;padding: .5rem 0;">暂无数据</div>
-    <!--提示...-->
-    <toast ref="toast"></toast>
   </div>
 </template>
 <script>
@@ -124,7 +122,7 @@ export default {
             arr.splice(index, 1)
           }
         })
-        this.$refs.toast.show('删除成功')
+        this.$parent.$refs.toast.show('删除成功')
         this.count = this.count - 1
       }
     }

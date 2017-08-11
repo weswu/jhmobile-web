@@ -587,7 +587,7 @@ export default {
           let xhr = new XMLHttpRequest()
           xhr.open('POST', '/rest/api/album/fileupload')
           xhr.onload = function () {
-            _this.$store.commit('hideLoading')
+            _this.$parent.$refs.loading.hideLoading()
             if (xhr.status === 200) {
               // 上传成功
               if (_this.upload === 1) { _this.enterprise.certPic = JSON.parse(xhr.response).attributes.data }
@@ -601,11 +601,11 @@ export default {
           }
           xhr.onerror = function () {
             // 处理错误
-            _this.$store.commit('hideLoading')
+            _this.$parent.$refs.loading.hideLoading()
           }
           xhr.upload.onprogress = function (e) {
             // 上传进度
-            _this.$store.commit('showLoading')
+            _this.$parent.$refs.loading.showLoading()
             // var percentComplete = ((e.loaded / e.total) || 0) * 100
           }
           // 添加参数
@@ -786,7 +786,7 @@ export default {
         this.activeTab = val
         document.body.scrollTop = 0
         if (val) {
-          this.$store.commit('topPopup')
+          this.$parent.$refs.topPopup.show()
         }
         this.principal.principalId = res.data.attributes.data.principal.principalId
         this.bind.bindId = res.data.attributes.data.bind.bindId

@@ -77,9 +77,9 @@ export default {
       this.$router.back()
     },
     submit () {
-      this.$store.commit('showLoading')
+      this.$parent.$refs.loading.showLoading()
       this.$http.put('/rest/api/enterprise/detail?' + qs.stringify(this.enterprise)).then((res) => {
-        this.$store.commit('hideLoading')
+        this.$parent.$refs.loading.hideLoading()
         this.$store.state.enterprise = this.enterprise
         window.alert('操作成功')
       })

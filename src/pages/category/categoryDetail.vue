@@ -15,7 +15,6 @@
 </template>
 <script>
 import qs from 'qs'
-import { mapMutations } from 'vuex'
 export default {
   data () {
     return {
@@ -27,7 +26,6 @@ export default {
     this.get()
   },
   methods: {
-    ...mapMutations(['showLoading', 'hideLoading']),
     back () {
       this.$router.back()
     },
@@ -38,9 +36,9 @@ export default {
       })
     },
     submit () {
-      this.showLoading()
+      this.$parent.$refs.loading.showLoading()
       this.$http.put('/rest/api/category/detail?' + qs.stringify(this.category)).then((res) => {
-        this.hideLoading()
+        this.$parent.$refs.loading.hideLoading()
         window.alert('操作成功')
         this.$router.back()
       })

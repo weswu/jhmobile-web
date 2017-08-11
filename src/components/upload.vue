@@ -1,10 +1,10 @@
 <template>
-<div style="display:inline-block">
-  <mu-circular-progress :size="50" :strokeWidth="5" style="position: fixed;z-index: 999;left: 50%;margin-left: -25px;top:30%"  v-if="isloading"/>
-  <mu-raised-button class="demo-raised-button" label="上传">
-    <input type="file" class="file-button" accept="image/*" @change="uploadImage($event)">
-  </mu-raised-button>
-</div>
+  <div style="display:inline-block">
+    <mu-circular-progress :size="50" :strokeWidth="5" style="position: fixed;z-index: 999;left: 50%;margin-left: -25px;top:30%"  v-if="isloading"/>
+    <mu-raised-button class="demo-raised-button" label="上传">
+      <input type="file" class="file-button" accept="image/*" @change="uploadImage($event)">
+    </mu-raised-button>
+  </div>
 </template>
 <script>
 import lrz from 'lrz'

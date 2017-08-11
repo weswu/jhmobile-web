@@ -42,7 +42,6 @@
 import Upload from '../../components/upload'
 import qs from 'qs'
 import { quillEditor } from 'vue-quill-editor'
-import { mapMutations } from 'vuex'
 export default {
   data () {
     return {
@@ -66,7 +65,6 @@ export default {
     quillEditor
   },
   methods: {
-    ...mapMutations(['showLoading', 'hideLoading']),
     back () {
       this.$router.back()
     },
@@ -118,16 +116,16 @@ export default {
       if (this.news.imagenews === '01') {
         this.model.picPath = this.news.picPath
       }
-      this.showLoading()
+      this.$parent.$refs.loading.showLoading()
       if (this.news.id) {
         this.$http.post('/rest/api/news/update', qs.stringify(this.model)).then((res) => {
-          this.hideLoading()
+          this.$parent.$refs.loading.hideLoading()
           window.alert('修改成功')
           this.$router.back()
         })
       } else {
         this.$http.post('/rest/api/news/add', qs.stringify(this.model)).then((res) => {
-          this.hideLoading()
+          this.$parent.$refs.loading.hideLoading()
           window.alert('发布成功')
           this.$router.back()
         })

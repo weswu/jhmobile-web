@@ -38,11 +38,11 @@ export default {
       this.$router.back()
     },
     submit () {
-      this.$store.commit('showLoading')
+      this.$parent.$refs.loading.showLoading()
       this.$store.state.enterprise.mapaddress = this.lng + ',' + this.lat
       this.$http.put('/rest/api/enterprise/detail?' + qs.stringify(this.$store.state.enterprise)).then((res) => {
-        this.$store.commit('hideLoading')
-        this.$store.commit('topPopup')
+        this.$parent.$refs.loading.hideLoading()
+        this.$parent.$refs.topPopup.show()
       })
     },
     dragend (e) {

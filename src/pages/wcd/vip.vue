@@ -56,7 +56,6 @@
 import Upload from '../../components/upload'
 import jsonp from 'jsonp'
 import qs from 'qs'
-import { mapMutations } from 'vuex'
 export default {
   data () {
     return {
@@ -84,7 +83,6 @@ export default {
     this.scroller = this.$el
   },
   methods: {
-    ...mapMutations(['showLoading', 'hideLoading']),
     get () {
       this.refresh = false
       this.loading = true
@@ -108,9 +106,9 @@ export default {
         wcdId: wcd.id,
         fields: this.fields || []
       }
-      this.showLoading()
+      this.$parent.$refs.loading.showLoading()
       jsonp('http://wcd.jihui88.com/rest/comm/wcd/copyp?' + qs.stringify(this.vipList), null, function (err, data) {
-        ctx.hideLoading()
+        ctx.$parent.$refs.loading.hideLoading()
         if (data.msgType === 'notLogin') {
           ctx.$router.push('/login')
         }

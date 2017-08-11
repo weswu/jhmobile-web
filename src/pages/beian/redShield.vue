@@ -86,7 +86,7 @@ export default {
         this.activeTab = val
         document.body.scrollTop = 0
         if (val) {
-          this.$store.commit('topPopup')
+          this.$parent.$refs.topPopup.show()
         }
         this.principal.principalId = res.data.attributes.data.principal.principalId
         this.bind.bindId = res.data.attributes.data.bind.bindId
