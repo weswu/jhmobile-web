@@ -39,16 +39,18 @@ export default {
     get () {
       var ctx = this
       if (this.username === '') { return false }
-      this.$parent.$refs.loading.showLoading()
+      if (this.$parent.$refs.loading) {this.$parent.$refs.loading.show()}
       this.$http.post('/rest/api/user/login', qs.stringify({
         username: this.username,
         password: this.password
       })).then((res) => {
-        ctx.$parent.$refs.loading.hideLoading()
+        ctx.$parent.$refs.loading.hide()
         ctx.$cookie.set('username', ctx.username)
         ctx.$cookie.set('password', ctx.password)
         ctx.$store.state.user = res.data.attributes.data
         ctx.$router.push({path: '/main/home'})
+      }).catch((result) => {
+        ctx.$parent.$refs.loading.hide()
       })
     }
   }

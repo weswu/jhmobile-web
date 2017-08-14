@@ -48,9 +48,9 @@ export default {
     },
     signout () {
       var ctx = this
-      this.$parent.$refs.loading.showLoading()
+      this.$parent.$refs.loading.show()
       this.$http.get('/rest/api/user/logout').then((res) => {
-        ctx.$parent.$refs.loading.hideLoading()
+        ctx.$parent.$refs.loading.hide()
         ctx.$store.state.user = null
         ctx.$router.push({path: '/login'})
       })

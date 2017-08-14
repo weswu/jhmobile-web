@@ -206,7 +206,7 @@ export default {
           let xhr = new XMLHttpRequest()
           xhr.open('POST', '/rest/api/album/fileupload')
           xhr.onload = function () {
-            _this.$parent.$refs.loading.hideLoading()
+            _this.$parent.$refs.loading.hide()
             if (xhr.status === 200) {
               // 上传成功
               if (_this.upload === 1) { _this.enterprise.certPic = JSON.parse(xhr.response).attributes.data }
@@ -222,11 +222,11 @@ export default {
           }
           xhr.onerror = function () {
             // 处理错误
-            _this.$parent.$refs.loading.hideLoading()
+            _this.$parent.$refs.loading.hide()
           }
           xhr.upload.onprogress = function (e) {
             // 上传进度
-            _this.$parent.$refs.loading.showLoading()
+            _this.$parent.$refs.loading.show()
             // var percentComplete = ((e.loaded / e.total) || 0) * 100
           }
           // 添加参数

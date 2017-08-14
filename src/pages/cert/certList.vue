@@ -13,10 +13,10 @@
 
     <transition name='fade'>
       <div class='header-search' v-show='search'>
-        <mu-select-field v-model='searchData.type' :labelFocusClass="['label-foucs']" hintText='证书分类' fullWidth>
+        <mu-select-field v-model='searchData.type' :labelFocusClass="['label-foucs']" label="请选择分类" fullWidth>
           <mu-menu-item v-for='v,index in typeList' :value='v.value' :title='v.text' />
         </mu-select-field>
-        <mu-text-field v-model='searchData.name' hintText='请输入标题' fullWidth/>
+        <mu-text-field v-model='searchData.name' type='search' hintText='请输入标题' fullWidth/>
         <mu-raised-button label='搜索' @click='searchKey' secondary fullWidth/>
       </div>
     </transition>

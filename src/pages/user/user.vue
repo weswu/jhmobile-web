@@ -62,9 +62,9 @@ export default {
         window.alert('完善数据')
         return true
       }
-      this.$parent.$refs.loading.showLoading()
+      this.$parent.$refs.loading.show()
       this.$http.put('/rest/api/user/detail?' + qs.stringify(this.user)).then((res) => {
-        this.$parent.$refs.loading.hideLoading()
+        this.$parent.$refs.loading.hide()
         this.$store.state.user = this.user
         window.alert('操作成功')
       })

@@ -44,16 +44,16 @@ export default {
     submit () {
       if (!this.link.name) { return window.alert('链接名称不能为空') }
       if (!this.link.url) { return window.alert('链接地址不能为空') }
-      this.$parent.$refs.loading.showLoading()
+      this.$parent.$refs.loading.show()
       if (this.$route.params.id) {
         this.$http.put('/rest/api/link/detail/' + this.$route.params.id + '?' + qs.stringify(this.link)).then((res) => {
-          this.$parent.$refs.loading.hideLoading()
+          this.$parent.$refs.loading.hide()
           window.alert('修改成功')
           this.$router.back()
         })
       } else {
         this.$http.post('/rest/api/link/detail', qs.stringify(this.link)).then((res) => {
-          this.$parent.$refs.loading.hideLoading()
+          this.$parent.$refs.loading.hide()
           window.alert('发布成功')
           this.$router.back()
         })

@@ -36,9 +36,9 @@ export default {
       })
     },
     submit () {
-      this.$parent.$refs.loading.showLoading()
+      this.$parent.$refs.loading.show()
       this.$http.put('/rest/api/category/detail?' + qs.stringify(this.category)).then((res) => {
-        this.$parent.$refs.loading.hideLoading()
+        this.$parent.$refs.loading.hide()
         window.alert('操作成功')
         this.$router.back()
       })

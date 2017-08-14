@@ -14,7 +14,7 @@ export default {
     }
   },
   methods: {
-    showLoading (text, duration) {
+    show (text, duration) {
       this.text = text || '加载中'
       this.isloading = true
       if (this.timer) {
@@ -24,7 +24,7 @@ export default {
         this.isloading = false
       }, 15000)
     },
-    hideLoading () {
+    hide () {
       this.isloading = false
     }
   }

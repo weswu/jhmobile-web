@@ -38,10 +38,10 @@ export default {
       this.$router.back()
     },
     submit () {
-      this.$parent.$refs.loading.showLoading()
+      this.$parent.$refs.loading.show()
       this.$store.state.enterprise.mapaddress = this.lng + ',' + this.lat
       this.$http.put('/rest/api/enterprise/detail?' + qs.stringify(this.$store.state.enterprise)).then((res) => {
-        this.$parent.$refs.loading.hideLoading()
+        this.$parent.$refs.loading.hide()
         this.$parent.$refs.topPopup.show()
       })
     },

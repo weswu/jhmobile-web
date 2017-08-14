@@ -15,10 +15,10 @@
     </div>
     <transition name='fade'>
       <div class='header-search' v-show='search'>
-        <mu-select-field v-model='searchData.category' :labelFocusClass="['label-foucs']" hintText='产品分类' :maxHeight="300" fullWidth>
+        <mu-select-field v-model='searchData.category' :labelFocusClass="['label-foucs']" label="请选择分类" :maxHeight="300" fullWidth>
           <mu-menu-item v-for='v,index in categoryList' :value='v.categoryId' :title='v.name' />
         </mu-select-field>
-        <mu-text-field v-model='searchData.name' hintText='请输入产品标题' fullWidth/>
+        <mu-text-field v-model='searchData.name' type='search' hintText='请输入产品标题' fullWidth/>
         <mu-raised-button label='搜索' @click='searchKey' secondary fullWidth/>
       </div>
     </transition>

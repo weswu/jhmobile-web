@@ -19,13 +19,13 @@ Vue.config.debug = true
 Vue.use(MuseUI)
 Vue.use(VueRouter)
 Vue.use(VueQuillEditor)
-// 注册为全局组件
+// 注册为全局组件 只能首字母大写或者全小写
 import toast from './components/toast.vue'
 import loading from './components/loading.vue'
-import toppopup from './components/toppopup.vue'
-Vue.component('Loading', loading)
-Vue.component('Toast', toast)
-Vue.component('Toppopup', toppopup)
+import topPopup from './components/topPopup.vue'
+Vue.component('loading', loading)
+Vue.component('toast', toast)
+Vue.component('toppopup', topPopup)
 /* eslint-disable no-new */
 new Vue({
   router,

@@ -139,16 +139,16 @@ export default {
         store: this.product.store,
         all: 1
       }
-      this.$parent.$refs.loading.showLoading()
+      this.$parent.$refs.loading.show()
       if (this.product.id) {
         this.$http.put('/rest/api/product/detail/' + this.product.id + '?' + qs.stringify(this.model)).then((res) => {
-          this.$parent.$refs.loading.hideLoading()
+          this.$parent.$refs.loading.hide()
           window.alert('修改成功')
           this.$router.back()
         })
       } else {
         this.$http.post('/rest/api/product/detail', qs.stringify(this.model)).then((res) => {
-          this.$parent.$refs.loading.hideLoading()
+          this.$parent.$refs.loading.hide()
           window.alert('发布成功')
           this.$router.back()
         })

@@ -106,9 +106,9 @@ export default {
         wcdId: wcd.id,
         fields: this.fields || []
       }
-      this.$parent.$refs.loading.showLoading()
+      this.$parent.$refs.loading.show()
       jsonp('http://wcd.jihui88.com/rest/comm/wcd/copyp?' + qs.stringify(this.vipList), null, function (err, data) {
-        ctx.$parent.$refs.loading.hideLoading()
+        ctx.$parent.$refs.loading.hide()
         if (data.msgType === 'notLogin') {
           ctx.$router.push('/login')
         }

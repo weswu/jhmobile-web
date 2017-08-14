@@ -116,16 +116,16 @@ export default {
       if (this.news.imagenews === '01') {
         this.model.picPath = this.news.picPath
       }
-      this.$parent.$refs.loading.showLoading()
+      this.$parent.$refs.loading.show()
       if (this.news.id) {
         this.$http.post('/rest/api/news/update', qs.stringify(this.model)).then((res) => {
-          this.$parent.$refs.loading.hideLoading()
+          this.$parent.$refs.loading.hide()
           window.alert('修改成功')
           this.$router.back()
         })
       } else {
         this.$http.post('/rest/api/news/add', qs.stringify(this.model)).then((res) => {
-          this.$parent.$refs.loading.hideLoading()
+          this.$parent.$refs.loading.hide()
           window.alert('发布成功')
           this.$router.back()
         })

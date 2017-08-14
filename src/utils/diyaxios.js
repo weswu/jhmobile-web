@@ -16,9 +16,6 @@ axios.interceptors.response.use((res) => {
   return res
 }, (error) => {
   console.log('promise error:' + error)
-  if (!error.response) {
-    // window.alert('超时')
-  }
   if (error.response.status === 401) {
     if (error.response.data.err_code === '用户不存在') {
       window.alert('请联系客服,账号未关联到机汇云')

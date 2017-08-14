@@ -11,11 +11,11 @@
     </div>
     <transition name='fade'>
       <div class='header-search' v-show='search'>
-        <mu-text-field v-model='searchData.name' fullWidth hintText='请输入用户名'/>
+        <mu-text-field v-model='searchData.name' type='search' fullWidth hintText='请输入用户名'/>
         <mu-raised-button label='搜索' @click='searchKey' secondary fullWidth/>
       </div>
     </transition>
-    <mu-list v-if="$store.state.user.grade === '07'">
+    <mu-list v-if="grade === '07'">
       <template v-for='item,index in list'>
         <mu-list-item :title="item.name || item.username" @click='detail(item.id)'>
           <div class="subContent">
@@ -43,6 +43,7 @@ export default {
     return {
       list: [],
       count: 0,
+      grade: '',
       loading: false,
       scroller: null,
       refresh: true,
@@ -73,6 +74,7 @@ export default {
       this.refresh = false
       this.loading = true
       this.$http.get('/rest/api/member/list?' + qs.stringify(this.searchData)).then((res) => {
+        if (this.searchData.page === 1) this.grade = res.data.attributes.grade
         this.scrollList(this, res.data)
       })
     },
