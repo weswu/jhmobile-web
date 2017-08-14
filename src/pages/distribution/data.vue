@@ -5,22 +5,21 @@
         <mu-list-item data-type="pc" :title="item.text" @click="rank(index)">
           <div slot="leftAvatar">{{index+1}}、</div>
         </mu-list-item>
-        <ul class="dis-data" v-show="item.click">
-          <div class="item-list">
-           <dl class="item-list-first">
-             <dd class="item-row-1"></dd>
-             <dd class="item-row-2">编号</dd>
-             <dd class="item-row-5">昵称</dd>
-             <dd class="item-row-2">数量</dd>
-           </dl>
-           <dl v-for='d,i in item.list'>
-             <dd class="item-row-1"><span>{{i+1}}</span></dd>
-             <dd class="item-row-2">{{d.dealer_id}}</dd>
-             <dd class="item-row-5 ellipsis">{{d.nickname}}</dd>
-             <dd class="item-row-2">{{d.count}}</dd>
-           </dl>
-          </div>
-          </ul>
+        <ul class="p10" v-show="item.click">
+          <mu-list-item title="昵称" style="background:#f5f5f5">
+            <div slot="left" class="c000 font14">排行</div>
+            <div slot="right" class="c000 font14">数量</div>
+          </mu-list-item>
+          <mu-list>
+            <template v-for='(d, i) in item.list'>
+              <mu-list-item :title="'编号:'+d.dealer_id" :describeText='d.nickname'>
+                <div slot="left">{{i + 1}}</div>
+                <div slot="right">{{d.count}}</div>
+              </mu-list-item>
+              <mu-divider/>
+            </template>
+          </mu-list>
+        </ul>
       </template>
     </mu-list>
   </div>
@@ -62,8 +61,3 @@ export default {
   }
 }
 </script>
-<style scoped>
-.dis-data{padding:10px}
-.dis-data .item-list-first{color:#000;background:#f5f5f5}
-.dis-data dl{position:relative;overflow:hidden;padding:5px .5rem;border-bottom:1px solid #f0f0f0}
-</style>

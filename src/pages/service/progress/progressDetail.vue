@@ -30,9 +30,9 @@
 export default {
   data () {
     return {
-      title: this.$route.params.title,
-      desc: this.$route.params.desc,
-      result: this.$route.params.result,
+      title: '',
+      desc: '',
+      result: '',
       list: []
     }
   },
@@ -42,7 +42,7 @@ export default {
         vm.list = []
         var desc = ''
         vm.$route.params.desc.forEach((item, index, arr) => {
-          desc += arr + '<br/>'
+          desc += item + '<br/>'
         })
         if (to.params.title) {
           vm.title = vm.$route.params.title

@@ -1,36 +1,36 @@
 <template>
   <div>
-    <div class="item-list member-list">
-			<dl class="item-list-first">
-				<dd class="item-row-7">会员信息</dd>
-				<dd class="item-row-3">分销信息</dd>
-			</dl>
-		   <dl v-for="dis, index in list">
-         <dd class="item-row-7">
- 				    <div class="left userImg">
- 				       <img :src="dis.headimgurl">
- 				    </div>
- 					<div class="left userinfo">
- 					        <p>No.&nbsp;{{dis.dealer_id}}</p>
-                             <p><span>昵称：</span>{{dis.nickname}}</p>
-                             <p><span>地区：</span>{{dis.location}}</p>
-                             <p><span>推荐：</span>{{dis.p_nickname}}</p> <p>.&nbsp;</p>
-                       </div>
-                       <br>
-                       <p class="clr"><span>关注：</span>{{dis.join_time}}</p>
- 				</dd>
- 				<dd class="item-row-3">
-                      <div class=" distributorinfo">
-                             <p><span>{{dis.dealer_arr[0].dealer_name}}：</span>{{dis.dealer_arr[0].all}}人</p>
-                             <p><span>	{{dis.dealer_arr[1].dealer_name}}：</span>{{dis.dealer_arr[1].all}}人</p>
-                             <p><span>{{dis.dealer_arr[2].dealer_name}}：</span>{{dis.dealer_arr[2].all}}人</p>
-                             <p><span>订单数：</span>{{dis.sales_count}}</p>
-                             <p><span>销售额：</span>￥{{dis.sales_sum}}</p>
-                             <p><span>总佣金：</span>￥{{dis.bouns_sum}}</p>
-                       </div>
-                 </dd>
- 			  </dl>
-		</div>
+    <mu-list-item title="会员信息">
+      <div class="wu-item-right font16"><span class="c000">分销信息</span></div>
+    </mu-list-item>
+    <mu-divider/>
+    <mu-list class="member-list">
+      <template v-for='(dis, index) in list'>
+        <mu-list-item :style="index%2 === 1 ? 'background: #f3f3f3;' : ''">
+          <div class="fl" style="width:70%">
+            <div class="fl">
+               <img :src="dis.headimgurl">
+            </div>
+            <div class="fl">
+              <p>No.&nbsp;{{dis.dealer_id}}</p>
+              <p><span>昵称：</span>{{dis.nickname}}</p>
+              <p><span>地区：</span>{{dis.location}}</p>
+              <p><span>推荐：</span>{{dis.p_nickname}}</p> <p>.&nbsp;</p>
+            </div>
+            <br>
+            <p class="clr"><span>关注：</span>{{dis.join_time}}</p>
+          </div>
+          <div class="fr" style="width:30%">
+            <p><span>{{dis.dealer_arr[0].dealer_name}}：</span>{{dis.dealer_arr[0].all}}人</p>
+            <p><span>	{{dis.dealer_arr[1].dealer_name}}：</span>{{dis.dealer_arr[1].all}}人</p>
+            <p><span>{{dis.dealer_arr[2].dealer_name}}：</span>{{dis.dealer_arr[2].all}}人</p>
+            <p><span>订单数：</span>{{dis.sales_count}}</p>
+            <p><span>销售额：</span>￥{{dis.sales_sum}}</p>
+            <p><span>总佣金：</span>￥{{dis.bouns_sum}}</p>
+          </div>
+        </mu-list-item>
+      </template>
+    </mu-list>
     <div v-if="busy" style="text-align: center;padding: .5rem 0;">暂无数据</div>
     <div style="padding-bottom: 56px;"></div>
     <div class="fenye">
@@ -133,61 +133,18 @@ export default {
 }
 </script>
 <style scoped>
-.member-list img {
-    display: block;
-    width: 60px;
-    height: 60px;
-    margin-right: 10px;
-}
-.item-list .left {
-    float: left;
-}
-.item-list p, .item-list span {
-    line-height: 1rem;
-    font-size: .5rem;
-}
-.item-list dl {
-    overflow: hidden;
-    margin:0
-}
-.member-list dl:nth-child(even) {
-  background: #f3f3f3;
-}
-.member-list span {
-    color: #999;
-}
+.member-list img{display:block;width:60px;height:60px;margin-right:10px}
+.member-list p,.member-list span{line-height:1rem;font-size:.5rem}
+.member-list span{color:#999}
 /***************分页******************/
-.fenye{    background: #f7f7f7;
-    padding: 0.37rem 0 0.35rem 0;
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    z-index: 9900;
-    border-top: 0.05rem solid #e1e1e1;}
-    .fenye .fenye-ul{        display: -moz-box;
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: -moz-flex;
-    display: -ms-flexbox;
-    display: -ms-flex;
-    display: flex;
-    }
-.fenye ul li.fenye-li{ float:left; padding: 0.4rem 0; border:1px solid #ccc;   cursor:pointer; color:#999;
-    -webkit-box-flex: 1;
-    -moz-box-flex: 1;
-    -webkit-flex: 1 1 0%;
-    -moz-flex: 1 1 0%;
-    -ms-flex: 1 1 0%;
-    flex: 1 1 0%;
-    text-align: center;}
+.fenye{background:#f7f7f7;padding:.37rem 0 .35rem 0;position:fixed;bottom:0;width:100%;z-index:9900;border-top:.05rem solid #e1e1e1}
+.fenye .fenye-ul{display:-moz-box;display:-webkit-box;display:-webkit-flex;display:-moz-flex;display:-ms-flexbox;display:-ms-flex;display:flex}
+.fenye ul li.fenye-li{float:left;padding:.4rem 0;border:1px solid #ccc;cursor:pointer;color:#999;-webkit-box-flex:1;-moz-box-flex:1;-webkit-flex:1 1 0%;-moz-flex:1 1 0;-ms-flex:1 1 0%;flex:1 1 0%;text-align:center}
 .fenye ul li a{ color:#999;}
 .fenye ul li.xifenye{ width:1.8rem; text-align:center; float:left; position:relative;cursor: pointer;}
 .fenye ul li .xab{box-sizing: border-box;
  position:absolute;  border:1px solid #ccc; height:40vh; overflow-y: auto;overflow-x: hidden;top:-40vh; background-color: #fff; display:inline;left:0px; width:100%;}
 .fenye ul li .xab ul{ margin-left:0; padding-bottom:0;}
 .fenye ul li .xab ul li{ border:0; padding:0.2rem 0px; color:#999; width:2rem; margin-left:0px; text-align:center;}
-.fenye ul li#top,.fenye ul li#down{
-border-left:none;
-border-right:none;
-}
+.fenye ul li#down,.fenye ul li#top{border-left:none;border-right:none}
 </style>

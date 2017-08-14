@@ -8,13 +8,11 @@
         </div>
       </mu-appbar>
     </div>
-    <div class="item-list">
-        <dl>
-            <dd class="item-row-2">排行</dd>
-            <dd class="item-row-4">客户</dd>
-            <dd class="item-row-4">数量</dd>
-        </dl>
-    </div>
+    <mu-list-item title="客户">
+      <div slot="left" class="c000 font14">排行</div>
+      <div slot="right" class="c000 font14">数量</div>
+    </mu-list-item>
+    <mu-divider/>
     <mu-list>
       <template v-for='(item, index) in list'>
         <mu-list-item :title="item.name || item.username">

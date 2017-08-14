@@ -4,6 +4,7 @@
       <mu-list-item title="PC网站" v-if="grade !== '04' && grade !== '14'">
         <mu-badge content="展示版" primary slot="right" v-if="userType === '展示版'"/>
         <mu-badge content="营销版" primary slot="right" v-if="userType === '营销版'"/>
+        <mu-badge content="品牌版" primary slot="right" v-if="userType === '品牌版'"/>
         <mu-badge content="电商版" primary slot="right" v-if="userType === '电商版'"/>
       </mu-list-item>
       <mu-divider v-if="grade !== '04' && grade !== '14'"/>

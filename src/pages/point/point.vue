@@ -5,35 +5,35 @@
         <mu-icon-button icon='arrow_back' @click='back'  slot='left'/>
       </mu-appbar>
     </div>
-        <div class="point-info">
-        	<div class="point-username"><span class="iconfont icon-person2"></span>{{enterprise.name}}</div>
-        	<div class="point-use">{{user.username}} 可用积分</div>
-        	<a href="#/point_detail" class="point-detail"><span class="point-value">{{point}}</span></a>
-        	<a href="#/point_rule" class="point-rule">积分规则<i class="iconfont icon-tishi" style="padding-left:0.2rem;font-size: 0.7rem;"></i></a>
-        	<div class="ranking" @click="ranking()">当前积分排行：{{rank}}</div>
+    <div class="point-info">
+      <div class="point-username"><span class="iconfont icon-person2"></span>{{enterprise.name}}</div>
+      <div class="point-use">{{user.username}} 可用积分</div>
+      <a href="#/point_detail" class="point-detail"><span class="point-value">{{point}}</span></a>
+      <a href="#/point_rule" class="point-rule">积分规则<i class="iconfont icon-tishi" style="padding-left:0.2rem;font-size: 0.7rem;"></i></a>
+      <div class="ranking" @click="ranking()">当前积分排行：{{rank}}</div>
+    </div>
+    <div class="point-exchange">
+      <div class="point-title"><span><i class="iconfont icon-lipin"></i>积分兑换</span></div>
+      <div class="point-product">
+        <div @click="exchange(1)"><h2>兑换软文</h2><p>500积分兑软文</p><i class="iconfont icon-xinwen"></i></div>
+        <div @click="exchange(2)"><h2>移动办公布属</h2><p>1000积分兑丁丁、微信布属</p><i class="iconfont icon-shangpin"></i></div>
+        <div style="margin: 0 0.5%;" @click="exchange(3)"><h2>兑换流量</h2><p>国内通用流量100MB兑</p><i class="iconfont icon-liuliang"></i></div>
+      </div>
+      <div class="point-title"><span><i class="iconfont icon-remen"></i>热门兑换</span></div>
+      <div class="point-hot-product">
+        <div class="point-pro-item" :class="point > 500 ? 'cur' : ''" @click="exchange(1)">
+          <div class="point-pro-title">软文</div>
+          <div class="point-pro-value" style="font-size: 0.8rem;height: 2.2rem;">引流，传播品牌</div>
+          <p>500积分</p>
         </div>
-        <div class="point-exchange">
-        	<div class="point-title"><span><i class="iconfont icon-lipin"></i>积分兑换</span></div>
-        	<div class="point-product">
-        		<div @click="exchange(1)"><h2>兑换软文</h2><p>500积分兑软文</p><i class="iconfont icon-xinwen"></i></div>
-        		<div @click="exchange(2)"><h2>移动办公布属</h2><p>1000积分兑丁丁、微信布属</p><i class="iconfont icon-shangpin"></i></div>
-        		<div style="margin: 0 0.5%;" @click="exchange(3)"><h2>兑换流量</h2><p>国内通用流量100MB兑</p><i class="iconfont icon-liuliang"></i></div>
-        	</div>
-        	<div class="point-title"><span><i class="iconfont icon-remen"></i>热门兑换</span></div>
-        	<div class="point-hot-product">
-        		<div class="point-pro-item" :class="point > 500 ? 'cur' : ''" @click="exchange(1)">
-        			<div class="point-pro-title">软文</div>
-        			<div class="point-pro-value" style="font-size: 0.8rem;height: 2.2rem;">引流，传播品牌</div>
-        			<p>500积分</p>
-        		</div>
-        		<div class="point-pro-item flow" :class="point > 5000 ? 'cur' : ''" @click="exchange(3)">
-        			<div class="point-pro-title">国内通用流量<br><span>2/3/4G通用</span></div>
-        			<div class="point-pro-value"><span style="font-size: 2.1rem;">100</span>MB</div>
-        			<p>5000积分</p>
-        		</div>
-        	</div>
-        	<div style="text-align: center;color: #999;padding-top: 0.5rem;" v-if="mobile != null && mobile != ''">手机号:{{mobile}}</div>
+        <div class="point-pro-item flow" :class="point > 5000 ? 'cur' : ''" @click="exchange(3)">
+          <div class="point-pro-title">国内通用流量<br><span>2/3/4G通用</span></div>
+          <div class="point-pro-value"><span style="font-size: 2.1rem;">100</span>MB</div>
+          <p>5000积分</p>
         </div>
+      </div>
+      <div style="text-align: center;color: #999;padding: 0.5rem 0;" v-if="mobile != null && mobile != ''">手机号:{{mobile}}</div>
+    </div>
   </div>
 </template>
 <script>

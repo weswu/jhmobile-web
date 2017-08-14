@@ -14,8 +14,6 @@
     <img src="http://dfwjjingtai.b0.upaiyun.com/upload//j//j2//jihui88//picture//2016//12//23/eb9b5793-d923-45c5-afb7-df25bb0fad0e.jpg" style="width: 100%;"><br>
     第5步：点击清除数据完成
     </p>
-
-
   </div>
 </template>
 <script>

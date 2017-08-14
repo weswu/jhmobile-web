@@ -13,7 +13,7 @@
     <mu-tab v-for="item in tabs" :value="item.value" :title="item.title"/>
   </mu-tabs>
   <template v-for='item in list'>
-    <div class='extend' v-if='item.posterCate === activeTab'>
+    <div class='p10' v-if='item.posterCate === activeTab'>
       <img class='extend_img' :src="item.pic">
       <p class='extend_desc'>{{item.posterDesc}}</p>
       <mu-raised-button label='点击生成,截屏保存图片' @click='saveImg(item)' secondary fullWidth/>
@@ -111,37 +111,9 @@ export default {
 }
 </script>
 <style scoped>
-.extend_tip {
-    background: #f5f5f5;
-    padding: 10px;
-    text-indent: 25px;
-    color: #666;
-    line-height: 1.5;
-    font-size: 0.5rem;
-    font-family: 'Microsoft YaHei',Helvetica,Arial,'WenQuanYi Micro Hei';
-}
-.extend_tip_a {
-    color: #ff7300;
-    padding: 10px 0 5px 0;
-    display: block;
-    font-family: 'Microsoft YaHei',Helvetica,Arial,'WenQuanYi Micro Hei';
-    font-size: 0.6rem;
-}
-.extend{
-    padding: 15px;
-}
-.extend_img {
-    width: 100%;
-}
-.extend_desc {
-    color: #666;
-    padding: 15px 5px;
-}
-.downPic{
-  width: 100vw;
-  position: absolute;
-  left: 0;
-  top: 0;
-  z-index: 9;
-}
+.extend_tip{background:#f5f5f5;padding:10px;text-indent:25px;color:#666;line-height:1.5;font-size:.5rem;font-family:'Microsoft YaHei',Helvetica,Arial,'WenQuanYi Micro Hei'}
+.extend_tip_a{color:#ff7300;padding:10px 0 5px 0;display:block;font-family:'Microsoft YaHei',Helvetica,Arial,'WenQuanYi Micro Hei';font-size:.6rem}
+.extend_img{width:100%}
+.extend_desc{color:#666;padding:15px 5px}
+.downPic{width:100vw;position:absolute;left:0;top:0;z-index:9}
 </style>

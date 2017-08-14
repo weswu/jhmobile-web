@@ -1,40 +1,18 @@
-@import "../../node_modules/muse-ui/less/vars.less"; // 默认基础的变量
-
-@fontFamily: Roboto, Lato, sans-serif;  // 字体
-// 主色和强调色 ff6214
+ // 默认基础变量
+@import "../../node_modules/muse-ui/less/vars.less";
+// 改变基础变量
 @primaryColor: #ff6214;           // 主色
 @darkerPrimaryColor: #ff6214;  // 更深的主色
 @lighterPrimaryColor: @grey400;      // 浅一点的主色
 @accentColor: #ff6214;             // 强调色
-@darkerAccentColor: @grey100;        // 更深的强调色
-@lighterAccentColor: @grey500;       // 浅一点的强调色
-
-// 文本颜色
-@textColor: @darkBlack;
-@secondaryTextColor: fade(@fullBlack, 54%);
-@alternateTextColor: @white;
-@borderColor: fade(@fullBlack, 12%);
-@disabledColor: fade(@fullBlack, 38%);
-
-// background
-@backgroundColor: @white;           // 背景色
-@statusBarBackgroundColor: @grey300; // web项目没有状态栏，所以也没有使用
-@appbarBackgroundColor: @grey100; // 并未在appbar组件中应用
-@dialogBackgroundColor: @white; // dialogs、 cards、 paper 组件背景
-
-// icon color
-@activeIconColor: fade(@fullBlack, 54%);
-@inActiveIconColor: fade(@fullBlack, 38%);
 
 @import "../../node_modules/muse-ui/less/theme-vars.less";  // 默认组件变量
 @import "../../node_modules/muse-ui/less/theme.less"; // 主题相关的样式
+@appbarColor: #fafafa;
+@appbarTextColor: #4d4d4d;
 
 // 自定义全局css
-
-body, html,#app {
-    width: 100%;
-    height: 100%;
-  }
+#app,body,html{width:100%;height:100%}
 dd,dl,h1,h2,h3,h4,h5,li,p,ul{margin:0;padding:0}
 li{list-style-type:none}
 img{vertical-align:middle}
@@ -42,14 +20,16 @@ em{font-style:normal}
 .fl{float:left}
 .fr{float:right}
 .clr{clear: both;}
-.red{color:red;font-style:normal}
 .pt10{padding-top:10px}
 .p20{padding:20px}
 .p10{padding:10px}
 .mbfixed{margin-bottom:36px}
 .hr{background:#f5f5f5;border:none;height:12px;margin:0}
 .font14{font-size: 14px}
+.font16{font-size: 16px}
+.red{color:red;font-style:normal}
 .c0034d1{color: #0034d1;}
+.orange{color:#ff7300}
 .c666{color: #666}
 .c000{color: #000}
 .titlef5{background:#f5f5f5;padding:.4rem .5rem;color:#000;font-weight:600;font-size:12px}
@@ -61,10 +41,6 @@ em{font-style:normal}
     position: fixed; z-index: 4;
   }
 }
-.mu-appbar{
-  background-color: #fafafa;
-  color: #4d4d4d;
-}
 .mu-appbar-title.center {
   text-align: center;
 }
@@ -73,56 +49,38 @@ em{font-style:normal}
     height: 65px
   }
 }
-.wu-infinite-container {
-  overflow: auto;
-  height: 100vh;
-  -webkit-overflow-scrolling: touch;
-}
 // 列表数量
-.appbar-count{
-  font-size:16px;padding-left:5px
-}
+.wu-infinite-container{overflow:auto;height:100vh;-webkit-overflow-scrolling:touch}
+.appbar-count{font-size:16px;padding-left:5px}
+
 // 图片上传
 .file-button{position:absolute;left:0;right:0;top:0;bottom:0;opacity:0}
 // ios7 兼容
-.mu-buttom-item{
-  min-width: 75px;
-}
-.mu-item-title-row{
-  display: inline;
-  display: -webkit-flex;
-  display: flex;
-}
+.mu-buttom-item{min-width:75px}
+.mu-item-title-row{display:inline;display:-webkit-flex;display:flex}
 .status .mu-item-title{float: left;}
 .status .mu-item-after{float: right;line-height: 1.2;}
 // mu 列表
 .subContent{font-size:12px;color:#999;overflow:hidden}
 .subContent span{padding-left:10px}
-
-.wu-list-content-pl10 .mu-item.show-left{
-  padding-left: 52px;
-}
-.wu-list-content-pl10 .mu-item.show-right{
-  padding-right: 76px;
-}
+// 向左边移动10px
+.wu-list-content-pl10 .mu-item.show-left{padding-left:52px}
+.wu-list-content-pl10 .mu-item.show-right{padding-right:76px}
+// 右边加大宽度
 .wu-item-right{position: absolute;right: 28px;top: 14px;color: #757575;}
-.mu-grid-tile-title{font-size: 12px;}
-// 服务缴费
-.mu-item-left65 .mu-item-left {
-    width: 65px;
-}
-.servicePay .mu-item-right{
-    width: 60px;
-}
-.servicePay .complete {
-  color: #F57527;
-}
-.servicePay .mu-item-text {
-  max-height: 52px !important;
-}
 
-// 按钮
-button.fixed{position:fixed;bottom:0;left:0;width:100%;border-radius:0;z-index: 999;}
+.member-list .mu-item{padding:10px}
+.mu-grid-tile-title{font-size: 12px;}
+.mu-item-left, .mu-item-right{max-height: 3.6rem;}
+// 服务缴费
+.mu-item-left65 .mu-item-left{width:65px}
+.servicePay .mu-item-right{width:60px}
+.servicePay .complete{color:#F57527}
+.servicePay .mu-item-text{max-height:52px!important}
+
+// 浮动按钮
+button.fixed,.mu-raised-button.fixed{position:fixed;bottom:0;left:0;width:100%;border-radius:0;z-index: 999;}
+
 // 背景黑色
 .search-mask {
   z-index: 8;
@@ -132,19 +90,11 @@ button.fixed{position:fixed;bottom:0;left:0;width:100%;border-radius:0;z-index: 
   width: 100%;
   display: none;
 }
-// 分类
-.cate_right{
-  position: fixed;
-  top: 4px;
-  right: 0;
-  z-index: 999;
-}
-.cate_active{
-  background: #ff5241;
-}
-.cate_active .mu-menu-item-wrapper{
-  color: #fff
-}
+// 案例分类
+.cate_right{position:fixed;top:4px;right:0;z-index:999}
+.cate_active{background:#ff5241}
+.cate_active .mu-menu-item-wrapper{color:#fff}
+
 // 左滑删除
 .swipeleft{transform:translateX(-20%)}
 .wrap{
@@ -177,24 +127,14 @@ button.fixed{position:fixed;bottom:0;left:0;width:100%;border-radius:0;z-index: 
 .label-act .title h1{font-size:.7rem;width:100%}
 .label-act .title h2{font-size:.7rem;width:100%;color:#666;margin:0;font-weight:400}.label-act .sub{color:#999;font-size:.6rem}.label-act .arrow{line-height:.067rem;color:#aaa;width:.9rem}.label-act .arrow span{font-size:.9rem}
 
-.mu-item-left, .mu-item-right{max-height: 3.6rem;}
 
 // 左边图片60px
 .wu-list .mu-item-left{width: 60px}
 .wu-list .mu-item-content{padding-left: 10px;}
 .wu-list img{width: 60px;}
 // 表单
-.wu-radio .mu-radio-icon {
-    margin-right: 5px;
-}
-.wu-radio .w-radio{
-  font-size: 14px;padding-right: 10px;
-}
-// 按钮
-.fixed-raised-button{
-  position: fixed;
-  bottom: 0;left: 0;margin-top: 2.4rem;
-}
+.wu-radio .mu-radio-icon{margin-right:5px}
+.wu-radio .w-radio{font-size:14px;padding-right:10px}
 
 // 切换
 .view-tabs {
@@ -207,22 +147,6 @@ button.fixed{position:fixed;bottom:0;left:0;width:100%;border-radius:0;z-index: 
     color: @primaryColor;
   }
 }
-
-// 列表
-.item-list{overflow:hidden;background:#fff}
-.item-list dl{overflow:hidden;border-bottom:1px solid #EFEFEF}
-.item-list dd{display:inline-block;float:left;width:50%;box-sizing:border-box;padding:.5rem .2rem;overflow:hidden;text-overflow:ellipsis}
-
-.item-list .item-row-7{width:70%}
-.item-list .item-row-6{width:60%}
-.item-list .item-row-5-5{width:55%}
-.item-list .item-row-5{width:50%}
-.item-list .item-row-4{width:40%}
-.item-list .item-row-3{width:30%}
-.item-list .item-row-2-5{width:25%}
-.item-list .item-row-2{width:20%}
-.item-list .item-row-1-5{width:15%}
-.item-list .item-row-1{width:10%}
 
 // 订单
 .order_list dl{padding:.8rem .5rem .5rem .5rem;overflow:hidden;border-top:.6rem solid #f5f5f5;border-bottom:.05rem solid #eee}
@@ -240,7 +164,6 @@ button.fixed{position:fixed;bottom:0;left:0;width:100%;border-radius:0;z-index: 
 .order_list button.orange_font{border-color:#ff7300;color:#ff7300}
 .order_list dl:first-child{border-top:0 none}
 .order_list dl:last-child{border-bottom:0 none}
-.orange{color:#ff7300}
 .order_detail{background:#f5f5f5;padding-bottom:2.5rem}
 .order_detail_header{padding:.5rem;background:#fff}
 .order_detail_title{border-bottom:.05rem solid #eee;padding:.5rem 0;font-size:.7rem}
@@ -312,10 +235,6 @@ button.fixed{position:fixed;bottom:0;left:0;width:100%;border-radius:0;z-index: 
 @media (min-width:480px){
   .header-search{top: 65px}
 }
-// 动画
-.fade-enter-active, .fade-leave-active {
-  transition: opacity .5s
-}
-.fade-enter, .fade-leave-active {
-  opacity: 0
-}
+// 动画-搜索
+.fade-enter-active,.fade-leave-active{transition:opacity .5s}
+.fade-enter,.fade-leave-active{opacity:0}

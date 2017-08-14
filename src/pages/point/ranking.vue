@@ -5,48 +5,42 @@
         <mu-icon-button icon='arrow_back' @click='back'  slot='left'/>
       </mu-appbar>
     </div>
-    <div class="app-content">
-      <div class="item-list">
-		    <dl>
-		        <dd class="item-row-1-5">名次</dd>
-		        <dd class="item-row-6">企业</dd>
-		        <dd class="item-row-2-5">积分</dd>
-		    </dl>
-			  <dl v-for="item,index in list">
-		        <dd class="item-row-1-5">{{index + 1}}</dd>
-		        <dd class="item-row-6">{{item.integralRecordDesc}}</dd>
-		        <dd class="item-row-2-5">{{item.useable}}&nbsp;分</dd>
-			  </dl>
-		  </div>
-      <div class="hr"></div>
-      <a href="javascript:;" class="view-more" @click="more" v-if="page < 5">查看更多</a>
-      <div class="hr"></div>
-      <mu-list>
-        <mu-list-item>
-          <div slot='title'>
-            <div style="font-size: 18px;">
-              大数据显示
-            </div>
+    <mu-list>
+      <template v-for='item,index in list'>
+        <mu-list-item :title="item.integralRecordDesc">
+          <div slot="left">
+            {{index+1}}
           </div>
-        </mu-list-item>
-        <mu-list-item>
-          <div slot='title'>
-             您当前的排行：第<span class="number">{{point.rank}}</span>名
-          </div>
-          <div class="wu-item-right">
-            共{{point.point}}积分
+          <div slot='right'>
+            {{item.useable}}&nbsp;分
           </div>
         </mu-list-item>
         <mu-divider/>
-        <mu-list-item>
-          <div slot='title'>
-             已经击败了<span class="number">{{number}}%</span>的同道
-          </div>
-        </mu-list-item>
-        <mu-divider/>
-      </mu-list>
-    </div>
-
+      </template>
+    </mu-list>
+    <div class="hr"></div>
+    <a href="javascript:;" class="view-more" @click="more" v-if="page < 5">查看更多</a>
+    <div class="hr"></div>
+    <mu-list>
+      <mu-list-item>
+        <div slot='title' style="font-size: 18px;">大数据显示</div>
+      </mu-list-item>
+      <mu-list-item>
+        <div slot='title'>
+           您当前的排行：第<span class="number">{{point.rank}}</span>名
+        </div>
+        <div class="wu-item-right">
+          共{{point.point}}积分
+        </div>
+      </mu-list-item>
+      <mu-divider/>
+      <mu-list-item>
+        <div slot='title'>
+           已经击败了<span class="number">{{number}}%</span>的同道
+        </div>
+      </mu-list-item>
+      <mu-divider/>
+    </mu-list>
   </div>
 </template>
 <script>
@@ -92,14 +86,6 @@ export default {
 }
 </script>
 <style scoped>
-.view-more {
-    color: #666;
-    text-align: center;
-    padding: 0.5rem;
-    display: block;
-}
-.number {
-    color: #ff7300;
-    padding: 0 0.3rem;
-}
+.view-more{color:#666;text-align:center;padding:.5rem;display:block}
+.number{color:#ff7300;padding:0 .3rem}
 </style>

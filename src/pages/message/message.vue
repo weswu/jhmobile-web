@@ -10,7 +10,8 @@
       </mu-appbar>
     </div>
     <mu-list>
-      <div v-for='item,index in list' :class="[{swipeleft: isSwipe[index]},'wrap']" ref="child">
+      <div v-for='item,index in list' class="wrap" :class="{swipeleft: isSwipe === index}"
+      @touchstart="touchstart($event, item)" @touchmove="touchmove($event, item, index)">
         <mu-list-item :title='item.title' :to="{name: 'messageDetail',params: { id: item.id}}" class="list-item">
           <div class="subContent">
             {{item.addTime}}
@@ -44,7 +45,7 @@ export default {
         pageSize: 10,
         recvState: ''
       },
-      isSwipe: [false, false, false]
+      isSwipe: ''
     }
   },
   beforeRouteEnter (to, from, next) {
@@ -56,7 +57,6 @@ export default {
         recvState: vm.$route.params.recvState || ''
       }
       vm.get()
-      vm.delStyle()
     })
   },
   mounted () {
@@ -76,6 +76,22 @@ export default {
     loadMore () {
       this.refresh && this.get()
     },
+    // 左侧删除
+    touchstart (e, item) {
+      item.x = e.changedTouches[0].pageX
+      item.y = e.changedTouches[0].pageY
+    },
+    touchmove (e, item, index) {
+      e.preventDefault()
+      item.X = e.changedTouches[0].pageX
+      item.Y = e.changedTouches[0].pageY
+      if (item.X - item.x > 10) {
+        this.isSwipe = ''
+      }
+      if (item.x - item.X > 10) {
+        this.isSwipe = index
+      }
+    },
     // 删除信息
     del (id) {
       this.$http.delete('/rest/api/message/detail/' + id).then((res) => {})
@@ -86,51 +102,10 @@ export default {
           arr.splice(index, 1)
         }
       })
-    },
-    delStyle () {
-      setTimeout(() => {
-        // 判断是否存在信息列表
-        if (this.$refs.child) {
-          this.$refs.child.forEach((element, index) => {
-            let x, y, X, Y, swipeX, swipeY
-            // 监听touchstart
-            element.addEventListener('touchstart', e => {
-              x = e.changedTouches[0].pageX
-              y = e.changedTouches[0].pageY
-              swipeX = true
-              swipeY = true
-              this.isSwipe = [false, false, false]
-            })
-            element.addEventListener('touchmove', e => {
-              X = event.changedTouches[0].pageX
-              Y = event.changedTouches[0].pageY
-              if (swipeX && Math.abs(X - x) - Math.abs(Y - y) > 0) {
-                // 阻止默认事件
-                e.stopPropagation()
-                // 右滑
-                if (X - x > 10) {
-                  e.preventDefault()
-                  this.isSwipe.splice(index, 1, false)
-                }
-                if (x - X > 10) {
-                  e.preventDefault()
-                  this.isSwipe.splice(index, 1, true)
-                }
-                swipeY = false
-              }
-              if (swipeY && Math.abs(X - x) - Math.abs(Y - y) < 0) {
-                swipeX = false
-              }
-            })
-          })
-        }
-      }, 1000)
     }
   }
 }
 </script>
 <style scoped>
-.mu-td-left{width:65px}
-.mu-td-right{width:120px}
 .recvState{color:#ff7300;padding-left:10px}
 </style>

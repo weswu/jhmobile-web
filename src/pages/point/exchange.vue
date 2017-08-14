@@ -14,22 +14,20 @@
           </a>
        </div>
     </section>
-    <div class="item-list">
-      <dl>
-        <dd class="item-row-3">时间</dd>
-        <dd class="item-row-2">消费积分</dd>
-        <dd class="item-row-3">商品</dd>
-        <dd class="item-row-2">状态</dd>
-		  </dl>
-      <dl v-for="item in list">
-          <dd class="item-row-3">{{item.addTime | time('yyyy-MM-dd hh:mm')}}</dd>
-          <dd class="item-row-2 number">{{item.out}}</dd>
-          <dd class="item-row-3">{{item.integralRecordDesc}}</dd>
-          <dd class="item-row-2">
-            <span v-if="item.state===1">处理中</span><span v-if="item.state===2">交易完成</span>
-          </dd>
-      </dl>
-		</div>
+    <mu-list>
+      <template v-for='item in list'>
+        <mu-list-item :title="item.integralRecordDesc">
+          <span slot='describe'>
+            {{item.addTime | time('yyyy-MM-dd hh:mm')}}
+            <span class="orange" v-if="item.state===1">处理中</span><span v-if="item.state===2">交易完成</span>
+          </span>
+          <div slot='right' class="orange">
+            {{item.out}}
+          </div>
+        </mu-list-item>
+        <mu-divider/>
+      </template>
+    </mu-list>
     <div v-if="busy" style="text-align: center;padding: .5rem 0;">暂无消费记录</div>
     <mu-infinite-scroll :scroller='scroller' :loading='loading' @load='loadMore'/>
   </div>
@@ -47,7 +45,8 @@ export default {
       list: [],
       searchData: {
         page: 1,
-        pageSize: 8
+        pageSize: 8,
+        productId: 1
       }
     }
   },
@@ -77,14 +76,11 @@ export default {
 }
 </script>
 <style scoped>
-.poing-section{    color: #fff;background: #ff7300;
+.poing-section{color: #fff;background: #ff7300;
    background: -moz-linear-gradient(left,#ea3062,#f8386b 30%,#ea3062);
    background: -webkit-gradient(linear,left top,right top,from(rgba(253,114,0,.93)),color-stop(.3,#ff7300),to(#ff6a00));
    background: -webkit-linear-gradient(left,rgba(253,114,0,.93),#ff7300 30%,#ff6a00);
    background: -o-linear-gradient(left,rgba(253,114,0,.93),#ff7300 30%,#ff6a00);}
 .poing-section .label-act .title h2,.label-act .sub {color: #fff;}
 .label-act .title h2 span{font-size: 0.5rem;}
-.number{color: #ff7300;font-size: 0.65rem;}
-.icon-tishi {font-size: 0.7rem;}
-.data-tip{text-align: center;line-height: 3rem;color: #999;display:none}
 </style>

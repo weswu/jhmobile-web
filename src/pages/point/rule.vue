@@ -1,11 +1,11 @@
 <template>
-  <div>
+  <div class="rule">
     <div class="fixed-bar">
       <mu-appbar title="积分规则是什么？">
         <mu-icon-button icon='arrow_back' @click='back'  slot='left'/>
       </mu-appbar>
     </div>
-    <div class="app-content">
+    <div class="p10">
       <p style="padding-top: 0.7rem;">1、积分专属机汇网，仅限机汇网内使用；</p>
       <p>2、在机汇网后台、微信公众号【机汇网络】和APP进行以下操作时，均可获得积分；</p>
       <table border="1" cellpadding="0" cellspacing="0">
@@ -90,27 +90,9 @@ export default {
 }
 </script>
 <style scoped>
-.app-content{padding-left:5px;padding-right:5px}
-.app-content p{padding:5px 0}
-table {
-    width: 100%;
-    margin: 10px 0;
-    border-spacing: 0;
-    border-collapse: collapse;
-    background-color: #fff;
-    border: 1px solid #ddd;
-}
-table td{
-    line-height: 22px;    padding: 5px 0;text-align:center
-}
-.firstRow{
-color: #000;
-    font-size: 0.7rem;}
-
-.btn-a{background: #ff6000;
-    color: #fff;
-    display: inline-block;
-    margin: 0.5rem;
-    padding: 0.41rem 2rem;
-    border-radius: 0.2rem;font-size: 0.7rem;}
+.rule p{padding:5px 0}
+table{width:100%;margin:10px 0;border-spacing:0;border-collapse:collapse;background-color:#fff;border:1px solid #ddd;font-size:.65rem;color:#666}
+table td{line-height:22px;padding:5px 0;text-align:center}
+.firstRow{color:#000;font-size:.7rem}
+.btn-a{background:#ff6000;color:#fff;display:inline-block;margin:.5rem;padding:.41rem 2rem;border-radius:.2rem;font-size:.7rem}
 </style>

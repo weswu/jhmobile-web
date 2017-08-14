@@ -56,7 +56,7 @@
       <div v-if='busy2' style='text-align: center;padding: .5rem 0;'>暂无数据</div>
     </div>
     <mu-circular-progress :size="60" :strokeWidth="4" v-if="loading" style="margin: 0 auto;display: flex;"/>
-    <mu-raised-button label='我要服务反馈' href='#/service_feedback' class='fixed-raised-button' secondary fullWidth/>
+    <mu-raised-button label='我要服务反馈' href='#/service_feedback' class='fixed' secondary fullWidth/>
   </div>
 </template>
 <script>

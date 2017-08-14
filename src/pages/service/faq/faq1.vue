@@ -1,7 +1,7 @@
 <template>
   <div>
     <mu-appbar title='7步启动全网营销系统'>
-      <mu-icon-button icon='arrow_back' @click='back'  slot='left'/>
+      <mu-icon-button icon='arrow_back' @click='back' slot='left'/>
     </mu-appbar>
     <p style="padding: 20px; line-height: 2;">
     第1步：第1时间提交域名、备案信息（负责人：机汇网客服）<br>
@@ -12,8 +12,6 @@
     第6步：网站开通<br>
     第7步：搜索引擎批量提交并做好站点统计
     </p>
-
-
   </div>
 </template>
 <script>
