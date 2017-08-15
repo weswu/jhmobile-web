@@ -54,7 +54,7 @@ export default {
       } else {
         this.$http.post('/rest/api/link/detail', qs.stringify(this.link)).then((res) => {
           this.$parent.$refs.loading.hide()
-          window.alert('发布成功')
+          window.alert('添加成功')
           this.$router.back()
         })
       }

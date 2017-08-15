@@ -93,14 +93,14 @@ export default {
       this.$parent.$refs.loading.show()
       if (this.$route.params.id) {
         this.$http.put('/rest/api/cert/detail/' + this.$route.params.id + '?' + qs.stringify(this.model)).then((res) => {
-          this.h$parent.$refs.loading.hide()
+          this.$parent.$refs.loading.hide()
           window.alert('修改成功')
           this.$router.back()
         })
       } else {
         this.$http.post('/rest/api/cert/detail', qs.stringify(this.model)).then((res) => {
           this.$parent.$refs.loading.hide()
-          window.alert('发布成功')
+          window.alert('添加成功')
           this.$router.back()
         })
       }

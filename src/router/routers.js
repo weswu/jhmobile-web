@@ -114,7 +114,11 @@ const routers = new VueRouter({
   { path: '/message/:id', name: 'messageDetail', component: require('../pages/message/messageDetail') },
   // 会员
   { path: '/member', component: require('../pages/member/memberList') },
+  { path: '/memberAdd', component: require('../pages/member/memberDetail') },
   { path: '/member/:id', component: require('../pages/member/memberDetail') },
+  { path: '/memberRank', component: require('../pages/member/memberRank') },
+  { path: '/memberRankAdd', component: require('../pages/member/memberRankDetail') },
+  { path: '/memberRank/:id', component: require('../pages/member/memberRankDetail') },
   // setting
   { path: '/setting', component: require('../pages/setting/setting') },
   { path: '/account', component: require('../pages/setting/account') },

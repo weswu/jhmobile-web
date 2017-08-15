@@ -27,7 +27,7 @@
         <div style="color: #f60;">
           【注】本代码从工商红盾网站里的“获取代码”按钮处获取
         </div>
-        <mu-text-field hintText="请输入获取到的代码" v-model="enterprise.gsbsZym" fullWidth multiLine :rows="8" :rowsMax="10" fullWidth/>
+        <mu-text-field hintText="请输入获取到的代码" v-model="enterprise.gsbsZym" fullWidth multiLine :rows="8" :rowsMax="10"/>
         <mu-raised-button label="提交" @click="submit('3')" secondary fullWidth/>
       </div>
       <div v-if="activeTab === '3'">

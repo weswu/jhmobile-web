@@ -13,13 +13,15 @@ const state = {
     user: {},
     userInfo: {},
     enterprise: {},
-    point: {}
+    point: {},
+    memberRank: []
   },
   getters: {
     user: state => state.user,
     userInfo: state => state.userInfo,
     enterprise: state => state.enterprise,
-    point: state => state.point
+    point: state => state.point,
+    memberRank: state => state.memberRank
   },
   mutations: {
     setUser (state, user) {

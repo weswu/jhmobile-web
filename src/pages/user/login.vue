@@ -1,6 +1,6 @@
 <template>
   <div>
-    <mu-appbar title="机汇网会员登录" titleClass="center">
+    <mu-appbar title="机汇网会员登录" style="text-align: center;padding-left: 60px;">
       <mu-flat-button href="#/signup" label="注册" slot="right"/>
     </mu-appbar>
     <div class="p20">

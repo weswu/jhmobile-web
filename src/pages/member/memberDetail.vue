@@ -1,12 +1,12 @@
 <template>
   <div>
     <div class="fixed-bar">
-      <mu-appbar title='会员修改'>
+      <mu-appbar :title='name'>
         <mu-icon-button icon='arrow_back' @click='back' slot='left'/>
       </mu-appbar>
     </div>
-    <div class='p10'>
-      <mu-list>
+    <div class='p10 mbfixed'>
+      <mu-list v-if="$route.params.id != null">
         <mu-list-item title="账号">
           <div class="wu-item-right">
             {{member.username}}
@@ -14,17 +14,19 @@
         </mu-list-item>
         <mu-divider/>
       </mu-list>
+      <mu-text-field v-else label='账号' hintText='请输入账号' v-model='member.username' fullWidth/>
       <mu-text-field label='昵称' hintText='请输入昵称' v-model='member.name' fullWidth/>
       <mu-text-field label='密码' v-model='member.password' fullWidth/>
       <mu-text-field label='E-mail' hintText='请输入E-mail' v-model='member.email' fullWidth/>
       <mu-text-field label='积分' hintText='请输入积分' v-model='member.point' fullWidth/>
       <mu-text-field label='预存款' hintText='请输入预存款' v-model='member.deposit' fullWidth/>
+
       <p>是否启用</p>
-      <mu-radio name="isaccountEnabled" nativeValue="00" v-model="member.isaccountEnabledisaccountEnabled" label="启用" class="wu-radio"/>
+      <mu-radio name="isaccountEnabled" nativeValue="00" v-model="member.isaccountEnabled" label="启用" class="wu-radio"/>
       <mu-radio name="isaccountEnabled" nativeValue="01" v-model="member.isaccountEnabled" label="关闭" class="wu-radio"/>
     </div>
     <div class="hr"></div>
-    <mu-list class="mbfixed">
+    <mu-list class="mbfixed" v-if="$route.params.id != null">
       <mu-list-item title="注册时间">
         <div class="wu-item-right">
           {{member.addTime}}
@@ -46,6 +48,7 @@ import qs from 'qs'
 export default {
   data () {
     return {
+      name: '会员',
       member: {},
       categoryList: []
     }
@@ -62,10 +65,17 @@ export default {
     },
     get () {
       if (this.$route.params.id) {
+        this.name = '会员修改'
         this.$http.get('/rest/api/member/detail/' + this.$route.params.id).then((res) => {
           this.member = res.data.attributes.data
           this.member.password = ''
         })
+      } else {
+        this.name = '会员添加'
+        this.member = {
+          isaccountEnabled: '01',
+          memberrankId: '4028818f4ac894bd014ac89d5bbc0002'
+        }
       }
     },
     submit () {
@@ -79,10 +89,22 @@ export default {
         memberrankId: this.member.memberrankId,
         isaccountEnabled: this.member.isaccountEnabled
       }
-      this.$http.put('/rest/api/member/detail/' + this.member.id + '?' + qs.stringify(this.model)).then((res) => {
-        window.alert('修改成功')
-        this.$router.back()
-      })
+      if (this.$route.params.id) {
+        this.$parent.$refs.loading.show()
+        this.$http.put('/rest/api/member/detail/' + this.member.id + '?' + qs.stringify(this.model)).then((res) => {
+          this.$parent.$refs.loading.hide()
+          window.alert('修改成功')
+          this.$router.back()
+        })
+      } else {
+        if (!this.member.password) { return window.alert('密码不能为空') }
+        this.$parent.$refs.loading.show()
+        this.$http.post('/rest/api/member/detail', qs.stringify(this.member)).then((res) => {
+          this.$parent.$refs.loading.hide()
+          window.alert('添加成功')
+          this.$router.back()
+        })
+      }
     }
   }
 }
