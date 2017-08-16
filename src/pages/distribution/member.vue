@@ -137,13 +137,13 @@ export default {
 .member-list p,.member-list span{line-height:1rem;font-size:.5rem}
 .member-list span{color:#999}
 /***************分页******************/
-.fenye{background:#f7f7f7;padding:.37rem 0 .35rem 0;position:fixed;bottom:0;width:100%;z-index:9900;border-top:.05rem solid #e1e1e1}
-.fenye .fenye-ul{display:-moz-box;display:-webkit-box;display:-webkit-flex;display:-moz-flex;display:-ms-flexbox;display:-ms-flex;display:flex}
+.fenye{background:#f7f7f7;padding:.37rem 0 .35rem 0;position:fixed;bottom:0;width:100vw;z-index:9900;border-top:.05rem solid #e1e1e1}
+.fenye .fenye-ul{width:100vw;display:-moz-box;display:-webkit-box;display:-webkit-flex;display:-moz-flex;display:-ms-flexbox;display:-ms-flex;display:flex}
 .fenye ul li.fenye-li{float:left;padding:.4rem 0;border:1px solid #ccc;cursor:pointer;color:#999;-webkit-box-flex:1;-moz-box-flex:1;-webkit-flex:1 1 0%;-moz-flex:1 1 0;-ms-flex:1 1 0%;flex:1 1 0%;text-align:center}
 .fenye ul li a{ color:#999;}
 .fenye ul li.xifenye{ width:1.8rem; text-align:center; float:left; position:relative;cursor: pointer;}
 .fenye ul li .xab{box-sizing: border-box;
- position:absolute;  border:1px solid #ccc; height:40vh; overflow-y: auto;overflow-x: hidden;top:-40vh; background-color: #fff; display:inline;left:0px; width:100%;}
+ position:absolute;  border:1px solid #ccc; height:30vh; overflow-y: auto;overflow-x: hidden;top:-30vh; background-color: #fff; display:inline;left:0px; width:100%;}
 .fenye ul li .xab ul{ margin-left:0; padding-bottom:0;}
 .fenye ul li .xab ul li{ border:0; padding:0.2rem 0px; color:#999; width:2rem; margin-left:0px; text-align:center;}
 .fenye ul li#down,.fenye ul li#top{border-left:none;border-right:none}

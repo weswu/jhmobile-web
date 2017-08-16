@@ -21,7 +21,6 @@
   </div>
 </template>
 <script>
-import qs from 'qs'
 export default {
   data () {
     return {
@@ -40,16 +39,13 @@ export default {
       var ctx = this
       if (this.username === '') { return false }
       if (this.$parent.$refs.loading) {this.$parent.$refs.loading.show()}
-      this.$http.post('/rest/api/user/login', qs.stringify({
-        username: this.username,
-        password: this.password
-      })).then((res) => {
+      this.$http.post('/rest/api/user/login?username=' + this.username + '&password=' + this.password).then((res) => {
         ctx.$parent.$refs.loading.hide()
         ctx.$cookie.set('username', ctx.username)
         ctx.$cookie.set('password', ctx.password)
         ctx.$store.state.user = res.data.attributes.data
         ctx.$router.push({path: '/main/home'})
-      }).catch((result) => {
+      }).catch((err) => {
         ctx.$parent.$refs.loading.hide()
       })
     }

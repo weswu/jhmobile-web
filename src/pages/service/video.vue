@@ -46,6 +46,6 @@ export default {
 <style scoped>
   iframe{
     border:none;
-    transition: all .5s ease;
+    transition: all .3s ease;
   }
 </style>

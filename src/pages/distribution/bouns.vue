@@ -1,7 +1,7 @@
 <template>
   <div class="wu-infinite-container">
     <mu-list-item title="会员信息">
-      <div slot='after' class="font16 c000">提现信息</div>
+      <div class="wu-item-right font16"><span class="c000">提现信息</span></div>
     </mu-list-item>
     <mu-divider/>
     <mu-list class="member-list">
