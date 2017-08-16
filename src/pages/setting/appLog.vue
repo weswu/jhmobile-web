@@ -1,7 +1,7 @@
 <template>
   <div>
     <mu-appbar title='更新记录'>
-      <mu-icon-button icon='arrow_back' @click='back'  slot='left'/>
+      <mu-icon-button icon='arrow_back' @click='$router.back()'  slot='left'/>
     </mu-appbar>
     <section class="section">
       <div class="title">机汇网App 1.2.0 功能介绍</div>
@@ -22,15 +22,6 @@
 
   </div>
 </template>
-<script>
-export default {
-  methods: {
-    back () {
-      this.$router.back()
-    }
-  }
-}
-</script>
 <style scoped>
 .section .title {
     padding: 0.5rem;

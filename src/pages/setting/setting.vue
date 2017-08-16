@@ -2,7 +2,7 @@
   <div>
     <div class="fixed-bar">
       <mu-appbar title="设置">
-        <mu-icon-button icon='arrow_back' @click='back' slot='left'/>
+        <mu-icon-button icon='arrow_back' @click='$router.back()' slot='left'/>
       </mu-appbar>
     </div>
     <mu-list>
@@ -43,15 +43,16 @@
 <script>
 export default {
   methods: {
-    back () {
-      this.$router.back()
-    },
     signout () {
       var ctx = this
       this.$parent.$refs.loading.show()
       this.$http.get('/rest/api/user/logout').then((res) => {
         ctx.$parent.$refs.loading.hide()
-        ctx.$store.state.user = null
+        // 清空数据
+        ctx.$store.commit('setUser', {})
+        ctx.$store.commit('setUserInfo', {})
+        ctx.$store.commit('setEnterprise', {})
+        ctx.$store.commit('setMemberRankList', [])
         ctx.$router.push({path: '/login'})
       })
     }

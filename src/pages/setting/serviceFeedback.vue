@@ -2,7 +2,7 @@
   <div>
     <div class="fixed-bar">
       <mu-appbar title="我的服务反馈">
-        <mu-icon-button icon='arrow_back' @click='back' slot='left'/>
+        <mu-icon-button icon='arrow_back' @click='$router.back()' slot='left'/>
       </mu-appbar>
     </div>
     <div class="p10">
@@ -37,9 +37,6 @@ export default {
     }
   },
   methods: {
-    back () {
-      this.$router.back()
-    },
     submit () {
       if (this.sf.fdbk_subject64 === '') {
         window.alert('主题不能为空')

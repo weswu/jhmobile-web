@@ -2,7 +2,7 @@
   <div>
     <div class="fixed-bar">
       <mu-appbar title="账号资料">
-        <mu-icon-button icon='arrow_back' @click='back' slot='left'/>
+        <mu-icon-button icon='arrow_back' @click='$router.back()' slot='left'/>
       </mu-appbar>
     </div>
     <div class="p10 mbfixed">
@@ -54,9 +54,6 @@ export default {
         })
       }
     },
-    back () {
-      this.$router.back()
-    },
     submit () {
       if (this.errorTextName !== '' || this.errorTextName !== '' || this.errorTextName !== '') {
         window.alert('完善数据')
@@ -65,7 +62,7 @@ export default {
       this.$parent.$refs.loading.show()
       this.$http.put('/rest/api/user/detail?' + qs.stringify(this.user)).then((res) => {
         this.$parent.$refs.loading.hide()
-        this.$store.state.user = this.user
+        this.$store.commit('setUser', this.user)
         window.alert('操作成功')
       })
     },

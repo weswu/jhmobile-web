@@ -2,7 +2,7 @@
   <div class="order">
     <div class="fixed-bar">
       <mu-appbar title="订单管理">
-        <mu-icon-button icon='arrow_back' @click='back'  slot='left'/>
+        <mu-icon-button icon='arrow_back' @click='$router.back()'  slot='left'/>
       </mu-appbar>
     </div>
     <mu-tabs :value="searchData.flag" @change="handleTabChange" class="view-tabs">
@@ -57,9 +57,6 @@ export default {
     this.get()
   },
   methods: {
-    back () {
-      this.$router.back()
-    },
     get () {
       this.$http.get('/rest/api/order/list?' + qs.stringify(this.searchData)).then((res) => {
         this.scrollList(this, res.data)

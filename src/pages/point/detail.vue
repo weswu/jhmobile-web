@@ -2,7 +2,7 @@
   <div class="wu-infinite-container">
     <div class="fixed-bar">
       <mu-appbar title="积分明细">
-        <mu-icon-button icon='arrow_back' @click='back'  slot='left'/>
+        <mu-icon-button icon='arrow_back' @click='$router.back()'  slot='left'/>
         <mu-flat-button href="#/point_exchange" label="切换兑换记录" slot="right"/>
       </mu-appbar>
     </div>
@@ -56,9 +56,6 @@ export default {
     this.scroller = this.$el
   },
   methods: {
-    back () {
-      this.$router.back()
-    },
     get () {
       this.loading = true
       this.$http.get('/rest/api/point/list?' + qs.stringify(this.searchData)).then((res) => {

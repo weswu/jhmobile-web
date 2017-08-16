@@ -2,7 +2,7 @@
   <div class='wu-infinite-container'>
     <div class="fixed-bar">
       <mu-appbar title='友情链接'>
-        <mu-icon-button icon='arrow_back' @click='back' slot='left'/>
+        <mu-icon-button icon='arrow_back' @click='$router.back()' slot='left'/>
         <mu-icon-button icon='add' href='#/linkAdd' slot='right'/>
       </mu-appbar>
     </div>
@@ -46,9 +46,6 @@ export default {
     this.scroller = this.$el
   },
   methods: {
-    back () {
-      this.$router.back()
-    },
     get () {
       this.$http.get('/rest/api/link/list?page=' + this.searchData.page).then((res) => {
         this.scrollList(this, res.data)

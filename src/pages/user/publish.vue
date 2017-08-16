@@ -1,7 +1,7 @@
 <template>
   <div>
     <mu-appbar title='网站静态发布'>
-      <mu-icon-button icon='arrow_back' @click='back'  slot='left'/>
+      <mu-icon-button icon='arrow_back' @click='$router.back()'  slot='left'/>
     </mu-appbar>
     <mu-list>
       <mu-list-item title="发布网站导航页面"  @click='navigationPage'>
@@ -26,9 +26,6 @@
 import jsonp from 'jsonp'
 export default {
   methods: {
-    back () {
-      this.$router.back()
-    },
     navigationPage () {
       if (this.$cookie.get('navigation')) {
         this.$refs.toast.show('5分钟内只可发布一次，请稍后再试')

@@ -1,7 +1,7 @@
 <template>
   <div>
     <mu-appbar title="修改密码">
-      <mu-icon-button icon='arrow_back' @click="back" slot="left"/>
+      <mu-icon-button icon='arrow_back' @click="$router.back()" slot="left"/>
     </mu-appbar>
     <div class="p10">
       <mu-text-field label="当前密码" hintText="请输入当前密码" v-model="password.oldPs" fullWidth/>
@@ -20,9 +20,6 @@ export default {
     }
   },
   methods: {
-    back () {
-      this.$router.back()
-    },
     submit () {
       if (this.password.newPs !== this.password.newPs2) {
         return window.alert('新密码不一致')

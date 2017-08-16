@@ -2,7 +2,7 @@
   <div>
     <div class="fixed-bar">
       <mu-appbar title="企业资料">
-        <mu-icon-button icon='arrow_back' @click='back' slot='left'/>
+        <mu-icon-button icon='arrow_back' @click='$router.back()' slot='left'/>
       </mu-appbar>
     </div>
     <div class="p10 mbfixed">
@@ -73,14 +73,11 @@ export default {
         })
       }
     },
-    back () {
-      this.$router.back()
-    },
     submit () {
       this.$parent.$refs.loading.show()
       this.$http.put('/rest/api/enterprise/detail?' + qs.stringify(this.enterprise)).then((res) => {
         this.$parent.$refs.loading.hide()
-        this.$store.state.enterprise = this.enterprise
+        this.$store.commit('setEnterprise', this.enterprise)
         window.alert('操作成功')
       })
     },

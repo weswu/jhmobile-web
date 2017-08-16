@@ -2,7 +2,7 @@
   <div class="rule">
     <div class="fixed-bar">
       <mu-appbar title="积分规则是什么？">
-        <mu-icon-button icon='arrow_back' @click='back'  slot='left'/>
+        <mu-icon-button icon='arrow_back' @click='$router.back()'  slot='left'/>
       </mu-appbar>
     </div>
     <div class="p10">
@@ -78,9 +78,6 @@ export default {
     this.get()
   },
   methods: {
-    back () {
-      this.$router.back()
-    },
     get () {
       this.$http.get('/rest/api/point_rule/info').then((res) => {
         this.rule = res.data.attributes.data

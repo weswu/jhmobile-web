@@ -2,7 +2,7 @@
   <div>
     <div class="fixed-bar">
       <mu-appbar title='会员等级'>
-        <mu-icon-button icon='arrow_back' @click='back' slot='left'/>
+        <mu-icon-button icon='arrow_back' @click='$router.back()' slot='left'/>
         <mu-icon-button icon='add' href='#/memberRankAdd' slot='right'/>
       </mu-appbar>
     </div>
@@ -41,14 +41,12 @@ export default {
     })
   },
   methods: {
-    back () {
-      this.$router.back()
-    },
     get () {
       this.refresh = false
       this.loading = true
       this.$http.get('/rest/api/member/rank/list').then((res) => {
         this.list = res.data.attributes.data
+        this.$store.commit('setMemberRankList', this.list)
         if (this.list.length === 0) {
           this.busy = true
         }
@@ -84,6 +82,7 @@ export default {
           arr.splice(index, 1)
         }
       })
+      this.$store.commit('setMemberRankList', this.list)
     }
   }
 }

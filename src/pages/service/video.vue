@@ -1,7 +1,7 @@
 <template>
   <div>
     <mu-appbar title='电脑端后台使用教程'>
-      <mu-icon-button icon='arrow_back' @click='back'  slot='left'/>
+      <mu-icon-button icon='arrow_back' @click='$router.back()'  slot='left'/>
     </mu-appbar>
     <mu-list>
       <mu-list-item title="1、后台界面以及网站发布" @click="iframe1 = !iframe1">
@@ -39,11 +39,6 @@ export default {
       iframe2: false,
       iframe3: false,
       iframe4: false
-    }
-  },
-  methods: {
-    back () {
-      this.$router.back()
     }
   }
 }

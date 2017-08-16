@@ -2,7 +2,7 @@
   <div class="servicePay">
     <div class="fixed-bar">
       <mu-appbar title="我的缴费">
-        <mu-icon-button icon='arrow_back' @click='back' slot='left'/>
+        <mu-icon-button icon='arrow_back' @click='$router.back()' slot='left'/>
       </mu-appbar>
     </div>
     <mu-list>
@@ -92,9 +92,6 @@ export default {
     })
   },
   methods: {
-    back () {
-      this.$router.back()
-    },
     check (item, index) {
       for (var it of this.list) {
         it.check = false

@@ -2,7 +2,7 @@
 <div>
   <div class='fixed-bar'>
     <mu-appbar title='参与推广'>
-      <mu-icon-button icon='arrow_back' @click='back' slot='left'/>
+      <mu-icon-button icon='arrow_back' @click='$router.back()' slot='left'/>
     </mu-appbar>
   </div>
   <div class='extend_tip'>
@@ -59,9 +59,6 @@ export default {
     this.get()
   },
   methods: {
-    back () {
-      this.$router.back()
-    },
     get () {
       this.$http.get('/rest/api/poster/list?pageSize=72').then((res) => {
         for (var item of res.data.attributes.data) {

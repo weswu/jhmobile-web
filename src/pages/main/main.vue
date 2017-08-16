@@ -19,12 +19,10 @@
 export default {
   data () {
     return {
-      isloading: true,
       bottomNav: 'home'
     }
   },
   created () {
-    this.get()
     // 当created函数时监测路由信息,防止页面刷新tab高亮错误
     var tmpArr = this.$route.path.split('/')
     if (tmpArr[1] === 'main') {
@@ -45,13 +43,10 @@ export default {
     handleTabChange (val) {
       this.bottomNav = val
       this.$router.push({ path: '/main/' + val })
-    },
-    get () {
     }
   }
 }
 </script>
-
 <style scoped>
 .app-footer{
   position: fixed;

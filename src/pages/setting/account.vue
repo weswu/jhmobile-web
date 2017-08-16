@@ -2,7 +2,7 @@
   <div>
     <div class="fixed-bar">
       <mu-appbar title='账号与安全'>
-        <mu-icon-button icon='arrow_back' @click='back' slot='left'/>
+        <mu-icon-button icon='arrow_back' @click='$router.back()' slot='left'/>
       </mu-appbar>
     </div>
     <div class="titlef5">账号</div>
@@ -32,9 +32,6 @@
 <script>
 export default {
   methods: {
-    back () {
-      this.$router.back()
-    },
     signout () {
       this.$http.get('/rest/api/user/logout').then((res) => {
         this.$store.state.user = null

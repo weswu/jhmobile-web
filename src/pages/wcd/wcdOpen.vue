@@ -1,6 +1,6 @@
 <template>
   <div style="width:100%;height:100%;">
-    <mu-icon-button icon='arrow_back' @click='back' slot='left' style="position: absolute;"/>
+    <mu-icon-button icon='arrow_back' @click='$router.back()' slot='left' style="position: absolute;"/>
     <iframe :src='url+id+end' style="width:100%;height:100%;border:none;"></iframe>
   </div>
 </template>
@@ -17,11 +17,6 @@ export default {
   watch: {
     '$route' (to, from) {
       this.id = to.path.split('/')[2]
-    }
-  },
-  methods: {
-    back () {
-      this.$router.back()
     }
   }
 }

@@ -2,7 +2,7 @@
   <div class='wu-infinite-container'>
     <div class="fixed-bar">
       <mu-appbar title="网站询盘">
-        <mu-icon-button icon='arrow_back' @click='back' slot='left'/>
+        <mu-icon-button icon='arrow_back' @click='$router.back()' slot='left'/>
         <mu-flat-button href="#/messageBind" label="邮箱绑定" slot="right"/>
         <div class='play-title'>
           网站询盘<span class="appbar-count" v-if='count != 0'>({{count}})</span>
@@ -69,9 +69,6 @@ export default {
       this.$http.get('/rest/api/message/list?' + qs.stringify(this.searchData)).then((res) => {
         this.scrollList(this, res.data)
       })
-    },
-    back () {
-      this.$router.back()
     },
     loadMore () {
       this.refresh && this.get()

@@ -1,7 +1,7 @@
 <template>
 <div>
   <mu-appbar title="商城数据">
-    <mu-icon-button icon='arrow_back' @click="back"  slot="left"/>
+    <mu-icon-button icon='arrow_back' @click="$router.back()"  slot="left"/>
   </mu-appbar>
   <div class="hr"></div>
   <mu-list>
@@ -47,9 +47,6 @@ export default {
     this.get()
   },
   methods: {
-    back () {
-      this.$router.back()
-    },
     get () {
       this.$http.get('/rest/api/order/data').then((res) => {
         this.data = res.data.attributes

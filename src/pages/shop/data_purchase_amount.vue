@@ -2,7 +2,7 @@
   <div>
     <div class='fixed-bar'>
       <mu-appbar>
-        <mu-icon-button icon='arrow_back' @click="back" slot="left"/>
+        <mu-icon-button icon='arrow_back' @click="$router.back()" slot="left"/>
         <div class='play-title'>
           客户购买金额排行<span style='font-size:16px;padding-left:5px' v-show='count'>({{count}})</span>
         </div>
@@ -38,9 +38,6 @@ export default {
     this.get()
   },
   methods: {
-    back () {
-      this.$router.back()
-    },
     get () {
       this.$http.get('/rest/api/order/data/member_list?pageSize=5000&sort=2&page=1').then((res) => {
         this.list = res.data.attributes.data

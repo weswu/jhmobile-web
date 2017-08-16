@@ -1,7 +1,7 @@
 <template>
   <div>
     <mu-appbar :title="name">
-      <mu-icon-button icon='arrow_back' @click="back"  slot="left"/>
+      <mu-icon-button icon='arrow_back' @click="$router.back()"  slot="left"/>
     </mu-appbar>
     <div class="p10">
       <mu-text-field label="证书名称" hintText="请输入证书名称" v-model="cert.name" fullWidth/>
@@ -69,9 +69,6 @@ export default {
           type: '01'
         }
       }
-    },
-    back () {
-      this.$router.back()
     },
     setErrorImg (e) {
       e.target.src = this.$store.state.errImgUrl

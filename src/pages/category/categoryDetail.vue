@@ -1,7 +1,7 @@
 <template>
   <div>
     <mu-appbar title="新增分类">
-      <mu-icon-button icon='arrow_back' @click="back"  slot="left"/>
+      <mu-icon-button icon='arrow_back' @click="$router.back()"  slot="left"/>
     </mu-appbar>
     <div class="p10">
       <mu-select-field v-model="category.belongId" :labelFocusClass="['label-foucs']" label="所属分类">
@@ -26,9 +26,6 @@ export default {
     this.get()
   },
   methods: {
-    back () {
-      this.$router.back()
-    },
     get () {
       this.category.type = this.$route.params.id
       this.$http.get('/rest/api/category/rank/?type=' + this.$route.params.id).then((res) => {

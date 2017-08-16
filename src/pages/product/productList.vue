@@ -2,7 +2,7 @@
   <div class='wu-infinite-container'>
     <div class="fixed-bar">
       <mu-appbar>
-        <mu-icon-button icon='arrow_back' @click='back' slot='left'/>
+        <mu-icon-button icon='arrow_back' @click='$router.back()' slot='left'/>
         <mu-icon-button icon='search' slot='right' @click='search = !search'/>
         <mu-icon-menu icon='add' slot='right'>
           <mu-menu-item title='产品添加' href='#/productAdd'/>
@@ -78,9 +78,6 @@ export default {
     this.scroller = this.$el
   },
   methods: {
-    back () {
-      this.$router.back()
-    },
     get () {
       this.refresh = false
       this.loading = true

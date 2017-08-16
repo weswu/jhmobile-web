@@ -2,7 +2,7 @@
   <div>
     <div class="fixed-bar">
       <mu-appbar title='分类管理'>
-        <mu-icon-button icon='arrow_back' @click='back'  slot='left'/>
+        <mu-icon-button icon='arrow_back' @click='$router.back()'  slot='left'/>
         <mu-flat-button label="保存修改" @click="change" slot="right"/>
         <mu-icon-button href='#/categoryAdd/11' icon='add' slot='right'/>
       </mu-appbar>
@@ -47,9 +47,6 @@ export default {
     this.get()
   },
   methods: {
-    back () {
-      this.$router.back()
-    },
     get () {
       this.loading = true
       this.$http.get('/rest/api/' + this.$route.params.id + '/categoryManage').then((res) => {

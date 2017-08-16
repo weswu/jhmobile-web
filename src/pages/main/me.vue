@@ -1,7 +1,7 @@
 <template>
   <div>
     <mu-appbar title="我的">
-      <mu-icon-button icon='arrow_back' @click="back"  slot="left"/>
+      <mu-icon-button icon='arrow_back' @click="$router.back()"  slot="left"/>
     </mu-appbar>
     <mu-list class="pt10">
       <mu-list-item title="账号资料" @click="to('/user')">
@@ -40,9 +40,6 @@ export default {
     }
   },
   methods: {
-    back () {
-      this.$router.back()
-    },
     to (e) {
       this.$router.push({path: e})
     }

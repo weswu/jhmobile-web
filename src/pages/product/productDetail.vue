@@ -2,7 +2,7 @@
   <div id="productDetail">
     <div class="fixed-bar">
       <mu-appbar :title='name'>
-        <mu-icon-button icon='arrow_back' @click='back' slot='left'/>
+        <mu-icon-button icon='arrow_back' @click='$router.back()' slot='left'/>
       </mu-appbar>
     </div>
     <mu-tabs :value="activeTab" @change="handleTabChange" class="view-tabs">
@@ -78,9 +78,6 @@ export default {
     quillEditor
   },
   methods: {
-    back () {
-      this.$router.back()
-    },
     get () {
       this.activeTab = '1'
       if (this.$route.params.id) {

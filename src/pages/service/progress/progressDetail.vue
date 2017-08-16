@@ -2,7 +2,7 @@
   <div>
     <div class="fixed-bar">
       <mu-appbar :title="title">
-        <mu-icon-button icon='arrow_back' @click='back' slot='left'/>
+        <mu-icon-button icon='arrow_back' @click='$router.back()' slot='left'/>
       </mu-appbar>
     </div>
 		<div class="titlef5">描述</div>
@@ -55,9 +55,6 @@ export default {
     })
   },
   methods: {
-    back () {
-      this.$router.back()
-    },
     get () {
       this.$http.get('/rest/api/crm/feedback/detail/' + this.$route.params.id).then((res) => {
         this.list = res.data.attributes.data

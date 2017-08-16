@@ -2,7 +2,7 @@
   <div>
     <div class="fixed-bar">
       <mu-appbar title="修改价格">
-        <mu-icon-button icon='arrow_back' @click='back'  slot='left'/>
+        <mu-icon-button icon='arrow_back' @click='$router.back()'  slot='left'/>
       </mu-appbar>
     </div>
     <div class="order_price">
@@ -65,9 +65,6 @@ export default {
     })
   },
   methods: {
-    back () {
-      this.$router.back()
-    },
     get () {
       this.$http.get('/rest/api/order/priceDetail?orderId=' + this.$route.params.id).then((res) => {
         this.data = res.data.attributes.data

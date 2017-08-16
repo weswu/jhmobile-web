@@ -1,7 +1,7 @@
 <template>
   <div>
     <mu-appbar title="地图定位">
-      <mu-icon-button icon='arrow_back' @click="back"  slot="left"/>
+      <mu-icon-button icon='arrow_back' @click="$router.back()"  slot="left"/>
     </mu-appbar>
     <baidu-map class="map" :center="{lng: lng, lat: lat}" :zoom="15" ak="YOUR_APP_KEY" @click="clickMap($event)" style="width:100vw;height:60vh">
       <bm-marker :position="{lng: lng, lat: lat}" :dragging="true" :clicking="true" animation="BMAP_ANIMATION_BOUNCE" @dragend="dragend($event)">
@@ -34,9 +34,6 @@ export default {
     BmLocalSearch
   },
   methods: {
-    back () {
-      this.$router.back()
-    },
     submit () {
       this.$parent.$refs.loading.show()
       this.$store.state.enterprise.mapaddress = this.lng + ',' + this.lat

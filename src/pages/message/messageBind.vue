@@ -1,7 +1,7 @@
 <template>
   <div>
     <mu-appbar title='绑定邮箱'>
-      <mu-icon-button icon='arrow_back' @click='back' slot='left'/>
+      <mu-icon-button icon='arrow_back' @click='$router.back()' slot='left'/>
     </mu-appbar>
     <div class='p10'>
       <div>邮箱提醒：</div>
@@ -32,9 +32,6 @@ export default {
       this.$http.get('/rest/api/message/bind/detail').then((res) => {
         this.message = res.data.attributes.data[0] || {}
       })
-    },
-    back () {
-      this.$router.back()
     },
     submit () {
       var RegUrl = /^[a-zA-Z0-9_\\.]+@[a-zA-Z0-9-]+[\\.a-zA-Z]+$/

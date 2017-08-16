@@ -2,7 +2,7 @@
   <div class="point">
     <div class="fixed-bar">
       <mu-appbar title="积分排行">
-        <mu-icon-button icon='arrow_back' @click='back'  slot='left'/>
+        <mu-icon-button icon='arrow_back' @click='$router.back()'  slot='left'/>
       </mu-appbar>
     </div>
     <mu-list>
@@ -57,9 +57,6 @@ export default {
     this.get()
   },
   methods: {
-    back () {
-      this.$router.back()
-    },
     get () {
       this.$http.get('/rest/api/point/rank?page=' + this.page + '&pageSize=10').then((res) => {
         var data = res.data.attributes.data

@@ -2,7 +2,7 @@
   <div>
     <div class="fixed-bar">
       <mu-appbar title="询盘查看">
-        <mu-icon-button icon='arrow_back' @click='back' slot='left'/>
+        <mu-icon-button icon='arrow_back' @click='$router.back()' slot='left'/>
       </mu-appbar>
     </div>
     <div class='message_view'>
@@ -65,9 +65,6 @@ export default {
         }
         this.message = data
       })
-    },
-    back () {
-      this.$router.back()
     }
   }
 }

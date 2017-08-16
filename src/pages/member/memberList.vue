@@ -2,7 +2,7 @@
   <div class='wu-infinite-container'>
     <div class="fixed-bar">
       <mu-appbar>
-        <mu-icon-button icon='arrow_back' @click='back' slot='left'/>
+        <mu-icon-button icon='arrow_back' @click='$router.back()' slot='left'/>
         <mu-icon-button icon='search' slot='right' @click='search = !search'/>
         <div class='play-title'>
           会员管理<span class="appbar-count" v-show='count'>({{count}})</span>
@@ -74,9 +74,6 @@ export default {
     this.scroller = this.$el
   },
   methods: {
-    back () {
-      this.$router.back()
-    },
     get () {
       this.refresh = false
       this.loading = true

@@ -1,6 +1,6 @@
 <template>
   <div style="width:100%;height:100%;">
-    <mu-icon-button icon='arrow_back' @click='back' slot='left' style="position: absolute;"/>
+    <mu-icon-button icon='arrow_back' @click='$router.back()' slot='left' style="position: absolute;"/>
     <iframe :src='url' style="width:100%;height:100%;border:none;"></iframe>
   </div>
 </template>
@@ -18,11 +18,6 @@ export default {
         vm.url = 'http://sj.jihui88.com/rest/site/' + to.params.id + '/index'
       }
     })
-  },
-  methods: {
-    back () {
-      this.$router.back()
-    }
   }
 }
 </script>

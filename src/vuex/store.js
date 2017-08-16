@@ -4,7 +4,7 @@ Vue.use(Vuex)
 // 设备
 window.ua = navigator.userAgent.toLowerCase()
 // 存储数据
-const state = {
+const store = new Vuex.Store({
   state: {
     isWeixin: !!window.ua.match(/MicroMessenger/i), // 微信浏览器
     errImgUrl: 'http://img.easthardware.com/upload/j/j2/jihui/picture/2015/12/04/cb46a5be-9960-4c96-a463-895e7948c415.png', // 破图
@@ -14,19 +14,31 @@ const state = {
     userInfo: {},
     enterprise: {},
     point: {},
-    memberRank: []
+    memberRankList: []
   },
   getters: {
     user: state => state.user,
     userInfo: state => state.userInfo,
     enterprise: state => state.enterprise,
     point: state => state.point,
-    memberRank: state => state.memberRank
+    memberRankList: state => state.memberRankList
   },
   mutations: {
     setUser (state, user) {
 			state.user = user
-		}
+		},
+    setUserInfo (state, userInfo) {
+      state.userInfo = userInfo
+    },
+    setEnterprise (state, enterprise) {
+      state.enterprise = enterprise
+    },
+    setPoint (state, point) {
+      state.point = point
+    },
+    setMemberRankList (state, memberRankList) {
+			state.memberRankList = memberRankList
+    }
   },
   // 异步的数据操作
   actions: {
@@ -34,6 +46,6 @@ const state = {
 			commit('setUser', user)
 		}
   }
-}
+})
 
-export default state
+export default store

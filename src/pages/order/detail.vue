@@ -2,7 +2,7 @@
   <div class='order'>
     <div class='fixed-bar'>
       <mu-appbar title='订单详情'>
-        <mu-icon-button icon='arrow_back' @click='back' slot='left'/>
+        <mu-icon-button icon='arrow_back' @click='$router.back()' slot='left'/>
       </mu-appbar>
     </div>
     <div class='demo-refresh-container' style='background: #f5f5f5padding-bottom: 2.5rem'>
@@ -99,9 +99,6 @@ export default {
     })
   },
   methods: {
-    back () {
-      this.$router.back()
-    },
     get () {
       this.loading = true
       this.$http.get('/rest/api/order/listDetail/' + this.$route.params.id).then((res) => {

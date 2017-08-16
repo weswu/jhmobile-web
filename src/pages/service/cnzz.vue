@@ -1,7 +1,7 @@
 <template>
   <div>
     <mu-appbar title='流量分析'>
-      <mu-icon-button icon='arrow_back' @click='back'  slot='left'/>
+      <mu-icon-button icon='arrow_back' @click='$router.back()'  slot='left'/>
     </mu-appbar>
     <div class="container">
       <div class="logo">
@@ -27,11 +27,6 @@ export default {
       iframe2: false,
       iframe3: false,
       iframe4: false
-    }
-  },
-  methods: {
-    back () {
-      this.$router.back()
     }
   }
 }

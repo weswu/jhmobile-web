@@ -1,7 +1,7 @@
 <template>
   <div>
     <mu-appbar :title='name'>
-      <mu-icon-button icon='arrow_back' @click='back' slot='left'/>
+      <mu-icon-button icon='arrow_back' @click='$router.back()' slot='left'/>
     </mu-appbar>
     <div class="p10">
       <mu-text-field label="链接名称" hintText="请输入链接名称" v-model="link.name" fullWidth/>
@@ -27,9 +27,6 @@ export default {
     '$route': 'get'
   },
   methods: {
-    back () {
-      this.$router.back()
-    },
     get () {
       if (this.$route.params.id) {
         this.name = '链接修改'

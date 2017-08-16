@@ -107,16 +107,16 @@ export default {
       let _this = this
       this.$http.get('/rest/api/user/detail').then((res) => {
         this.user = res.data.attributes.data
-        this.$store.state.user = this.user
+        this.$store.commit('setUser', this.user)
       })
       this.$http.get('/rest/api/order/home/list').then((res) => {
         this.userInfo = res.data.attributes
-        this.$store.state.userInfo = this.userInfo
+        this.$store.commit('setUserInfo', this.userInfo)
       })
       setTimeout(function () {
         _this.$http.get('/rest/api/enterprise/detail').then((res) => {
           _this.enterprise = res.data.attributes.data
-          _this.$store.state.enterprise = _this.enterprise
+          _this.$store.commit('setEnterprise', _this.enterprise)
         })
       }, 100)
     },

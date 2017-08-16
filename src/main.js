@@ -1,9 +1,6 @@
 import Vue from 'vue'
 import router from './router/routers'
 import store from './vuex/store'
-import MuseUI from 'muse-ui'
-import VueRouter from 'vue-router'
-import VueQuillEditor from 'vue-quill-editor'
 import './utils/filters'
 import './utils/fun'
 import 'muse-ui/dist/muse-ui.css'
@@ -16,8 +13,9 @@ Vue.prototype.$cookie = Cookie
 // 开启debug模式
 Vue.config.debug = true
 // use
+import MuseUI from 'muse-ui'
+import VueQuillEditor from 'vue-quill-editor'
 Vue.use(MuseUI)
-Vue.use(VueRouter)
 Vue.use(VueQuillEditor)
 // 注册为全局组件 只能首字母大写或者全小写
 import toast from './components/toast.vue'

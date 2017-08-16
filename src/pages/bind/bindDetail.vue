@@ -1,7 +1,7 @@
 <template>
   <div>
     <mu-appbar title='域名添加'>
-      <mu-icon-button icon='arrow_back' @click='back' slot='left'/>
+      <mu-icon-button icon='arrow_back' @click='$router.back()' slot='left'/>
     </mu-appbar>
     <div class='p10'>
       <div>
@@ -32,9 +32,6 @@ export default {
     }
   },
   methods: {
-    back () {
-      this.$router.back()
-    },
     submit () {
       if (!this.bind.address) { return window.alert('域名名称不能为空') }
       const reg = new RegExp('[0-9a-zA-Z]+[0-9a-zA-Z\\.-]*\\.[a-zA-Z]{2,4}')

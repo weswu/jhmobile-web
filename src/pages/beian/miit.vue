@@ -2,7 +2,7 @@
 <div>
   <div class="fixed-bar">
     <mu-appbar title="工信备案">
-      <mu-icon-button icon='arrow_back' @click='back' slot='left'/>
+      <mu-icon-button icon='arrow_back' @click='$router.back()' slot='left'/>
     </mu-appbar>
   </div>
   <mu-tabs :value="activeTab" @change="handleTabChange" class="view-tabs">
@@ -190,9 +190,6 @@ export default {
     }
   },
   methods: {
-    back () {
-      this.$router.back()
-    },
     handleTabChange (val) {
       this.activeTab = val
     },

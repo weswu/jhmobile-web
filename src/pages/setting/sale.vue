@@ -2,7 +2,7 @@
   <div>
     <div class="fixed-bar">
       <mu-appbar title="门业客户12月促销">
-        <mu-icon-button icon='arrow_back' @click='back' slot='left'/>
+        <mu-icon-button icon='arrow_back' @click='$router.back()' slot='left'/>
       </mu-appbar>
     </div>
     <section style="padding: .5rem;color: #666;line-height: 1.2rem;font-size: 12px;">
@@ -159,15 +159,6 @@
 
   </div>
 </template>
-<script>
-export default {
-  methods: {
-    back () {
-      this.$router.back()
-    }
-  }
-}
-</script>
 <style scoped>
 section div {
  color: #000;

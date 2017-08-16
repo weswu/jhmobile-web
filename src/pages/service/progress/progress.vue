@@ -2,7 +2,7 @@
   <div>
     <div class='fixed-bar'>
       <mu-appbar title='服务进度'>
-        <mu-icon-button icon='arrow_back' @click='back' slot='left'/>
+        <mu-icon-button icon='arrow_back' @click='$router.back()' slot='left'/>
       </mu-appbar>
     </div>
     <mu-list class='mu-item-left65'>
@@ -77,9 +77,6 @@ export default {
     this.get()
   },
   methods: {
-    back () {
-      this.$router.back()
-    },
     get () {
       this.loading = true
       this.$http.get('/rest/api/crm/feedback/list?sort=' + this.activeTab).then((res) => {

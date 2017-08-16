@@ -2,7 +2,7 @@
   <div>
     <div class="fixed-bar">
       <mu-appbar :title='name'>
-        <mu-icon-button icon='arrow_back' @click='back' slot='left'/>
+        <mu-icon-button icon='arrow_back' @click='$router.back()' slot='left'/>
       </mu-appbar>
     </div>
     <div class='p10 mbfixed'>
@@ -33,9 +33,6 @@ export default {
     '$route': 'get'
   },
   methods: {
-    back () {
-      this.$router.back()
-    },
     get () {
       if (this.$route.params.id) {
         this.name = '会员等级修改'
