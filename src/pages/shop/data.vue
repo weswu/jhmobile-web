@@ -1,9 +1,10 @@
 <template>
 <div>
-  <mu-appbar title="商城数据">
-    <mu-icon-button icon='arrow_back' @click="$router.back()"  slot="left"/>
-  </mu-appbar>
-  <div class="hr"></div>
+  <div class='fixed-bar'>
+    <mu-appbar title="商城数据">
+      <mu-icon-button icon='arrow_back' @click="$router.back()"  slot="left"/>
+    </mu-appbar>
+  </div>
   <mu-list>
     <mu-list-item title="支付金额">
       <div class="wu-item-right">

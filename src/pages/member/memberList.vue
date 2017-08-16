@@ -19,7 +19,7 @@
         <mu-raised-button label='搜索' @click='searchKey' secondary fullWidth/>
       </div>
     </transition>
-    <mu-list v-if="grade === '07'">
+    <mu-list v-if="grade === '07' || $store.state.enterprise.mobileSite === '14'">
       <div v-for='item,index in list' class="wrap" :class="{swipeleft: isSwipe === index}"
       @touchstart="touchstart($event, item)" @touchmove="touchmove($event, item, index)">
         <mu-list-item :title="item.name || item.username" @click='detail(item.id)' class="list-item">

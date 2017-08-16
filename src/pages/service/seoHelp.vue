@@ -1,8 +1,10 @@
 <template>
   <div>
-    <mu-appbar title='SEO帮助'>
-      <mu-icon-button icon='arrow_back' @click='$router.back()'  slot='left'/>
-    </mu-appbar>
+    <div class='fixed-bar'>
+      <mu-appbar title='SEO帮助'>
+        <mu-icon-button icon='arrow_back' @click='$router.back()'  slot='left'/>
+      </mu-appbar>
+    </div>
     <div class="seo">
       <div class="hr"></div>
       <div class="sp_title">百度排名是怎样生成的？</div>
