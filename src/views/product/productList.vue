@@ -4,7 +4,7 @@
       <mu-appbar>
         <mu-icon-button icon='arrow_back' @click='$router.back()' slot='left'/>
         <mu-icon-button icon='search' slot='right' @click='search = !search'/>
-        <mu-icon-menu icon='add' slot='right'>
+        <mu-icon-menu icon='more_vert' slot='right'>
           <mu-menu-item title='产品添加' href='#/productAdd'/>
           <mu-menu-item title='产品分类' href='#/category/product'/>
         </mu-icon-menu>

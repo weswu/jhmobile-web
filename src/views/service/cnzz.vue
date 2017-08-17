@@ -1,7 +1,7 @@
 <template>
   <div>
     <mu-appbar title='流量分析'>
-      <mu-icon-button icon='arrow_back' @click='$router.back()'  slot='left'/>
+      <mu-icon-button icon='arrow_back' @click='$router.back()' slot='left'/>
     </mu-appbar>
     <div class="container">
       <div class="logo">

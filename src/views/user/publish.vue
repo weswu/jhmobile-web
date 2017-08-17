@@ -1,7 +1,7 @@
 <template>
   <div>
     <mu-appbar title='网站静态发布'>
-      <mu-icon-button icon='arrow_back' @click='$router.back()'  slot='left'/>
+      <mu-icon-button icon='arrow_back' @click='$router.back()' slot='left'/>
     </mu-appbar>
     <mu-list>
       <mu-list-item title="发布网站导航页面"  @click='navigationPage'>

@@ -1,7 +1,7 @@
 <template>
   <div>
     <mu-appbar title='安卓清除缓存'>
-      <mu-icon-button icon='arrow_back' @click='$router.back()'  slot='left'/>
+      <mu-icon-button icon='arrow_back' @click='$router.back()' slot='left'/>
     </mu-appbar>
     <p style="padding: 20px; line-height: 2;">
     第1步：设置<br>

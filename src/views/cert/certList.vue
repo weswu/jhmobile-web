@@ -2,7 +2,7 @@
   <div class='wu-infinite-container'>
     <div class="fixed-bar">
       <mu-appbar>
-        <mu-icon-button icon='arrow_back' @click='$router.back()'  slot='left'/>
+        <mu-icon-button icon='arrow_back' @click='$router.back()' slot='left'/>
         <mu-icon-button icon='search' slot='right' @click='search = !search'/>
         <mu-icon-button icon='add' href='#/certAdd' slot='right'/>
         <div class='play-title'>

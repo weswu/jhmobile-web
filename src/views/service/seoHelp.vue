@@ -2,7 +2,7 @@
   <div>
     <div class='fixed-bar'>
       <mu-appbar title='SEO帮助'>
-        <mu-icon-button icon='arrow_back' @click='$router.back()'  slot='left'/>
+        <mu-icon-button icon='arrow_back' @click='$router.back()' slot='left'/>
       </mu-appbar>
     </div>
     <div class="seo">

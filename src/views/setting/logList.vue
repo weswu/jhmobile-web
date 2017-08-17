@@ -2,7 +2,7 @@
   <div class='wu-infinite-container'>
     <div class="fixed-bar">
       <mu-appbar title='操作记录'>
-        <mu-icon-button icon='arrow_back' @click='$router.back()'  slot='left'/>
+        <mu-icon-button icon='arrow_back' @click='$router.back()' slot='left'/>
       </mu-appbar>
     </div>
     <mu-list>

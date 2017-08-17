@@ -19,13 +19,13 @@ export default {
         {text: '是', value: '01'},
         {text: '否', value: '00'}
       ],
-      message: {}
+      message: {
+        state: '01'
+      }
     }
   },
-  beforeRouteEnter (to, from, next) {
-    next(vm => {
-      vm.get()
-    })
+  created () {
+    this.get()
   },
   methods: {
     get () {

@@ -2,7 +2,7 @@
   <div class="order wu-infinite-container">
     <div class="fixed-bar">
       <mu-appbar title="订单管理">
-        <mu-icon-button icon='arrow_back' @click='back'  slot='left'/>
+        <mu-icon-button icon='arrow_back' @click='back' slot='left'/>
       </mu-appbar>
     </div>
     <mu-tabs :value="activeTab" @change="handleTabChange" class="view-tabs">

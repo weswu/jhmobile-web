@@ -1,7 +1,7 @@
 <template>
   <div>
     <mu-appbar title='关于机汇网'>
-      <mu-icon-button icon='arrow_back' @click='$router.back()'  slot='left'/>
+      <mu-icon-button icon='arrow_back' @click='$router.back()' slot='left'/>
     </mu-appbar>
       <mu-list>
         <mu-list-item title="新版本检测">

@@ -2,7 +2,7 @@
   <div class="point">
     <div class="fixed-bar">
       <mu-appbar title="积分排行">
-        <mu-icon-button icon='arrow_back' @click='$router.back()'  slot='left'/>
+        <mu-icon-button icon='arrow_back' @click='$router.back()' slot='left'/>
       </mu-appbar>
     </div>
     <mu-list>

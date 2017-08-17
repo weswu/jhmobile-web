@@ -19,7 +19,7 @@ const routers = new VueRouter({
   // user
   { path: '/login', component: require('../views/user/login') },
   { path: '/signup', component: require('../views/user/signup') },
-  { path: '/user', component: require('../views/user/user'), meta: { requiresAuth: true } },
+  { path: '/user', component: require('../views/user/user') },
   { path: '/map', component: require('../views/user/map') },
   { path: '/enterprise', component: require('../views/user/enterprise') },
   { path: '/publish', component: require('../views/user/publish') },
@@ -50,8 +50,7 @@ const routers = new VueRouter({
     children: [
       { path: 'me', component: require('../views/mobile/me') },
       { path: 'case', component: require('../views/mobile/case') }
-    ],
-    meta: {keepAlive: false}
+    ], meta: {keepAlive: false}
   },
   { path: '/mobile/:id', component: require('../views/mobile/mobileOpen') },
   // 微传单
@@ -61,8 +60,7 @@ const routers = new VueRouter({
       { path: 'vip', component: require('../views/wcd/vip') },
       { path: 'case', component: require('../views/wcd/case') },
       { path: 'me', component: require('../views/wcd/me') }
-    ],
-    meta: {keepAlive: false}
+    ]
   },
   { path: '/wcd_open/:id', component: require('../views/wcd/wcdOpen') },
   // 三级分销
@@ -101,7 +99,7 @@ const routers = new VueRouter({
   { path: '/bind', component: require('../views/bind/bindList') },
   { path: '/bindAdd', component: require('../views/bind/bindDetail') },
   // link
-  { path: '/link', component: require('../views/link/linkList') },
+  { path: '/link', component: require('../views/link/linkList'), meta: {keepAlive: true} },
   { path: '/linkAdd', component: require('../views/link/linkDetail') },
   { path: '/link/:id', component: require('../views/link/linkDetail') },
   // cert
@@ -143,7 +141,7 @@ const routers = new VueRouter({
   { path: '/redShield', component: require('../views/beian/redShield') },
   { path: '/miit', component: require('../views/beian/miit') },
   { path: '/policeRecord', component: require('../views/beian/policeRecord') },
-  // other
+  // default
   { path: '*', redirect: '/main/home' }
   ]
 })

@@ -2,7 +2,7 @@
   <div class="wu-infinite-container">
     <div class="fixed-bar">
       <mu-appbar title="兑换记录">
-        <mu-icon-button icon='arrow_back' @click='$router.back()'  slot='left'/>
+        <mu-icon-button icon='arrow_back' @click='$router.back()' slot='left'/>
         <mu-flat-button href="#/point_detail" label="切换积分明细" slot="right"/>
       </mu-appbar>
     </div>

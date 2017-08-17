@@ -38,6 +38,9 @@
         </mu-list-item>
       </template>
     </mu-list>
+    <div class="chaxun" v-if="chaxun">
+	    <em class="iconfont icon-tishi"></em> 您还未开通微分销，无法查看数据<br> 咨询请联系：<a href="tel:4007111011">4007111011</a>
+    </div>
     <div v-if="busy" style="text-align: center;padding: .5rem 0;">暂无数据</div>
     <div style="padding-bottom: 56px;"></div>
     <div class="fenye">
@@ -66,6 +69,7 @@ export default {
       list: [],
       search: false,
       toggle: false,
+      chaxun: false,
       busy: false,
       page: 1,
       name: '',
@@ -89,6 +93,8 @@ export default {
         ctx.$parent.$parent.$refs.loading.hide()
         if (!data.success) {
           console.log(data.msg)
+          if (this.page === 1) {ctx.chaxun = true} else {ctx.busy = true}
+          return false
         }
         ctx.list = data.attributes.data
         if (ctx.page === 1) {

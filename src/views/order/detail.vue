@@ -65,7 +65,6 @@
         </div>
       </div>
 
-
     	<div class='app_footer order_footer'>
     		<div class='app_footer_txt font_14'>
     			<span class='font_16'>应付款: </span>

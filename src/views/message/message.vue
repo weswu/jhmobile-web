@@ -79,7 +79,6 @@ export default {
       item.y = e.changedTouches[0].pageY
     },
     touchmove (e, item, index) {
-      e.preventDefault()
       item.X = e.changedTouches[0].pageX
       item.Y = e.changedTouches[0].pageY
       if (item.X - item.x > 10) {

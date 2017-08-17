@@ -2,7 +2,7 @@
   <div class="rule">
     <div class="fixed-bar">
       <mu-appbar title="积分规则是什么？">
-        <mu-icon-button icon='arrow_back' @click='$router.back()'  slot='left'/>
+        <mu-icon-button icon='arrow_back' @click='$router.back()' slot='left'/>
       </mu-appbar>
     </div>
     <div class="p10">

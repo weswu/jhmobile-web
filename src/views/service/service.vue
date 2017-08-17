@@ -1,7 +1,7 @@
 <template>
   <div>
     <mu-appbar title='服务中心'>
-      <mu-icon-button icon='arrow_back' @click='$router.back()'  slot='left'/>
+      <mu-icon-button icon='arrow_back' @click='$router.back()' slot='left'/>
     </mu-appbar>
 
     <mu-list>

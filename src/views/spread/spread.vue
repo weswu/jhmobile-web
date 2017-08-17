@@ -27,7 +27,7 @@
     <mu-text-field label="朋友公司" hintText="请输入朋友公司" v-model="m.company" fullWidth/>
     <mu-text-field label="朋友电话" hintText="请输入朋友电话" v-model="m.phone" fullWidth/>
     <mu-text-field label="推荐人" hintText="请输入推荐人" v-model="m.referee" fullWidth/>
-    <mu-text-field hintText="说明..." v-model="m.content" fullWidth multiLine :rows="8" :rowsMax="10" fullWidth/>
+    <mu-text-field hintText="说明..." v-model="m.content" fullWidth multiLine :rows="3" :rowsMax="10" fullWidth/>
     <mu-raised-button label="推荐朋友" @click="submit" secondary fullWidth/>
   </div>
   <img v-if="pic !== ''" :src="pic" class="downPic" @click="downPic" alt="">
