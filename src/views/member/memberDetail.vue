@@ -45,32 +45,28 @@ import qs from 'qs'
 export default {
   data () {
     return {
-      name: '会员',
-      member: {},
+      name: '',
+      member: {
+        isaccountEnabled: '00'
+      },
       categoryList: []
     }
   },
   created () {
-    this.get()
-  },
-  watch: {
-    '$route': 'get'
+    if (this.$route.params.id) {
+      this.name = '会员修改'
+      this.get()
+    } else {
+      this.name = '会员添加'
+    }
+    this.getCate()
   },
   methods: {
     get () {
-      if (this.$route.params.id) {
-        this.name = '会员修改'
-        this.$http.get('/rest/api/member/detail/' + this.$route.params.id).then((res) => {
-          this.member = res.data.attributes.data
-          this.member.password = ''
-        })
-      } else {
-        this.name = '会员添加'
-        this.member = {
-          isaccountEnabled: '00'
-        }
-      }
-      this.getCate()
+      this.$http.get('/rest/api/member/detail/' + this.$route.params.id).then((res) => {
+        this.member = res.data.attributes.data
+        this.member.password = ''
+      })
     },
     getCate () {
       var ctx = this

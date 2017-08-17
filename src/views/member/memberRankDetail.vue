@@ -22,37 +22,32 @@ import qs from 'qs'
 export default {
   data () {
     return {
-      name: '会员等级',
-      rank: {}
+      name: '',
+      rank: {
+        preferentialScale: 100,
+        isDefault: '00'
+      }
     }
   },
   created () {
-    this.get()
-  },
-  watch: {
-    '$route': 'get'
+    if (this.$route.params.id) {
+      this.name = '会员等级修改'
+      this.get()
+    } else {
+      this.name = '会员等级添加'
+    }
   },
   methods: {
     get () {
-      if (this.$route.params.id) {
-        this.name = '会员等级修改'
-        this.$http.get('/rest/api/member/rank/detail/' + this.$route.params.id).then((res) => {
-          this.rank = res.data.attributes.data
-        })
-      } else {
-        this.name = '会员等级添加'
-        this.rank = {
-          preferentialScale: 100,
-          isDefault: '00'
-        }
-      }
+      this.$http.get('/rest/api/member/rank/detail/' + this.$route.params.id).then((res) => {
+        this.rank = res.data.attributes.data
+      })
     },
     submit () {
       if (!this.rank.name) { return window.alert('名称不能为空') }
       if (!this.rank.preferentialScale) { return window.alert('折扣不能为空') }
       if (!this.rank.point) { return window.alert('积分不能为空') }
       if (!this.rank.isDefault) { this.rank.isDefault = '00' }
-
       this.$parent.$refs.loading.show()
       if (this.$route.params.id) {
         this.$http.put('/rest/api/member/rank/detail/' + this.$route.params.id + '?' + qs.stringify(this.rank)).then((res) => {

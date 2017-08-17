@@ -53,7 +53,7 @@ import { quillEditor } from 'vue-quill-editor'
 export default {
   data () {
     return {
-      name: '产品',
+      name: '',
       activeTab: '1',
       imgUrl: this.$store.state.imgUrl,
       weightunits: [
@@ -62,16 +62,20 @@ export default {
         {value: 't', name: '吨'}
       ],
       categoryList: [],
-      product: {},
+      product: {
+        weightunit: 'kg'
+      },
       editorOption: {}
     }
   },
   created () {
-    this.get()
-  },
-  watch: {
-    // 如果路由有变化，会再次执行该方法
-    '$route': 'get'
+    if (this.$route.params.id) {
+      this.name = '产品修改'
+      this.get()
+    } else {
+      this.name = '产品添加'
+      this.getCate()
+    }
   },
   components: {
     Upload,
@@ -79,22 +83,10 @@ export default {
   },
   methods: {
     get () {
-      this.activeTab = '1'
-      if (this.$route.params.id) {
-        this.name = '产品修改'
-        this.$http.get('/rest/api/product/updateList?id=' + this.$route.params.id).then((res) => {
-          this.categoryList = res.data.attributes.categoryList
-          this.product = res.data.attributes.data
-        })
-      } else {
-        if (this.$route.path === '/productAdd') {
-          this.name = '产品添加'
-          this.getCate()
-          this.product = {
-            weightunit: 'kg'
-          }
-        }
-      }
+      this.$http.get('/rest/api/product/updateList?id=' + this.$route.params.id).then((res) => {
+        this.categoryList = res.data.attributes.categoryList
+        this.product = res.data.attributes.data
+      })
     },
     getCate () {
       this.$http.get('/rest/api/product/categoryManage').then((res) => {

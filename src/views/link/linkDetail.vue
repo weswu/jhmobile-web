@@ -15,28 +15,23 @@ import qs from 'qs'
 export default {
   data () {
     return {
-      name: '链接',
+      name: '',
       link: {}
     }
   },
   created () {
-    this.get()
-  },
-  watch: {
-    // 如果路由有变化，会再次执行该方法
-    '$route': 'get'
+    if (this.$route.params.id) {
+      this.name = '链接修改'
+      this.get()
+    } else {
+      this.name = '链接添加'
+    }
   },
   methods: {
     get () {
-      if (this.$route.params.id) {
-        this.name = '链接修改'
-        this.$http.get('/rest/api/link/updateList/' + this.$route.params.id).then((res) => {
-          this.link = res.data.attributes.data
-        })
-      } else {
-        this.name = '链接添加'
-        this.link = {}
-      }
+      this.$http.get('/rest/api/link/updateList/' + this.$route.params.id).then((res) => {
+        this.link = res.data.attributes.data
+      })
     },
     submit () {
       if (!this.link.name) { return window.alert('链接名称不能为空') }

@@ -1,5 +1,12 @@
 <template>
   <div>
+    <mu-icon-button icon='search' class="cate_right" slot='right' @click='search = !search'/>
+    <transition name='fade'>
+      <div class='header-search' v-show='search'>
+        <mu-text-field v-model='name' type='search' hintText='请输入会员编号' fullWidth/>
+        <mu-raised-button label='搜索' @click='searchKey' secondary fullWidth/>
+      </div>
+    </transition>
     <mu-list-item title="会员信息">
       <div class="wu-item-right font16"><span class="c000">分销信息</span></div>
     </mu-list-item>
@@ -57,10 +64,11 @@ export default {
   data () {
     return {
       list: [],
-      loading: false,
+      search: false,
       toggle: false,
       busy: false,
       page: 1,
+      name: '',
       p: {
         total: 1
       }
@@ -73,14 +81,16 @@ export default {
     get () {
       var ctx = this
       this.$parent.$parent.$refs.loading.show()
-      this.loading = true
-      jsonp('http://www.jihui88.com/wechat/cps/index.php/jihui_api/members/' + this.$store.state.enterprise.enterpriseId + '/' + this.page + '/5', null, function (err, data) {
+      var end = ''
+      if (this.name !== '') {
+        end = '/' + this.name
+      }
+      jsonp('http://www.jihui88.com/wechat/cps/index.php/jihui_api/members/' + this.$store.state.enterprise.enterpriseId + '/' + this.page + '/5' + end, null, function (err, data) {
         ctx.$parent.$parent.$refs.loading.hide()
         if (!data.success) {
           console.log(data.msg)
         }
         ctx.list = data.attributes.data
-        ctx.loading = false
         if (ctx.page === 1) {
           ctx.p.total = Math.ceil(data.attributes.count / 5)
           ctx.p.totalList = []
@@ -97,6 +107,12 @@ export default {
           console.log(data)
         }
       })
+    },
+    searchKey () {
+      this.list = []
+      this.page = 1
+      this.search = false
+      this.get()
     },
     topclick () {
       if (this.page > 1) {

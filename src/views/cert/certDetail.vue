@@ -1,7 +1,7 @@
 <template>
   <div>
     <mu-appbar :title="name">
-      <mu-icon-button icon='arrow_back' @click="$router.back()"  slot="left"/>
+      <mu-icon-button icon='arrow_back' @click="$router.back()" slot="left"/>
     </mu-appbar>
     <div class="p10">
       <mu-text-field label="证书名称" hintText="请输入证书名称" v-model="cert.name" fullWidth/>
@@ -32,7 +32,7 @@ import qs from 'qs'
 export default {
   data () {
     return {
-      name: '证书',
+      name: '',
       imgUrl: this.$store.state.imgUrl,
       typeList: [
         {text: '基本证书', value: '01'},
@@ -43,32 +43,27 @@ export default {
         {text: '实地认证', value: '09'},
         {text: '其它证书', value: '05'}
       ],
-      cert: {}
+      cert: {
+        type: '01'
+      }
     }
   },
   created () {
-    this.get()
-  },
-  watch: {
-    // 如果路由有变化，会再次执行该方法
-    '$route': 'get'
+    if (this.$route.params.id) {
+      this.name = '证书修改'
+      this.get()
+    } else {
+      this.name = '证书添加'
+    }
   },
   components: {
     Upload
   },
   methods: {
     get () {
-      if (this.$route.params.id) {
-        this.name = '证书修改'
-        this.$http.get('/rest/api/cert/detail/' + this.$route.params.id).then((res) => {
-          this.cert = res.data.attributes.data
-        })
-      } else {
-        this.name = '证书添加'
-        this.cert = {
-          type: '01'
-        }
-      }
+      this.$http.get('/rest/api/cert/detail/' + this.$route.params.id).then((res) => {
+        this.cert = res.data.attributes.data
+      })
     },
     setErrorImg (e) {
       e.target.src = this.$store.state.errImgUrl

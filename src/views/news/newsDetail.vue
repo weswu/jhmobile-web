@@ -11,8 +11,8 @@
     </mu-tabs>
     <div class='p10 mbfixed' v-if="activeTab === '1'">
       <mu-text-field label='新闻标题' hintText='请输入新闻标题' v-model='news.title' fullWidth/>
-      <mu-select-field v-model='news.category' :labelFocusClass="['label-foucs']" hintText='所属分类' :maxHeight="300">
-        <mu-menu-item v-for='v in categoryList' :value='v.categoryId' :title='v.name'/>
+      <mu-select-field v-model='news.category' :labelFocusClass="['label-foucs']" hintText='所属分类' label="新闻分类" :maxHeight="300">
+        <mu-menu-item v-for='v in categoryList' :value='v.id' :title='v.name'/>
       </mu-select-field>
       <mu-text-field label='来源' hintText='请输入来源' v-model='news.origin' fullWidth/>
       <mu-text-field label='作者' hintText='请输入作者' v-model='news.author' fullWidth/>
@@ -45,20 +45,24 @@ import { quillEditor } from 'vue-quill-editor'
 export default {
   data () {
     return {
-      name: '新闻',
+      name: '',
       activeTab: '1',
       categoryList: [],
-      news: {},
+      news: {
+        imagenews: '00'
+      },
       imgUrl: this.$store.state.imgUrl,
       editorOption: {}
     }
   },
   created () {
-    this.get()
-  },
-  watch: {
-    // 如果路由有变化，会再次执行该方法
-    '$route': 'get'
+    if (this.$route.params.id) {
+      this.name = '新闻修改'
+      this.get()
+    } else {
+      this.name = '新闻添加'
+      this.getCate()
+    }
   },
   components: {
     Upload,
@@ -66,22 +70,10 @@ export default {
   },
   methods: {
     get () {
-      this.activeTab = '1'
-      if (this.$route.params.id) {
-        this.name = '新闻修改'
-        this.$http.get('/rest/api/news/updateList?id=' + this.$route.params.id).then((res) => {
-          this.categoryList = res.data.attributes.categoryList
-          this.news = res.data.attributes.data
-        })
-      } else {
-        if (this.$route.path === '/newsAdd') {
-          this.name = '新闻添加'
-          this.getCate()
-          this.news = {
-            imagenews: '00'
-          }
-        }
-      }
+      this.$http.get('/rest/api/news/updateList?id=' + this.$route.params.id).then((res) => {
+        this.categoryList = res.data.attributes.categoryList
+        this.news = res.data.attributes.data
+      })
     },
     getCate () {
       this.$http.get('/rest/api/news/updateList?id=0').then((res) => {

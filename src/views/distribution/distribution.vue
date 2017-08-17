@@ -9,7 +9,6 @@
       <mu-tab v-for="item in tabs" :value="item.value" :title="item.title"/>
     </mu-tabs>
     <div style="height:0.2rem"></div>
-
     <div class="scroll-view">
       <keep-alive>
        <router-view></router-view>

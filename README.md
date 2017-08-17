@@ -52,9 +52,9 @@ npm test
 ├── src                // 源码目录
 │   ├── assets         // css
 │   ├── components     // 各种组件
-│   ├── pages          // 各种页面
 │   ├── router         // vue路由的配置
 │   ├── utils          // 各种过滤器,方法
+│   ├── views          // 各种页面
 │   ├── vuex           // vuex状态管理器
 │   └── main.js        // Webpack 预编译入口
 ├── static             // 项目静态，图片资源

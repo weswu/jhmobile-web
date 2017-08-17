@@ -93,10 +93,8 @@ export default {
       shippingTime: ''
     }
   },
-  beforeRouteEnter (to, from, next) {
-    next(vm => {
-      vm.get()
-    })
+  created () {
+    this.get()
   },
   methods: {
     get () {

@@ -8,141 +8,141 @@ Vue.use(VueRouter)
 const routers = new VueRouter({
   routes: [{
   path: '/main',
-    component: require('../pages/main/main'),
+    component: require('../views/main/main'),
     children: [
-      { path: 'home', component: require('../pages/main/home') },
-      { path: 'info', component: require('../pages/main/info') },
-      { path: 'message', component: require('../pages/message/message') },
-      { path: 'me', component: require('../pages/main/me') }
+      { path: 'home', component: require('../views/main/home') },
+      { path: 'info', component: require('../views/main/info') },
+      { path: 'message', component: require('../views/message/message') },
+      { path: 'me', component: require('../views/main/me') }
     ]
   },
   // user
-  { path: '/login', component: require('../pages/user/login') },
-  { path: '/signup', component: require('../pages/user/signup') },
-  { path: '/user', component: require('../pages/user/user') },
-  { path: '/map', component: require('../pages/user/map') },
-  { path: '/enterprise', component: require('../pages/user/enterprise') },
-  { path: '/publish', component: require('../pages/user/publish') },
-  // product
-  { path: '/product', component: require('../pages/product/productList') },
-  { path: '/product/:id', component: require('../pages/product/productDetail') },
-  { path: '/productAdd', component: require('../pages/product/productDetail') },
-  // news
-  { path: '/news', component: require('../pages/news/newsList') },
-  { path: '/news/:id', component: require('../pages/news/newsDetail') },
-  { path: '/newsAdd', component: require('../pages/news/newsDetail') },
-  // category
-  { path: '/category/:id', component: require('../pages/category/categoryList') },
-  { path: '/categoryAdd/:id', component: require('../pages/category/categoryDetail') },
-  // shop
-  { path: '/shopData', component: require('../pages/shop/data') },
-  { path: '/data_p_q', component: require('../pages/shop/data_purchase_quantity') },
-  { path: '/data_p_a', component: require('../pages/shop/data_purchase_amount') },
-  // order
-  { path: '/order/:flag', component: require('../pages/order/order') },
-  { path: '/order/detail/:id', component: require('../pages/order/detail') },
-  { path: '/order/price/:id', component: require('../pages/order/price') },
-  { path: '/order/send/:id', component: require('../pages/order/send') },
-  { path: '/order/shipments/:id', component: require('../pages/order/shipments') },
+  { path: '/login', component: require('../views/user/login') },
+  { path: '/signup', component: require('../views/user/signup') },
+  { path: '/user', component: require('../views/user/user'), meta: { requiresAuth: true } },
+  { path: '/map', component: require('../views/user/map') },
+  { path: '/enterprise', component: require('../views/user/enterprise') },
+  { path: '/publish', component: require('../views/user/publish') },
+  // 产品
+  { path: '/product', component: require('../views/product/productList') },
+  { path: '/product/:id', component: require('../views/product/productDetail') },
+  { path: '/productAdd', component: require('../views/product/productDetail') },
+  // 新闻
+  { path: '/news', component: require('../views/news/newsList') },
+  { path: '/news/:id', component: require('../views/news/newsDetail') },
+  { path: '/newsAdd', component: require('../views/news/newsDetail') },
+  // 分类
+  { path: '/category/:id', component: require('../views/category/categoryList') },
+  { path: '/categoryAdd/:id', component: require('../views/category/categoryDetail') },
+  // 大数据
+  { path: '/shopData', component: require('../views/shop/data') },
+  { path: '/data_p_q', component: require('../views/shop/data_purchase_quantity') },
+  { path: '/data_p_a', component: require('../views/shop/data_purchase_amount') },
+  // 订单
+  { path: '/order/:flag', component: require('../views/order/order') },
+  { path: '/order/detail/:id', component: require('../views/order/detail') },
+  { path: '/order/price/:id', component: require('../views/order/price') },
+  { path: '/order/send/:id', component: require('../views/order/send') },
+  { path: '/order/shipments/:id', component: require('../views/order/shipments') },
   // 手机网站
   { path: '/mobile',
-    component: require('../pages/mobile/mobile'),
+    component: require('../views/mobile/mobile'),
     children: [
-      { path: 'me', component: require('../pages/mobile/me') },
-      { path: 'case', component: require('../pages/mobile/case') }
+      { path: 'me', component: require('../views/mobile/me') },
+      { path: 'case', component: require('../views/mobile/case') }
     ],
     meta: {keepAlive: false}
   },
-  { path: '/mobile/:id', component: require('../pages/mobile/mobileOpen') },
-  // wcd
+  { path: '/mobile/:id', component: require('../views/mobile/mobileOpen') },
+  // 微传单
   { path: '/wcd',
-    component: require('../pages/wcd/wcd'),
+    component: require('../views/wcd/wcd'),
     children: [
-      { path: 'vip', component: require('../pages/wcd/vip') },
-      { path: 'case', component: require('../pages/wcd/case') },
-      { path: 'me', component: require('../pages/wcd/me') }
+      { path: 'vip', component: require('../views/wcd/vip') },
+      { path: 'case', component: require('../views/wcd/case') },
+      { path: 'me', component: require('../views/wcd/me') }
     ],
     meta: {keepAlive: false}
   },
-  { path: '/wcd_open/:id', component: require('../pages/wcd/wcdOpen') },
+  { path: '/wcd_open/:id', component: require('../views/wcd/wcdOpen') },
   // 三级分销
   { path: '/distribution',
-    component: require('../pages/distribution/distribution'),
+    component: require('../views/distribution/distribution'),
     children: [
-      { path: 'member', component: require('../pages/distribution/member') },
-      { path: 'data', component: require('../pages/distribution/data') },
-      { path: 'bouns', component: require('../pages/distribution/bouns') }
+      { path: 'member', component: require('../views/distribution/member') },
+      { path: 'data', component: require('../views/distribution/data') },
+      { path: 'bouns', component: require('../views/distribution/bouns') }
     ]
   },
   // 服务缴费
   { path: '/serivepay',
-    component: require('../pages/serivepay/pay'),
+    component: require('../views/serivepay/pay'),
     children: [
-      { path: 'payment', component: require('../pages/serivepay/payment') },
-      { path: 'history', component: require('../pages/serivepay/history') },
-      { path: 'serviceRecord', component: require('../pages/serivepay/serviceRecord') },
-      { path: 'goods', component: require('../pages/serivepay/goods') }
+      { path: 'payment', component: require('../views/serivepay/payment') },
+      { path: 'history', component: require('../views/serivepay/history') },
+      { path: 'serviceRecord', component: require('../views/serivepay/serviceRecord') },
+      { path: 'goods', component: require('../views/serivepay/goods') }
     ]
   },
-  { path: '/mypay', component: require('../pages/serivepay/mypay') },
+  { path: '/mypay', component: require('../views/serivepay/mypay') },
   // 服务进度
-  { path: '/serive_progress', component: require('../pages/service/progress/progress') },
-  { path: '/serive_progress/:id', name: 'progressDetail', component: require('../pages/service/progress/progressDetail') },
+  { path: '/serive_progress', component: require('../views/service/progress/progress') },
+  { path: '/serive_progress/:id', name: 'progressDetail', component: require('../views/service/progress/progressDetail') },
   // 积分
-  { path: '/point', component: require('../pages/point/point') },
-  { path: '/point_rule', component: require('../pages/point/rule') },
-  { path: '/point_ranking', component: require('../pages/point/ranking') },
-  { path: '/point_detail', component: require('../pages/point/detail') },
-  { path: '/point_exchange', component: require('../pages/point/exchange') },
+  { path: '/point', component: require('../views/point/point') },
+  { path: '/point_rule', component: require('../views/point/rule') },
+  { path: '/point_ranking', component: require('../views/point/ranking') },
+  { path: '/point_detail', component: require('../views/point/detail') },
+  { path: '/point_exchange', component: require('../views/point/exchange') },
   // 参与推广
-  { path: '/spread', component: require('../pages/spread/spread') },
-  { path: '/spreadRank', component: require('../pages/spread/rank') },
+  { path: '/spread', component: require('../views/spread/spread') },
+  { path: '/spreadRank', component: require('../views/spread/rank') },
   // bind
-  { path: '/bind', component: require('../pages/bind/bindList') },
-  { path: '/bindAdd', component: require('../pages/bind/bindDetail') },
+  { path: '/bind', component: require('../views/bind/bindList') },
+  { path: '/bindAdd', component: require('../views/bind/bindDetail') },
   // link
-  { path: '/link', component: require('../pages/link/linkList') },
-  { path: '/linkAdd', component: require('../pages/link/linkDetail') },
-  { path: '/link/:id', component: require('../pages/link/linkDetail') },
+  { path: '/link', component: require('../views/link/linkList') },
+  { path: '/linkAdd', component: require('../views/link/linkDetail') },
+  { path: '/link/:id', component: require('../views/link/linkDetail') },
   // cert
-  { path: '/cert', component: require('../pages/cert/certList') },
-  { path: '/certAdd', component: require('../pages/cert/certDetail') },
-  { path: '/cert/:id', component: require('../pages/cert/certDetail') },
+  { path: '/cert', component: require('../views/cert/certList') },
+  { path: '/certAdd', component: require('../views/cert/certDetail') },
+  { path: '/cert/:id', component: require('../views/cert/certDetail') },
   // message
-  { path: '/messageBind', component: require('../pages/message/messageBind') },
-  { path: '/messageList/:recvState', component: require('../pages/message/message') },
-  { path: '/message/:id', name: 'messageDetail', component: require('../pages/message/messageDetail') },
+  { path: '/messageBind', component: require('../views/message/messageBind') },
+  { path: '/messageList/:recvState', component: require('../views/message/message') },
+  { path: '/message/:id', name: 'messageDetail', component: require('../views/message/messageDetail') },
   // 会员
-  { path: '/member', component: require('../pages/member/memberList') },
-  { path: '/memberAdd', component: require('../pages/member/memberDetail') },
-  { path: '/member/:id', component: require('../pages/member/memberDetail') },
-  { path: '/memberRank', component: require('../pages/member/memberRank') },
-  { path: '/memberRankAdd', component: require('../pages/member/memberRankDetail') },
-  { path: '/memberRank/:id', component: require('../pages/member/memberRankDetail') },
+  { path: '/member', component: require('../views/member/memberList') },
+  { path: '/memberAdd', component: require('../views/member/memberDetail') },
+  { path: '/member/:id', component: require('../views/member/memberDetail') },
+  { path: '/memberRank', component: require('../views/member/memberRank') },
+  { path: '/memberRankAdd', component: require('../views/member/memberRankDetail') },
+  { path: '/memberRank/:id', component: require('../views/member/memberRankDetail') },
   // setting
-  { path: '/setting', component: require('../pages/setting/setting') },
-  { path: '/account', component: require('../pages/setting/account') },
-  { path: '/service_feedback', component: require('../pages/setting/serviceFeedback') },
-  { path: '/log', component: require('../pages/setting/logList') },
-  { path: '/sale', component: require('../pages/setting/sale') },
-  { path: '/about', component: require('../pages/setting/about') },
-  { path: '/password', component: require('../pages/setting/password') },
-  { path: '/app_log', component: require('../pages/setting/appLog') },
-  { path: '/download', component: require('../pages/setting/download') },
-  { path: '/down_ios', component: require('../pages/setting/down_ios') },
+  { path: '/setting', component: require('../views/setting/setting') },
+  { path: '/account', component: require('../views/setting/account') },
+  { path: '/service_feedback', component: require('../views/setting/serviceFeedback') },
+  { path: '/log', component: require('../views/setting/logList') },
+  { path: '/sale', component: require('../views/setting/sale') },
+  { path: '/about', component: require('../views/setting/about') },
+  { path: '/password', component: require('../views/setting/password') },
+  { path: '/app_log', component: require('../views/setting/appLog') },
+  { path: '/download', component: require('../views/setting/download') },
+  { path: '/down_ios', component: require('../views/setting/down_ios') },
   // 服务
-  { path: '/service', component: require('../pages/service/service') },
-  { path: '/video', component: require('../pages/service/video') },
-  { path: '/cnzz', component: require('../pages/service/cnzz') },
-  { path: '/seo_help', component: require('../pages/service/seoHelp') },
-  { path: '/faq', component: require('../pages/service/faq') },
-  { path: '/faq1', component: require('../pages/service/faq/faq1') },
-  { path: '/faq2', component: require('../pages/service/faq/faq2') },
+  { path: '/service', component: require('../views/service/service') },
+  { path: '/video', component: require('../views/service/video') },
+  { path: '/cnzz', component: require('../views/service/cnzz') },
+  { path: '/seo_help', component: require('../views/service/seoHelp') },
+  { path: '/faq', component: require('../views/service/faq') },
+  { path: '/faq1', component: require('../views/service/faq/faq1') },
+  { path: '/faq2', component: require('../views/service/faq/faq2') },
   // beian
-  { path: '/beian', component: require('../pages/beian/beian') },
-  { path: '/redShield', component: require('../pages/beian/redShield') },
-  { path: '/miit', component: require('../pages/beian/miit') },
-  { path: '/policeRecord', component: require('../pages/beian/policeRecord') },
+  { path: '/beian', component: require('../views/beian/beian') },
+  { path: '/redShield', component: require('../views/beian/redShield') },
+  { path: '/miit', component: require('../views/beian/miit') },
+  { path: '/policeRecord', component: require('../views/beian/policeRecord') },
   // other
   { path: '*', redirect: '/main/home' }
   ]
