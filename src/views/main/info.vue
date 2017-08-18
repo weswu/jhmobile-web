@@ -4,36 +4,22 @@
       <mu-icon-button icon='arrow_back' @click="$router.back()"  slot="left"/>
     </mu-appbar>
     <mu-list class="pt10">
-      <mu-list-item title="产品" @click="to('/product')">
+      <mu-list-item title="产品" to="/product">
         <mu-icon value="navigate_next" :size="20" slot="right" color="#aaa"/>
       </mu-list-item>
       <mu-divider/>
-      <mu-list-item title="新闻" @click="to('/news')">
+      <mu-list-item title="新闻" to="/news">
         <mu-icon value="navigate_next" :size="20" slot="right" color="#aaa"/>
       </mu-list-item>
       <mu-divider/>
-      <mu-list-item title="证书" @click="to('/cert')">
+      <mu-list-item title="证书" to="/cert">
         <mu-icon value="navigate_next" :size="20" slot="right" color="#aaa"/>
       </mu-list-item>
       <mu-divider/>
-      <mu-list-item title="友情链接" @click="to('/link')">
+      <mu-list-item title="友情链接" to="/link">
         <mu-icon value="navigate_next" :size="20" slot="right" color="#aaa"/>
       </mu-list-item>
       <mu-divider/>
     </mu-list>
   </div>
 </template>
-<script>
-export default {
-  data () {
-    return {
-      enterprise: {}
-    }
-  },
-  methods: {
-    to (e) {
-      this.$router.push({path: e})
-    }
-  }
-}
-</script>

@@ -43,7 +43,8 @@ export default {
         ctx.$parent.$refs.loading.hide()
         ctx.$cookie.set('username', ctx.username)
         ctx.$cookie.set('password', ctx.password)
-        ctx.$store.state.user = res.data.attributes.data
+        // 清空数据
+        ctx.$store.commit('reset')
         ctx.$router.push({path: '/main/home'})
       }).catch((err) => {
         ctx.$parent.$refs.loading.hide()

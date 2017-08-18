@@ -38,7 +38,7 @@ export default {
         {text: '男', value: '00'},
         {text: '女', value: '01'}
       ],
-      user: {}
+      user: this.$store.state.user
     }
   },
   created () {
@@ -46,11 +46,10 @@ export default {
   },
   methods: {
     get () {
-      if (this.$store.state.user.id) {
-        this.user = this.$store.state.user
-      } else {
+      if (!this.$store.state.user.id) {
         this.$http.get('/rest/api/user/detail').then((res) => {
           this.user = res.data.attributes.data
+          this.$store.commit('setUser', this.user)
         })
       }
     },

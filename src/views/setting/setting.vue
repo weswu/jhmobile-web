@@ -20,7 +20,7 @@
       <mu-divider />
     </mu-list>
     <mu-list>
-      <mu-list-item title="机汇微商城">
+      <mu-list-item title="机汇微商城" href="http://m.jihui88.com">
         <div slot="after">m.jihui88.com</div>
         <mu-icon value="navigate_next" :size="20" slot="right" color="#aaa"/>
       </mu-list-item>
@@ -50,10 +50,7 @@ export default {
       this.$http.get('/rest/api/user/logout').then((res) => {
         ctx.$parent.$refs.loading.hide()
         // 清空数据
-        ctx.$store.commit('setUser', {})
-        ctx.$store.commit('setUserInfo', {})
-        ctx.$store.commit('setEnterprise', {})
-        ctx.$store.commit('setMemberRankList', [])
+        ctx.$store.commit('reset')
         ctx.$router.push({path: '/login'})
       })
     }

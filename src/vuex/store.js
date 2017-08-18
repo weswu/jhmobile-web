@@ -9,6 +9,7 @@ const store = new Vuex.Store({
 		errImgUrl: 'http://img.easthardware.com/upload/j/j2/jihui/picture/2015/12/04/cb46a5be-9960-4c96-a463-895e7948c415.png', // 破图
 		imgUrl: 'http://img.jihui88.com/', // 图片域名地址
 		wcdImgUrl: 'http://wcd.jihui88.com/leaflet/images/nopic.png', // 微传单空图片
+		employee: {},
 		user: {},
 		userInfo: {},
 		enterprise: {},
@@ -16,6 +17,7 @@ const store = new Vuex.Store({
 		memberRankList: []
 	},
 	getters: {
+		employee: state => state.employee,
 		user: state => state.user,
 		userInfo: state => state.userInfo,
 		enterprise: state => state.enterprise,
@@ -23,6 +25,9 @@ const store = new Vuex.Store({
 		memberRankList: state => state.memberRankList
 	},
 	mutations: {
+		setEmployee (state, employee) {
+			state.employee = employee
+		},
 		setUser (state, user) {
 			state.user = user
 		},
@@ -37,6 +42,14 @@ const store = new Vuex.Store({
 		},
 		setMemberRankList (state, memberRankList) {
 			state.memberRankList = memberRankList
+		},
+		reset (state) {
+			state.employee = {}
+			state.user = {}
+			state.userInfo = {}
+			state.enterprise = {}
+			state.point = {}
+			state.memberRankList = []
 		}
 	},
 	// 异步的数据操作

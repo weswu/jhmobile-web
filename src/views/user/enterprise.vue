@@ -54,7 +54,7 @@ export default {
         {text: '以上都不是', value: '04'}
       ],
       imgUrl: this.$store.state.imgUrl,
-      enterprise: {}
+      enterprise: this.$store.state.enterprise
     }
   },
   created () {
@@ -65,11 +65,10 @@ export default {
   },
   methods: {
     get () {
-      if (this.$store.state.enterprise.id) {
-        this.enterprise = this.$store.state.enterprise
-      } else {
+      if (!this.$store.state.enterprise.id) {
         this.$http.get('/rest/api/enterprise/detail').then((res) => {
           this.enterprise = res.data.attributes.data
+          this.$store.commit('setEnterprise', this.enterprise)
         })
       }
     },

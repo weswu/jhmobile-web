@@ -12,7 +12,7 @@
           <span v-if='userInfo.versions'>当前版本：{{userInfo.versions}}<br/></span>
           <span v-if="userInfo.endTime === '1'">已到期,请续费<br/></span>
           <span v-else-if="userInfo.endTime && userInfo.endTime !== '0'">到期时间：{{userInfo.endTime}}<br/></span>
-          服务热线：<a href='tel:4007111011'>400-7111-011</a>
+          服务热线：<a :href="'tel:'+ (employee.emp_mobile_phone || '4007111011')">{{employee.emp_mobile_phone || '400-7111-011'}}</a>
         </div>
         <a href='#/setting' style='position: absolute;top: 15px;right: 15px;color:#fff'><i class='mu-bottom-item-icon mu-icon material-icons'>settings</i></a>
       </div>
@@ -74,8 +74,9 @@ export default {
   data () {
     return {
       user: this.$store.state.user,
-      userInfo: {},
-      enterprise: {},
+      userInfo: this.$store.state.userInfo,
+      enterprise: this.$store.state.enterprise,
+      employee: this.$store.state.employee,
       imgUrl: this.$store.state.imgUrl,
       navList1: [
         {url: '#/shopData', name: '商城数据', icon: 'tongji', color: '#5bba19'},
@@ -97,28 +98,35 @@ export default {
       ]
     }
   },
-  beforeRouteEnter (to, from, next) {
-    next(vm => {
-      vm.get()
-    })
+  created () {
+    this.get()
   },
   methods: {
     get () {
-      let _this = this
-      this.$http.get('/rest/api/user/detail').then((res) => {
-        this.user = res.data.attributes.data
-        this.$store.commit('setUser', this.user)
-      })
-      this.$http.get('/rest/api/order/home/list').then((res) => {
-        this.userInfo = res.data.attributes
-        this.$store.commit('setUserInfo', this.userInfo)
-      })
-      setTimeout(function () {
-        _this.$http.get('/rest/api/enterprise/detail').then((res) => {
-          _this.enterprise = res.data.attributes.data
-          _this.$store.commit('setEnterprise', _this.enterprise)
+      if (!this.$store.state.user.id) {
+        this.$http.get('/rest/api/user/detail').then((res) => {
+          this.user = res.data.attributes.data
+          this.$store.commit('setUser', this.user)
         })
-      }, 100)
+      }
+      if (!this.$store.state.userInfo.name) {
+        this.$http.get('/rest/api/order/home/list').then((res) => {
+          this.userInfo = res.data.attributes
+          this.$store.commit('setUserInfo', this.userInfo)
+        })
+      }
+      if (!this.$store.state.enterprise.id) {
+        this.$http.get('/rest/api/enterprise/detail').then((res) => {
+          this.enterprise = res.data.attributes.data
+          this.$store.commit('setEnterprise', this.enterprise)
+        })
+      }
+      if (!this.$store.state.employee.emp_mobile_phone) {
+        this.$http.get('/rest/api/crm/friend_emp').then((res) => {
+          this.employee = res.data.attributes.data[0] || {}
+          this.$store.commit('setEmployee', this.employee)
+        })
+      }
     },
     setErrorImg (e) {
       e.target.src = this.$store.state.errImgUrl
@@ -137,12 +145,7 @@ export default {
 .mu-item-title{color:#777}
 .flex-home{border-right:1px solid #ededed;border-bottom:1px solid #ededed;text-align:center;}
 .flex-home a{color:#666;line-height:2.5;display:block;font-size:.7rem}
-.flex-home i{color:#bbb;font-size:1.2rem;width: auto;
-    display: block;
-    margin: 0 auto;
-    line-height: 1.6rem;
-    padding: .5rem .5rem 0 .5rem;
-    background: #fff;}
+.flex-home i{color:#bbb;font-size:1.2rem;width:auto;display:block;margin:0 auto;line-height:1.6rem;padding:.5rem .5rem 0 .5rem;background:#fff}
 
 .status>ul{overflow: hidden;margin: 0;padding:.3rem 0;border-bottom:1px solid #e5e5e5;display: -webkit-flex;display:-moz-box;display:-webkit-box;display:-moz-flex;display:-ms-flexbox;display:-ms-flex}
 .status>ul>li{width: 25%;float: left;-webkit-box-flex:1;-moz-box-flex:1;-webkit-flex:1 1 0%;-moz-flex:1 1 0;-ms-flex:1 1 0%;flex:1 1 0%;display:block;padding:.3rem 0}

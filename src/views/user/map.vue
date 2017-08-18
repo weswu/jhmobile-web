@@ -24,7 +24,7 @@ export default {
       keyword: '',
       lng: (this.$store.state.enterprise.mapaddress && this.$store.state.enterprise.mapaddress.split(',')[0]) || 120.229355,
       lat: (this.$store.state.enterprise.mapaddress && this.$store.state.enterprise.mapaddress.split(',')[1]) || 30.2145,
-      enterprise: {}
+      enterprise: this.$store.state.enterprise
     }
   },
   components: {
