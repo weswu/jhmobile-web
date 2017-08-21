@@ -4,7 +4,7 @@
       <mu-icon-button icon='arrow_back' @click="$router.back()"  slot="left"/>
     </mu-appbar>
     <div class="p10">
-      <mu-select-field v-model="category.belongId" :labelFocusClass="['label-foucs']" label="所属分类">
+      <mu-select-field v-model="category.belongId" :labelFocusClass="['label-foucs']" label="所属分类" :maxHeight="300">
         <mu-menu-item v-for="v,index in categorySelect" :value="v.categoryId" :title="v.name" />
       </mu-select-field>
       <p style="color: #ff6000;">注：未选择分类表示添加的是顶级分类</p>
