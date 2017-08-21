@@ -24,7 +24,7 @@
     <mu-list class='wu-list'>
       <template v-for='item in list'>
         <mu-list-item :title='item.name' @click='detail(item.id)'>
-          <img :src="imgUrl + item.attaPic | picUrl(8)" @error="setErrorImg" slot="left">
+          <img :src="$store.state.imgUrl + item.attaPic | picUrl(8)" @error="setErrorImg" slot="left">
           <div class='subContent'>
             {{item.organize}}
           </div>
@@ -43,7 +43,6 @@ export default {
   data () {
     return {
       list: [],
-      imgUrl: this.$store.state.imgUrl,
       count: 0,
       loading: false,
       scroller: null,

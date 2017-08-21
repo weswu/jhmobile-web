@@ -7,7 +7,7 @@
     <mu-list class="wu-list">
       <template v-for='item,index in list'>
         <mu-list-item :title='item.title' @click="open(item.id)">
-          <img :src="imgUrl + item.logo" @error="setErrorImg" slot="left">
+          <img :src="$store.state.imgUrl + item.logo" @error="setErrorImg" slot="left">
           <div class="subContent">
             <p v-if="item.language === '1'">中文</p>
             <p v-if="item.language === '2'">英文</p>
@@ -25,7 +25,6 @@ import qs from 'qs'
 export default {
   data () {
     return {
-      imgUrl: this.$store.state.imgUrl,
       list: [],
       category: [
         { name: '全部', id: '' },

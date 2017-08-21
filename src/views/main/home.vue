@@ -3,7 +3,7 @@
     <div class='home-header'>
       <div slot='left' style='width:5rem;float:left;margin-left:0.5rem'>
         <a href='#/enterprise'>
-          <img :src='imgUrl + enterprise.logo' @error='setErrorImg'>
+          <img :src='$store.state.imgUrl + enterprise.logo' @error='setErrorImg'>
         </a>
       </div>
       <div slot='left'>
@@ -77,7 +77,6 @@ export default {
       userInfo: this.$store.state.userInfo,
       enterprise: this.$store.state.enterprise,
       employee: this.$store.state.employee,
-      imgUrl: this.$store.state.imgUrl,
       navList1: [
         {url: '#/shopData', name: '商城数据', icon: 'tongji', color: '#5bba19'},
         {url: '#/mobile/me', name: '微网站', icon: 'weiwangzhan', color: '#8da5cb'},

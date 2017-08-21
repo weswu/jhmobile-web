@@ -25,7 +25,7 @@
     <mu-list class="wu-list">
       <template v-for='item in list'>
         <mu-list-item>
-          <img :src="imgUrl + item.picPath | picUrl(8)" @error="setErrorImg" slot="left" @click='detail(item.id)'>
+          <img :src="$store.state.imgUrl + item.picPath | picUrl(8)" @error="setErrorImg" slot="left" @click='detail(item.id)'>
           <div slot="title" @click='detail(item.id)'>
             {{item.name}}
           </div>
@@ -50,7 +50,6 @@ import qs from 'qs'
 export default {
   data () {
     return {
-      imgUrl: this.$store.state.imgUrl,
       count: 0,
       search: false,
       list: [],

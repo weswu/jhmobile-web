@@ -12,7 +12,7 @@
         </mu-flexbox-item>
         <mu-flexbox-item class="flex-demo">
           <mu-paper class="demo-paper" :zDepth="2">
-            <img class="avatar" width="80" :src="imgUrl + enterprise.logo" @error="setErrorImg" alt="公司LOGO">
+            <img class="avatar" width="80" :src="$store.state.imgUrl + enterprise.logo" @error="setErrorImg" alt="公司LOGO">
           </mu-paper>
         </mu-flexbox-item>
         <mu-flexbox-item class="flex-demo">
@@ -53,7 +53,6 @@ export default {
         {text: '商业服务', value: '03'},
         {text: '以上都不是', value: '04'}
       ],
-      imgUrl: this.$store.state.imgUrl,
       enterprise: this.$store.state.enterprise
     }
   },

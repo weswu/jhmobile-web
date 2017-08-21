@@ -19,7 +19,7 @@
 					<span class="sending_fl">收货地址：</span><span class="sending_fr">{{data.shipArea}}{{data.shipAddress}}</span>
 				</p>
 			</div>
-      <mu-select-field v-model="order.exp" :labelFocusClass="['label-foucs']" label="物流信息" :maxHeight="500">
+      <mu-select-field v-model="order.exp" :labelFocusClass="['label-foucs']" label="物流信息" :maxHeight="300">
         <mu-menu-item v-for="v,index in middle" :value="v.com" :title="v.name" />
       </mu-select-field>
       <mu-text-field label="运费" hintText="请输入运费" v-model="order.cost" fullWidth/>

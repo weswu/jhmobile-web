@@ -6,7 +6,7 @@
     <mu-list class="wu-list" v-else>
       <template v-for='item,index in list'>
         <mu-list-item :title='item.title' @click="open(item)">
-          <img :src="imgUrl + item.logo" @error="setErrorImg" slot="left">
+          <img :src="$store.state.imgUrl + item.logo" @error="setErrorImg" slot="left">
           <div class="subContent">
             <p v-if="item.state === '0'" class="red">该手机网站暂未开通</p>
             <p v-else-if="item.language === '1'">中文版</p>
@@ -28,7 +28,6 @@ import qs from 'qs'
 export default {
   data () {
     return {
-      imgUrl: this.$store.state.imgUrl,
       list: [],
       loading: false,
       scroller: null,

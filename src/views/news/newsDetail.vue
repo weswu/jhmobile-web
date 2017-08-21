@@ -16,13 +16,13 @@
       </mu-select-field>
       <mu-text-field label='来源' hintText='请输入来源' v-model='news.origin' fullWidth/>
       <mu-text-field label='作者' hintText='请输入作者' v-model='news.author' fullWidth/>
-      <p v-if="false">新闻图片：</p>
-      <mu-radio v-if="false" name="imagenews" nativeValue="01" v-model="news.imagenews" label="显示" class="wu-radio"/>
-      <mu-radio v-if="false" name="imagenews" nativeValue="00" v-model="news.imagenews" label="隐藏" class="wu-radio"/>
-      <mu-flexbox v-if="news.imagenews === '01'">
+      <p>文章属性：</p>
+      <mu-checkbox name="imagenews" v-model="imagenews" label="图片"/>
+      <mu-checkbox name="topnews" v-model="topnews" label="置顶" style="margin-left:20px"/>
+      <mu-flexbox v-show="imagenews">
         <mu-flexbox-item class='flex-demo'>
           <mu-paper class='demo-paper' :zDepth='2'>
-            <img class='avatar' style="width:4.8rem" :src='imgUrl + news.picPath' @error='setErrorImg'>
+            <img class='avatar' style="width:4.8rem" :src='$store.state.imgUrl + news.picPath' @error='setErrorImg'>
           </mu-paper>
         </mu-flexbox-item>
         <mu-flexbox-item class='flex-demo'>
@@ -51,7 +51,8 @@ export default {
       news: {
         imagenews: '00'
       },
-      imgUrl: this.$store.state.imgUrl,
+      imagenews: false,
+      topnews: false,
       editorOption: {}
     }
   },
@@ -73,6 +74,8 @@ export default {
       this.$http.get('/rest/api/news/updateList?id=' + this.$route.params.id).then((res) => {
         this.categoryList = res.data.attributes.categoryList
         this.news = res.data.attributes.data
+        this.imagenews = this.news.imagenews === '01' ? true : false
+        this.topnews = this.news.topnews === '01' ? true : false
       })
     },
     getCate () {
@@ -83,16 +86,18 @@ export default {
     setErrorImg (e) {
       e.target.src = this.$store.state.errImgUrl
     },
-    fileChange (text) {
-      this.news.picPath = text.data
-    },
     handleTabChange (val) {
       this.activeTab = val
+    },
+    fileChange (text) {
+      this.news.picPath = text.data
     },
     submit () {
       if (!this.news.title) { return window.alert('新闻标题不能为空') }
       if (!this.news.category) { return window.alert('新闻分类不能为空') }
       if (!this.news.content) { return window.alert('新闻内容不能为空') }
+      if (this.topnews) {this.news.topnews = '01'} else {this.news.topnews = '00'}
+      if (this.imagenews) {this.news.imagenews = '01'} else {this.news.imagenews = '00'}
       this.model = {
         id: this.news.id,
         title: this.news.title,
@@ -100,10 +105,11 @@ export default {
         origin: this.news.origin,
         author: this.news.author,
         imagenews: this.news.imagenews,
+        topnews: this.news.topnews,
         content: this.news.content
       }
       if (this.news.imagenews === '01') {
-        this.model.picPath = this.news.picPath
+        this.model.picPath = this.news.picPath || ''
       }
       this.$parent.$refs.loading.show()
       if (this.news.id) {

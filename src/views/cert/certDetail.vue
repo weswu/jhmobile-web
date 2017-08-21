@@ -15,7 +15,7 @@
         </mu-flexbox-item>
         <mu-flexbox-item class="flex-demo">
           <mu-paper class="demo-paper" :zDepth="2">
-            <img class="avatar" style="width:4.8rem" :src="imgUrl + cert.attaPic" @error="setErrorImg">
+            <img class="avatar" style="width:4.8rem" :src="$store.state.imgUrl + cert.attaPic" @error="setErrorImg">
           </mu-paper>
         </mu-flexbox-item>
         <mu-flexbox-item class="flex-demo">
@@ -33,7 +33,6 @@ export default {
   data () {
     return {
       name: '',
-      imgUrl: this.$store.state.imgUrl,
       typeList: [
         {text: '基本证书', value: '01'},
         {text: '税务登记证', value: '07'},
