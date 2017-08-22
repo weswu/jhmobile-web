@@ -16,7 +16,8 @@
     <transition name='fade'>
       <div class='header-search' v-show='search'>
         <mu-select-field v-model='searchData.category' :labelFocusClass="['label-foucs']" label="请选择分类" :maxHeight="300" fullWidth>
-          <mu-menu-item v-for='v in categoryList' :value='v.categoryId' :title='v.name'/>
+          <mu-menu-item value='' title='全部分类' />
+          <mu-menu-item v-for='v in categoryList' :value='v.categoryId' :title='v.cdesc'/>
         </mu-select-field>
         <mu-text-field v-model='searchData.title' type='search' hintText='请输入新闻标题' fullWidth/>
         <mu-raised-button label='搜索' @click='searchKey' secondary fullWidth/>
@@ -54,7 +55,7 @@ export default {
       count: 0,
       search: false,
       list: [],
-      categoryList: [],
+      categoryList: this.$store.state.newsCategoryList,
       searchData: {
         page: 1,
         title: '',
@@ -88,9 +89,10 @@ export default {
       })
     },
     getCate () {
-      this.$http.get('/rest/api/news/updateList?categ=1').then((res) => {
-        this.categoryList = res.data.attributes.categoryList
-        this.categoryList[0].categoryId = ''
+      if (this.categoryList.length === 0)
+      this.$http.get('/rest/api/news/categoryManage').then((res) => {
+        this.categoryList = res.data.attributes.data
+        this.$store.commit('setNewsCategoryList', this.categoryList)
       })
     },
     loadMore () {

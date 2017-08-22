@@ -24,6 +24,8 @@ Vue.prototype.scrollList = function (ctx, data) {
       ctx.count = data.attributes.count
       if (data.attributes.data.length === 0) {
         ctx.busy = true
+      } else {
+        ctx.busy = false
       }
     }
     ctx.searchData.page += 1

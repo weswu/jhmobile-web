@@ -14,7 +14,9 @@ const store = new Vuex.Store({
 		userInfo: {},
 		enterprise: {},
 		point: {},
-		memberRankList: []
+		memberRankList: [],
+		productCategoryList: [],
+		newsCategoryList: []
 	},
 	getters: {
 		employee: state => state.employee,
@@ -22,7 +24,9 @@ const store = new Vuex.Store({
 		userInfo: state => state.userInfo,
 		enterprise: state => state.enterprise,
 		point: state => state.point,
-		memberRankList: state => state.memberRankList
+		memberRankList: state => state.memberRankList,
+		productCategoryList: state => state.productCategoryList,
+		newsCategoryList: state => state.newsCategoryList
 	},
 	mutations: {
 		setEmployee (state, employee) {
@@ -43,6 +47,12 @@ const store = new Vuex.Store({
 		setMemberRankList (state, memberRankList) {
 			state.memberRankList = memberRankList
 		},
+		setProductCategoryList (state, productCategoryList) {
+			state.productCategoryList = productCategoryList
+		},
+		setNewsCategoryList (state, newsCategoryList) {
+			state.newsCategoryList = newsCategoryList
+		},
 		reset (state) {
 			state.employee = {}
 			state.user = {}
@@ -50,6 +60,8 @@ const store = new Vuex.Store({
 			state.enterprise = {}
 			state.point = {}
 			state.memberRankList = []
+			state.productCategoryList = []
+			state.newsCategoryList = []
 		}
 	},
 	// 异步的数据操作

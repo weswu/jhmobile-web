@@ -12,7 +12,7 @@
     <div class='p10 mbfixed' v-if="activeTab === '1'">
       <mu-text-field label='新闻标题' hintText='请输入新闻标题' v-model='news.title' fullWidth/>
       <mu-select-field v-model='news.category' :labelFocusClass="['label-foucs']" hintText='所属分类' label="新闻分类" :maxHeight="300">
-        <mu-menu-item v-for='v in categoryList' :value='v.id' :title='v.name'/>
+        <mu-menu-item v-for='v in categoryList' :value='v.id' :title='v.cdesc'/>
       </mu-select-field>
       <mu-text-field label='来源' hintText='请输入来源' v-model='news.origin' fullWidth/>
       <mu-text-field label='作者' hintText='请输入作者' v-model='news.author' fullWidth/>
@@ -47,7 +47,7 @@ export default {
     return {
       name: '',
       activeTab: '1',
-      categoryList: [],
+      categoryList: this.$store.state.newsCategoryList,
       news: {
         imagenews: '00'
       },
@@ -62,8 +62,8 @@ export default {
       this.get()
     } else {
       this.name = '新闻添加'
-      this.getCate()
     }
+    this.getCate()
   },
   components: {
     Upload,
@@ -71,16 +71,17 @@ export default {
   },
   methods: {
     get () {
-      this.$http.get('/rest/api/news/updateList?id=' + this.$route.params.id).then((res) => {
-        this.categoryList = res.data.attributes.categoryList
+      this.$http.get('/rest/api/news/detail/' + this.$route.params.id).then((res) => {
         this.news = res.data.attributes.data
         this.imagenews = this.news.imagenews === '01' ? true : false
         this.topnews = this.news.topnews === '01' ? true : false
       })
     },
     getCate () {
-      this.$http.get('/rest/api/news/updateList?id=0').then((res) => {
-        this.categoryList = res.data.attributes.categoryList
+      if (this.categoryList.length === 0)
+      this.$http.get('/rest/api/news/categoryManage').then((res) => {
+        this.categoryList = res.data.attributes.data
+        this.$store.commit('setNewsCategoryList', this.categoryList)
       })
     },
     setErrorImg (e) {

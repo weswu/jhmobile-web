@@ -13,7 +13,7 @@
     <div class='p10 mbfixed' v-if="activeTab === '1'">
       <mu-text-field label='产品名称' hintText='请输入产品名称' v-model='product.name' fullWidth/>
       <mu-select-field v-model='product.category' :labelFocusClass="['label-foucs']" hintText='所属分类' label="产品分类" :maxHeight="300">
-        <mu-menu-item v-for='v,index in categoryList' :value='v.categoryId' :title='v.name' />
+        <mu-menu-item v-for='v,index in categoryList' :value='v.categoryId' :title='v.cdesc' />
       </mu-select-field>
       <mu-text-field label='产品型号' hintText='请输入产品型号' v-model='product.prodtype' fullWidth/>
       <p>基本设置：</p>
@@ -66,7 +66,7 @@ export default {
     return {
       name: '',
       activeTab: '1',
-      categoryList: [],
+      categoryList: this.$store.state.productCategoryList,
       product: {
         price: 0,
         marketprice: 0,
@@ -81,7 +81,7 @@ export default {
       },
       loginView: false,
       ads: false,
-      imgArr: [{"sourceProductImagePath":"upload/g/g2/ggggfj/picture/2016/04/27/10b43790-bd94-4665-ad5b-e89b44b3873c.jpg","type":"main_pic"},{"id":"Attach_0000000000000000001292948","sourceProductImagePath":"upload/g/g2/ggggfj/picture/2016/11/29/f0a83431-d266-492b-ae9a-230542065dc4.jpg","type":"pertain_pic"},{"id":"Attach_0000000000000000001391525","sourceProductImagePath":"upload//g//g2//ggggfj//picture//2017//08//22/1ac85e6c-4949-49ac-8d1a-484b8de69d9a.jpg","type":"pertain_pic"}], //多图
+      imgArr: [], //多图
       imgArrIndex: '',
       // 商城
       isMarketable: true,
@@ -103,16 +103,15 @@ export default {
       this.get()
     } else {
       this.name = '产品添加'
-      this.getCate()
     }
+    this.getCate()
   },
   components: {
     quillEditor
   },
   methods: {
     get () {
-      this.$http.get('/rest/api/product/updateList?id=' + this.$route.params.id).then((res) => {
-        this.categoryList = res.data.attributes.categoryList
+      this.$http.get('/rest/api/product/detail/' + this.$route.params.id).then((res) => {
         this.product = res.data.attributes.data
         this.loginView = this.product.loginView === '1' ? true : false
         this.ads = this.product.ads === '1' ? true : false
@@ -126,8 +125,10 @@ export default {
       })
     },
     getCate () {
+      if (this.categoryList.length === 0)
       this.$http.get('/rest/api/product/categoryManage').then((res) => {
-        this.categoryList = res.data.attributes.categoryList
+        this.categoryList = res.data.attributes.data
+        this.$store.commit('setProductCategoryList', this.categoryList)
       })
     },
     setErrorImg (e) {
@@ -199,7 +200,7 @@ export default {
     },
     addImg (e) {
       let ctx = this
-      lrz(e.target.files[0], {width: 800, fieldName: 'Filedata'})
+      lrz(e.target.files[0], {width: 500, fieldName: 'Filedata'})
         .then(function (rst) {
           /* ==================================================== */
           // 原生ajax上传代码，所以看起来特别多 ╮(╯_╰)╭，但绝对能用
