@@ -38,7 +38,7 @@
       </mu-list-item>
       <mu-divider />
     </mu-list>
-    <mu-raised-button label="退出帐号" @click="signout" secondary fullWidth/>
+    <mu-raised-button label="退出帐号" @click="signout" secondary fullWidth style="margin-top:20px"/>
   </div>
 </template>
 <script>

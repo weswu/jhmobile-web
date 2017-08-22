@@ -316,7 +316,6 @@
   </div>
 </div>
 </template>
-
 <style lang="less" scoped>
   .img-upload{
     width: 65%;margin-right:3%;    float: left;

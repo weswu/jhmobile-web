@@ -19,19 +19,19 @@
       <p>基本设置：</p>
       <mu-checkbox name="loginView" v-model="loginView" label="登录后可见"/>
       <mu-checkbox name="ads" v-model="ads" label="广告产品" style="margin-left:20px"/>
-      <mu-flexbox>
-        <mu-flexbox-item class='flex-demo'>
-          产品图片：
-        </mu-flexbox-item>
-        <mu-flexbox-item class='flex-demo'>
-          <mu-paper class='demo-paper' :zDepth='2'>
-            <img class='avatar' style="width:4.8rem" :src='$store.state.imgUrl + product.picPath' @error='setErrorImg'>
-          </mu-paper>
-        </mu-flexbox-item>
-        <mu-flexbox-item class='flex-demo'>
-          <upload :width='300' v-on:result='fileChange'></upload>
-        </mu-flexbox-item>
-      </mu-flexbox>
+      <p style="padding-top:10px">产品图片：</p>
+      <div class="Pu-img">
+        <span v-for="value,index of imgArr">
+           <a href="javascript:;" @click="uploadImg(index)">
+             <img :src="$store.state.imgUrl + value.sourceProductImagePath" alt="img" @error='setErrorImg'>
+             <mu-icon-button icon='close' @click.stop='remove(index)' class="imgRemove"/>
+           </a>
+        </span>
+        <a href="javascript:;" class="Pu-Add-img">
+          <div class="addImg">+</div>
+          <input type="file" accept="image/*" @change="addImg($event)" id="uploadImg">
+        </a>
+      </div>
     </div>
     <div class='p10 mbfixed' v-if="activeTab === '2'">
       <quill-editor ref="myTextEditor"
@@ -58,7 +58,7 @@
   </div>
 </template>
 <script>
-import Upload from '../../components/upload'
+import lrz from 'lrz'
 import qs from 'qs'
 import { quillEditor } from 'vue-quill-editor'
 export default {
@@ -81,6 +81,8 @@ export default {
       },
       loginView: false,
       ads: false,
+      imgArr: [{"sourceProductImagePath":"upload/g/g2/ggggfj/picture/2016/04/27/10b43790-bd94-4665-ad5b-e89b44b3873c.jpg","type":"main_pic"},{"id":"Attach_0000000000000000001292948","sourceProductImagePath":"upload/g/g2/ggggfj/picture/2016/11/29/f0a83431-d266-492b-ae9a-230542065dc4.jpg","type":"pertain_pic"},{"id":"Attach_0000000000000000001391525","sourceProductImagePath":"upload//g//g2//ggggfj//picture//2017//08//22/1ac85e6c-4949-49ac-8d1a-484b8de69d9a.jpg","type":"pertain_pic"}], //多图
+      imgArrIndex: '',
       // 商城
       isMarketable: true,
       isNew: false,
@@ -105,7 +107,6 @@ export default {
     }
   },
   components: {
-    Upload,
     quillEditor
   },
   methods: {
@@ -115,6 +116,7 @@ export default {
         this.product = res.data.attributes.data
         this.loginView = this.product.loginView === '1' ? true : false
         this.ads = this.product.ads === '1' ? true : false
+        this.imgArr = JSON.parse(this.product.productimageliststore) || []
         // 商城
         this.isMarketable = this.product.isMarketable === '01' ? true : false
         this.isNew = this.product.isNew === '01' ? true : false
@@ -131,26 +133,16 @@ export default {
     setErrorImg (e) {
       e.target.src = this.$store.state.errImgUrl
     },
-    fileChange (text) {
-      this.product.attachmentId = text.attId
-      this.product.picPath = text.data
-    },
     handleTabChange (val) {
       this.activeTab = val
     },
     submit () {
       if (!this.product.name) { return window.alert('产品名称不能为空') }
       if (!this.product.category) { return window.alert('产品分类不能为空') }
-      // if (!this.product.picPath) { return window.alert('产品图片不能为空') }
+      if (this.imgArr.length === 0) { return window.alert('产品图片不能为空') }
       if (!this.product.proddesc) { return window.alert('产品内容不能为空') }
-      if (this.product.productimageliststore === 'null' || !this.product.productimageliststore) {
-        // this.product.productimageliststore = JSON.stringify([{id: this.product.attachmentId, sourceProductImagePath: this.product.picPath}])
-      } else {
-        this.server_pic_list = JSON.parse(this.product.productimageliststore)
-        this.server_pic_list[0].id = this.product.attachmentId
-        this.server_pic_list[0].sourceProductImagePath = this.product.picPath
-        this.product.productimageliststore = JSON.stringify(this.server_pic_list)
-      }
+      this.product.productimageliststore = JSON.stringify(this.imgArr)
+      this.product.picPath = this.imgArr[0].sourceProductImagePath
       if (this.loginView) {this.product.loginView = '1'} else {this.product.loginView = '0'}
       if (this.ads) {this.product.ads = '1'} else {this.product.ads = '0'}
       // 商城
@@ -195,11 +187,71 @@ export default {
           this.$router.back()
         })
       }
+    },
+    remove (val) {
+      if (this.imgArr.length === 1) return
+      this.imgArr.splice(val, 1)
+    },
+    uploadImg (val) {
+      console.log('uploadImg:' + val)
+      this.imgArrIndex = val
+      document.querySelector('#uploadImg').click()
+    },
+    addImg (e) {
+      let ctx = this
+      lrz(e.target.files[0], {width: 800, fieldName: 'Filedata'})
+        .then(function (rst) {
+          /* ==================================================== */
+          // 原生ajax上传代码，所以看起来特别多 ╮(╯_╰)╭，但绝对能用
+          // 其他框架，例如jQuery处理formData略有不同，请自行google，baidu。
+          let xhr = new XMLHttpRequest()
+          xhr.open('POST', '/rest/api/album/fileupload')
+          xhr.onload = function () {
+            ctx.$parent.$refs.loading.hide()
+            if (xhr.status === 200) {
+              // 上传成功
+              var text =JSON.parse(xhr.response).attributes
+              debugger
+              if (ctx.imgArrIndex === ''){
+                ctx.imgArr.push({id: text.attId, sourceProductImagePath: text.data, 'type': 'pertain_pic'})
+              } else {
+                var type = 'pertain_pic'
+                if (ctx.imgArrIndex === 0) {type = 'main_pic'}
+                ctx.imgArr.splice(ctx.imgArrIndex, 1, {id: text.attId, sourceProductImagePath: text.data, 'type': type})
+              }
+              ctx.imgArrIndex = ''
+            } else {
+              // 处理其他情况
+            }
+          }
+          xhr.onerror = function () {
+            // 处理错误
+            ctx.$parent.$refs.loading.hide()
+          }
+          xhr.upload.onprogress = function (e) {
+            // 上传进度
+            ctx.$parent.$refs.loading.show()
+            // var percentComplete = ((e.loaded / e.total) || 0) * 100
+          }
+          // 添加参数
+          rst.formData.append('fileLen', rst.fileLen)
+          // 触发上传
+          xhr.send(rst.formData)
+          /* ==================================================== */
+          return rst
+        })
+        .catch(function (err) {
+          console.log(err)
+          // 处理失败会执行
+        })
+        .always(function () {
+          // 不管是成功失败，都会执行
+        })
     }
   }
 }
 </script>
-<style>
+<style lang="less">
 #productDetail .wu-text-right{
   width: 80px;
   float: right;
@@ -208,5 +260,51 @@ export default {
   line-height: 36px;
   display: block;
   color: #999
+}
+.Pu-img {
+  margin: 0.5rem 0px;
+  overflow: hidden;
+  .Pu-Add-img input {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    opacity: 0;
+  }
+  a {
+    position: relative;
+    display: inline-block;
+    width: 4rem;
+    height: 4rem;
+    overflow: hidden;
+    float: left;
+    margin: 0 1.9% .4rem 1.9%;
+    .addImg {
+      width: 3.888rem;
+      height: 3.9rem;
+      text-align: center;
+      line-height: 3.3rem;
+      font-size: 3.5rem;
+      color: #ff6214;
+      border: 1px solid #c7c7c7;
+    }
+    img {
+      height: 4rem
+    }
+  }
+  .imgRemove {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 28px;
+    height: 28px;
+    padding: 0;
+    background: rgba(0,0,0,.5);
+    color: #fff
+  }
+  .mu-icon {
+    font-size: 18px;
+  }
 }
 </style>

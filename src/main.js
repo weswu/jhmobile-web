@@ -24,24 +24,9 @@ import topPopup from './components/topPopup.vue'
 Vue.component('loading', loading)
 Vue.component('toast', toast)
 Vue.component('toppopup', topPopup)
-//Navigation Guards -check logined or not 设置元信息，检查 meta 字段
-router.beforeEach((to, from, next) => {
-  if (to.matched.some(record => record.meta.requiresAuth)) {
-    if (store.state.user.userId) {
-      next()
-    } else {
-      next({
-        path: '/login',
-        query: { redirect: to.fullPath }
-      })
-    }
-  } else {
-    next()
-  }
-})
 /*
  * 问题
- * 1.ios7 new Vuex后就显示空白页面
+ * 1.ios7 new Vuex()后就显示空白页面
  * 2.ios7 登录不能成功
  *
  */
