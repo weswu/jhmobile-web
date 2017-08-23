@@ -117,6 +117,8 @@ const routers = new VueRouter({
   { path: '/memberRank', component: require('../views/member/memberRank') },
   { path: '/memberRankAdd', component: require('../views/member/memberRankDetail') },
   { path: '/memberRank/:id', component: require('../views/member/memberRankDetail') },
+  // seo
+  { path: '/seo/:id', component: require('../views/seo/seoDetail') },
   // setting
   { path: '/setting', component: require('../views/setting/setting') },
   { path: '/account', component: require('../views/setting/account') },

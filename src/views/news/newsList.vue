@@ -36,7 +36,7 @@
           <mu-icon-menu slot="right" icon="more_vert" tooltip="操作">
             <mu-menu-item :title="item.display === '01' ? '已显示' : '已隐藏'" :class="item.display === '01' ? 'itemActive' : ''" @click='display(item)'/>
             <mu-menu-item :title="item.topnews === '01' ? '已置顶' : '未置顶'" :class="item.topnews === '01' ? 'itemActive' : ''" @click='topnews(item)'/>
-            <mu-menu-item title="修改" @click='detail(item.id)'/>
+            <mu-menu-item title="Seo修改" @click='seo(item.id)'/>
             <mu-menu-item title="删除" @click='del(item.id)'/>
           </mu-icon-menu>
         </mu-list-item>
@@ -106,6 +106,9 @@ export default {
     },
     detail (id) {
       this.$router.push({path: '/news/' + id})
+    },
+    seo (id) {
+      this.$router.push({path: '/seo/' + id})
     },
     // 显示隐藏
     display (item) {
