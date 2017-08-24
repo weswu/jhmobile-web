@@ -20,7 +20,18 @@ export default {
     }
   },
   created () {
-    this.get()
+    if (this.$route.params.id.indexOf('Product_') > -1) {
+      this.product = this.$route.params
+      this.seo.title = this.$route.params.seoTitle
+      this.seo.keywords = this.$route.params.pkey
+      this.seo.description = this.$route.params.seoDescription
+    } else if (this.$route.params.id.indexOf('News_') > -1) {
+      this.seo.title = this.$route.params.seoTitle
+      this.seo.keywords = this.$route.params.nkey
+      this.seo.description = this.$route.params.seoDescription
+    } else {
+      this.get()
+    }
   },
   methods: {
     get () {
@@ -33,7 +44,28 @@ export default {
       if (!this.seo.keywords) { return window.alert('Seo关键字不能为空') }
       if (!this.seo.description) { return window.alert('Seo描述不能为空') }
       this.$parent.$refs.loading.show()
-      if (this.seo.seoId) {
+      if (this.$route.params.id.indexOf('Product_') > -1) {
+        this.product.seoTitle = this.seo.title
+        this.product.pkey = this.seo.keywords
+        this.product.seoDescription = this.seo.description
+        this.$http.put('/rest/api/product/detail/' + this.$route.params.id + '?' + qs.stringify(this.product)).then((res) => {
+          this.$parent.$refs.loading.hide()
+          window.alert('修改成功')
+          this.$router.back()
+        })
+      } else if (this.$route.params.id.indexOf('News_') > -1) {
+        this.model = {
+          seoTitle: this.seo.title,
+          nkey: this.seo.keywords,
+          seoDescription: this.seo.description
+        }
+        this.$http.put('/rest/api/news/detail/' + this.$route.params.id + '?' + qs.stringify(this.model)).then((res) => {
+          this.$parent.$refs.loading.hide()
+          window.alert('修改成功')
+          this.$router.back()
+        })
+
+      } else if (this.seo.seoId) {
         this.$http.put('/rest/api/seo/detail/' + this.$route.params.id + '?' + qs.stringify(this.seo)).then((res) => {
           this.$parent.$refs.loading.hide()
           window.alert('修改成功')

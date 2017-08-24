@@ -140,10 +140,10 @@ export default {
     submit () {
       if (!this.product.name) { return window.alert('产品名称不能为空') }
       if (!this.product.category) { return window.alert('产品分类不能为空') }
-      if (this.imgArr.length === 0) { return window.alert('产品图片不能为空') }
+      // if (this.imgArr.length === 0) { return window.alert('产品图片不能为空') }
       if (!this.product.proddesc) { return window.alert('产品内容不能为空') }
       this.product.productimageliststore = JSON.stringify(this.imgArr)
-      this.product.picPath = this.imgArr[0].sourceProductImagePath
+      // this.product.picPath = this.imgArr[0].sourceProductImagePath
       if (this.loginView) {this.product.loginView = '1'} else {this.product.loginView = '0'}
       if (this.ads) {this.product.ads = '1'} else {this.product.ads = '0'}
       // 商城
@@ -152,37 +152,16 @@ export default {
       if (this.isBest) {this.product.isBest = '01'} else {this.product.isBest = '00'}
       if (this.isHot) {this.product.isHot = '01'} else {this.product.isHot = '00'}
       if (this.isAgent) {this.product.isAgent = '01'} else {this.product.isAgent = '00'}
-      this.model = {
-        name: this.product.name,
-        prodtype: this.product.prodtype,
-        categoryId: this.product.category,
-        loginView: this.product.loginView,
-        ads: this.product.ads,
-        picPath: this.product.picPath,
-        productimageliststore: this.product.productimageliststore,
-        proddesc: this.product.proddesc,
-        price: this.product.price,
-        marketprice: this.product.marketprice,
-        weight: this.product.weight,
-        weightunit: this.product.weightunit,
-        point: this.product.point,
-        store: this.product.store,
-        isMarketable: this.product.isMarketable,
-        isNew: this.product.isNew,
-        isBest: this.product.isBest,
-        isHot: this.product.isHot,
-        isAgent: this.product.isAgent,
-        all: 1
-      }
+
       this.$parent.$refs.loading.show()
       if (this.product.id) {
-        this.$http.put('/rest/api/product/detail/' + this.product.id + '?' + qs.stringify(this.model)).then((res) => {
+        this.$http.put('/rest/api/product/detail/' + this.product.id + '?' + qs.stringify(this.product)).then((res) => {
           this.$parent.$refs.loading.hide()
           window.alert('修改成功')
           this.$router.back()
         })
       } else {
-        this.$http.post('/rest/api/product/detail', qs.stringify(this.model)).then((res) => {
+        this.$http.post('/rest/api/product/detail', qs.stringify(this.product)).then((res) => {
           this.$parent.$refs.loading.hide()
           window.alert('发布成功')
           this.$router.back()

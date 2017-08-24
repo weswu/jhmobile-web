@@ -35,7 +35,7 @@
           </div>
           <mu-icon-menu slot="right" icon="more_vert" tooltip="操作">
             <mu-menu-item :title="item.isdisplay === '1' ? '已显示' : '已隐藏'" :class="item.isdisplay === '1' ? 'itemActive' : ''" @click='display(item)'/>
-            <mu-menu-item title="Seo修改" @click='seo(item.id)'/>
+            <mu-menu-item title="Seo修改" @click='seo(item)'/>
             <mu-menu-item title="删除" @click='del(item.id)'/>
           </mu-icon-menu>
         </mu-list-item>
@@ -107,13 +107,13 @@ export default {
     detail (id) {
       this.$router.push({path: '/product/' + id})
     },
-    seo (id) {
-      this.$router.push({path: '/seo/' + id})
+    seo (item) {
+      this.$router.push({ name: 'seoDetail', params: item})
     },
     // 显示隐藏
     display (item) {
       item.isdisplay = item.isdisplay === '1' ? '0' : '1'
-      this.$http.put('/rest/api/product/detail/' + item.productId + '?isdisplay=' + item.isdisplay).then((res) => {})
+      this.$http.put('/rest/api/product/detail/' + item.productId + '?' + qs.stringify(item)).then((res) => {})
     },
     del (id) {
       if (window.confirm('确认删除吗？')) {
