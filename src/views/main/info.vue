@@ -16,6 +16,10 @@
         <mu-icon value="navigate_next" :size="20" slot="right" color="#aaa"/>
       </mu-list-item>
       <mu-divider/>
+      <mu-list-item title="相册" to="/album">
+        <mu-icon value="navigate_next" :size="20" slot="right" color="#aaa"/>
+      </mu-list-item>
+      <mu-divider/>
       <mu-list-item title="友情链接" to="/link">
         <mu-icon value="navigate_next" :size="20" slot="right" color="#aaa"/>
       </mu-list-item>

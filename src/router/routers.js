@@ -117,6 +117,8 @@ const routers = new VueRouter({
   { path: '/memberRank', component: require('../views/member/memberRank') },
   { path: '/memberRankAdd', component: require('../views/member/memberRankDetail') },
   { path: '/memberRank/:id', component: require('../views/member/memberRankDetail') },
+  // 相册
+  { path: '/album', component: require('../views/album/album') },
   // seo
   { path: '/seo/:id', name: 'seoDetail', component: require('../views/seo/seoDetail') },
   // setting
