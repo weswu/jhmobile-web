@@ -13,15 +13,18 @@
       </mu-appbar>
     </div>
     <mu-flexbox wrap='wrap' justify='space-around' class='box' :gutter='0'>
-      <mu-flexbox-item basis='30%' class='list-item' :key='item.id' v-for='item,index in list'>
-        <img class='list-img' :src='$store.state.imgUrl + item.serverPath | picUrl(5)' @error="setErrorImg">
+      <mu-flexbox-item basis='30%' class='list-img' :key='item.id' v-for='item,index in list'>
+        <img :src='$store.state.imgUrl + item.serverPath | picUrl(5)' @error="setErrorImg" @click="clickImg(item)">
       </mu-flexbox-item>
     </mu-flexbox>
     <mu-infinite-scroll :scroller='scroller' :loading='loading' @load='loadMore'/>
     <div v-if='busy' style='text-align: center;padding: .5rem 0;'>暂无数据</div>
+    <!-- 放大图片 -->
+    <big-img v-if="showImg" @clickit="viewImg" :imgSrc="imgSrc"></big-img>
   </div>
 </template>
 <script>
+import BigImg from '../../components/BigImg'
 import qs from 'qs'
 export default {
   data () {
@@ -37,10 +40,14 @@ export default {
       categoryId: 'all',
       searchData: {
         page: 1,
-        pageSize: 15,
+        pageSize: 18,
         sort: 'att_id'
-      }
+      },
+      showImg: false
     }
+  },
+  components: {
+      'big-img':BigImg
   },
   created () {
     this.get()
@@ -58,7 +65,7 @@ export default {
       })
     },
     getCate () {
-      if (this.categoryList.length === 0)
+      if (this.categoryList && this.categoryList.length === 0)
       this.$http.get('/rest/api/album/list?pageSize=100').then((res) => {
         this.categoryList = res.data.attributes.data
         this.categoryList.unshift({id: 'all', name: '全部'})
@@ -67,6 +74,14 @@ export default {
     },
     loadMore () {
       this.refresh && this.get()
+    },
+    clickImg(item) {
+      this.showImg = true
+      // 获取当前图片地址
+      this.imgSrc = this.$store.state.imgUrl + item.serverPath
+    },
+    viewImg(){
+      this.showImg = false
     },
     setErrorImg (e) {
       e.target.src = this.$store.state.errImgUrl
@@ -85,8 +100,16 @@ export default {
   }
 }
 </script>
-<style media='screen'>
-  .list-img {
-    width: 100%
-  }
+<style scoped>
+.list-img{
+  display: -webkit-box;
+  -webkit-box-align: center;
+  -webkit-box-pack: center;
+  display: -ms-flexbox;
+  -ms-flex-pack: center;
+  -ms-flex-align: center;
+}
+.list-img img{
+  max-width: 100%
+}
 </style>
