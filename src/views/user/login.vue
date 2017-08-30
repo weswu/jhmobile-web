@@ -33,6 +33,11 @@ export default {
     this.username = this.$cookie.get('username') || ''
     this.password = this.$cookie.get('password') || ''
     this.get()
+    let u = navigator.userAgent
+    if (u.indexOf('iPhone') > -1 || u.indexOf('iPad') > -1
+     || u.indexOf('Mac OS X') > -1 || u.indexOf('Browser') > -1) {
+      this.isWeixin = true
+    }
   },
   methods: {
     get () {

@@ -132,6 +132,7 @@ const routers = new VueRouter({
   { path: '/app_log', component: require('../views/setting/appLog') },
   { path: '/download', component: require('../views/setting/download') },
   { path: '/down_ios', component: require('../views/setting/down_ios') },
+  { path: '/test', component: require('../views/setting/test') },
   // 服务
   { path: '/service', component: require('../views/service/service') },
   { path: '/video', component: require('../views/service/video') },
