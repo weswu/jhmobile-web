@@ -30,9 +30,15 @@ export default {
     }
   },
   created () {
+    // 注册跳转过来
+    if (this.$route.query.u) {
+      this.$cookie.set('username', this.$route.query.u)
+      this.$cookie.set('password', this.$route.query.p)
+    }
     this.username = this.$cookie.get('username') || ''
     this.password = this.$cookie.get('password') || ''
     this.get()
+    // 底部跳转到下载页
     let u = navigator.userAgent
     if (u.indexOf('iPhone') > -1 || u.indexOf('iPad') > -1
      || u.indexOf('Mac OS X') > -1 || u.indexOf('Browser') > -1) {
