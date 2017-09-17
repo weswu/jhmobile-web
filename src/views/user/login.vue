@@ -21,6 +21,7 @@
   </div>
 </template>
 <script>
+import qs from 'qs'
 export default {
   data () {
     return {
@@ -50,7 +51,11 @@ export default {
       var ctx = this
       if (this.username === '') { return false }
       if (this.$parent.$refs.loading) {this.$parent.$refs.loading.show()}
-      this.$http.post('/rest/api/user/login?username=' + this.username + '&password=' + this.password).then((res) => {
+      var login = {
+        username: this.username,
+        password: this.password
+      }
+      this.$http.post('/rest/api/user/login?' + qs.stringify(login)).then((res) => {
         ctx.$parent.$refs.loading.hide()
         ctx.$cookie.set('username', ctx.username)
         ctx.$cookie.set('password', ctx.password)
