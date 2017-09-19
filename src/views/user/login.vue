@@ -33,11 +33,11 @@ export default {
   created () {
     // 注册跳转过来
     if (this.$route.query.u) {
-      this.$cookie.set('username', this.$route.query.u)
-      this.$cookie.set('password', this.$route.query.p)
+      window.localStorage.setItem('appUsername', this.$route.query.u)
+      window.localStorage.setItem('appPassword', this.$route.query.p)
     }
-    this.username = this.$cookie.get('username') || ''
-    this.password = this.$cookie.get('password') || ''
+    this.username = window.localStorage.getItem('appUsername') || ''
+    this.password = window.localStorage.getItem('appPassword') || ''
     this.get()
     // 底部跳转到下载页
     let u = navigator.userAgent
@@ -57,8 +57,8 @@ export default {
       }
       this.$http.post('/rest/api/user/login?' + qs.stringify(login)).then((res) => {
         ctx.$parent.$refs.loading.hide()
-        ctx.$cookie.set('username', ctx.username)
-        ctx.$cookie.set('password', ctx.password)
+        window.localStorage.setItem('appUsername', ctx.username)
+        window.localStorage.setItem('appPassword', ctx.password)
         // 清空数据
         ctx.$store.commit('reset')
         ctx.$router.push({path: '/main/home'})
