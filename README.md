@@ -10,9 +10,9 @@
 - Muse-UI(一个基于Vue2.x的material design 风格UI框架)
 
 ## 运行截图
-![登录](https://github.com/weswu/jhmobile-web/raw/master/screenshots/1.png)
-![首页](https://github.com/weswu/jhmobile-web/raw/master/screenshots/2.png)
-![详情](https://github.com/weswu/jhmobile-web/raw/master/screenshots/3.gif)
+![登录](https://github.com/weswu/jhmobile-web/raw/master/screenshots/1.jpg)
+![首页](https://github.com/weswu/jhmobile-web/raw/master/screenshots/2.jpg)
+![详情](https://github.com/weswu/jhmobile-web/raw/master/screenshots/3.jpg)
 
 ## 安装运行（Build Setup）
 
