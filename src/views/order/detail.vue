@@ -161,3 +161,7 @@ export default {
   }
 }
 </script>
+<style scoped>
+.receiving_fl{float:left;text-align:right;width:4rem;color:#a8a8a8;padding-top:.2rem}
+.receiving_fr{float:left;width:70%;padding-top: 0.2rem}
+</style>

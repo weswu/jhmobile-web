@@ -21,10 +21,10 @@
             <span> 下单时间：{{item.addTime}} </span>
             <button v-if="(item.orderStatus === 'unprocessed' || item.orderStatus === 'processed') && item.paymentStatus === 'unpaid'
               && item.orderStatusInt != -1 && item.shippingStatus !== 'unshipped'"
-              @click="price(item.orderId)" class="fl orange">修改价格</button>
+              @click.stop="price(item.orderId)" class="fl orange">修改价格</button>
             <button v-if="item.orderStatus !== 'completed' && item.orderStatus !== 'invalid' && item.paymentStatus === 'paid' && item.shippingStatus === 'unshipped'"
-              @click="send(item.orderId)" class="fl orange">去发货</button>
-            <button @click="detail(item.orderId)" class="fl">查看详情</button>
+              @click.stop="send(item.orderId)" class="fl orange">去发货</button>
+            <button @click.stop="detail(item.orderId)" class="fl">查看详情</button>
           </dt>
         </dl>
       </div>

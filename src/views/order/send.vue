@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="fixed-bar">
-      <mu-appbar title="发货">
+      <mu-appbar title="订单发货">
         <mu-icon-button icon='arrow_back' @click='$router.back()' slot='left'/>
       </mu-appbar>
     </div>
@@ -19,7 +19,7 @@
 					<span class="sending_fl">收货地址：</span><span class="sending_fr">{{data.shipArea}}{{data.shipAddress}}</span>
 				</p>
 			</div>
-      <mu-select-field v-model="order.exp" :labelFocusClass="['label-foucs']" label="物流信息" :maxHeight="300">
+      <mu-select-field v-model="order.com" :labelFocusClass="['label-foucs']" label="物流信息" :maxHeight="300">
         <mu-menu-item v-for="v,index in middle" :value="v.com" :title="v.name" />
       </mu-select-field>
       <mu-text-field label="运费" hintText="请输入运费" v-model="order.cost" fullWidth/>
@@ -45,32 +45,37 @@ export default {
   },
   methods: {
     get () {
+      var ctx = this
       this.$http.get('/rest/api/order/detail/' + this.$route.params.id).then((res) => {
-        this.data = res.data.attributes.data
-        this.middle = res.data.attributes.middle
-        this.order.orderId = this.data.orderId
+        let data = res.data.attributes.data
+        ctx.data = data
+        ctx.order.orderId = data.orderId
+        let middle = res.data.attributes.middle
+        ctx.middle = middle
+        ctx.order.com = middle[0].com
       })
     },
     submit () {
-      if (!this.order.exp) {
-        window.alert('物流信息不能为空')
-        return
-      }
-      if (!this.order.cost) {
-        window.alert('运费不能为空')
-        return
-      }
-      if (!this.order.deliverySn) {
-        window.alert('运单号不能为空')
-        return
-      }
-      this.$http.post('/rest/api/order/express?' + qs.stringify(this.order)).then((res) => {
-        this.$router.push({
-          path: '/bind',
-          query: this.bind
-        })
+      if (!this.order.com) { return window.alert('物流信息不能为空') }
+      if (!this.order.cost) { return window.alert('运费不能为空') }
+      if (!this.order.deliverySn) { return window.alert('运单号不能为空') }
+      this.$http.put('/rest/api/order/express?' + qs.stringify(this.order)).then((res) => {
+        this.$router.back()
       })
     }
   }
 }
 </script>
+<style scoped>
+.order_sending{padding:.5rem}
+.order_sending h3{font-size:.75rem;font-weight:400;padding:.5rem 0}
+.order_sending_address{border:.05rem solid #d6d6d6;width:100%;padding:.5rem;overflow:hidden;box-sizing:border-box;border-radius:.25rem}
+.sending_fl{float:left;text-align:right;width:3rem}
+.sending_fr{float:left;width:75%}
+.order_sending_address p{clear:both;overflow:hidden;line-height:1.5}
+.order_sending_express select{width:100%;padding:.5rem;border:.05rem solid #d6d6d6;font-size:.6rem;background-size:2rem .2rem;margin-bottom:1rem}
+.order_sending_express input{width:100%}
+.order_sending_title{margin-top:.8rem}
+.receiving_fl{float:left;text-align:right;width:4rem;color:#a8a8a8;padding-top:.2rem}
+.receiving_fr{float:left;width:70%;}
+</style>
