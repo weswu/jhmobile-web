@@ -13,6 +13,15 @@
         服务热线：<a href="tel:4007111011">400-7111-011</a>
       </p>
     </div>
+    <mu-dialog :open="dialog" title="绑定微信" @close="close">
+      <mu-text-field hintText="请输入企业账号" v-model="bind.username" fullWidth/>
+      <mu-text-field hintText="请输入密码" v-model="bind.password" type="password" fullWidth/>
+      <mu-text-field hintText="请输入邮箱" v-model="bind.email" type="email" fullWidth v-if="isUser === '01'"/>
+      <mu-radio label="老用户" name="group" nativeValue="00" v-model="isUser" class="demo-radio"/>
+      <mu-radio label="新用户" name="group" nativeValue="01" v-model="isUser"  class="demo-radio"/>
+      <mu-flat-button slot="actions" primary @click="close" label="取消"/>
+      <mu-flat-button slot="actions" primary @click="wxLogin" label="确定"/>
+    </mu-dialog>
     <a class="f39dsk" href="#/download" v-if="isWeixin">
       <b class="m48"><img src="http://img.easthardware.com/upload/j/j2/jihui/picture/2015/12/08/9df67a15-7379-4374-b575-3fb6f55efa02.png" alt=""></b>
       <span>机汇网后台管理APP</span>
@@ -25,6 +34,9 @@ import qs from 'qs'
 export default {
   data () {
     return {
+      dialog: true,
+      bind: {},
+      isUser: '00',
       isWeixin: this.$store.state.isWeixin,
       username: '',
       password: ''
@@ -36,6 +48,12 @@ export default {
       window.localStorage.setItem('appUsername', this.$route.query.u)
       window.localStorage.setItem('appPassword', this.$route.query.p)
     }
+    // 微信登录
+    if (this.$route.query.openid) {
+      this.openid = this.$route.query.openid
+      this.dialog = true
+    }
+
     this.username = window.localStorage.getItem('appUsername') || ''
     this.password = window.localStorage.getItem('appPassword') || ''
     this.get()
@@ -65,6 +83,38 @@ export default {
       }).catch((err) => {
         ctx.$parent.$refs.loading.hide()
       })
+    },
+    // 微信登录
+    wxLogin () {
+      let ctx = this
+      $.ajax({
+        type: 'post',
+        url: '/rest/api/user/oauthBind',
+        data: {
+          model: JSON.stringify({
+            oauthType: 'weixin',
+            openid: ctx.openid, // 必须的
+            username: ctx.bind.username, // 企业账号，必填
+            password: ctx.bind.password, // 必填
+            email: ctx.bind.email,
+            type: '0' // 账号类型 {'0': '企业账号', '1': '员工账号', '2': '企业会员账号'}
+          })
+        },
+        success: function (res) {
+          if (res.success) {
+            ctx.$router.push({path: '/main/home'})
+          } else {
+            window.alert(res.msg)
+          }
+        }
+      })
+      // 扫描后 http://www.jihui88.com/member/login.html?openid=oBtE4wSbFxg7nW95t4VfiXG4cjVo&type=0&oauthtype=weixin
+    },
+    open () {
+      this.dialog = true
+    },
+    close () {
+      this.dialog = false
     }
   }
 }
