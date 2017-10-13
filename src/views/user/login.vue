@@ -8,6 +8,9 @@
       <mu-text-field label="登录密码" hintText="请输入密码" v-model="password" labelClass="indent" hintTextClass="indent" inputClass="indent" type="password" fullWidth labelFloat/><br/>
       <mu-raised-button label="登录" @click="get" fullWidth primary/>
       <mu-flat-button href="tel:4007111011" label="登录遇到问题?" style="float:right" color="#333"/>
+      <div class="" @click="weixin" v-if="false">
+        weixin
+      </div>
       <p style="text-align: center;clear: both;margin-top: 60px;color: #aaa;">
         浙江机汇网络科技有限公司版权所有<br/>
         服务热线：<a href="tel:4007111011">400-7111-011</a>
@@ -16,9 +19,6 @@
     <mu-dialog :open="dialog" title="绑定微信" @close="close">
       <mu-text-field hintText="请输入企业账号" v-model="bind.username" fullWidth/>
       <mu-text-field hintText="请输入密码" v-model="bind.password" type="password" fullWidth/>
-      <mu-text-field hintText="请输入邮箱" v-model="bind.email" type="email" fullWidth v-if="isUser === '01'"/>
-      <mu-radio label="老用户" name="group" nativeValue="00" v-model="isUser" class="demo-radio"/>
-      <mu-radio label="新用户" name="group" nativeValue="01" v-model="isUser"  class="demo-radio"/>
       <mu-flat-button slot="actions" primary @click="close" label="取消"/>
       <mu-flat-button slot="actions" primary @click="wxLogin" label="确定"/>
     </mu-dialog>
@@ -30,13 +30,13 @@
   </div>
 </template>
 <script>
+import jsonp from 'jsonp'
 import qs from 'qs'
 export default {
   data () {
     return {
-      dialog: true,
+      dialog: false,
       bind: {},
-      isUser: '00',
       isWeixin: this.$store.state.isWeixin,
       username: '',
       password: ''
@@ -96,8 +96,7 @@ export default {
             openid: ctx.openid, // 必须的
             username: ctx.bind.username, // 企业账号，必填
             password: ctx.bind.password, // 必填
-            email: ctx.bind.email,
-            type: '0' // 账号类型 {'0': '企业账号', '1': '员工账号', '2': '企业会员账号'}
+            email: ctx.bind.email
           })
         },
         success: function (res) {
@@ -115,6 +114,24 @@ export default {
     },
     close () {
       this.dialog = false
+    },
+    weixin () {
+      let appid = 'wxe4c05b399c083201'
+      let appsecret = 'd5c665786530ac03d86e8f346c8d20fe'
+      let data = {
+        appid: appid,
+        redirect_uri: 'REDIRECT_URI',
+        response_type: 'code',
+        scope: appsecret,
+        state: 'STATE#wechat_redirect'
+      }
+      jsonp('https://open.weixin.qq.com/connect/oauth2/authorize?' + qs.stringify(data), null, function (err, data) {
+        if (err) {
+          console.error(err.message)
+        } else {
+          console.log(data)
+        }
+      })
     }
   }
 }
