@@ -30,6 +30,11 @@ Vue.component('toppopup', topPopup)
  * 2.ios7 登录不能成功
  *
  */
+// 初始化页面加载动画
+document.body.removeChild(document.getElementById('app-loading'))
+setTimeout(function () {
+  document.getElementById('app').style.display = 'block'
+}, 500)
 /* eslint-disable no-new */
 new Vue({
   router,

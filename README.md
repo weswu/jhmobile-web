@@ -1,18 +1,22 @@
 # jihui-mobile-webapps
 
-> 这是一个用VUEJS写的会员后台App。
+> 这是一个用vue2编写的会员后台App。
 
 [在线地址](http://app.jihui88.com)
 
 ### 技术栈
 - 传说中的VUE全家桶(vue vue-router vuex)
-- axios
-- Muse-UI(一个基于Vue2.x的material design 风格UI框架)
+- [axios](https://github.com/axios/axios) ajax类
+- [jsonp](https://github.com/axios/axios/blob/d982cf99324124582721d1cd15a99cb975e93716/COOKBOOK.md#jump-to-line) 跨域请求
+- [Muse-UI](http://www.muse-ui.org/#/install) 一个基于Vue2.x的material design 风格UI框架
+- [localResizeIMG](https://github.com/think2011/localResizeIMG) 图片压缩上传
+- [material](https://material.io/icons/) css字体图标
+- [vue-baidu-map](https://dafrok.github.io/vue-baidu-map/#/zh/overlay/marker) 百度地图
 
 ## 运行截图
-![登录](https://github.com/weswu/jhmobile-web/raw/master/screenshots/1.jpg)
-![首页](https://github.com/weswu/jhmobile-web/raw/master/screenshots/2.jpg)
-![详情](https://github.com/weswu/jhmobile-web/raw/master/screenshots/3.jpg)
+![登录](https://github.com/weswu/jhmobile-web/raw/master/screenshots/1.png)
+![首页](https://github.com/weswu/jhmobile-web/raw/master/screenshots/2.png)
+![详情](https://github.com/weswu/jhmobile-web/raw/master/screenshots/3.png)
 
 ## 安装运行（Build Setup）
 
@@ -67,7 +71,5 @@ npm test
 
 
 ## 参考
-
-[NeteaseCloudWebApp](https://github.com/javaSwing/NeteaseCloudWebApp)
-
-[cnode-code](https://github.com/mov1er/cnode-code)
+- [NeteaseCloudWebApp](https://github.com/javaSwing/NeteaseCloudWebApp)
+- [cnode-code](https://github.com/mov1er/cnode-code)

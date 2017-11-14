@@ -16,7 +16,8 @@ const store = new Vuex.Store({
 		point: {},
 		memberRankList: [],
 		productCategoryList: [],
-		newsCategoryList: []
+		newsCategoryList: [],
+    nodeApiUrl: 'https://nodejs-api-cutckaazzs.now.sh' // nodejs接口地址
 	},
 	getters: {
 		employee: state => state.employee,

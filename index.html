@@ -23,33 +23,72 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic">
   <link href="http://cdn.bootcss.com/material-design-icons/3.0.1/iconfont/material-icons.min.css" rel="stylesheet">
   <link rel="stylesheet" href="//at.alicdn.com/t/font_xe40ayjg0dmibe29.css">
-  <script src="http://res.wx.qq.com/connect/zh_CN/htmledition/js/wxLogin.js"></script>
+  <style media="screen" type="text/css">
+    #app-loading{display:flex;justify-content:center;align-items:center;position:absolute;height:100%;width:100%}
+    .app-loading .rect{width:8px;height:36px;background-color:#ff6214;float:left;margin:3px;animation:animate 1s infinite}
+    .app-loading .rect:nth-child(2){animation-delay:.1s}
+    .app-loading .rect:nth-child(3){animation-delay:.2s}
+    .app-loading .rect:nth-child(4){animation-delay:.3s}
+    .app-loading .rect:nth-child(5){animation-delay:.4s}
+    .app-loading .rect:nth-child(6){animation-delay:.5s}
+    .app-loading .rect:nth-child(7){animation-delay:.6s}
+    .app-loading .rect:nth-child(8){animation-delay:.7s}
+    .app-loading .rect:nth-child(9){animation-delay:.8s}
+    .app-loading .rect:nth-child(10){animation-delay:.9s}
+    @keyframes animate{
+      50%{
+        transform: scaleY(0)
+      }
+    }
+    a[title='站长统计']{ display: none }
+  </style>
+  <script type="text/javascript">
+    if (window.location.href.indexOf('jihui88.com/?code=') > -1) {
+      window.location.href = window.location.origin + '/#/login' + window.location.search
+    }
+  </script>
+  <script src="http://res.wx.qq.com/open/js/jweixin-1.3.0.js"></script>
 </head>
 <body>
-<div id="app">
-  <router-view></router-view>
-  <!--加载中...-->
-  <loading ref="loading"></loading>
-  <!--提示...-->
-  <toast ref="toast"></toast>
-  <!--顶部提示...-->
-  <toppopup ref="topPopup"></toppopup>
-</div>
-<!-- built files will be auto injected -->
-<script type="text/javascript">;(function (doc, win, undefined) {
-     var docEl = doc.documentElement,
-       resizeEvt = 'orientationchange' in win? 'orientationchange' : 'resize',
-       recalc = function () {
-         var clientWidth = docEl.clientWidth;
-         if (clientWidth === undefined) return;
-         if (clientWidth > 560) {clientWidth = 560};
-         docEl.style.fontSize = 20 * (clientWidth / 320) + 'px';
-       };
-     if (doc.addEventListener === undefined) return;
-     win.addEventListener(resizeEvt, recalc, false);
-    doc.addEventListener('DOMContentLoaded', recalc, false)
- })(document, window);
-</script>
-<script src="https://s22.cnzz.com/z_stat.php?id=1264616052&web_id=1264616052" language="JavaScript"></script>
+  <!-- 初始化空白页面 加载动画 -->
+  <div id="app-loading" class="loading">
+    <div class="app-loading">
+      <div class="rect"></div>
+      <div class="rect"></div>
+      <div class="rect"></div>
+      <div class="rect"></div>
+      <div class="rect"></div>
+      <div class="rect"></div>
+      <div class="rect"></div>
+      <div class="rect"></div>
+      <div class="rect"></div>
+      <div class="rect"></div>
+    </div>
+  </div>
+  <div id="app">
+    <router-view></router-view>
+    <!--加载中...-->
+    <loading ref="loading"></loading>
+    <!--提示-->
+    <toast ref="toast"></toast>
+    <!--顶部提示-->
+    <toppopup ref="topPopup"></toppopup>
+  </div>
+  <!-- built files will be auto injected -->
+  <script type="text/javascript">;(function (doc, win, undefined) {
+       var docEl = doc.documentElement,
+         resizeEvt = 'orientationchange' in win? 'orientationchange' : 'resize',
+         recalc = function () {
+           var clientWidth = docEl.clientWidth;
+           if (clientWidth === undefined) return;
+           if (clientWidth > 560) {clientWidth = 560};
+           docEl.style.fontSize = 20 * (clientWidth / 320) + 'px';
+         };
+       if (doc.addEventListener === undefined) return;
+       win.addEventListener(resizeEvt, recalc, false);
+      doc.addEventListener('DOMContentLoaded', recalc, false)
+   })(document, window);
+  </script>
+  <script src="https://s22.cnzz.com/z_stat.php?id=1264616052&web_id=1264616052" language="JavaScript"></script>
 </body>
 </html>

@@ -5,6 +5,9 @@
       <mu-icon-button icon='arrow_back' @click='$router.back()' slot='left'/>
     </mu-appbar>
   </div>
+  <div v-if="false" @click="wxShare">
+    wxShare
+  </div>
   <div class='extend_tip'>
     <span class='tip'>你可以把以下专属于你的推广海报保存到相册，并转发到朋友圈和微信群，即可获取积分和现金优惠卷。</span><br>
     <a href='#/spreadRank' class='extend_tip_a'>点击查看由我推广的会员</a>
@@ -57,6 +60,7 @@ export default {
   },
   created () {
     this.get()
+    this.wxConfig()
   },
   methods: {
     get () {
@@ -92,6 +96,66 @@ export default {
         ctx.pic = 'https://api.jihui88.net/qrcode_poster/posters/' + p.posterId + '.jpg'
       }).catch((result) => {
         ctx.pic = 'https://api.jihui88.net/qrcode_poster/posters/' + p.posterId + '.jpg'
+      })
+
+    },
+    wxConfig () {
+      this.$http.get(this.$store.state.nodeApiUrl + '/api/wechatShare?url=' + window.location.href.split('#')[0]).then((res) => {
+        var data = res.data.rows
+        // 配置
+        wx.config({
+          debug: false,
+          appId: data.appid,
+          timestamp:data.timestamp,
+          nonceStr:data.nonceStr,
+          signature:data.signature,
+          jsApiList: [
+            'onMenuShareTimeline',
+            'onMenuShareAppMessage'
+          ]
+        })
+        wx.ready(function(){
+          // 获取“分享到朋友圈”按钮点击状态及自定义分享内容接口
+          wx.onMenuShareTimeline({
+              title: '分享标题', // 分享标题
+              link:"分享的url,以http或https开头",
+              imgUrl: "分享图标的url,以http或https开头" // 分享图标
+          });
+          // 获取“分享给朋友”按钮点击状态及自定义分享内容接口
+          wx.onMenuShareAppMessage({
+              title: '分享标题', // 分享标题
+              desc: "分享描述", // 分享描述
+              link:"分享的url,以http或https开头",
+              imgUrl: "分享图标的url,以http或https开头", // 分享图标
+              type: 'link', // 分享类型,music、video或link，不填默认为link
+          });
+
+          // 异常
+          wx.error(function (res) {
+            window.alert('异常'+res.errMsg)
+          })
+        })
+      })
+    },
+    wxShare () {
+      // 监听“分享到朋友圈”按钮点击、自定义分享内容及分享结果接口
+      wx.onMenuShareTimeline({
+        title: '刮刮乐',
+        desc: '刮刮乐开始啦',
+        link: 'http://app.jihui88.com',
+        imgUrl: 'src="http://img.jihui88.com/upload/a/a1/admin/picture/2017/01/13/fc4bd4dc-6a9e-4670-9933-9ed4ccc7d510.jpg"',
+        trigger: function (res) {
+          window.alert('用户点击分享到朋友圈');
+        },
+        success: function (res) {
+          window.alert('您已获得抽奖机会，赶紧去赢大奖吧～～')
+        },
+        cancel: function (res) {
+          window.alert('已取消');
+        },
+        fail: function (res) {
+          window.alert(res.errMsg);
+        }
       })
     },
     submit () {

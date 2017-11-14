@@ -39,24 +39,30 @@ export default {
       bind: {},
       isWeixin: this.$store.state.isWeixin,
       username: '',
-      password: ''
+      password: '',
+      client: ''
     }
   },
   created () {
+    let ctx = this
+    // 测试号
+    this.appid = 'wxe4c05b399c083201'
+    this.appsecret = 'd5c665786530ac03d86e8f346c8d20fe'
+    // this.client = new OAuth(this.appid, this.appsecret)
     // 注册跳转过来
     if (this.$route.query.u) {
       window.localStorage.setItem('appUsername', this.$route.query.u)
       window.localStorage.setItem('appPassword', this.$route.query.p)
     }
-    // 微信登录
-    if (this.$route.query.openid) {
-      this.openid = this.$route.query.openid
-      this.dialog = true
-    }
-
     this.username = window.localStorage.getItem('appUsername') || ''
     this.password = window.localStorage.getItem('appPassword') || ''
-    this.get()
+    // 微信登录
+    if (this.$route.query.code) {
+      this.code = this.$route.query.code
+      this.open(this.code)
+    } else {
+      this.get()
+    }
     // 底部跳转到下载页
     let u = navigator.userAgent
     if (u.indexOf('iPhone') > -1 || u.indexOf('iPad') > -1
@@ -116,22 +122,44 @@ export default {
       this.dialog = false
     },
     weixin () {
-      let appid = 'wxe4c05b399c083201'
-      let appsecret = 'd5c665786530ac03d86e8f346c8d20fe'
-      let data = {
-        appid: appid,
-        redirect_uri: 'REDIRECT_URI',
-        response_type: 'code',
-        scope: appsecret,
-        state: 'STATE#wechat_redirect'
-      }
-      jsonp('https://open.weixin.qq.com/connect/oauth2/authorize?' + qs.stringify(data), null, function (err, data) {
+      // let appid = 'wxa9dd60e0591fbdb2'
+      // let appsecret = 'ceaaf7fa6fa7f4b258a20c7c558fcd56'
+      // 机汇网
+      // let appid = 'wx308c58370e47720c'
+      // let appsecret = 'b0d6837d6aa49dbf41aebe12ab3bb73c'
+      window.location.href = this.client.getAuthorizeURL('http://m1.jihui88.com/#/login', 'STATE', 'snsapi_base')
+      return false
+      jsonp('https://api.weixin.qq.com/sns/oauth2/access_token?' + qs.stringify(model), null, function (err, data) {
         if (err) {
           console.error(err.message)
         } else {
           console.log(data)
         }
       })
+    },
+    open (code) {
+      let model = {
+        appid: this.appid,
+        secret: this.appsecret,
+        code: code,
+        grant_type: 'authorization_code'
+      }
+      let xhr = new XMLHttpRequest()
+      xhr.open('GET', 'https://api.weixin.qq.com/sns/oauth2/access_token?' + qs.stringify(model))
+      xhr.onload = function () {
+        debugger
+        if (xhr.status === 200) {
+          // 上传成功
+          let result = JSON.parse(xhr.response).attributes
+          console.log(result)
+          this.result = result
+          this.$emit('result', result)
+        } else {
+          // 处理其他情况
+          console.log(xhr.statusText)
+        }
+      }
+      xhr.send(null)
     }
   }
 }
