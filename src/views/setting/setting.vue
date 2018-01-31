@@ -51,7 +51,7 @@ export default {
         ctx.$parent.$refs.loading.hide()
         // 清空数据
         ctx.$store.commit('reset')
-        ctx.$router.push({path: '/login'})
+        ctx.$router.push({name: 'login', params: {route: 'logout'}})
       })
     }
   }

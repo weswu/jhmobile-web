@@ -8,9 +8,6 @@
       <mu-text-field label="登录密码" hintText="请输入密码" v-model="password" labelClass="indent" hintTextClass="indent" inputClass="indent" type="password" fullWidth labelFloat/><br/>
       <mu-raised-button label="登录" @click="get" fullWidth primary/>
       <mu-flat-button href="tel:4007111011" label="登录遇到问题?" style="float:right" color="#333"/>
-      <div class="" @click="weixin" v-if="false">
-        weixin
-      </div>
       <p style="text-align: center;clear: both;margin-top: 60px;color: #aaa;">
         浙江机汇网络科技有限公司版权所有<br/>
         服务热线：<a href="tel:4007111011">400-7111-011</a>
@@ -61,7 +58,9 @@ export default {
       this.code = this.$route.query.code
       this.open(this.code)
     } else {
-      this.get()
+      if (this.$route.params.route !== 'logout'){
+        this.get()
+      }
     }
     // 底部跳转到下载页
     let u = navigator.userAgent

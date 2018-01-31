@@ -60,7 +60,7 @@ export default {
   },
   created () {
     this.get()
-    this.wxConfig()
+    // this.wxConfig()
   },
   methods: {
     get () {

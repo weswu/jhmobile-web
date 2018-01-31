@@ -17,7 +17,7 @@ const routers = new VueRouter({
     ]
   },
   // user
-  { path: '/login', component: require('../views/user/login') },
+  { path: '/login', component: require('../views/user/login'), name: 'login' },
   { path: '/signup', component: require('../views/user/signup') },
   { path: '/user', component: require('../views/user/user') },
   { path: '/map', component: require('../views/user/map') },

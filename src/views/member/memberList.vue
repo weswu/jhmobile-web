@@ -1,6 +1,6 @@
 <template>
   <div class='wu-infinite-container'>
-    <div v-if="grade === '07' || $store.state.enterprise.mobileSite === '14'">
+    <div v-if="grade === '07'">
       <div class="fixed-bar">
         <mu-appbar>
           <mu-icon-button icon='arrow_back' @click='$router.back()' slot='left'/>
@@ -21,8 +21,7 @@
         </div>
       </transition>
       <mu-list>
-        <div v-for='item,index in list' class="wrap" :class="{swipeleft: isSwipe === index}"
-        @touchstart="touchstart($event, item)" @touchmove="touchmove($event, item, index)">
+        <div v-for='item,index in list' class="wrap" :class="{swipeleft: isSwipe === index}" @touchstart="touchstart($event, item)" @touchmove="touchmove($event, item, index)">
           <mu-list-item :title="item.name || item.username" @click='detail(item.id)' class="list-item">
             <div class="subContent">
               {{item.addTime}}
@@ -39,7 +38,7 @@
       <div v-if="busy" style="text-align: center;padding: .5rem 0;">暂无数据</div>
       <mu-infinite-scroll :scroller='scroller' :loading='loading' @load='loadMore'/>
     </div>
-    <div v-else-if='!loading'>
+    <div v-else>
       <mu-appbar title='会员管理'>
         <mu-icon-button icon='arrow_back' @click='$router.back()' slot='left'/>
       </mu-appbar>
@@ -56,7 +55,7 @@ export default {
     return {
       list: [],
       count: 0,
-      grade: '',
+      grade: this.$store.state.user.grade,
       isSwipe: '',
       loading: false,
       scroller: null,
@@ -75,6 +74,9 @@ export default {
       vm.list = []
       vm.searchData.page = 1
       vm.get()
+      if (vm.$store.state.enterprise.mobileSite === '07' || vm.$store.state.enterprise.mobileSite === '14' || vm.$store.state.user.userType === '电商版') {
+        vm.grade = '07'
+      }
     })
   },
   mounted () {
@@ -85,7 +87,6 @@ export default {
       this.refresh = false
       this.loading = true
       this.$http.get('/rest/api/member/list?' + qs.stringify(this.searchData)).then((res) => {
-        if (this.searchData.page === 1) this.grade = res.data.attributes.grade
         this.scrollList(this, res.data)
       })
     },

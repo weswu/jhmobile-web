@@ -93,7 +93,7 @@ export default {
         ctx.$parent.$parent.$refs.loading.hide()
         if (!data.success) {
           console.log(data.msg)
-          if (this.page === 1) {ctx.chaxun = true} else {ctx.busy = true}
+          if (ctx.page === 1) {ctx.chaxun = true} else {ctx.busy = true}
           return false
         }
         ctx.list = data.attributes.data
