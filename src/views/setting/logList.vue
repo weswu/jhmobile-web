@@ -12,7 +12,7 @@
             {{item.location}}
           </div>
           <div slot="right">
-            {{item.addTime | time('MM-dd hh:mm')}}
+            {{item.addTime | time('yyyy-MM-dd hh:mm:ss')}}
           </div>
         </mu-list-item>
         <mu-divider/>

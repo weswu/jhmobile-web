@@ -5,7 +5,6 @@
     </mu-appbar>
       <mu-list>
         <mu-list-item title="新版本检测">
-          <mu-icon value="navigate_next" :size="20" slot="right" color="#aaa"/>
           <div slot='after'>
             已是最新版
           </div>

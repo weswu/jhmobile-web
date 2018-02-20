@@ -20,10 +20,6 @@
       <mu-divider />
     </mu-list>
     <mu-list>
-      <mu-list-item title="机汇微商城" href="http://m.jihui88.com">
-        <div slot="after">m.jihui88.com</div>
-        <mu-icon value="navigate_next" :size="20" slot="right" color="#aaa"/>
-      </mu-list-item>
       <mu-divider />
       <mu-list-item title="促销活动" href="#/sale">
         <mu-icon value="navigate_next" :size="20" slot="right" color="#aaa"/>
