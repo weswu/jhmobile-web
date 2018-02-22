@@ -29,7 +29,7 @@
         <mu-icon value="navigate_next" :size="20" slot="right" color="#aaa"/>
       </mu-list-item>
       <mu-divider />
-      <mu-list-item title="关于机汇网" href="#/about">
+      <mu-list-item title="关于APP" href="#/about">
         <mu-icon value="navigate_next" :size="20" slot="right" color="#aaa"/>
       </mu-list-item>
       <mu-divider />

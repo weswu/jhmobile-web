@@ -1,6 +1,6 @@
 <template>
   <div>
-    <mu-appbar title='关于机汇网'>
+    <mu-appbar title='关于APP'>
       <mu-icon-button icon='arrow_back' @click='$router.back()' slot='left'/>
     </mu-appbar>
       <mu-list>

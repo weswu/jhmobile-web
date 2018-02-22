@@ -5,7 +5,7 @@
         <mu-icon-button icon='arrow_back' @click='$router.back()' slot='left'/>
       </mu-appbar>
     </div>
-    <mu-list>
+    <mu-list class="loglist">
       <template v-for='item in list'>
         <mu-list-item :title="item.logStr">
           <div class='subContent'>
@@ -59,3 +59,8 @@ export default {
   }
 }
 </script>
+<style>
+  .loglist .mu-item-right{
+    width: 75px;
+  }
+</style>
