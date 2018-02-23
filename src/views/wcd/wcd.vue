@@ -22,7 +22,6 @@ export default {
       activeTab: 'me',
       tabs: [
         {value: 'me', title: '我的微传单'},
-        {value: 'vip', title: 'VIP专属'},
         {value: 'case', title: '案例展示'}
       ]
     }

@@ -21,7 +21,7 @@
       <div style="padding: 0.5rem;font-size: 16px">分享二维码给好友</div>
       <div style=" text-align: center;">
         <img src="/../../../static/img/appApk.png" alt="app">
-        <br><span style="padding: 0.5rem 0;display: block;">当前版本号：1.1.0</span>
+        <br><span style="padding: 0.5rem 0;display: block;">当前版本号：2.2.4</span>
         <img src="http://img.easthardware.com/upload/j/j2/jihui/picture/2015/12/28/caa0bba6-2881-4bf5-8a6f-41533fa8f2dd.jpg" alt="官方微信二维码">
         <br><span style="padding: 0.5rem 0;display: block;">官方微信二维码</span>
       </div>
