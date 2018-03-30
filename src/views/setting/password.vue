@@ -27,7 +27,7 @@ export default {
       if (!this.password.oldPs || !this.password.newPs) {
         return window.alert('密码不能为空')
       }
-      this.$http.put('/rest/api/user/detail/password?' + qs.stringify(this.password)).then((res) => {
+      this.$http.post('/rest/api/user/detail/password?' + qs.stringify(this.password)).then((res) => {
         this.$cookie.set('password', res.data.attributes.password)
         window.alert('修改成功')
       })
