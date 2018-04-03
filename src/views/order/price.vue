@@ -93,7 +93,7 @@ export default {
         if (list === '') {
           list += 'id=' + item.orderId + ',price=' + item.price
         } else {
-          list += ',id=' + item.orderId + ',price=' + item.price
+          list += ';id=' + item.orderId + ',price=' + item.price
         }
       }
       this.$http.put('/rest/api/order/update?list=' + list + '&orderId=' + this.$route.params.id + '&deliveryFee=' + this.deliveryFee + '&total=' + this.total).then((res) => {

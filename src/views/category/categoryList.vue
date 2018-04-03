@@ -8,24 +8,24 @@
       </mu-appbar>
     </div>
     <mu-list>
-      <mu-list-item v-for='item, index in categoryList' v-if="item.isroot === '01'">
+      <mu-list-item v-for='item, index in categoryList' v-if="!item.belongId">
         <mu-icon slot="left" value="chevron_right"/>
         <span slot="title"  style="color: #777">
-          <input type="text" name="" :value="item.name">
+          <input type="text" name="" :value="item.name" @change="input($event, item.id)">
         </span>
         <mu-icon slot="right" value="delete" @click="del(item.id)"/>
 
         <mu-list-item slot="nested" v-for='item1, index1 in item.sonCate' >
           <mu-icon slot="left" value="chevron_right"/>
           <span slot="title"  style="color: #777">
-            <input type="text" name="" :value="item1.name">
+            <input type="text" name="" :value="item1.name" @change="input($event, item1.id)">
           </span>
           <mu-icon slot="right" value="delete" @click="del(item1.id)"/>
 
           <mu-list-item slot="nested" v-for='item2, index2 in item1.sonCate'>
             <mu-icon slot="left" value="chevron_right"/>
             <span slot="title"  style="color: #777">
-              <input type="text" name="" :value="item2.name">
+              <input type="text" name="" :value="item2.name" @change="input($event, item2.id)">
             </span>
             <mu-icon slot="right" value="delete" @click="del(item2.id)"/>
           </mu-list-item>
@@ -40,7 +40,8 @@ export default {
   data () {
     return {
       type: this.$route.params.id === 'product' ? '10' : '11',
-      categoryList: []
+      categoryList: [],
+      list: ''
     }
   },
   created () {
@@ -59,25 +60,51 @@ export default {
         this.$parent.$refs.loading.hide()
       })
     },
-    change (item) {
-      this.$parent.$refs.loading.show()
-      var list = ''
-      this.categoryList.forEach(function (item, i) {
-        if (i === 0) { list = 'id=' + item.id + ',name=' + item.name }
-        if (i !== 0) { list = list + ';id=' + item.id + ',name=' + item.name }
-        item.sonCate && item.sonCate.forEach(function (item1, j) {
-          if (i !== 0) { list = list + ';id=' + item1.id + ',name=' + item1.name }
-          item1.sonCate && item1.sonCate.forEach(function (item2, x) {
-            if (i !== 0) { list = list + ';id=' + item2.id + ',name=' + item2.name }
+    input (e, id) {
+      var ctx = this
+      this.categoryList.forEach((item, index, arr) => {
+        if (item.id === id) {
+          item.name = e.currentTarget.value
+          if (!ctx.list) {
+            ctx.list = 'id=' + id + ',name=' + e.currentTarget.value
+          } else {
+            ctx.list = ctx.list + ';id=' + id + ',name=' + e.currentTarget.value
+          }
+        }
+        item.sonCate && item.sonCate.forEach((item2, index2, arr2) => {
+          if (item2.id === id) {
+            item.name = e.currentTarget.value
+            if (!ctx.list) {
+              ctx.list = 'id=' + id + ',name=' + e.currentTarget.value
+            } else {
+              ctx.list = ctx.list + ';id=' + id + ',name=' + e.currentTarget.value
+            }
+          }
+          item2.sonCate && item2.sonCate.forEach((item3, index3, arr3) => {
+            if (item3.id === id) {
+              item.name = e.currentTarget.value
+              if (!ctx.list) {
+                ctx.list = 'id=' + id + ',name=' + e.currentTarget.value
+              } else {
+                ctx.list = ctx.list + ';id=' + id + ',name=' + e.currentTarget.value
+              }
+            }
           })
         })
       })
-      this.$http.put('/rest/api/category/update?list=' + list).then((res) => {
-        this.$parent.$refs.loading.hide()
-        if (this.$route.params.id === 'news') {
-          this.$store.commit('setNewsCategoryList', [])
+    },
+    change (item) {
+      var ctx = this
+      this.$parent.$refs.loading.show()
+      this.$http.put('/rest/api/category/update?list=' + this.list).then((res) => {
+        ctx.$parent.$refs.loading.hide()
+        if (res.data.success) {
+          ctx.list = ''
+        }
+        if (ctx.$route.params.id === 'news') {
+          ctx.$store.commit('setNewsCategoryList', [])
         } else {
-          this.$store.commit('setProductCategoryList', [])
+          ctx.$store.commit('setProductCategoryList', [])
         }
         window.alert('保存成功')
       })
