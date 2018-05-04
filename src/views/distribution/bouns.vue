@@ -15,9 +15,9 @@
           </div>
           <div class="fr" style="width:70%">
             <p><span>提现单号：</span><br>{{dis.mch_billno}}</p>
-            <p><span>提现状态：</span>{{dis.result_code}}</p>
+            <p><span>提现状态：</span>{{dis.result_code === 'SUCCESS' ? '成功' : '失败'}}</p>
             <p><span>提现金额：</span>￥{{dis.total_amount}}</p>
-            <p><span>提现时间：</span>{{dis.send_time}}</p>
+            <p><span>提现时间：</span>{{dis.send_time || ''}}</p>
           </div>
         </mu-list-item>
       </template>
@@ -59,6 +59,9 @@ export default {
         } else {
           console.log(data)
         }
+        data.attributes.data.forEach(item => {
+          item.nickname = JSON.parse(item.userinfo).nickname
+        })
         ctx.scrollList(ctx, data)
       })
     },
