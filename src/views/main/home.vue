@@ -10,8 +10,7 @@
         <div class='home-user-info'>
           {{user.username}},您好！<br/>
           <span v-if='userInfo.versions'>当前版本：{{userInfo.versions}}<br/></span>
-          <span v-if="userInfo.endTime === '1'">已到期,请续费<br/></span>
-          <span v-else-if="userInfo.endTime && userInfo.endTime !== '0'">到期时间：{{userInfo.endTime}}<br/></span>
+          <span>注册时间：{{user.addTime | time('yyyy-MM-dd hh:mm')}}<br/></span>
           服务热线：<a :href="'tel:'+ (employee.emp_mobile_phone || '4007111011')">{{employee.emp_mobile_phone || '400-7111-011'}}</a>
         </div>
         <a href='#/setting' style='position: absolute;top: 15px;right: 15px;color:#fff'><i class='mu-bottom-item-icon mu-icon material-icons'>settings</i></a>
