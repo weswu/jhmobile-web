@@ -74,9 +74,9 @@ export default {
       })
     },
     totalSum () {
-      this.total = this.deliveryFee
+      this.total = parseFloat(this.deliveryFee)
       for (var item of this.data) {
-        this.total += item.price * item.productQuantity
+        this.total += parseFloat(item.price) * item.productQuantity
       }
     },
     updatePrice () {
